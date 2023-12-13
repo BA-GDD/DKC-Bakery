@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Entity : MonoBehaviour
 {
@@ -12,23 +13,31 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float _wallCheckDistance;
     [SerializeField] protected LayerMask _whatIsGroundAndWall;
 
+    [Header("Stun Info")]
+    public float stunDuration;
+    public Vector2 stunDirection;
+    protected bool _canBeStuned;
 
     #region components
     public Animator AnimatorCompo { get; private set; }
     public Rigidbody2D RigidbodyCompo { get; private set; }
 
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
+    [field: SerializeField] public Health HealthCompo { get; private set; }
     #endregion
 
     #region facing 
     public int FacingDirection { get; private set; } = 1; //오른쪽이 1, 왼쪽이 -1
     #endregion
 
+    public UnityEvent<float> OnHealthBarChanged;
+
     protected virtual void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
         AnimatorCompo = visualTrm.GetComponent<Animator>();
         RigidbodyCompo = GetComponent<Rigidbody2D>();
+
 
         CharStat = Instantiate(CharStat); //복제본 생성
         CharStat.SetOwner(this);
