@@ -18,10 +18,12 @@ public class LoadableData : ScriptableObject
 {
     [SerializeField] protected List<SheetData> generateData = new List<SheetData>();
     public string sheetUrl;
+    public string cellRange;
     public string sheetData;
 
     public IEnumerator StartLoadData()
     {
+        sheetUrl += ("export?format=tsv&range=" + cellRange);
         using(UnityWebRequest www = UnityWebRequest.Get(sheetUrl))
         {
             yield return www.SendWebRequest();
