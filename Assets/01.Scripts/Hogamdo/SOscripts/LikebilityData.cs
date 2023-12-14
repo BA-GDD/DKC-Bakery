@@ -1,16 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using UnityEngine.Events;
-using UnityEditor;
-
 
 [CreateAssetMenu(menuName = "SO/Hogam/LikeabilityShameTable")]
 public class LikebilityData : LoadableData
 {
-    public string[] likebilityShameData;
-    public override void AddData(string[] dataArr)
+    public List<string[]> LikebilityShame => base.generateData;
+
+    public int NeedShameToLevelUp(int level)
     {
-        likebilityShameData = dataArr;
+        return Convert.ToInt32(LikebilityShame[level][1]);
     }
 }
+

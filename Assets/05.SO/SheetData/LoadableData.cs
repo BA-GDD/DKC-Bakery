@@ -1,42 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-[System.Serializable]
-public class DataTable<T> where T : class
+public class LoadableData : ScriptableObject
 {
-    [SerializeField]
-    private List<T> _data = new List<T>();
+    private string sheetData;
+    [SerializeField] private string sheetRange;
+    protected List<string[]> generateData = new List<string[]>();
+    public string sheetUrl;
 
-    public T this[int idx]
+    public IEnumerator StartLoadData()
     {
-        get
+        sheetData += ("export?format=tsv&range =" + sheetRange);
+        using(UnityWebRequest www = UnityWebRequest.Get(sheetUrl))
         {
-            if (idx < 0 || idx >= _data.Count)
-                return null;
+            yield return www.SendWebRequest();
 
-            return _data[idx];
+            if(www.isDone)
+            {
+                sheetData = www.downloadHandler.text;
+            }
         }
+        GenerateData();
     }
 
-    public void Add(T value)
+    private void GenerateData()
     {
-        _data.Add(value);
-    }
-
-    public void Clear()
-    {
-        _data.Clear();
-    }
-}
-
-public abstract class LoadableData : ScriptableObject
-{
-    public DataLoadType Type;
-    public int Size = 0;
-    public abstract void AddData(string[] dataArr);
-    public virtual void Clear()
-    {
-        Size = 0;
+        string[] rows = sheetData.Split('\n');
+        for (int i = 0; i < rows.Length; i++)
+        {
+            string[] columns = rows[i].Split('\t');
+            generateData.Add(columns);
+        }
     }
 }

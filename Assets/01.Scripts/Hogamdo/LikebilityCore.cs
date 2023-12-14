@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 public class LikebilityCore : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class LikebilityCore : MonoBehaviour
 
     [Header("수치")]
     private int _currentLikebilitySahme;
-    private int _likebilityLevel;
+    private int _likebilityLevel = 1;
 
     [Header("이벤트")]
     [SerializeField] private UnityEvent<int> _levelUpEvent;
@@ -26,6 +27,11 @@ public class LikebilityCore : MonoBehaviour
 
     private bool CanLevelUpLikeLevel()
     {
-        return true;
+        if (_currentLikebilitySahme >= 
+            _likebilityShameTableSO.NeedShameToLevelUp(_likebilityLevel))
+        {
+            return true;
+        }
+        return false;
     }
 }

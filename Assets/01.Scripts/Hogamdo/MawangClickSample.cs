@@ -12,16 +12,17 @@ public class MawangClickSample : MonoBehaviour
     [Header("이벤트")]
     [SerializeField] private UnityEvent<int> _addLikebilityShameEvent;
 
-    
-
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
             Ray checkMawangRay = _mainCam.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(checkMawangRay, 100, _whatisMawangLayer))
+            RaycastHit hit;
+            Debug.Log(1);
+            if(Physics.Raycast(checkMawangRay, out hit))
             {
-                AddLikeabilityShame(100); //임시로 100
+                Debug.Log(2);
+                AddLikeabilityShame(10); //임시로 10
             }
         }
     }
