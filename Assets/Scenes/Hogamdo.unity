@@ -123,6 +123,64 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &44563398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 44563399}
+  - component: {fileID: 44563400}
+  - component: {fileID: 44563401}
+  m_Layer: 0
+  m_Name: MawangManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &44563399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44563398}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &44563400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44563398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088761ff85664d54c9683e71fbb71eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLikeability: 0
+--- !u!114 &44563401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44563398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7ef0e1b8d53304b936988c0801a10a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &159839089
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,8 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8612921f8071fc4da2b6dfe086e027f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadableDatas:
-  - {fileID: 11400000, guid: 536677a7bb75ba346b8bd64e2105c8aa, type: 2}
+  _loadableDatas: []
 --- !u!1 &1606321616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,3 +1157,4 @@ SceneRoots:
   - {fileID: 159839091}
   - {fileID: 1724301035}
   - {fileID: 1540407573}
+  - {fileID: 44563399}

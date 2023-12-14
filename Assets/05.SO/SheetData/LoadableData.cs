@@ -3,20 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[System.Serializable]
-public class SheetData
-{
-    public  string[] rowData;
-
-    public SheetData(string[] row)
-    {
-        rowData = row;
-    }
-}
-
 public class LoadableData : ScriptableObject
 {
-    [SerializeField] protected List<SheetData> generateData = new List<SheetData>();
+    [SerializeField] protected List<string[]> generateData = new List<string[]>();
     public string sheetUrl;
     public string cellRange;
     public string sheetData;
@@ -44,13 +33,13 @@ public class LoadableData : ScriptableObject
         for (int i = 0; i < rows.Length; i++)
         {
             string[] columns = rows[i].Split('\t');
-            generateData.Add(new SheetData(columns));
+            generateData.Add(columns);
         }
         for(int i = 0; i < generateData.Count; i++)
         {
-            for(int j = 0; j < generateData[i].rowData.Length; j++)
+            for(int j = 0; j < generateData[i].Length; j++)
             {
-                Debug.Log(generateData[i].rowData[j]);
+                Debug.Log(generateData[i][j]);
             }
             Debug.Log("ÁÙ¹Ù²Þ");
         }
