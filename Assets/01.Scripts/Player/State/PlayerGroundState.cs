@@ -16,30 +16,41 @@ public abstract class PlayerGroundState : PlayerState
         base.Enter();
         _player.PlayerInput.JumpEvent += HandleJumpEvent;
         _player.PlayerInput.PrimaryAttackEvent += HandlePrimaryAttackEvent;
+        _player.PlayerInput.SwordAuraEvent += HandleSwordAuraEvent;
     }
+
 
     public override void Exit()
     {
         _player.PlayerInput.JumpEvent -= HandleJumpEvent;
         _player.PlayerInput.PrimaryAttackEvent -= HandlePrimaryAttackEvent;
+        _player.PlayerInput.SwordAuraEvent -= HandleSwordAuraEvent;
         base.Exit();
     }
 
-    
+
     public override void UpdateState()
     {
         base.UpdateState();
 
-        if(_player.IsGroundDetected() == false)
+        if (_player.IsGroundDetected() == false)
         {
             _stateMachine.ChangeState(PlayerStateEnum.Fall);
         }
 
     }
 
+    private void HandleSwordAuraEvent()
+    {
+        if (_player.IsGroundDetected())
+        {
+            _stateMachine.ChangeState(PlayerStateEnum.SwordAura);
+        }
+    }
+
     private void HandlePrimaryAttackEvent()
     {
-        if(_player.IsGroundDetected())
+        if (_player.IsGroundDetected())
         {
             _stateMachine.ChangeState(PlayerStateEnum.PrimaryAttack);
         }

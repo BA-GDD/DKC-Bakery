@@ -9,7 +9,8 @@ public enum PlayerStateEnum
     Dash,
     WallSlide,
     WallJump,
-    PrimaryAttack
+    PrimaryAttack,
+    SwordAura,
 }
 
 public class PlayerStateMachine

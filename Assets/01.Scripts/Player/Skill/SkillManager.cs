@@ -51,11 +51,6 @@ public class SkillManager : MonoSingleton<SkillManager>
 
     public void UseSkillFeedback(PlayerSkill skill)
     {
-        ItemDataEquipmentSO amulet = Inventory.Instance.equipmentWindows.GetEquipmentByType(EquipmentType.Amulet);
-        if (amulet != null)
-        {
-
-        }
 
     }
 }
