@@ -21,7 +21,7 @@ public class LikebilityCore : MonoBehaviour
 
     public void HandleIncreaseLikebilityObserver(int addShame)
     {
-        if (_likebilityLevel >= _maxLevel)
+        if (_likebilityLevel >= _maxLevel - 1)
             return;
 
         _currentLikebilitySahme += addShame;
@@ -29,7 +29,7 @@ public class LikebilityCore : MonoBehaviour
 
         if (_currentLikebilitySahme >= needShame)
         {
-            while(_currentLikebilitySahme < needShame)
+            while (_currentLikebilitySahme > needShame)
             {
                 _currentLikebilitySahme -= needShame;
                 _likebilityLevel++;
@@ -39,5 +39,9 @@ public class LikebilityCore : MonoBehaviour
         }
 
         _needAndCurrent.text = $"need : {needShame}, current : {_currentLikebilitySahme}";
+        if (_likebilityLevel >= _maxLevel - 1)
+        {
+            _needAndCurrent.text = "MaxLevel!";
+        }
     }
 }

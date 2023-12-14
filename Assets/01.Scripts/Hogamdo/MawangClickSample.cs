@@ -16,7 +16,7 @@ public class MawangClickSample : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            AddLikeabilityShame(10); //임시로 10
+            AddLikeabilityShame(100); //임시로 10
         }
     }
 

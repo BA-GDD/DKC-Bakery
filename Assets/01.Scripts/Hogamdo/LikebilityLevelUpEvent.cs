@@ -9,6 +9,6 @@ public class LikebilityLevelUpEvent : MonoBehaviour
 
     public void HandleLevelUpObserver(int level)
     {
-        _lvText.text = $"Lv.{level}";
+        _lvText.text = $"Lv.{level + 1}";
     }
 }
