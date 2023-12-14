@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class LikebilityCore : MonoBehaviour
 {
-    [SerializeField] private LikeabilityShameTableSO _likebilityShameTableSO;
+    [SerializeField] private LikebilityData _likebilityShameTableSO;
 
     [Header("¼öÄ¡")]
     private int _currentLikebilitySahme;
