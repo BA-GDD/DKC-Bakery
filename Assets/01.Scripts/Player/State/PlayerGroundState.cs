@@ -42,7 +42,8 @@ public abstract class PlayerGroundState : PlayerState
 
     private void HandleSwordAuraEvent()
     {
-        if (_player.IsGroundDetected())
+        
+        if (_player.IsGroundDetected()&&_player.Skill.GetSkill<SwordAuraSkill>().AttemptUseSkill())
         {
             _stateMachine.ChangeState(PlayerStateEnum.SwordAura);
         }

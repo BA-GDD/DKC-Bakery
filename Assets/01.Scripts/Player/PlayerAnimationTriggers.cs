@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimationTriggers : MonoBehaviour
 {
+    public static Action AnimationEvent;
+
     private Player _player;
 
     private void Awake()
@@ -15,8 +18,8 @@ public class PlayerAnimationTriggers : MonoBehaviour
     {
         _player.AnimationEndTrigger();
     }
-
-    private void ThrowSwordAura()
+    private void AnimationEventTrigger()
     {
+        AnimationEvent?.Invoke();
     }
 }

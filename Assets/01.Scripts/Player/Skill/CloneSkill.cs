@@ -11,8 +11,9 @@ public class CloneSkill : Skill
     [SerializeField] private bool _createCloneOnCounterAttack;
 
     public float cloneDuration;
-
     public float findEnemyRadius = 5f;
+    [Range(0,1)]
+    public float damageMultiplier;
 
     public void CreateClone(Transform originTrm, Vector3 offset)
     {
