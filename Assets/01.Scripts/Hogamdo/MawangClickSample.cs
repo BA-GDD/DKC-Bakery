@@ -16,14 +16,7 @@ public class MawangClickSample : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Ray checkMawangRay = _mainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Debug.Log(1);
-            if(Physics.Raycast(checkMawangRay, out hit))
-            {
-                Debug.Log(2);
-                AddLikeabilityShame(10); //임시로 10
-            }
+            AddLikeabilityShame(10); //임시로 10
         }
     }
 
