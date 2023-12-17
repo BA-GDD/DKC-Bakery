@@ -1,48 +1,115 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+using GoogleSheetsToUnity;
+using UnityEngine.Events;
+
+[System.Serializable]
+public struct Datas
+{
+    public string[] data;
+    public Datas(string[] d)
+    {
+        data = d;
+    }
+}
 
 public class LoadableData : ScriptableObject
 {
-    [SerializeField] protected List<string[]> generateData = new List<string[]>();
+    [SerializeField] protected List<Datas> generateData = new List<Datas>();
     public string sheetUrl;
+    public string sheetPage;
     public string cellRange;
-    public string sheetData;
 
-    public IEnumerator StartLoadData()
+    public void GenerateData(List<GSTU_Cell> list, int start, int end)
     {
-        sheetUrl += ("export?format=tsv&range=" + cellRange);
-        using(UnityWebRequest www = UnityWebRequest.Get(sheetUrl))
-        {
-            yield return www.SendWebRequest();
 
-            if(www.isDone)
-            {
-                sheetData = www.downloadHandler.text;
-            }
-        }
-        GenerateData();
     }
 
-    private void GenerateData()
+    public void UpdateStatas(UnityAction<GstuSpreadSheet> callback, bool mergedCells = false)
     {
-        generateData.Clear();
+        SpreadsheetManager.Read(new GSTU_Search(sheetUrl, sheetPage), callback, mergedCells);
+    }
 
-        string[] rows = sheetData.Split('\n');
-        for (int i = 0; i < rows.Length; i++)
+    void UpdateMethodOne(GstuSpreadSheet ss)
+    {
+        string[] range = cellRange.Split(':');
+        if(range.Length != 2)
         {
-            string[] columns = rows[i].Split('\t');
-            generateData.Add(columns);
+            Debug.LogError("Error : CellRange is not proper. plz re Write CellRange!");
         }
-        for(int i = 0; i < generateData.Count; i++)
+
+        RangeCalculator rangeCal = new RangeCalculator(range[0], range[1]);
+        Vector2[] callingRanges = rangeCal.CalculateCellRange();
+
+        for(int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y; i++)
         {
-            for(int j = 0; j < generateData[i].Length; j++)
+            GenerateData(ss.rows[i], (int)callingRanges[0].x, (int)callingRanges[1].x);
+        }
+    }
+}
+
+public class RangeCalculator
+{
+    private string[] _cellMarks = new string[2];
+
+    private const string _wordGroup = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private const int _maxColumnLength = 4000;
+
+    public RangeCalculator(string cellMark_1, string cellMark_2)
+    {
+        if(cellMark_1.Length != 2 || cellMark_2.Length != 2)
+        {
+            Debug.LogError("Error : CellRange is not proper. plz re Write CellRange!");
+            return;
+        }
+
+        _cellMarks[0] = cellMark_1;
+        _cellMarks[1] = cellMark_2;
+    }
+
+    // 행 시작 인덱스 = 00, 열 시작 인덱스 = 01,
+    // 행 끝나는 인덱스 = 10, 열 끝나는 인덱스 11
+    public Vector2[] CalculateCellRange()
+    {
+        Vector2[] value = new Vector2[2];
+
+        for(int t = 0; t < value.Length; t++)
+        {
+            for (int i = 1; i < _wordGroup.Length; i++)
             {
-                Debug.Log(generateData[i][j]);
+                if (_cellMarks[0][0] == _wordGroup[i])
+                {
+                    value[t].x = i;
+                    break;
+                }
             }
-            Debug.Log("줄바꿈");
+
+            int left = 1;
+            int right = _maxColumnLength;
+            int target = _cellMarks[0][1];
+
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (mid == target)
+                {
+                    value[t].y = mid;
+                    break;
+                }
+
+                if (mid < target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
         }
-        Debug.Log(generateData.Count);
+
+        return value;
     }
 }

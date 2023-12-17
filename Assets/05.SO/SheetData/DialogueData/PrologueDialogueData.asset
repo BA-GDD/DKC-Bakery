@@ -12,7 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a52b840cdb3be48988144854b13326, type: 3}
   m_Name: PrologueDialogueData
   m_EditorClassIdentifier: 
-  generateData: []
-  sheetUrl: https://docs.google.com/spreadsheets/d/12ttmArEDi83EU32vpxZHuVX94zpTE58dM-KEvfNT4zw/
-  cellRange: A2:K2
-  sheetData: 
+  sheetUrl: https://docs.google.com/spreadsheets/d/12ttmArEDi83EU32vpxZHuVX94zpTE58dM-KEvfNT4zw/export?format=tsv&range=A2:J2
+  cellRange: A2:J2
+  sheetData: "\uB098\uC798\uB09C\t\uD558\uC774\uBE75\uAC00\uB8E8\uB4E4\tCastle\tNone\ttart\tsmile\t1\t0\tNone\tNone"
+  dialogueElement:
+  - standardElement:
+      name: "\uB098\uC798\uB09C"
+      sentence: "\uD558\uC774\uBE75\uAC00\uB8E8\uB4E4"
+      backGroundType: 0
+    characterElement:
+      characterType: 0
+      faceType: 0
+      isActive: 1
+      isShake: 0
+    productElement:
+      fadeType: 0

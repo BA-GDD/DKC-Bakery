@@ -37,6 +37,7 @@ public struct DialogueCharacterElement
     }
 }
 
+[System.Serializable]
 public struct DialogueMoveElement
 {
     public MoveType moveType;
@@ -94,10 +95,10 @@ public class EpisodeData : LoadableData
             (
                 new DialogueElement
                 (
-                    AllocateSE(generateData[i][0], generateData[i][1], generateData[i][2]),
-                    AllocateCE(generateData[i][4], generateData[i][5], generateData[i][6], generateData[i][7]),
-                    AllocateME(generateData[i][8], generateData[i][9]),
-                    AllocatePE(generateData[i][3])
+                    AllocateSE(generateData[i].data[0], generateData[i].data[1], generateData[i].data[2]),
+                    AllocateCE(generateData[i].data[4], generateData[i].data[5], generateData[i].data[6], generateData[i].data[7]),
+                    AllocateME(generateData[i].data[8], generateData[i].data[9]),
+                    AllocatePE(generateData[i].data[3])
                 )
             );
         }
