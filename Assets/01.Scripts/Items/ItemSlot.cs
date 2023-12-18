@@ -59,12 +59,12 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
             return;
         }
 
-        if(item.itemDataSO.itemType == ItemType.Bread)
+       /* if(item.itemDataSO.itemType == ItemType.Bread)
         {
             //Inventory.Instance.breadWindow.EquipItem(item.itemDataSO as ItemDataEquipmentSO);
 
             Inventory.Instance.RemoveItem(item.itemDataSO);
-        }
+        }*/
 
     }
 }

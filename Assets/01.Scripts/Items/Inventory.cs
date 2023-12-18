@@ -19,11 +19,13 @@ public class Inventory : MonoSingleton<Inventory>
 
     [Header("Debug")]
     [SerializeField] private ItemDataSO _debugItemData;
+    [SerializeField] private string _debugText;
 
     private void Awake()
     {
         ingredientStash = new IngredientStash(_ingredientParent);
         breadStash = new BreadStash(_breadParent);
+
     }
     private void Start()
     {
@@ -80,5 +82,10 @@ public class Inventory : MonoSingleton<Inventory>
             ingredientStash.RemoveItem(item, count);
         }
         UpdateSlotUI();
+    }
+
+    public void DebugText(int index)
+    {
+        Debug.Log($"{ _debugText} : { index}");
     }
 }
