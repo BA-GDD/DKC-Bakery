@@ -5,19 +5,19 @@ using GoogleSheetsToUnity;
 using UnityEngine.Events;
 using System;
 
-[System.Serializable]
-public struct Datas
-{
-    public string[] data;
-    public Datas(string[] d)
-    {
-        data = d;
-    }
-}
+//[System.Serializable]
+//public struct Datas
+//{
+//    public string[] data;
+//    public Datas(string[] d)
+//    {
+//        data = d;
+//    }
+//}
 
 public class LoadableData : ScriptableObject
 {
-    [SerializeField] protected List<Datas> generateData = new List<Datas>();
+    [SerializeField] protected List<string[]> generateData = new List<string[]>();
     public string sheetUrI;
     public string sheetPage;
     public string cellRange;
@@ -30,7 +30,7 @@ public class LoadableData : ScriptableObject
         List<GSTU_Cell> newList = list.GetRange(start, len);
         List<string> arr =
             newList.ConvertAll(new Converter<GSTU_Cell, string>((GSTU_Cell x) => x.value));
-        generateData.Add(new Datas(arr.ToArray()));
+        generateData.Add(arr.ToArray());
     }
 
     public void Generate()
