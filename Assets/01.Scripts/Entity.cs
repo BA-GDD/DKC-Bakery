@@ -43,6 +43,11 @@ public class Entity : MonoBehaviour
         CharStat.SetOwner(this);
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     protected virtual void Update()
     {
 
