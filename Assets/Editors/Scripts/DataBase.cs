@@ -8,9 +8,9 @@ public class DataBase : MonoBehaviour
 
     public void GenerateDatas()
     {
-        //foreach (LoadableData ld in _loadableDatas)
-        //{
-        //    StartCoroutine(ld.StartLoadData());
-        //}
+        foreach (LoadableData ld in _loadableDatas)
+        {
+            ld.Generate();
+        }
     }
 }

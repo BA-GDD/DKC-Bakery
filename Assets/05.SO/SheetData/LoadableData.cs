@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleSheetsToUnity;
 using UnityEngine.Events;
+using System;
 
 [System.Serializable]
 public struct Datas
@@ -17,21 +18,32 @@ public struct Datas
 public class LoadableData : ScriptableObject
 {
     [SerializeField] protected List<Datas> generateData = new List<Datas>();
-    public string sheetUrl;
+    public string sheetUrI;
     public string sheetPage;
     public string cellRange;
 
-    public void GenerateData(List<GSTU_Cell> list, int start, int end)
+    private void GenerateData(List<GSTU_Cell> list, int start, int end)
     {
+        generateData.Clear();
 
+        int len = end - start + 1;
+        List<GSTU_Cell> newList = list.GetRange(start, len);
+        List<string> arr =
+            newList.ConvertAll(new Converter<GSTU_Cell, string>((GSTU_Cell x) => x.value));
+        generateData.Add(new Datas(arr.ToArray()));
     }
 
-    public void UpdateStatas(UnityAction<GstuSpreadSheet> callback, bool mergedCells = false)
+    public void Generate()
     {
-        SpreadsheetManager.Read(new GSTU_Search(sheetUrl, sheetPage), callback, mergedCells);
+        UpdateStatas(UpdateMethodOne);
     }
 
-    void UpdateMethodOne(GstuSpreadSheet ss)
+    private void UpdateStatas(UnityAction<GstuSpreadSheet> callback, bool mergedCells = false)
+    {
+        SpreadsheetManager.Read(new GSTU_Search(sheetUrI, sheetPage), callback, mergedCells);
+    }
+
+    private void UpdateMethodOne(GstuSpreadSheet ss)
     {
         string[] range = cellRange.Split(':');
         if(range.Length != 2)
@@ -42,7 +54,7 @@ public class LoadableData : ScriptableObject
         RangeCalculator rangeCal = new RangeCalculator(range[0], range[1]);
         Vector2[] callingRanges = rangeCal.CalculateCellRange();
 
-        for(int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y; i++)
+        for(int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y + 1; i++)
         {
             GenerateData(ss.rows[i], (int)callingRanges[0].x, (int)callingRanges[1].x);
         }
@@ -76,9 +88,9 @@ public class RangeCalculator
 
         for(int t = 0; t < value.Length; t++)
         {
-            for (int i = 1; i < _wordGroup.Length; i++)
+            for (int i = 0; i < _wordGroup.Length; i++)
             {
-                if (_cellMarks[0][0] == _wordGroup[i])
+                if (_cellMarks[t][0] == _wordGroup[i])
                 {
                     value[t].x = i;
                     break;
@@ -87,7 +99,7 @@ public class RangeCalculator
 
             int left = 1;
             int right = _maxColumnLength;
-            int target = _cellMarks[0][1];
+            int target = _cellMarks[t][1] - '0';
 
             while (left <= right)
             {
@@ -109,7 +121,6 @@ public class RangeCalculator
                 }
             }
         }
-
         return value;
     }
 }
