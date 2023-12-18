@@ -9,6 +9,8 @@ public class Inventory : MonoSingleton<Inventory>
 
     [Header("ParentTrms")]
     [SerializeField] private Transform _materialStashTrm;
+    [Header("Feedbacks")]
+    [SerializeField] private FeedbackPlayer _addFeedback;
 
     private void Awake()
     {
@@ -24,7 +26,6 @@ public class Inventory : MonoSingleton<Inventory>
     }
     public void AddItem(ItemDataSO item, int count = 1)
     {
-
         if (materialStash.CanAddItem(item))
         {
             materialStash.AddItem(item, count);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FeedbackPlayer : MonoBehaviour
 {
-    private List<Feedback> _feedbackList;
+    private List<Feedback> _feedbackList = new List<Feedback>();
 
     private void Awake()
     {

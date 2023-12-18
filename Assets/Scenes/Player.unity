@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _materialStashTrm: {fileID: 1533827268}
+  _addFeedback: {fileID: 0}
 --- !u!4 &84571975
 Transform:
   m_ObjectHideFlags: 0
@@ -1018,6 +1019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707194354}
   - component: {fileID: 707194353}
+  - component: {fileID: 707194355}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -1080,6 +1082,29 @@ Transform:
   - {fileID: 534056750}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &707194355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707194352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 0
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &794971361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3004,6 +3029,10 @@ PrefabInstance:
     - target: {fileID: 3144475077514436446, guid: 530677d72c81b4d4f92c1fb4a889be2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501090637618753643, guid: 530677d72c81b4d4f92c1fb4a889be2a, type: 3}
+      propertyPath: impulseRatio
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9181033518898684282, guid: 530677d72c81b4d4f92c1fb4a889be2a, type: 3}
       propertyPath: m_Name
