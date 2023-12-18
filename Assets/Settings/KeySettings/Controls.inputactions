@@ -49,24 +49,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SwordAura",
+                    "type": "Button",
+                    "id": "5b62bb0c-8d00-48d2-83a4-41fc27ab6cce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "7784b1e9-d8cd-4bd0-9cd6-6aaeec06e2f1",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyMouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a063cf1d-af61-49e7-ba6d-e006c330b307",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyMouse",
@@ -88,7 +86,7 @@
                 {
                     "name": "negative",
                     "id": "ef4f62db-0b49-4e62-afc0-33dbfdc9ebc1",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyMouse",
@@ -99,7 +97,7 @@
                 {
                     "name": "positive",
                     "id": "550445a5-6f74-473f-9f8c-714616d8107a",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyMouse",
@@ -121,7 +119,7 @@
                 {
                     "name": "negative",
                     "id": "4b767ffa-3aba-4bf8-ab70-2c7a95aff10b",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyMouse",
@@ -132,7 +130,7 @@
                 {
                     "name": "positive",
                     "id": "68338dda-e0b5-4181-93bf-9e2ea3427fb2",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyMouse",
@@ -143,11 +141,33 @@
                 {
                     "name": "",
                     "id": "7c507cbb-01bb-47ad-9d05-bb3694531a10",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "PrimaryAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7784b1e9-d8cd-4bd0-9cd6-6aaeec06e2f1",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyMouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba685f47-2c6f-44e3-87ee-d4a359605557",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwordAura",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

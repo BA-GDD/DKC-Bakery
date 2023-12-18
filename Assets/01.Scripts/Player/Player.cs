@@ -40,7 +40,7 @@ public class Player : Entity
         }
     }
 
-    protected void Start()
+    protected override void Start()
     {
         Skill = SkillManager.Instance;
         StateMachine.Initialize(PlayerStateEnum.Idle, this);
@@ -83,5 +83,11 @@ public class Player : Entity
         StateMachine.CurrentState.AnimationEndTrigger();
     }
 
+    protected override void HandleDie(Vector2 direction)
+    {
+    }
 
+    public override void SlowEntityBy(float percent)
+    {
+    }
 }

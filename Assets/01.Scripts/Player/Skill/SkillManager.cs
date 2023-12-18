@@ -7,6 +7,8 @@ public enum PlayerSkill
 {
     Dash = 1,
     Clone = 2,
+    SwordAura = 3,
+
     //Crystal = 3
 }
 
@@ -51,11 +53,6 @@ public class SkillManager : MonoSingleton<SkillManager>
 
     public void UseSkillFeedback(PlayerSkill skill)
     {
-        ItemDataEquipmentSO amulet = Inventory.Instance.equipmentWindows.GetEquipmentByType(EquipmentType.Amulet);
-        if (amulet != null)
-        {
-
-        }
 
     }
 }
