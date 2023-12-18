@@ -1,62 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class Inventory : MonoSingleton<Inventory>
 {
-    public MaterialStash materialStash;
-    public EquipmentStash equipmentStash;
-    public EquipmentWindows equipmentWindows;
-
+    public IngredientStash ingredientStash;
+    public BreadStash breadStash;
 
     [Header("ParentTrms")]
-    [SerializeField] private Transform _materialStashTrm;
-    [SerializeField] private Transform _equipmentStashTrm;
-    [SerializeField] private Transform _equipmentsTrm;
+    [SerializeField] private Transform _ingredientParent; 
+    [SerializeField] private Transform _breadParent;
+
+    [Header("Events")]
+    public UnityEvent<int> onRemoveBreadTrigger; 
+    public UnityEvent<int> onRemoveIngredientTrigger; 
+
+    [Header("Debug")]
+    [SerializeField] private ItemDataSO _debugItemData;
 
     private void Awake()
     {
-        materialStash = new MaterialStash(_materialStashTrm);
-        equipmentStash = new EquipmentStash(_equipmentStashTrm);
-        equipmentWindows = new EquipmentWindows(_equipmentsTrm);
+        ingredientStash = new IngredientStash(_ingredientParent);
+        breadStash = new BreadStash(_breadParent);
     }
     private void Start()
     {
         UpdateSlotUI();
     }
-    public void UpdateSlotUI()
+    private void Update()
     {
-        materialStash.UpdateSlotUI();
-        equipmentStash.UpdateSlotUI();
-        equipmentWindows.UpdateSlotUI();
+        if (Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            AddItem(_debugItemData);
+        }
+    }
+    public void UpdateSlotUI() 
+    {
+        ingredientStash.UpdateSlotUI();
+        breadStash.UpdateSlotUI();
     }
     public void AddItem(ItemDataSO item, int count = 1)
-    {
-        if (item.itemType == ItemType.Equipment)
+    { 
+        if (item.itemType == ItemType.Bread)
         {
-            if (equipmentStash.CanAddItem(item))
+            if (breadStash.CanAddItem(item))
             {
-                equipmentStash.AddItem(item);
+                breadStash.AddItem(item);
             }
         }
-        else if (item.itemType == ItemType.Material)
+        else if (item.itemType == ItemType.Ingredient)
         {
-            if (materialStash.CanAddItem(item))
+            if (ingredientStash.CanAddItem(item))
             {
-                materialStash.AddItem(item, count);
+                ingredientStash.AddItem(item, count);
             }
         }
         UpdateSlotUI();
     }
     public void RemoveItem(ItemDataSO item, int count = 1)
     {
-        if (item.itemType == ItemType.Equipment)
+        if (item.itemType == ItemType.Bread)
         {
-            equipmentStash.RemoveItem(item, count);
+            ItemDataBreadSO breadSO = ((ItemDataBreadSO)item);
+            if(breadSO!= null)
+            {
+                onRemoveBreadTrigger.Invoke(breadSO.hogamdo);
+            }
+            breadStash.RemoveItem(item, count);
         }
-        else if (item.itemType == ItemType.Material)
+        else if (item.itemType == ItemType.Ingredient)
         {
-            materialStash.RemoveItem(item, count);
+            ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
+            if (ingredientSO != null)
+            {
+                onRemoveIngredientTrigger.Invoke(ingredientSO.itemIndex);
+            }
+            ingredientStash.RemoveItem(item, count);
         }
         UpdateSlotUI();
     }

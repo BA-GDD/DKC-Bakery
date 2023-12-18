@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialStash : Stash
+public class IngredientStash : Stash
 {
-    public MaterialStash(Transform slotParentTrm) : base(slotParentTrm)
+    public IngredientStash(Transform slotParentTrm) : base(slotParentTrm)
     {
     }
 
@@ -27,7 +27,7 @@ public class MaterialStash : Stash
     {
         if (stash.Count >= _itemSlots.Length && !stashDictionary.ContainsKey(item))
         {
-            Debug.Log("°¡µæÃ¡¾î");
+            Debug.Log("Full");
             return false;
         }
         return true;

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipmentStash : Stash
+public class BreadStash : Stash
 {
-    public EquipmentStash(Transform slotParentTrm) : base(slotParentTrm)
+    public BreadStash(Transform slotParentTrm) : base(slotParentTrm)
     {
     }
 
