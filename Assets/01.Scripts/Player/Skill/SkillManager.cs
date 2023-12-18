@@ -7,6 +7,8 @@ public enum PlayerSkill
 {
     Dash = 1,
     Clone = 2,
+    SwordAura = 3,
+
     //Crystal = 3
 }
 

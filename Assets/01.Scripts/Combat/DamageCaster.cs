@@ -11,7 +11,7 @@ public class DamageCaster : MonoBehaviour
 
     public Vector2 knockbackPower;
 
-    [SerializeField] private int _maxHitCount = 5; //ÃÖ´ë·Î ¶§¸± ¼ö ÀÖ´Â Àû °¹¼ö
+    [SerializeField] private int _maxHitCount = 5; //ï¿½Ö´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public LayerMask whatIsEnemy;
     private Collider2D[] _hitResult;
 
@@ -32,7 +32,7 @@ public class DamageCaster : MonoBehaviour
     {
         int cnt = Physics2D.OverlapCircle(attackChecker.position, attackCheckRadius, new ContactFilter2D {layerMask = whatIsEnemy, useLayerMask = true }, _hitResult);
 
-        //ÀÌ°Å ¾²¸é ¶óÀÌ´õ°¡ °æ°í ¶§¸®´Âµ¥ À§¿¡²« À¯´ÏÆ¼¿¡¼­ ¾²Áö¸»¶óÇÔ..¾ÆÀÕ...
+        //ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½ï¿½...
         //Physics2D.OverlapCircleAll(attackChecker.position, attackCheckRadius, whatIsEnemy);
 
         for (int i = 0; i < cnt; ++i)
@@ -55,10 +55,10 @@ public class DamageCaster : MonoBehaviour
 
     private void SetAilmentByStat(IDamageable targetHealth)
     {
-        CharacterStat stat = _owner.CharStat; //ÁÖÀÎÀÇ ½ºÅÈÂüÁ¶
+        CharacterStat stat = _owner.CharStat; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         //float duration = stat.ailmentTimeMS.GetValue() * 0.001f;
 
-        //if (stat.canIgniteByMelee && stat.CanAilment(Ailment.Ignited)) //Á¡È­ °¡´É
+        //if (stat.canIgniteByMelee && stat.CanAilment(Ailment.Ignited)) //ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         //{
         //    int damage = stat.GetDotDamage(Ailment.Ignited);
         //    targetHealth.SetAilment(Ailment.Ignited, duration, damage);

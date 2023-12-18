@@ -65,16 +65,14 @@ public class SimpleEnemy : Enemy
     //}
 
 
+
     protected override void HandleHit()
     {
         base.HandleHit();
         if (!_isFrozenWithoutTimer)
-            StateMachine.ChangeState(SimpleEnemyStateEnum.Battle); //°ø°Ý»óÅÂ·Î ³Ñ±ä´Ù.
+
+            StateMachine.ChangeState(SkelectonStateEnum.Battle); //ï¿½ï¿½ï¿½Ý»ï¿½ï¿½Â·ï¿½ ï¿½Ñ±ï¿½ï¿½.
     }
 
-    public override void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
-
-    public override void SlowEntityBy(float percent)
-    {
-    }
+    public override void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();                                                       
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Entity : MonoBehaviour
+public class Entity : MonoBehaviour
 {
 
     [Header("collision checker")]
@@ -13,26 +13,17 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] protected float _wallCheckDistance;
     [SerializeField] protected LayerMask _whatIsGroundAndWall;
 
-    [Header("Knockback info")]
-    [SerializeField] protected float _knockbackDuration;
-    protected bool _isKnocked;
-
     [Header("Stun Info")]
     public float stunDuration;
     public Vector2 stunDirection;
     protected bool _canBeStuned;
 
-
-
     #region components
     public Animator AnimatorCompo { get; private set; }
     public Rigidbody2D RigidbodyCompo { get; private set; }
-    public Health HealthCompo { get; private set; }
-    public DamageCaster DamageCasterCompo { get; private set; }
-    public SpriteRenderer SpriteRendererCompo { get; private set; }
-    public CapsuleCollider2D Collider { get; private set; }
 
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
+    [field: SerializeField] public Health HealthCompo { get; private set; }
     #endregion
 
     #region facing 
@@ -46,76 +37,20 @@ public abstract class Entity : MonoBehaviour
         Transform visualTrm = transform.Find("Visual");
         AnimatorCompo = visualTrm.GetComponent<Animator>();
         RigidbodyCompo = GetComponent<Rigidbody2D>();
-        HealthCompo = GetComponent<Health>();
-        DamageCasterCompo = transform.Find("DamageCaster").GetComponent<DamageCaster>();
-        SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
-        Collider = GetComponent<CapsuleCollider2D>();
 
-        DamageCasterCompo.SetOwner(this, castByCloneSkill: false);
 
         CharStat = Instantiate(CharStat); //복제본 생성
         CharStat.SetOwner(this);
     }
-
-<<<<<<< Updated upstream
-=======
-    private void HandleAilmentChanged(Ailment ailment)
-    {
-        if ((ailment & Ailment.Chilled) > 0) //동결상태면 스피드 느리게
-        {
-            //마법 저항에 따라 적게
-            float resistance = (100 - CharStat.magicResistance.GetValue()) * 0.01f;
-            SlowEntityBy(0.5f * resistance);
-        }
-        else
-        {
-            ReturnDefaultSpeed();
-        }
-    }
-
-    protected virtual void HandleHit()
-    {
-        //UI갱신
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth());
-    }
-
-    protected virtual void HandleKnockback(Vector2 direction)
-    {
-        StartCoroutine(HitKnockback(direction));
-    }
-
-    protected abstract void HandleDie(Vector2 direction);
-
 
     protected virtual void Start()
     {
 
     }
 
->>>>>>> Stashed changes
     protected virtual void Update()
     {
 
-    }
-
-    public virtual void Attack()
-    {
-        DamageCasterCompo?.CastDamage();
-    }
-
-    protected virtual IEnumerator HitKnockback(Vector2 direction)
-    {
-        _isKnocked = true;
-        RigidbodyCompo.velocity = direction;
-        yield return new WaitForSeconds(_knockbackDuration);
-        _isKnocked = false;
-    }
-
-    public abstract void SlowEntityBy(float percent); //슬로우는 자식들이 구현.
-
-    protected virtual void ReturnDefaultSpeed()
-    {
-        AnimatorCompo.speed = 1; //원래 스피드로 되돌리기.
     }
 
     #region flip control
