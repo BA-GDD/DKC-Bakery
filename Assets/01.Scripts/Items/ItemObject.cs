@@ -5,21 +5,24 @@ using UnityEngine.InputSystem;
 
 public class ItemObject : MonoBehaviour
 {
+    [SerializeField] private ItemDataSO _itemData;
+    [SerializeField, Range(0, 100)] private float _moveSpeed;
+
     private Rigidbody2D _rigidbody2d;
     private SpriteRenderer _spriteRenderer;
-    [SerializeField] private ItemDataSO _itemData;
 
     private ItemObjectTrigger _trigger;
     private BoxCollider2D _itemCollider;
     private Transform _playerTrm;
 
-    public bool asdf;
+    
+    private bool _followPlayer;
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
         if (_itemData == null) return;
-        if(_spriteRenderer == null )
+        if (_spriteRenderer == null)
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();//이건 워닝 
         }
@@ -30,28 +33,29 @@ public class ItemObject : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody2d = GetComponent<Rigidbody2D>(); 
+        _rigidbody2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _itemCollider = GetComponent<BoxCollider2D>();
         _trigger = transform.Find("ItemTrigger").GetComponent<ItemObjectTrigger>();
-        _playerTrm = GameManager.Instance.PlayerTrm;
-    }
-
-    private void Start()
-    {
         _trigger.gameObject.SetActive(false);
+        _playerTrm = GameManager.Instance.PlayerTrm;
     }
 
     private void Update()
     {
-        if (Keyboard.current.lKey.wasPressedThisFrame)
+        if(Keyboard.current.lKey.wasPressedThisFrame)
         {
-            asdf = true;
-            _trigger.gameObject.SetActive(true);
-            _itemCollider.enabled = false;
+            HandleStageClear();
         }
-        if(asdf)
-            transform.position = Vector2.Lerp(transform.position, _playerTrm.position, 0.1f);
+        if (_followPlayer == true)
+            _rigidbody2d.velocity = (_playerTrm.position - transform.position).normalized * _moveSpeed;
+    }
+
+    private void HandleStageClear()
+    {
+        _trigger.gameObject.SetActive(true);
+        _itemCollider.enabled = false;
+        _followPlayer = true;
     }
 
     //이건 안쓰는 함수인데 혹시 몰라서 만들어둔다.
