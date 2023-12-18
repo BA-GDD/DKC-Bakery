@@ -4,7 +4,9 @@ namespace EpisodeDialogueDefine
     public enum CharacterType
     {
         tart,
-        mawang
+        mawang,
+        person,
+        people
     }
 
     public enum FaceType
