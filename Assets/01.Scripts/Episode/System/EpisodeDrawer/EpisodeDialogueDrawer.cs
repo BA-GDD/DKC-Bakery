@@ -47,7 +47,6 @@ public class EpisodeDialogueDrawer : MonoBehaviour
         _syntexTextPro = syntex;
 
         if (_bgType == bgType) return;
-
         UpdateBackGround(bgType);
     }
 

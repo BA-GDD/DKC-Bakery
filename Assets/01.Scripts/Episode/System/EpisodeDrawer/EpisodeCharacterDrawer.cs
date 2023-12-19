@@ -5,6 +5,8 @@ using EpisodeDialogueDefine;
 
 public class EpisodeCharacterDrawer : MonoBehaviour
 {
+    [SerializeField] private CharacterStandard[] _characterStand;
+
     public void HandleCharacterDraw(CharacterType ct, FaceType faceType , bool isActive, bool isShake)
     {
 

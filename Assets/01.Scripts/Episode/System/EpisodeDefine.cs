@@ -22,8 +22,9 @@ namespace EpisodeDialogueDefine
     public enum FadeOutType
     {
         None,
+        Normal,
         UpToDown,
-        RightToLeft,
+        LeftToRight,
     }
 
     public enum MoveType
