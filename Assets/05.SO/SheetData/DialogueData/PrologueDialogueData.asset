@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a52b840cdb3be48988144854b13326, type: 3}
+  m_Name: PrologueDialogueData
+  m_EditorClassIdentifier: 
+  generateData:
+  - str:
+    - "\uB808\uC774\uC0AC"
+    - "\uBC18\uAC11\uB2E4"
+    - Castle
+    - None
+    - reisa
+    - smile
+    - TRUE
+    - FALSE
+    - GoLeft
+    - None
+  - str:
+    - "\uB808\uC774\uC0AC"
+    - "\uC090\uC090"
+    - Sheet
+    - UpToDown
+    - reisa
+    - embrass
+    - FALSE
+    - TRUE
+    - GoRight
+    - None
+  - str:
+    - "\uD558\uD558"
+    - "\u3141\uB2E4\u315C\uB8E8\uB9AC\u315C\uB9AC\uB450\uB983\uC990\uC990;\u3161\u3139;\uC997;\uC9C0\u3161\u3139\uD788\u3161\uB9C1\u3139\u3134\u3147:\u3139\u3147,"
+    - Castle
+    - None
+    - reisa
+    - smile
+    - TRUE
+    - TRUE
+    - GoCenter
+    - None
+  sheetUrI: 12ttmArEDi83EU32vpxZHuVX94zpTE58dM-KEvfNT4zw
+  sheetPage: Prologue
+  cellRange: A2:J4
+  dialogueElement:
+  - standardElement:
+      name: "\uB808\uC774\uC0AC"
+      sentence: "\uBC18\uAC11\uB2E4"
+      backGroundType: 0
+    characterElement:
+      characterType: 0
+      faceType: 0
+      isActive: 1
+      isShake: 0
+    movementElement:
+      moveType: 1
+      exitTpe: 0
+    productElement:
+      fadeType: 0
+  - standardElement:
+      name: "\uB808\uC774\uC0AC"
+      sentence: "\uC090\uC090"
+      backGroundType: 1
+    characterElement:
+      characterType: 0
+      faceType: 1
+      isActive: 0
+      isShake: 1
+    movementElement:
+      moveType: 2
+      exitTpe: 0
+    productElement:
+      fadeType: 2
+  - standardElement:
+      name: "\uD558\uD558"
+      sentence: "\u3141\uB2E4\u315C\uB8E8\uB9AC\u315C\uB9AC\uB450\uB983\uC990\uC990;\u3161\u3139;\uC997;\uC9C0\u3161\u3139\uD788\u3161\uB9C1\u3139\u3134\u3147:\u3139\u3147,"
+      backGroundType: 0
+    characterElement:
+      characterType: 0
+      faceType: 0
+      isActive: 1
+      isShake: 1
+    movementElement:
+      moveType: 3
+      exitTpe: 0
+    productElement:
+      fadeType: 0
