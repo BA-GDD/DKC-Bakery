@@ -148,7 +148,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
+    m_ImpulseDuration: 0.1
     m_ImpulseType: 0
     m_DissipationRate: 0.25
     m_RawSignal: {fileID: 0}
@@ -192,8 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc5f31d5c0a0794ba8210e4f73db1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeType: 1
   _rigid: {fileID: 8296185965196014785}
-  impulseRatio: 0.3
+  impulseRatio: 0.05
 --- !u!1 &9181033518898684282
 GameObject:
   m_ObjectHideFlags: 0

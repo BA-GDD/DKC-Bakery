@@ -9,6 +9,7 @@ public enum PlayerStateEnum
     Dash,
     WallSlide,
     WallJump,
+    AirAttack,
     PrimaryAttack,
     SwordAura,
 }
