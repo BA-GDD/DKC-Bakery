@@ -48,7 +48,7 @@ public class DamageCaster : MonoBehaviour
                     damage = Mathf.RoundToInt(damage * SkillManager.Instance.GetSkill<CloneSkill>().damageMultiplier);
                 }
                 DamagePopupText text = Instantiate(_popupTextPrefab);
-                text.PopUpDamage(damage,_hitResult[i].transform.position,false);
+                text.PopUpDamage(damage,_hitResult[i].bounds.center,false);
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }
