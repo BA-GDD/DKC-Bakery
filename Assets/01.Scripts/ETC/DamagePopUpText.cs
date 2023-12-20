@@ -7,18 +7,25 @@ using DG.Tweening;
 public class DamagePopupText : MonoBehaviour
 {
     [SerializeField] private TMP_Text _tmp;
+    [SerializeField] private Color _normalColor;
+    [SerializeField] private Color _criticalColor;
+
     public void PopUpDamage(int damage, Vector2 pos, bool isCritical)
     {
-        Color textColor = isCritical ? Color.red : Color.white;
+        Color textColor = isCritical ? _criticalColor : _normalColor;
 
         _tmp.color = textColor;
         _tmp.fontSize = isCritical ? 10 : 6;
         _tmp.text = damage.ToString();
 
-        Vector3 myPos = pos + Random.insideUnitCircle*0.5f;
+        pos.y += 0.5f;
+        Vector3 myPos =  pos;
         myPos.z = -5;
         transform.position = myPos;
 
-        transform.DOMoveY(transform.position.y + 2f, 0.5f).OnComplete(() => Destroy(gameObject));
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(0.2f);
+        seq.Append(_tmp.DOFade(0, 0.5f));
+        seq.OnComplete(() => Destroy(gameObject));
     }
 }
