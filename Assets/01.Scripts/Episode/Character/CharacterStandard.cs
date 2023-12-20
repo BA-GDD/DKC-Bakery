@@ -40,7 +40,7 @@ public class CharacterStandard : MonoBehaviour
 
     public void CharacterShake()
     {
-        transform.DOShakePosition(0.2f, 0.1f, 20);
+        transform.DOShakePosition(0.4f, 15f, 20);
     }
 
     public void MoveCharacter(MoveType moveType)
