@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using EpisodeDialogueDefine;
 using TMPro;
-using System;
+using System.Text;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class EpisodeDialogueDrawer : MonoBehaviour
 {
@@ -24,27 +26,64 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _syntexTextTmp;
     private string _syntexText;
-    private string _syntexTextPro
+    private bool _inTyping;
+    private StringBuilder _syntexBuilder = new StringBuilder();
+    private int _idx;
+
+    private float _typingTime = 0.03f;
+    private float _currentTime;
+
+    [SerializeField] private Image[] _backGround;
+    [SerializeField] private List<Sprite> _backGroundSpriteList = new List<Sprite>();
+    private BackGroundType _bgType;
+
+    private void FixedUpdate()
     {
-        get
+        TypingText();
+        SkipText();
+    }
+
+    private void SkipText()
+    {
+        if(_inTyping && Input.GetMouseButtonDown(0))
         {
-            return _syntexText;
-        }
-        set
-        {
-            _syntexText = value;
+            _inTyping = false;
             _syntexTextTmp.text = _syntexText;
+            
         }
     }
 
-    [SerializeField] private SpriteRenderer _backGround;
-    [SerializeField] private List<Sprite> _backGroundList = new List<Sprite>();
-    private BackGroundType _bgType;
+    private void TypingText()
+    {
+        if (_inTyping)
+        {
+            if (_typingTime >= _currentTime)
+            {
+                _syntexBuilder.Append(_syntexText[_idx]);
+                _syntexTextTmp.text = _syntexBuilder.ToString();
+
+                _currentTime = 0;
+                _idx++;
+                if (_idx >= _syntexText.Length) _inTyping = false;
+            }
+            _currentTime += Time.deltaTime;
+        }
+    }
+
+    private void ResetFunctions()
+    {
+        _syntexTextTmp.text = string.Empty;
+        _syntexBuilder.Clear();
+        _idx = 0;
+
+        _inTyping = true;
+    }
 
     public void HandleStandardElementDraw(string name, string syntex, BackGroundType bgType)
     {
         _nameTextPro = name;
-        _syntexTextPro = syntex;
+        _syntexText = syntex;
+        ResetFunctions();
 
         if (_bgType == bgType) return;
         UpdateBackGround(bgType);
@@ -52,7 +91,10 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     private void UpdateBackGround(BackGroundType bgType)
     {
-        _backGround.sprite = _backGroundList[(int)bgType];
+        _backGround[0].sprite = _backGround[1].sprite;
+        _backGround[1].color = new Color(1, 1, 1, 0);
+        _backGround[1].sprite = _backGroundSpriteList[(int)bgType];
+        _backGround[1].DOFade(1, 0.3f);
         _bgType = bgType;
     }
 }

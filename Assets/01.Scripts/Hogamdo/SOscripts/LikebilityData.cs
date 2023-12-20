@@ -7,8 +7,8 @@ public class LikebilityData : LoadableData
 {
     public int NeedShameToLevelUp(int level)
     {
-        Debug.Log(generateData[level][1]);
-        return Convert.ToInt32(generateData[level][1]);
+        Debug.Log(generateData[level].str[1]);
+        return Convert.ToInt32(generateData[level].str[1]);
     }
 }
 

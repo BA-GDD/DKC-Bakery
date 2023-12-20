@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 using EpisodeDialogueDefine;
 using System;
 using UnityEngine.UI;
@@ -16,69 +15,93 @@ public class EpisodeProductionDrawer : MonoBehaviour
 
     [Header("수치 조정")]
     [SerializeField] private float _fadeInTime;
-    [SerializeField] private float _fadeWaitTime;
     [SerializeField] private float _fadeOutTime;
 
-    private event Action _fadeOutAction;
-    private Sequence _fadeSequence;
+    private event Action _fadeInOutAction;
+    private FadeOutType _beforeFadeOutType;
+    private Dictionary<FadeOutType, Action> _findFadeAction = new Dictionary<FadeOutType, Action>();
+
+    private void OnEnable()
+    {
+        _findFadeAction = new Dictionary<FadeOutType, Action>();
+        foreach(FadeOutType ft in Enum.GetValues(typeof(FadeOutType)))
+        {
+            switch (ft)
+            {
+                case FadeOutType.None:
+                    _findFadeAction.Add(FadeOutType.None, HandleFadeOut);
+                    break;
+                case FadeOutType.Normal:
+                    _findFadeAction.Add(FadeOutType.Normal, HandleFadeInNormal);
+                    break;
+                case FadeOutType.UpToDown:
+                    _findFadeAction.Add(FadeOutType.UpToDown, HandleFadeInUpToDown);
+                    break;
+                case FadeOutType.LeftToRight:
+                    _findFadeAction.Add(FadeOutType.LeftToRight, HandleFadeInLeftToRight);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     public void HandleProductionDraw(FadeOutType fType)
     {
-        _fadeOutAction = null;
-        _fadeSequence = DOTween.Sequence();
+        _fadeInOutAction = null;
 
-        switch (fType)
-        {
-            case FadeOutType.None:
-                return;
-            case FadeOutType.Normal:
-                _fadeOutAction += HandleFadeOutNormal;
-                break;
-            case FadeOutType.UpToDown:
-                _fadeOutAction += HandleFadeOutUpToDown;
-                break;
-            case FadeOutType.LeftToRight:
-                _fadeOutAction += HandleFadeOutLeftToRight;
-                break;
-            default:
-                break;
-        }
+        _fadeInOutAction += _findFadeAction[fType];
 
-        _fadeOutAction?.Invoke();
+        _fadeInOutAction?.Invoke();
+        _beforeFadeOutType = fType;
     }
 
-    private void HandleFadeOutNormal()
+    private void HandleFadeOut()
+    {
+        switch (_beforeFadeOutType)
+        {
+            case FadeOutType.None:
+                break;
+            case FadeOutType.Normal:
+                Sequence _fadeSequence = DOTween.Sequence();
+                _fadeSequence.Append(_blackPanel.DOFade(0, _fadeOutTime));
+                _fadeSequence.AppendCallback(() =>
+                {
+                    _blackPanelTrm.localPosition = new Vector2(_blackPanelTrm.sizeDelta.x,
+                                                               _blackPanelTrm.sizeDelta.y);
+                });
+                break;
+            case FadeOutType.UpToDown:
+                _blackPanelTrm.DOLocalMoveY(-_blackPanelTrm.sizeDelta.y, _fadeOutTime);
+                break;
+            case FadeOutType.LeftToRight:
+                _blackPanelTrm.DOLocalMoveX(_blackPanelTrm.sizeDelta.x, _fadeOutTime);
+                break;
+        }
+    }
+
+    private void HandleFadeInNormal()
     {
         _blackPanel.color = _alphaZeroBlackColor;
         _blackPanelTrm.localPosition = Vector3.zero;
 
-        _fadeSequence.Append(_blackPanel.DOFade(1, _fadeInTime));
-        _fadeSequence.AppendInterval(_fadeWaitTime);
-        _fadeSequence.Append(_blackPanel.DOFade(0, _fadeOutTime));
-        _fadeSequence.AppendCallback(() =>
-        {
-            _blackPanelTrm.localPosition = new Vector2(_blackPanelTrm.sizeDelta.x,
-                                                       _blackPanelTrm.sizeDelta.y);
-        });
+        _blackPanel.DOFade(1, _fadeInTime);
     }
 
-    private void HandleFadeOutUpToDown()
+    private void HandleFadeInUpToDown()
     {
         _blackPanel.color = _blackColor;
         _blackPanelTrm.localPosition = new Vector2(0, _blackPanelTrm.sizeDelta.y);
 
-        _fadeSequence.Append(_blackPanelTrm.DOLocalMoveY(0, _fadeInTime));
-        _fadeSequence.AppendInterval(_fadeWaitTime);
-        _fadeSequence.Append(_blackPanelTrm.DOLocalMoveY(-_blackPanelTrm.sizeDelta.y, _fadeOutTime));
+        _blackPanelTrm.DOLocalMoveY(0, _fadeInTime);
+        
     }
 
-    private void HandleFadeOutLeftToRight()
+    private void HandleFadeInLeftToRight()
     {
         _blackPanel.color = _blackColor;
         _blackPanelTrm.localPosition = new Vector2(-_blackPanelTrm.sizeDelta.x, 0);
 
-        _fadeSequence.Append(_blackPanelTrm.DOLocalMoveX(0, _fadeInTime));
-        _fadeSequence.AppendInterval(_fadeWaitTime);
-        _fadeSequence.Append(_blackPanelTrm.DOLocalMoveX(_blackPanelTrm.sizeDelta.x, _fadeOutTime));
+        _blackPanelTrm.DOLocalMoveX(0, _fadeInTime);
     }
 }

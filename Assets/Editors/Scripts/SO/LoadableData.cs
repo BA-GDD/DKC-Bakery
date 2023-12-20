@@ -6,22 +6,31 @@ using UnityEngine.Events;
 using System;
 using UnityEditor;
 
+[Serializable]
+public struct Data
+{
+    public string[] str;
+    public Data(string[] s)
+    {
+        str = s;
+    }
+}
+
 public class LoadableData : ScriptableObject
 {
-    [SerializeField] protected List<string[]> generateData = new List<string[]>();
+    [SerializeField] protected List<Data> generateData = new List<Data>();
     public string sheetUrI;
     public string sheetPage;
     public string cellRange;
 
     private void GenerateData(List<GSTU_Cell> list, int start, int end)
     {
-        generateData.Clear();
-
         int len = end - start + 1;
         List<GSTU_Cell> newList = list.GetRange(start, len);
         List<string> arr =
             newList.ConvertAll(new Converter<GSTU_Cell, string>((GSTU_Cell x) => x.value));
-        generateData.Add(arr.ToArray());
+        generateData.Add(new Data(arr.ToArray()));
+
     }
 
     public void Generate()
@@ -45,7 +54,8 @@ public class LoadableData : ScriptableObject
         RangeCalculator rangeCal = new RangeCalculator(range[0], range[1]);
         Vector2[] callingRanges = rangeCal.CalculateCellRange();
 
-        for(int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y + 1; i++)
+        generateData.Clear();
+        for (int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y + 1; i++)
         {
             GenerateData(ss.rows[i], (int)callingRanges[0].x, (int)callingRanges[1].x);
         }

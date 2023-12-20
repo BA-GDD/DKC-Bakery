@@ -95,10 +95,10 @@ public class EpisodeData : LoadableData
             (
                 new DialogueElement
                 (
-                    AllocateSE(generateData[i][0], generateData[i][1], generateData[i][2]),
-                    AllocateCE(generateData[i][4], generateData[i][5], generateData[i][6], generateData[i][7]),
-                    AllocateME(generateData[i][8], generateData[i][9]),
-                    AllocatePE(generateData[i][3])
+                    AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
+                    AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6], generateData[i].str[7]),
+                    AllocateME(generateData[i].str[8], generateData[i].str[9]),
+                    AllocatePE(generateData[i].str[3])
                 )
             );
         }
@@ -119,8 +119,8 @@ public class EpisodeData : LoadableData
             (
                 (CharacterType)Enum.Parse(typeof(CharacterType), ct),
                 (FaceType)Enum.Parse(typeof(FaceType), ft),
-                Convert.ToBoolean(Convert.ToInt16(ac)),
-                Convert.ToBoolean(Convert.ToInt16(sh))
+                Convert.ToBoolean(ac),
+                Convert.ToBoolean(sh)
             ); 
     }
 
@@ -150,10 +150,12 @@ public class EpisodeLoader : Editor
         LoadableData ld = episodeData;
         if (GUILayout.Button("EpisodeDataReading"))
         {
+            Debug.Log(1);
             episodeData.GeneratDialogueData();
         }
         if (GUILayout.Button("DataGenerate"))
         {
+            Debug.Log(1);
             ld.Generate();
         }
     }

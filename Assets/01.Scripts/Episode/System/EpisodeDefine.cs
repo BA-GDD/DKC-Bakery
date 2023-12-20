@@ -3,20 +3,20 @@ namespace EpisodeDialogueDefine
 {
     public enum CharacterType
     {
-        tart,
-        mawang,
-        person,
-        people
+        reisa,
+        
     }
 
     public enum FaceType
     {
-        smile
+        smile,
+        embrass
     }
 
     public enum BackGroundType
     {
-        Castle
+        Castle,
+        Sheet
     }
 
     public enum FadeOutType
