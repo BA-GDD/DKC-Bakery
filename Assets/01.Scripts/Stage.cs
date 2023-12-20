@@ -5,17 +5,15 @@ using UnityEngine.EventSystems;
 
 public class Stage : MonoBehaviour, IPointerDownHandler
 {
-    private RectTransform rectTransform;
+    private RectTransform _rectangleTransform;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        name = name.Replace("Stage", "");
-        name = name.Insert(0, "Region_");
+        _rectangleTransform = GetComponent<RectTransform>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        (UIManager.Instance.currentSceneUI as MapSceneUI).OnRegionSelect(name.Replace("Region_", ""), rectTransform);
+        (UIManager.Instance.currentSceneUI as MapSceneUI).OnRegionSelect(name.Replace("Region_", ""), _rectangleTransform);
     }
 }

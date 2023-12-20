@@ -6,36 +6,55 @@ using UnityEngine;
 public class MapSceneUI : SceneUI
 {
     [SerializeField]
-    private RectTransform leftStagePanel;
+    private RectTransform _leftStagePanel;
     [SerializeField]
-    private RectTransform rightStagePanel;
+    private RectTransform _leftStageMapPanel;
     [SerializeField]
-    private float stagePanelPositionX;
+    private RectTransform _rightStagePanel;
     [SerializeField]
-    private float stagePanelDuration;
-    private string selectedRegion;
+    private RectTransform _rightStageMapPanel;
+    [SerializeField]
+    private float _stagePanelPositionX;
+    [SerializeField]
+    private float _stagePanelDuration;
+    private string _selectedRegion;
 
-    public void OnRegionSelect(string stageName, RectTransform stageRect)
+    public void OnRegionSelect(string regionName, RectTransform stageRect)
     {
-        if (stageName.Contains("Map"))
+        if (regionName.Contains("Map"))
         {
-            leftStagePanel.DOAnchorPosX(-stagePanelPositionX, stagePanelDuration);
-            rightStagePanel.DOAnchorPosX(stagePanelPositionX, stagePanelDuration);
+            _leftStagePanel.DOAnchorPosX(-_stagePanelPositionX, _stagePanelDuration);
+            _rightStagePanel.DOAnchorPosX(_stagePanelPositionX, _stagePanelDuration);
 
             return;
         }
         else if (stageRect.localPosition.x <= 0)
         {
-            leftStagePanel.DOAnchorPosX(-stagePanelPositionX, stagePanelDuration);
-            rightStagePanel.DOAnchorPosX(-stagePanelPositionX, stagePanelDuration);
+            for (int i = 0; i < _rightStageMapPanel.childCount; ++i)
+            {
+                _rightStageMapPanel.GetChild(i).gameObject.SetActive(false);
+            }
+
+            _leftStagePanel.DOAnchorPosX(-_stagePanelPositionX, _stagePanelDuration);
+            _rightStagePanel.DOAnchorPosX(-_stagePanelPositionX, _stagePanelDuration);
+            _rightStageMapPanel.Find($"StageMap_{regionName}").gameObject.SetActive(true);
         }
         else
         {
-            rightStagePanel.DOAnchorPosX(stagePanelPositionX, stagePanelDuration);
-            leftStagePanel.DOAnchorPosX(stagePanelPositionX, stagePanelDuration);
+            Transform stageMapPanel = _leftStagePanel.GetChild(1);
+
+            for (int i = 0; i < _leftStageMapPanel.childCount; ++i)
+            {
+                _leftStageMapPanel.GetChild(i).gameObject.SetActive(false);
+            }
+
+            _rightStagePanel.DOAnchorPosX(_stagePanelPositionX, _stagePanelDuration);
+            _leftStagePanel.DOAnchorPosX(_stagePanelPositionX, _stagePanelDuration);
+            _leftStageMapPanel.Find($"StageMap_{regionName}").gameObject.SetActive(true);
         }
 
-        selectedRegion = stageName;
-        Debug.Log(selectedRegion);
+        _selectedRegion = regionName;
+
+        Debug.Log(_selectedRegion);
     }
 }
