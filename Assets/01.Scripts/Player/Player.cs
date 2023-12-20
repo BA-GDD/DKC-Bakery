@@ -13,6 +13,9 @@ public class Player : Entity
     [Header("attack settings")]
     public float attackSpeed = 1f;
     public Vector2[] attackMovement;
+    public float[] airAttackRising;
+    [Range(0,1)]
+    public float airXMovementRatio;
 
     [field: SerializeField] public InputReader PlayerInput { get; private set; }
 

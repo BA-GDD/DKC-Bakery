@@ -38,6 +38,7 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     public UnityEvent<float> OnHealthBarChanged;
+    public UnityEvent AttackEvent;
 
     protected virtual void Awake()
     {
@@ -110,7 +111,10 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void Attack()
     {
-        DamageCasterCompo?.CastDamage();
+        if ((DamageCasterCompo?.CastDamage()).Value)
+        {
+            AttackEvent?.Invoke();
+        }
     }
 
     protected virtual IEnumerator HitKnockback(Vector2 direction)

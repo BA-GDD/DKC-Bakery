@@ -55,4 +55,7 @@ public class CloneSkillContoller : MonoBehaviour
     {
     }
 
+    private void AnimationEventTrigger()
+    {
+    }
 }

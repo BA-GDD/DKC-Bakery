@@ -7,6 +7,7 @@ public enum SimpleEnemyStateEnum
 {
     Idle,
     Battle,
+    Move,
     Dead,
     Debug
 }
