@@ -15,6 +15,8 @@ public class DamageCaster : MonoBehaviour
     public LayerMask whatIsEnemy;
     private Collider2D[] _hitResult;
 
+    [SerializeField] private DamagePopupText _popupTextPrefab;
+
     private Entity _owner;
     private bool _castByCloneSkill;
     private void Awake()
@@ -45,6 +47,10 @@ public class DamageCaster : MonoBehaviour
                 {
                     damage = Mathf.RoundToInt(damage * SkillManager.Instance.GetSkill<CloneSkill>().damageMultiplier);
                 }
+
+                DamagePopupText text = Instantiate(_popupTextPrefab);
+                text.PopUpDamage(damage,_hitResult[i].transform.position,false);
+
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }
