@@ -32,7 +32,7 @@ public class DamageCaster : MonoBehaviour
 
     public bool CastDamage()
     {
-        int cnt = Physics2D.OverlapCircle(attackChecker.position, attackCheckRadius, new ContactFilter2D {layerMask = whatIsEnemy, useLayerMask = true }, _hitResult);
+        int cnt = Physics2D.OverlapCircle(attackChecker.position, attackCheckRadius, new ContactFilter2D { layerMask = whatIsEnemy, useLayerMask = true }, _hitResult);
 
         //�̰� ���� ���̴��� ��� �����µ� ������ ����Ƽ���� ����������..����...
         //Physics2D.OverlapCircleAll(attackChecker.position, attackCheckRadius, whatIsEnemy);
@@ -47,10 +47,8 @@ public class DamageCaster : MonoBehaviour
                 {
                     damage = Mathf.RoundToInt(damage * SkillManager.Instance.GetSkill<CloneSkill>().damageMultiplier);
                 }
-
                 DamagePopupText text = Instantiate(_popupTextPrefab);
                 text.PopUpDamage(damage,_hitResult[i].transform.position,false);
-
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }

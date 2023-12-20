@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce1b4eee7b77cf943856c2370f0199fe, type: 3}
-  m_Name: PlayerStat
+  m_Script: {fileID: 11500000, guid: c3188bf866bca4a48b646ae953e1637a, type: 3}
+  m_Name: SimpleEnemyStat
   m_EditorClassIdentifier: 
   strength:
-    _baseValue: 10
+    _baseValue: 0
     modifiers: 
   agility:
-    _baseValue: 3
+    _baseValue: 0
     modifiers: 
   intelligence:
-    _baseValue: 1
+    _baseValue: 0
     modifiers: 
   vitality:
-    _baseValue: 5
+    _baseValue: 0
     modifiers: 
   maxHealth:
-    _baseValue: 0
+    _baseValue: 1000
     modifiers: 
   armor:
     _baseValue: 0
@@ -63,3 +63,5 @@ MonoBehaviour:
   shockPercent:
     _baseValue: 0
     modifiers: 
+  _level: 0
+  _percentageModifier: 0

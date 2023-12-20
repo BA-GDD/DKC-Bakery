@@ -27,7 +27,7 @@ public class PlayerWallSlideState : PlayerState
         float xInput = _player.PlayerInput.XInput;
         float yInput = _player.PlayerInput.YInput;
 
-        if(yInput < 0)
+        if (yInput < 0)
         {
             _player.SetVelocity(0, _rigidbody.velocity.y, false);
         }
@@ -36,11 +36,14 @@ public class PlayerWallSlideState : PlayerState
             _player.SetVelocity(0, _rigidbody.velocity.y * 0.7f, false);
         }
 
-        //x축이 눌렸고 현재 진행방향과 반대라면 Idle로 변경
-        if( Mathf.Abs(  _player.FacingDirection + Mathf.Sign(xInput) ) < 0.5f )
+        if (Mathf.Abs(xInput) > 0.5f)
         {
-            _stateMachine.ChangeState(PlayerStateEnum.Idle);
-            return;
+            //x축이 눌렸고 현재 진행방향과 반대라면 Idle로 변경
+            if (Mathf.Abs(_player.FacingDirection + Mathf.Sign(xInput)) < 0.5f)
+            {
+                _stateMachine.ChangeState(PlayerStateEnum.Idle);
+                return;
+            }
         }
 
         if (_player.IsGroundDetected())

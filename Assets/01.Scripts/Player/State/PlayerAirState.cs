@@ -11,10 +11,12 @@ public abstract class PlayerAirState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        _player.PlayerInput.PrimaryAttackEvent += HandleAirAttackEvent;
     }
 
     public override void Exit()
     {
+        _player.PlayerInput.PrimaryAttackEvent -= HandleAirAttackEvent;
         base.Exit();
     }
 
@@ -31,6 +33,13 @@ public abstract class PlayerAirState : PlayerState
         if(_player.IsWallDetected() )
         {
             _stateMachine.ChangeState(PlayerStateEnum.WallSlide);
+        }
+    }
+    private void HandleAirAttackEvent()
+    {
+        if (!_player.IsGroundDetected())
+        {
+            _stateMachine.ChangeState(PlayerStateEnum.AirAttack);
         }
     }
 }
