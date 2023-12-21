@@ -12,6 +12,8 @@ public class SyntexLog : MonoBehaviour
 
     public void SetLog(LogData logData)
     {
-
+        _profile.sprite = logData.characterSprite;
+        _nameText.text = logData.characterName;
+        _syntexText.text = logData.characterSyntex;
     }
 }
