@@ -23,7 +23,7 @@ public class AutoTextingSystem : MonoBehaviour
 
     public void Update()
     {
-        if (_episodeManager.IsTextInTyping || !_isInAuto) return;
+        if (_episodeManager.isTextInTyping || !_isInAuto) return;
 
         if(_currentSecond >= _waitTime)
         {

@@ -51,9 +51,9 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     private void SkipText()
     {
-        if(_episodeManager.IsTextInTyping && Input.GetMouseButtonDown(0))
+        if(_episodeManager.isTextInTyping && Input.GetMouseButtonDown(0))
         {
-            _episodeManager.IsTextInTyping = false;
+            _episodeManager.isTextInTyping = false;
             _syntexTextTmp.text = _syntexText;
             
         }
@@ -61,7 +61,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     private void TypingText()
     {
-        if (_episodeManager.IsTextInTyping)
+        if (_episodeManager.isTextInTyping)
         {
             if (_typingTime >= _currentTime)
             {
@@ -70,7 +70,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
                 _currentTime = 0;
                 _idx++;
-                if (_idx >= _syntexText.Length) _episodeManager.IsTextInTyping = false;
+                if (_idx >= _syntexText.Length) _episodeManager.isTextInTyping = false;
             }
             _currentTime += Time.deltaTime;
         }
@@ -82,7 +82,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
         _syntexBuilder.Clear();
         _idx = 0;
 
-        _episodeManager.IsTextInTyping = true;
+        _episodeManager.isTextInTyping = true;
     }
 
     public void HandleStandardElementDraw(string name, string syntex, BackGroundType bgType)
