@@ -26,7 +26,6 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _syntexTextTmp;
     private string _syntexText;
-    private bool _inTyping;
     private StringBuilder _syntexBuilder = new StringBuilder();
     private int _idx;
 
@@ -37,6 +36,13 @@ public class EpisodeDialogueDrawer : MonoBehaviour
     [SerializeField] private List<Sprite> _backGroundSpriteList = new List<Sprite>();
     private BackGroundType _bgType;
 
+    private EpisodeManager _episodeManager;
+
+    private void Start()
+    {
+        _episodeManager = EpisodeManager.Instanace;
+    }
+
     private void FixedUpdate()
     {
         TypingText();
@@ -45,9 +51,9 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     private void SkipText()
     {
-        if(_inTyping && Input.GetMouseButtonDown(0))
+        if(_episodeManager.IsTextInTyping && Input.GetMouseButtonDown(0))
         {
-            _inTyping = false;
+            _episodeManager.IsTextInTyping = false;
             _syntexTextTmp.text = _syntexText;
             
         }
@@ -55,7 +61,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     private void TypingText()
     {
-        if (_inTyping)
+        if (_episodeManager.IsTextInTyping)
         {
             if (_typingTime >= _currentTime)
             {
@@ -64,7 +70,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
                 _currentTime = 0;
                 _idx++;
-                if (_idx >= _syntexText.Length) _inTyping = false;
+                if (_idx >= _syntexText.Length) _episodeManager.IsTextInTyping = false;
             }
             _currentTime += Time.deltaTime;
         }
@@ -76,7 +82,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
         _syntexBuilder.Clear();
         _idx = 0;
 
-        _inTyping = true;
+        _episodeManager.IsTextInTyping = true;
     }
 
     public void HandleStandardElementDraw(string name, string syntex, BackGroundType bgType)
