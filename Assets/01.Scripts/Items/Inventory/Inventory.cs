@@ -12,6 +12,7 @@ public class Inventory : MonoSingleton<Inventory>
     [Header("ParentTrms")]
     [SerializeField] private Transform _ingredientParent; 
     [SerializeField] private Transform _breadParent;
+    
 
     [Header("Events")]
     public UnityEvent<int> onRemoveBreadTrigger; 

@@ -7,4 +7,5 @@ using UnityEngine;
 public class ItemDataIngredientSO : ItemDataSO
 {
     public int itemIndex;
+    public IngredientType ingredientType;
 }
