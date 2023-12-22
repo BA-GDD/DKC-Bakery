@@ -41,4 +41,18 @@ namespace EpisodeDialogueDefine
         ToLeft,
         ToRight,
     }
+
+    public enum EmotionType
+    {
+        None,
+        Happy,
+        Sad,
+        Shock,
+        Idea,
+        Curious,
+        Think,
+
+        Sparcle,
+        Swear
+    }
 }

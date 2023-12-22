@@ -7,7 +7,6 @@ using System;
 
 public class EpisodeDialogueCore : MonoBehaviour
 {
-    private int _dialogueIdx = 0;
     [SerializeField] private EpisodeData _selectEpisodeData;
     private DialogueElement _selectDialogueElement;
 
@@ -16,11 +15,6 @@ public class EpisodeDialogueCore : MonoBehaviour
     [SerializeField] private UnityEvent<CharacterType, FaceType, bool, bool> CharacterDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, MoveType, ExitType> CharacterMoveEvent;
 
-    private void Awake()
-    {
-        _dialogueIdx = 0;
-    }
-
     public void HandleEpisodeStart(EpisodeData episodeData)
     {
         _selectEpisodeData = episodeData;
@@ -28,7 +22,7 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     public void HandleNextDialogue()
     {
-        _selectDialogueElement = _selectEpisodeData.dialogueElement[_dialogueIdx];
+        _selectDialogueElement = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx];
 
         StandardDrawEvent?.Invoke(_selectDialogueElement.standardElement.name,
                                   _selectDialogueElement.standardElement.sentence,
@@ -45,6 +39,9 @@ public class EpisodeDialogueCore : MonoBehaviour
                                    _selectDialogueElement.movementElement.moveType,
                                    _selectDialogueElement.movementElement.exitTpe);
 
-        _dialogueIdx++;
+        EpisodeManager.Instanace.AddDialogeLogData(_selectDialogueElement.characterElement.characterType,
+                                                   _selectDialogueElement.standardElement.name,
+                                                   _selectDialogueElement.standardElement.sentence);
+        EpisodeManager.Instanace.dialogueIdx++;
     }
 }

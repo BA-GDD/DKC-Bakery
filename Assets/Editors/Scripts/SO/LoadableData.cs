@@ -4,7 +4,7 @@ using UnityEngine;
 using GoogleSheetsToUnity;
 using UnityEngine.Events;
 using System;
-using UnityEditor;
+using System.Text.RegularExpressions;
 
 [Serializable]
 public struct Data
@@ -65,20 +65,25 @@ public class LoadableData : ScriptableObject
 public class RangeCalculator
 {
     private string[] _cellMarks = new string[2];
+    private char[] _wordRangeGroup = new char[2];
+    private int[] _numberRangeGroup = new int[2];
 
-    private const string _wordGroup = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private const string _wordGroupBase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private const int _maxColumnLength = 4000;
 
     public RangeCalculator(string cellMark_1, string cellMark_2)
     {
-        if(cellMark_1.Length != 2 || cellMark_2.Length != 2)
-        {
-            Debug.LogError("Error : CellRange is not proper. plz re Write CellRange!");
-            return;
-        }
+        Debug.Log($"{cellMark_1}, {cellMark_2}");
 
         _cellMarks[0] = cellMark_1;
         _cellMarks[1] = cellMark_2;
+
+        for(int i = 0; i < _cellMarks.Length; i++)
+        {
+            MatchCollection matches = Regex.Matches(_cellMarks[i], "[A-Za-z]+|[0-9]+");
+            _wordRangeGroup[i] = matches[0].Value[0]; // 짜피 Z안넘어감~ 몰라래후~
+            _numberRangeGroup[i] = Convert.ToInt32(matches[1].Value);
+        }
     }
 
     // 행 시작 인덱스 = 00, 열 시작 인덱스 = 01,
@@ -89,9 +94,9 @@ public class RangeCalculator
 
         for(int t = 0; t < value.Length; t++)
         {
-            for (int i = 0; i < _wordGroup.Length; i++)
+            for (int i = 0; i < _wordGroupBase.Length; i++)
             {
-                if (_cellMarks[t][0] == _wordGroup[i])
+                if (_wordRangeGroup[t] == _wordGroupBase[i])
                 {
                     value[t].x = i;
                     break;
@@ -100,7 +105,7 @@ public class RangeCalculator
 
             int left = 1;
             int right = _maxColumnLength;
-            int target = _cellMarks[t][1] - '0';
+            int target = _numberRangeGroup[t];
 
             while (left <= right)
             {
