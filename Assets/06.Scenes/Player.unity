@@ -1697,6 +1697,7 @@ GameObject:
   - component: {fileID: 859669747}
   - component: {fileID: 859669746}
   - component: {fileID: 859669749}
+  - component: {fileID: 859669750}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1869,6 +1870,18 @@ MonoBehaviour:
   isLastHitCritical: 0
   lastAttackDirection: {x: 0, y: 0}
   isHitByMelee: 0
+--- !u!114 &859669750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859669744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712cfd61dbb8ffb428d32ead4af6db05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &865766422
 GameObject:
   m_ObjectHideFlags: 0
