@@ -8,6 +8,7 @@ public class SwordAuraContoller : MonoBehaviour
     private SwordAuraSkill _skill;
     private Rigidbody2D _rigid;
     private SpriteRenderer _render;
+    private DamageCaster _dmgCaster;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class SwordAuraContoller : MonoBehaviour
     public void SetUpAura(SwordAuraSkill skill,Transform origin, Vector2 direction)
     {
         _skill = skill;
+        _dmgCaster.SetOwner(skill.);
 
         transform.position = origin.transform.position;
 
@@ -35,5 +37,9 @@ public class SwordAuraContoller : MonoBehaviour
         {
             Destroy(gameObject);
         });
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _dmgCaster.CastDamage();
     }
 }
