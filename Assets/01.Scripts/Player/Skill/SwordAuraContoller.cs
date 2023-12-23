@@ -19,7 +19,7 @@ public class SwordAuraContoller : MonoBehaviour
     public void SetUpAura(SwordAuraSkill skill,Transform origin, Vector2 direction)
     {
         _skill = skill;
-        _dmgCaster.SetOwner(skill.);
+        //_dmgCaster.SetOwner(skill.);
 
         transform.position = origin.transform.position;
 

@@ -3,17 +3,32 @@ using UnityEngine;
 using EpisodeDialogueDefine;
 using System;
 
+[Serializable]
+public struct CharacterElementGroup
+{
+    public CharacterStandard characterStand;
+    public Transform[] emotionTrm;
+}
+
+public struct EmotionElementGroup
+{
+    public Sprite elementImg;
+    public AnimationClip elementClip;
+}
+
 public class EpisodeCharacterDrawer : MonoBehaviour
 {
-    [SerializeField] private CharacterStandard[] _characterStandArr;
+    [SerializeField] private CharacterElementGroup[] _characterGroupArr;
+    [SerializeField] private EmotionElementGroup[] _emotionGroupArr;
     private Dictionary<CharacterType, CharacterStandard> _characterSelectDictionary = new Dictionary<CharacterType, CharacterStandard>();
+    private Dictionary<CharacterType, MoveType> _characterPosSaveDic = new Dictionary<CharacterType, MoveType>();
     private CharacterStandard _selectCharacter;
 
     private void Awake()
     {
         foreach(CharacterType ct in Enum.GetValues(typeof(CharacterType)))
         {
-            _characterSelectDictionary.Add(ct, _characterStandArr[(int)ct]);
+            _characterSelectDictionary.Add(ct, _characterGroupArr[(int)ct].characterStand);
         }
     }
 
@@ -29,8 +44,30 @@ public class EpisodeCharacterDrawer : MonoBehaviour
 
     public void HandleCharacterMoveDraw(CharacterType ct, MoveType moveType, ExitType exitType)
     {
+        SaveCharacterPos(ct, moveType);
+
         _selectCharacter = _characterSelectDictionary[ct];
         _selectCharacter.MoveCharacter(moveType);
         _selectCharacter.ExitCharacter(exitType);
+    }
+
+    public void HandleDialogueEffectDraw(CharacterType ct, EmotionType emo)
+    {
+        DialogueEffect de = PoolManager.Instance.Pop("DialogueEffect") as DialogueEffect;
+        int idx = Mathf.Clamp((int)_characterPosSaveDic[ct] - 1, 0, 1);
+        de.transform.localPosition = _characterGroupArr[(int)ct].emotionTrm[idx].localPosition;
+
+        EmotionElementGroup eg = _emotionGroupArr[(int)emo];
+        de.StartEffect(eg.elementImg, eg.elementClip, _characterPosSaveDic[ct]);
+    }
+
+    private void SaveCharacterPos(CharacterType ct, MoveType mt)
+    {
+        if (_characterPosSaveDic.ContainsKey(ct))
+        {
+            _characterPosSaveDic[ct] = mt;
+            return;
+        }
+        _characterPosSaveDic.Add(ct, mt);
     }
 }

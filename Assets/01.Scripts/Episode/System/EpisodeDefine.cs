@@ -51,8 +51,7 @@ namespace EpisodeDialogueDefine
         Idea,
         Curious,
         Think,
-
-        Sparcle,
-        Swear
+        Sparkle,
+        Sweat
     }
 }
