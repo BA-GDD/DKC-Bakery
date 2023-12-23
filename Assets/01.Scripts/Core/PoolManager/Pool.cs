@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pool<T> where T : PoolableMono
 {
-    private Queue<T> _pool;
+    private Queue<T> _pool = new Queue<T>();
     private Transform _parnet;
     private T _prefab;
 

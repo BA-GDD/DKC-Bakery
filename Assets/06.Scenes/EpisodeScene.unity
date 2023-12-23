@@ -944,6 +944,23 @@ MonoBehaviour:
     emotionTrm:
     - {fileID: 2147235438}
     - {fileID: 1687359803}
+  _emotionGroupArr:
+  - elementImg: {fileID: 21300000, guid: 9beb60cbc1e287f48a528b0091e9e9d7, type: 3}
+    elementClip: {fileID: 7400000, guid: 3bece74bdbd54f94d824c029d3f5c373, type: 2}
+  - elementImg: {fileID: 21300000, guid: 828c7b65c350b974083a3919e63f7966, type: 3}
+    elementClip: {fileID: 7400000, guid: 3bece74bdbd54f94d824c029d3f5c373, type: 2}
+  - elementImg: {fileID: 21300000, guid: 52f142f5556e1a1469da3355e8c01f43, type: 3}
+    elementClip: {fileID: 7400000, guid: 3bece74bdbd54f94d824c029d3f5c373, type: 2}
+  - elementImg: {fileID: 21300000, guid: 301b69121e355c44a9c45220325869c5, type: 3}
+    elementClip: {fileID: 7400000, guid: 06ed9bb3623464f4c8a085a71d76a2a0, type: 2}
+  - elementImg: {fileID: 21300000, guid: 2645e1466e9546d44865da2df0d89c17, type: 3}
+    elementClip: {fileID: 7400000, guid: e38cf16e5c733a34c8f36739baeb232f, type: 2}
+  - elementImg: {fileID: 21300000, guid: 83c82afdb12e5b749979ae06a96adb89, type: 3}
+    elementClip: {fileID: 7400000, guid: be2cb9f071cb68243ae05c403454e15d, type: 2}
+  - elementImg: {fileID: 21300000, guid: 937160672f9980148ae04304c663103b, type: 3}
+    elementClip: {fileID: 7400000, guid: 5f67cb6d0f08434418dc4f521489c869, type: 2}
+  - elementImg: {fileID: 21300000, guid: 7cbe583bea564ee439fcbfd28b95fa9b, type: 3}
+    elementClip: {fileID: 7400000, guid: f3428fce8d887824d8a2a48a9e84d1c3, type: 2}
 --- !u!1 &715783660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,6 +1540,7 @@ RectTransform:
   - {fileID: 1182893024}
   - {fileID: 420828514}
   - {fileID: 451313873}
+  - {fileID: 1022479629}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1540,6 +1558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1022479629}
   - component: {fileID: 1022479628}
+  - component: {fileID: 1022479630}
   m_Layer: 0
   m_Name: EpisodeManager
   m_TagString: Untagged
@@ -1593,22 +1612,39 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d89fd84e3b2718e488827b469742ec49, type: 3}
   dialogueIdx: 0
   isTextInTyping: 0
-  _poolList: {fileID: 0}
---- !u!4 &1022479629
-Transform:
+  _poolList: {fileID: 11400000, guid: c18117bb158dcf642b3dd304381ef447, type: 2}
+  _poolManager: {fileID: 1022479630}
+--- !u!224 &1022479629
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022479627}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1020266858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1022479630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022479627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d37f13645459045ba52a888e43b02b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1044465141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,6 +2479,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  CharacterEmotionEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 689378336}
+        m_TargetAssemblyTypeName: EpisodeCharacterDrawer, Assembly-CSharp
+        m_MethodName: HandleDialogueEffectDraw
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1735095155
 Transform:
   m_ObjectHideFlags: 0
@@ -2879,4 +2930,3 @@ SceneRoots:
   - {fileID: 1735095155}
   - {fileID: 1020266858}
   - {fileID: 1107430702}
-  - {fileID: 1022479629}

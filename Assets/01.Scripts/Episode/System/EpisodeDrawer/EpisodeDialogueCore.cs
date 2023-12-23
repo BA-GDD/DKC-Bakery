@@ -14,6 +14,7 @@ public class EpisodeDialogueCore : MonoBehaviour
     [SerializeField] private UnityEvent<FadeOutType> ProductionDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, FaceType, bool, bool> CharacterDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, MoveType, ExitType> CharacterMoveEvent;
+    [SerializeField] private UnityEvent<CharacterType, EmotionType> CharacterEmotionEvent;
 
     public void HandleEpisodeStart(EpisodeData episodeData)
     {
@@ -38,6 +39,9 @@ public class EpisodeDialogueCore : MonoBehaviour
         CharacterMoveEvent?.Invoke(_selectDialogueElement.characterElement.characterType,
                                    _selectDialogueElement.movementElement.moveType,
                                    _selectDialogueElement.movementElement.exitTpe);
+
+        CharacterEmotionEvent?.Invoke(_selectDialogueElement.characterElement.characterType,
+                                      _selectDialogueElement.characterElement.emotionType);
 
         EpisodeManager.Instanace.AddDialogeLogData(_selectDialogueElement.characterElement.characterType,
                                                    _selectDialogueElement.standardElement.name,

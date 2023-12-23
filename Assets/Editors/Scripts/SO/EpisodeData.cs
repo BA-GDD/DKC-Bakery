@@ -27,13 +27,15 @@ public struct DialogueCharacterElement
     public FaceType faceType;
     public bool isActive;
     public bool isShake;
+    public EmotionType emotionType;
 
-    public DialogueCharacterElement(CharacterType ct,FaceType ft, bool ac, bool sh)
+    public DialogueCharacterElement(CharacterType ct,FaceType ft, bool ac, bool sh, EmotionType et)
     {
         characterType = ct;
         faceType = ft;
         isActive = ac;
         isShake = sh;
+        emotionType = et;
     }
 }
 
@@ -96,7 +98,7 @@ public class EpisodeData : LoadableData
                 new DialogueElement
                 (
                     AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
-                    AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6], generateData[i].str[7]),
+                    AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6], generateData[i].str[7], generateData[i].str[10]),
                     AllocateME(generateData[i].str[8], generateData[i].str[9]),
                     AllocatePE(generateData[i].str[3])
                 )
@@ -113,15 +115,16 @@ public class EpisodeData : LoadableData
             );
     }
 
-    private DialogueCharacterElement AllocateCE(string ct, string ft, string ac, string sh)
+    private DialogueCharacterElement AllocateCE(string ct, string ft, string ac, string sh, string et)
     {
         return new DialogueCharacterElement
             (
                 (CharacterType)Enum.Parse(typeof(CharacterType), ct),
                 (FaceType)Enum.Parse(typeof(FaceType), ft),
                 Convert.ToBoolean(ac),
-                Convert.ToBoolean(sh)
-            ); 
+                Convert.ToBoolean(sh),
+                (EmotionType)Enum.Parse(typeof(EmotionType), et)
+            ) ; 
     }
 
     private DialogueMoveElement AllocateME(string mt, string et)
@@ -150,12 +153,12 @@ public class EpisodeLoader : Editor
         LoadableData ld = episodeData;
         if (GUILayout.Button("EpisodeDataReading"))
         {
-            Debug.Log(1);
+            Debug.Log("DataReading Start . . .");
             episodeData.GeneratDialogueData();
         }
         if (GUILayout.Button("DataGenerate"))
         {
-            Debug.Log(1);
+            Debug.Log("DataGenerate Start . . .");
             ld.Generate();
         }
     }

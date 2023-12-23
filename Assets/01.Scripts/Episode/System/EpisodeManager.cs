@@ -45,7 +45,7 @@ public class EpisodeManager : MonoBehaviour
 
     [SerializeField] private PoolListSO _poolList;
 
-    private PoolManager _poolManager = new PoolManager();
+    [SerializeField] private PoolManager _poolManager;
 
     private void Start()
     {

@@ -10,6 +10,7 @@ public struct CharacterElementGroup
     public Transform[] emotionTrm;
 }
 
+[Serializable]
 public struct EmotionElementGroup
 {
     public Sprite elementImg;
@@ -53,11 +54,13 @@ public class EpisodeCharacterDrawer : MonoBehaviour
 
     public void HandleDialogueEffectDraw(CharacterType ct, EmotionType emo)
     {
+        if (emo == EmotionType.None) return;
+
         DialogueEffect de = PoolManager.Instance.Pop("DialogueEffect") as DialogueEffect;
         int idx = Mathf.Clamp((int)_characterPosSaveDic[ct] - 1, 0, 1);
         de.transform.localPosition = _characterGroupArr[(int)ct].emotionTrm[idx].localPosition;
 
-        EmotionElementGroup eg = _emotionGroupArr[(int)emo];
+        EmotionElementGroup eg = _emotionGroupArr[(int)emo - 1];
         de.StartEffect(eg.elementImg, eg.elementClip, _characterPosSaveDic[ct]);
     }
 
