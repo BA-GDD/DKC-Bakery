@@ -7,7 +7,7 @@ using System;
 public struct CharacterElementGroup
 {
     public CharacterStandard characterStand;
-    public Transform[] emotionTrm;
+    public RectTransform[] emotionTrm;
 }
 
 [Serializable]
@@ -58,7 +58,8 @@ public class EpisodeCharacterDrawer : MonoBehaviour
 
         DialogueEffect de = PoolManager.Instance.Pop("DialogueEffect") as DialogueEffect;
         int idx = Mathf.Clamp((int)_characterPosSaveDic[ct] - 1, 0, 1);
-        de.transform.localPosition = _characterGroupArr[(int)ct].emotionTrm[idx].localPosition;
+        de.transform.parent = _characterGroupArr[(int)ct].emotionTrm[idx];
+        de.transform.localPosition = Vector3.zero;
 
         EmotionElementGroup eg = _emotionGroupArr[(int)emo - 1];
         de.StartEffect(eg.elementImg, eg.elementClip, _characterPosSaveDic[ct]);
