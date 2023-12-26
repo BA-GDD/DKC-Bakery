@@ -49,7 +49,7 @@ public class EpisodeManager : MonoBehaviour
 
     private void Start()
     {
-        _poolManager.Init(_poolList);
+        //_poolManager.Init(_poolList);
     }
 
     public void AddDialogeLogData(CharacterType ct, string name, string syntex)

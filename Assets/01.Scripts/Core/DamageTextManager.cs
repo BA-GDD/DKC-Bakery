@@ -22,6 +22,7 @@ public class DamageTextManager : MonoSingleton<DamageTextManager>
     {
         if (!_popupDamageText) return; //텍스트가 뜨기로 되어 있을 때만 띄운다.
 
+
         DamageText _damageText = PoolManager.Instance.Pop(PoolingType.DamageText) as DamageText;
 
         int idx = (int)category;

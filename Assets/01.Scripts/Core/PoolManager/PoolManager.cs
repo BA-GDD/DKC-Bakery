@@ -5,6 +5,8 @@ using UnityEngine;
 public enum PoolingType
 {
     DamageText,
+    DialogueEffect,
+
 }
 
 public class PoolManager
@@ -21,10 +23,7 @@ public class PoolManager
 
     public void CreatePool(PoolableMono prefab, PoolingType poolingType, int count = 10)
     {
-        for (int i = 0; i < count; i++)
-        {
-            _poolDic.Add(poolingType, new Pool<PoolableMono>(prefab, poolingType, _parentTrm, count));
-        }
+        _poolDic.Add(poolingType, new Pool<PoolableMono>(prefab, poolingType, _parentTrm, count));
     }
     public void Push(PoolableMono obj)
     {
