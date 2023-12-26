@@ -43,14 +43,6 @@ public class EpisodeManager : MonoBehaviour
     [HideInInspector] public List<LogData> dialogueLog = new List<LogData>();
     [HideInInspector] public bool isTextInTyping;
 
-    [SerializeField] private PoolListSO _poolList;
-
-    [SerializeField] private PoolManager _poolManager;
-
-    private void Start()
-    {
-        _poolManager.Init(_poolList);
-    }
 
     public void AddDialogeLogData(CharacterType ct, string name, string syntex)
     {
