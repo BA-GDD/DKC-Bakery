@@ -120,7 +120,7 @@ public class Health : MonoBehaviour, IDamageable
         lastAttackDirection = (transform.position - dealer.transform.position).normalized;
 
         //여기서 데미지 띄워주기
-        //DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
+        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
         //감전데미지 체크
         CheckAilmentByDamage(damage);

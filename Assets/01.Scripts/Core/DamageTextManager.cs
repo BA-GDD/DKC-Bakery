@@ -9,7 +9,7 @@ public enum DamageCategory
     Heal = 2,
     Debuff = 3,
 }
-public class DamageTextManeger : MonoSingleton<DamageTextManeger>
+public class DamageTextManager : MonoSingleton<DamageTextManager>
 {
     public bool _popupDamageText;
 

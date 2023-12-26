@@ -41,11 +41,6 @@ public class DamageCaster : MonoBehaviour
                 {
                     damage = Mathf.RoundToInt(damage * SkillManager.Instance.GetSkill<CloneSkill>().damageMultiplier);
                 }
-<<<<<<< Updated upstream
-                Debug.Log(damage);
-=======
-
->>>>>>> Stashed changes
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }

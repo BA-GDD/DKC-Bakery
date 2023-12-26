@@ -6,11 +6,8 @@ public class SwordAuraContoller : MonoBehaviour
     private SwordAuraSkill _skill;
     private Rigidbody2D _rigid;
     private SpriteRenderer _render;
-<<<<<<< Updated upstream
-=======
 
     private Player _player;
->>>>>>> Stashed changes
 
     private void Awake()
     {
@@ -22,10 +19,7 @@ public class SwordAuraContoller : MonoBehaviour
     public void SetUpAura(SwordAuraSkill skill, Transform origin, Vector2 direction, Player player)
     {
         _skill = skill;
-<<<<<<< Updated upstream
-=======
         _player = player;
->>>>>>> Stashed changes
 
         transform.position = origin.transform.position;
 
@@ -44,8 +38,6 @@ public class SwordAuraContoller : MonoBehaviour
             Destroy(gameObject);
         });
     }
-<<<<<<< Updated upstream
-=======
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Enemy>(out Enemy enemy))
@@ -71,5 +63,4 @@ public class SwordAuraContoller : MonoBehaviour
         //데미지 줄때마다 소드 스킬 피드백 발동시키기.(소드는 UseSkill을 안써)
         //SkillManager.Instance.UseSkillFeedback(PlayerSkill.Sword);
     }
->>>>>>> Stashed changes
 }
