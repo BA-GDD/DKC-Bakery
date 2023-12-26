@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class EpisodeDialogueDrawer : MonoBehaviour
 {
+    [SerializeField] private GameObject _nameBase;
     [SerializeField] private TextMeshProUGUI _nameTextTmp;
     private string _nameText;
     private string _nameTextPro
@@ -34,7 +35,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     [SerializeField] private Image[] _backGround;
     [SerializeField] private List<Sprite> _backGroundSpriteList = new List<Sprite>();
-    private BackGroundType _bgType;
+    private BackGroundType _bgType = BackGroundType.Castle;
 
     private EpisodeManager _episodeManager;
 
@@ -87,6 +88,8 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     public void HandleStandardElementDraw(string name, string syntex, BackGroundType bgType)
     {
+        _nameBase.SetActive(name != string.Empty);
+
         _nameTextPro = name;
         _syntexText = syntex;
         ResetFunctions();
@@ -99,6 +102,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
     {
         _backGround[0].sprite = _backGround[1].sprite;
         _backGround[1].color = new Color(1, 1, 1, 0);
+        Debug.Log(bgType);
         _backGround[1].sprite = _backGroundSpriteList[(int)bgType];
         _backGround[1].DOFade(1, 0.3f);
         _bgType = bgType;

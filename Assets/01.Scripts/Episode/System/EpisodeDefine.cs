@@ -3,18 +3,21 @@ namespace EpisodeDialogueDefine
 {
     public enum CharacterType
     {
-        reisa,
-        
+        tart,
+        mawang
     }
 
     public enum FaceType
     {
         smile,
-        embrass
+        surprise,
+        angry,
+        sad,
     }
 
     public enum BackGroundType
     {
+        Black,
         Castle,
         Sheet
     }
@@ -25,6 +28,7 @@ namespace EpisodeDialogueDefine
         Normal,
         UpToDown,
         LeftToRight,
+        Maintain
     }
 
     public enum MoveType
@@ -53,5 +57,15 @@ namespace EpisodeDialogueDefine
         Think,
         Sparkle,
         Sweat
+    }
+
+    public enum SFXType
+    {
+
+    }
+
+    public enum BGMType
+    {
+
     }
 }
