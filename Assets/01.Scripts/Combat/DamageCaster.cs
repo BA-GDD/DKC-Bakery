@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DamageCaster : MonoBehaviour
 {
@@ -28,7 +24,7 @@ public class DamageCaster : MonoBehaviour
         _castByCloneSkill = castByCloneSkill;
     }
 
-    public bool CastDamage()
+    public virtual bool CastDamage()
     {
         int cnt = Physics2D.OverlapCircle(attackChecker.position, attackCheckRadius, new ContactFilter2D { layerMask = whatIsEnemy, useLayerMask = true }, _hitResult);
 
@@ -45,7 +41,11 @@ public class DamageCaster : MonoBehaviour
                 {
                     damage = Mathf.RoundToInt(damage * SkillManager.Instance.GetSkill<CloneSkill>().damageMultiplier);
                 }
+<<<<<<< Updated upstream
                 Debug.Log(damage);
+=======
+
+>>>>>>> Stashed changes
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }
@@ -78,7 +78,7 @@ public class DamageCaster : MonoBehaviour
         //}
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         if (attackChecker != null)
             Gizmos.DrawWireSphere(attackChecker.position, attackCheckRadius);
