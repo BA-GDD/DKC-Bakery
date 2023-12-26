@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class EpisodeDialogueDrawer : MonoBehaviour
 {
+    [SerializeField] private GameObject _nameBase;
     [SerializeField] private TextMeshProUGUI _nameTextTmp;
     private string _nameText;
     private string _nameTextPro
@@ -87,6 +88,8 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     public void HandleStandardElementDraw(string name, string syntex, BackGroundType bgType)
     {
+        _nameBase.SetActive(name != string.Empty);
+
         _nameTextPro = name;
         _syntexText = syntex;
         ResetFunctions();

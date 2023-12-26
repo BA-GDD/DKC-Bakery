@@ -58,4 +58,14 @@ namespace EpisodeDialogueDefine
         Sparkle,
         Sweat
     }
+
+    public enum SFXType
+    {
+
+    }
+
+    public enum BGMType
+    {
+
+    }
 }
