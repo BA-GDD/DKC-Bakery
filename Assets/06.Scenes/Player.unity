@@ -1035,7 +1035,6 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
-  _popupTextPrefab: {fileID: 0}
 --- !u!1 &644787013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,7 +2669,6 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
-  _popupTextPrefab: {fileID: 0}
 --- !u!1001 &1248755574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2868,7 +2866,6 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
-  _popupTextPrefab: {fileID: 7301192598319959032, guid: 6a6136265c5f16c438f44ada3bbb7489, type: 3}
 --- !u!1 &1335361545
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,7 +3605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc43f3ece354e34da1bd7e6f6793b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _popupDamageText: 0
+  _popupDamageText: 1
   _textColors:
   - {r: 0.8867924, g: 0.64444417, b: 0, a: 1}
   - {r: 0.5660378, g: 0, b: 0, a: 1}
@@ -3702,7 +3699,6 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
-  _popupTextPrefab: {fileID: 0}
 --- !u!1 &1987742296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,6 +3729,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 859669746}
+  _poolingList: {fileID: 11400000, guid: c18117bb158dcf642b3dd304381ef447, type: 2}
+  _poolingTrm: {fileID: 839149851}
 --- !u!4 &1987742298
 Transform:
   m_ObjectHideFlags: 0
