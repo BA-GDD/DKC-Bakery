@@ -9,7 +9,8 @@ public enum SimpleEnemyStateEnum
     Battle,
     Move,
     Dead,
-    Debug
+    Attack,
+    Stuned
 }
 
 public class SimpleEnemy : Enemy
@@ -54,26 +55,26 @@ public class SimpleEnemy : Enemy
         StateMachine.ChangeState(SimpleEnemyStateEnum.Dead);
     }
 
-    //public override bool CanBeStunned()
-    //{
-    //    if (base.CanBeStunned())
-    //    {
-    //        StateMachine.ChangeState(SimpleEnemyStateEnum.Stuned);
-    //        return true;
-    //    }
+    public override bool CanBeStunned()
+    {
+        if (base.CanBeStunned())
+        {
+            StateMachine.ChangeState(SimpleEnemyStateEnum.Stuned);
+            return true;
+        }
 
-    //    return false;
-    //}
+        return false;
+    }
 
 
 
-    //protected override void HandleHit()
-    //{
-    //    base.HandleHit();
-    //    if (!_isFrozenWithoutTimer)
+    protected override void HandleHit()
+    {
+        base.HandleHit();
+        if (!_isFrozenWithoutTimer)
 
-    //        StateMachine.ChangeState(SkelectonStateEnum.Battle); //���ݻ��·� �ѱ��.
-    //}
+            StateMachine.ChangeState(SimpleEnemyStateEnum.Battle); //���ݻ��·� �ѱ��.
+    }
 
     public override void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
