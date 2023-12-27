@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using EpisodeDialogueDefine;
-using System;
 
 public class EpisodeDialogueCore : MonoBehaviour
 {
@@ -19,33 +18,22 @@ public class EpisodeDialogueCore : MonoBehaviour
     public void HandleEpisodeStart(EpisodeData episodeData)
     {
         _selectEpisodeData = episodeData;
+        HandleNextDialogue();
     }
 
     public void HandleNextDialogue()
     {
         _selectDialogueElement = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx];
         PhaseEventConnect();
-        Debug.Log(_selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx].isLinker);
         while (_selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx].isLinker)
         {
             _selectDialogueElement = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx];
-            DialogueElement beforeDe = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx - 1];
-            PhaseLinkConnect(beforeDe.standardElement.name, beforeDe.standardElement.sentence);
+            PhaseConnectStandard();
         }
-    }
-
-    private void PhaseLinkConnect(string name, string syntex)
-    {
-        StandardDrawEvent?.Invoke(name,
-                                  syntex,
-                                  _selectDialogueElement.standardElement.backGroundType);
-
-        PhaseConnectStandard();
     }
 
     private void PhaseEventConnect()
     {
-        
         StandardDrawEvent?.Invoke(_selectDialogueElement.standardElement.name,
                                   _selectDialogueElement.standardElement.sentence,
                                   _selectDialogueElement.standardElement.backGroundType);
@@ -55,6 +43,7 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     private void PhaseConnectStandard()
     {
+        Debug.Log(1);
         ProductionDrawEvent?.Invoke(_selectDialogueElement.productElement.fadeType);
 
         CharacterDrawEvent?.Invoke(_selectDialogueElement.characterElement.characterType,

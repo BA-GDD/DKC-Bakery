@@ -109,7 +109,6 @@ public class EpisodeDialogueDrawer : MonoBehaviour
     {
         _backGround[0].sprite = _backGround[1].sprite;
         _backGround[1].color = new Color(1, 1, 1, 0);
-        Debug.Log(bgType);
         _backGround[1].sprite = _backGroundSpriteList[(int)bgType];
         _backGround[1].DOFade(1, 0.3f);
         _bgType = bgType;

@@ -48,6 +48,7 @@ public class EpisodeCharacterDrawer : MonoBehaviour
 
     public void HandleCharacterMoveDraw(CharacterType ct, MoveType moveType, ExitType exitType)
     {
+        Debug.Log(moveType);
         SaveCharacterPos(ct, moveType);
 
         _selectCharacter = _characterSelectDictionary[ct];

@@ -9,6 +9,7 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("Pooling")]
     [SerializeField] private PoolListSO _poolingList;
     [SerializeField] private Transform _poolingTrm;
+
     private void Awake()
     {
         PoolManager.Instance = new PoolManager(_poolingTrm);
