@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        PlayerAnimationTriggers.AnimationEvent += HandleAnimationEvent;
         if (_comboCounter > 2 || Time.time >= _lastAttackTime + _comboWindow)
             _comboCounter = 0; //ÄÞº¸ ÃÊ±âÈ­
 
@@ -25,7 +27,7 @@ public class PlayerPrimaryAttackState : PlayerState
 
         float attackDirection = _player.FacingDirection;
         float xInput = _player.PlayerInput.XInput;
-        if (Mathf.Abs( xInput ) > 0.05f)
+        if (Mathf.Abs(xInput) > 0.05f)
         {
             attackDirection = xInput;
         }
@@ -39,20 +41,26 @@ public class PlayerPrimaryAttackState : PlayerState
         });
     }
 
+    private void HandleAnimationEvent()
+    {
+        _player.Attack();
+    }
+
     public override void Exit()
     {
         ++_comboCounter;
         _lastAttackTime = Time.time;
         _player.AnimatorCompo.speed = 1f;
+        PlayerAnimationTriggers.AnimationEvent -= HandleAnimationEvent;
         base.Exit();
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
-        if(_endTriggerCalled)
+        if (_endTriggerCalled)
         {
-            _stateMachine.ChangeState(PlayerStateEnum.Idle);
+            _stateMachine.ChangeState(PlayerStateEnum.Fall);
         }
     }
 }

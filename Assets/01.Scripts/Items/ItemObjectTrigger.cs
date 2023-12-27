@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ItemObjectTrigger : MonoBehaviour
 {
+    [Header("Feedbacks")]
+    [SerializeField] private FeedbackPlayer _addFeedback;
+
     private ItemObject _itemObject;
 
     private void Awake()
@@ -13,6 +16,7 @@ public class ItemObjectTrigger : MonoBehaviour
     {
         if(collision.TryGetComponent<Player>(out Player player))
         {
+            _addFeedback.PlayFeedback();
             _itemObject.PickUpItem();
         }
     }

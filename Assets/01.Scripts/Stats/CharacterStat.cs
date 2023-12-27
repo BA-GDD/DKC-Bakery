@@ -56,12 +56,12 @@ public class CharacterStat : ScriptableObject
 
     protected Entity _owner;
 
-    protected Dictionary<StatType, FieldInfo> _fieldInfoDictionary 
+    protected Dictionary<StatType, FieldInfo> _fieldInfoDictionary
             = new Dictionary<StatType, FieldInfo>();
 
     public virtual void SetOwner(Entity owner)
     {
-        _owner = owner; 
+        _owner = owner;
     }
 
 
@@ -80,7 +80,7 @@ public class CharacterStat : ScriptableObject
 
     public int GetDamage()
     {
-        return 0;
+        return strength.GetValue();
     }
 
     public bool CanEvasion()
@@ -90,7 +90,9 @@ public class CharacterStat : ScriptableObject
 
     public int ArmoredDamage(int incomingDamage, bool isChilled)
     {
-        return 0;
+        int curArmor = armor.GetValue();
+        if (isChilled) curArmor = curArmor >> 1;
+        return Mathf.Max(incomingDamage - curArmor, 0);
     }
 
     public bool IsCritical(ref int incomingDamage)
@@ -110,7 +112,7 @@ public class CharacterStat : ScriptableObject
 
     public int GetMaxHealthValue()
     {
-        return 0;
+        return maxHealth.GetValue();
     }
 
 
