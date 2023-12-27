@@ -2,33 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : MonoSingleton<PoolManager>
+public enum PoolingType
 {
-    private Dictionary<string, Pool<PoolableMono>> _poolDic = new Dictionary<string, Pool<PoolableMono>>();
+    DamageText,
+    DialogueEffect,
+    SwordAura
+}
 
-    public void Init(PoolListSO list)
+public class PoolManager
+{
+    public static PoolManager Instance;
+
+    private Dictionary<PoolingType, Pool<PoolableMono>> _poolDic = new Dictionary<PoolingType, Pool<PoolableMono>>();
+
+    private Transform _parentTrm;
+    public PoolManager(Transform parentTrm)
     {
-        for (int i = 0; i < list.poolList.Count; i++)
-        {
-            PoolingItem item = list.poolList[i];
-            _poolDic.Add(item.prefab.name, new Pool<PoolableMono>(item.prefab, transform, item.count));
-        }
+        _parentTrm = parentTrm;
+    }
+
+    public void CreatePool(PoolableMono prefab, PoolingType poolingType, int count = 10)
+    {
+        _poolDic.Add(poolingType, new Pool<PoolableMono>(prefab, poolingType, _parentTrm, count));
     }
     public void Push(PoolableMono obj)
     {
-        if (_poolDic.ContainsKey(obj.name))
-            _poolDic[obj.name].Push(obj);
+        if (_poolDic.ContainsKey(obj.poolingType))
+            _poolDic[obj.poolingType].Push(obj);
         else
             Debug.LogError($"not have ${obj.name} pool");
     }
-    public PoolableMono Pop(string name)
+    public PoolableMono Pop(PoolingType type)
     {
         PoolableMono obj = null;
-        if (!_poolDic.ContainsKey(name))
+        if (!_poolDic.ContainsKey(type))
         {
-            Debug.LogError($"not have ${name} pool");
+            Debug.LogError($"not have [${type.ToString()}] pool");
         }
-        obj = _poolDic[name].Pop();
+        obj = _poolDic[type].Pop();
         return obj;
     }
 }

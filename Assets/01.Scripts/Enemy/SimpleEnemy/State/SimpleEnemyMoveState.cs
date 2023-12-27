@@ -11,13 +11,11 @@ public class SimpleEnemyMoveState : SimpleEnemyGroundState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Move Enter");
 
     }
 
     public override void Exit()
     {
-        Debug.Log("Move Exit");
         base.Exit();
     }
 

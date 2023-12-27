@@ -112,14 +112,14 @@ public class Health : MonoBehaviour, IDamageable
 
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
         damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(Ailment.Chilled));
-        Debug.Log(damage);
+
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
 
         isHitByMelee = true;
         lastAttackDirection = (transform.position - dealer.transform.position).normalized;
 
         //여기서 데미지 띄워주기
-        //DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
+        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
         //감전데미지 체크
         CheckAilmentByDamage(damage);

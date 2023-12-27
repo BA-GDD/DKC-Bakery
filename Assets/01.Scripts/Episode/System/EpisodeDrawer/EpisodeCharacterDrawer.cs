@@ -59,7 +59,7 @@ public class EpisodeCharacterDrawer : MonoBehaviour
     {
         if (emo == EmotionType.None) return;
 
-        DialogueEffect de = PoolManager.Instance.Pop("DialogueEffect") as DialogueEffect;
+        DialogueEffect de = PoolManager.Instance.Pop(PoolingType.DialogueEffect) as DialogueEffect;
         int idx = Mathf.Clamp((int)_characterPosSaveDic[ct] - 1, 0, 1);
         de.transform.parent = _characterGroupArr[(int)ct].emotionTrm[idx];
         de.transform.localPosition = Vector3.zero;

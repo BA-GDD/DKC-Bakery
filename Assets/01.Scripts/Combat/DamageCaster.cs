@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DamageCaster : MonoBehaviour
 {
@@ -15,8 +11,6 @@ public class DamageCaster : MonoBehaviour
     public LayerMask whatIsEnemy;
     private Collider2D[] _hitResult;
 
-    [SerializeField] private DamagePopupText _popupTextPrefab;
-
     private Entity _owner;
     private bool _castByCloneSkill;
     private void Awake()
@@ -24,13 +18,12 @@ public class DamageCaster : MonoBehaviour
         _hitResult = new Collider2D[_maxHitCount];
     }
 
-    public void SetOwner(Entity owner, bool castByCloneSkill)
+    public void SetOwner(Entity owner)
     {
         _owner = owner;
-        _castByCloneSkill = castByCloneSkill;
     }
 
-    public bool CastDamage()
+    public virtual bool CastDamage()
     {
         int cnt = Physics2D.OverlapCircle(attackChecker.position, attackCheckRadius, new ContactFilter2D { layerMask = whatIsEnemy, useLayerMask = true }, _hitResult);
 
@@ -43,12 +36,6 @@ public class DamageCaster : MonoBehaviour
             if (_hitResult[i].TryGetComponent<IDamageable>(out IDamageable health))
             {
                 int damage = _owner.CharStat.GetDamage();
-                if (_castByCloneSkill)
-                {
-                    damage = Mathf.RoundToInt(damage * SkillManager.Instance.GetSkill<CloneSkill>().damageMultiplier);
-                }
-                DamagePopupText text = Instantiate(_popupTextPrefab);
-                text.PopUpDamage(damage,new Vector2(_hitResult[i].bounds.center.x, _hitResult[i].bounds.max.y),false);
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }
@@ -81,7 +68,7 @@ public class DamageCaster : MonoBehaviour
         //}
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         if (attackChecker != null)
             Gizmos.DrawWireSphere(attackChecker.position, attackCheckRadius);

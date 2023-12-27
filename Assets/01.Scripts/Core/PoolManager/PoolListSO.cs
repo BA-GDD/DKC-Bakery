@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public struct PoolingItem
 {
+    public PoolingType type;
     public PoolableMono prefab;
     public int count;
 }
