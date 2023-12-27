@@ -30,7 +30,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
     private StringBuilder _syntexBuilder = new StringBuilder();
     private int _idx;
 
-    private float _typingTime = 0.03f;
+    private float _typingTime = 0.05f;
     private float _currentTime;
 
     [SerializeField] private Image[] _backGround;
@@ -38,6 +38,12 @@ public class EpisodeDialogueDrawer : MonoBehaviour
     private BackGroundType _bgType = BackGroundType.Castle;
 
     private EpisodeManager _episodeManager;
+    private EpisodeSounder _episodeSounder;
+
+    private void Awake()
+    {
+        _episodeSounder = transform.parent.Find("EpisodeSounder").GetComponent<EpisodeSounder>();
+    }
 
     private void Start()
     {
@@ -68,6 +74,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
             {
                 _syntexBuilder.Append(_syntexText[_idx]);
                 _syntexTextTmp.text = _syntexBuilder.ToString();
+                _episodeSounder.HandleOutputSFX(SFXType.texter);
 
                 _currentTime = 0;
                 _idx++;

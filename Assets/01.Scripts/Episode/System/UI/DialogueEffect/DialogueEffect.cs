@@ -27,7 +27,7 @@ public class DialogueEffect : PoolableMono
         {
             _effectElement.transform.localRotation = Quaternion.identity;
         }
-
+        
         Sequence seq = DOTween.Sequence();
         seq.Append(_bubble.DOFade(1, _fadingTime));
         seq.Join(_effectElement.DOFade(1, _fadingTime));

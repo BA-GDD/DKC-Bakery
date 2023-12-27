@@ -61,7 +61,9 @@ namespace EpisodeDialogueDefine
 
     public enum SFXType
     {
-
+        texter,
+        bubble,
+        sparcle
     }
 
     public enum BGMType

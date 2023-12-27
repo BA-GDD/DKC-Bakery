@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EpisodeDialogueDefine;
 using System;
+using UnityEngine.Events;
 
 [Serializable]
 public struct CharacterElementGroup
@@ -24,9 +25,11 @@ public class EpisodeCharacterDrawer : MonoBehaviour
     private Dictionary<CharacterType, CharacterStandard> _characterSelectDictionary = new Dictionary<CharacterType, CharacterStandard>();
     private Dictionary<CharacterType, MoveType> _characterPosSaveDic = new Dictionary<CharacterType, MoveType>();
     private CharacterStandard _selectCharacter;
+    private EpisodeSounder _episodeSounder;
 
     private void Awake()
     {
+        _episodeSounder = transform.parent.Find("EpisodeSounder").GetComponent<EpisodeSounder>();
         foreach(CharacterType ct in Enum.GetValues(typeof(CharacterType)))
         {
             _characterSelectDictionary.Add(ct, _characterGroupArr[(int)ct].characterStand);
@@ -63,6 +66,9 @@ public class EpisodeCharacterDrawer : MonoBehaviour
 
         EmotionElementGroup eg = _emotionGroupArr[(int)emo - 1];
         de.StartEffect(eg.elementImg, eg.elementClip, _characterPosSaveDic[ct]);
+
+        SFXType st = emo == EmotionType.Sparkle ? SFXType.sparcle : SFXType.bubble;
+        _episodeSounder.HandleOutputSFX(st);
     }
 
     private void SaveCharacterPos(CharacterType ct, MoveType mt)
