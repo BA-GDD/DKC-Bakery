@@ -11,12 +11,16 @@ public class EpisodeSounder : MonoBehaviour
 
     public void HandleOutputSFX(SFXType st)
     {
-        _auidoSource.PlayOneShot(_sfxClipList[(int)st]);
+        //_auidoSource.PlayOneShot(_sfxClipList[(int)st]);
     }
 
     public void HandleChangeBGM(BGMType bg)
     {
+        if (bg == BGMType.Contain) return;
+
         _auidoSource.Stop();
+        if (bg == BGMType.None) return;
+
         _auidoSource.clip = _bgmClipList[(int)bg];
         _auidoSource.Play();
     }

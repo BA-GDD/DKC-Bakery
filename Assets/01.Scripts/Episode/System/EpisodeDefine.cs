@@ -68,6 +68,7 @@ namespace EpisodeDialogueDefine
 
     public enum BGMType
     {
-
+        None,
+        Contain
     }
 }

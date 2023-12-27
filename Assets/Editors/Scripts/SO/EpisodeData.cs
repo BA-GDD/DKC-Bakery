@@ -70,16 +70,19 @@ public struct DialogueElement
     public DialogueCharacterElement characterElement;
     public DialogueMoveElement movementElement;
     public DialogueProductElement productElement;
+    public bool isLinker;
 
     public DialogueElement(DialogueStandardElement  _sElement,
                     DialogueCharacterElement _cElement,
                     DialogueMoveElement _mElement,
-                    DialogueProductElement   _pElement)
+                    DialogueProductElement   _pElement,
+                    bool _linker)
     {
         standardElement = _sElement;
         characterElement = _cElement;
         movementElement = _mElement;
         productElement = _pElement;
+        isLinker = _linker;
     }
 }
 
@@ -100,10 +103,12 @@ public class EpisodeData : LoadableData
                     AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
                     AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6], generateData[i].str[7], generateData[i].str[10]),
                     AllocateME(generateData[i].str[8], generateData[i].str[9]),
-                    AllocatePE(generateData[i].str[3])
+                    AllocatePE(generateData[i].str[3]),
+                    generateData[i].str[1].Contains("link")
                 )
             );
         }
+        Debug.Log("Complete DataReading!!");
     }
 
     private DialogueStandardElement AllocateSE(string n, string s, string bt)
