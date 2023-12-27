@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -9,12 +12,29 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Awake()
     {
+        SceneManager.activeSceneChanged += ChangeSceneUIOnChangeScene;
+
         // Debug
-        GetSceneUI<MapSceneUI>();
+        currentSceneUI = GetSceneUI<MapSceneUI>();
     }
 
-    public void GetSceneUI<T>() where T : SceneUI
+    public T GetSceneUI<T>() where T : SceneUI
     {
-        currentSceneUI = GameObject.Find(typeof(T).Name).GetComponent<T>();
+        return FindFirstObjectByType(typeof(T)) as T;
+    }
+
+    public SceneUI GetSceneUI(string sceneName)
+    {
+        return FindFirstObjectByType(Type.GetType($"{sceneName}UI")) as SceneUI;
+    }
+
+    public SceneUI GetSceneUI()
+    {
+        return FindFirstObjectByType<SceneUI>();
+    }
+
+    public void ChangeSceneUIOnChangeScene(Scene previousScene, Scene nextScene)
+    {
+        currentSceneUI = GetSceneUI(nextScene.name);
     }
 }
