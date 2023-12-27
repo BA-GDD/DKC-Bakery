@@ -15,31 +15,54 @@ public enum IngredientType
 
 public class BakingManager : MonoSingleton<BakingManager>
 {
-    public IngredientStash useIngredientStash;
+    public UsedIngredientStash usedIngredientStash;
+    public bool isOpen = false;
 
-    [Header("PatrentTrm")]
-    [SerializeField] private Transform _useIngredientParent;
+    [SerializeField] private GameObject _bakingUI;
+
+    [Header("ParentTrm")]
+    [SerializeField] private Transform _usedIngredientParent;
 
     [Header("Events")]
-    public UnityEvent onBakeBreadTrigger;
+    public UnityEvent<int> onRemoveUsedIngredientTrigger;
 
     private void Awake()
     {
-        useIngredientStash = new IngredientStash(_useIngredientParent);
+        usedIngredientStash = new UsedIngredientStash(_usedIngredientParent);
     }
 
     private void Start()
     {
+        SetBakingUI(isOpen);
         UpdateSlotUI();
     }
 
-    private void UpdateSlotUI()
+    public void UpdateSlotUI()
     {
-        useIngredientStash.UpdateSlotUI();
+        usedIngredientStash.UpdateSlotUI();
     }
 
-    public void AddItem(ItemDataIngredientSO item, int count = 1)
+    public void AddItem(ItemDataSO item)
     {
-        
+        if (usedIngredientStash.CanAddItem(item))
+        {
+            usedIngredientStash.AddItem(item);
+        }
+        UpdateSlotUI();
+    }
+
+    public void RemoveItem(ItemDataSO item)
+    {
+        ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
+        if(ingredientSO != null)
+        {
+            onRemoveUsedIngredientTrigger?.Invoke(ingredientSO.itemIndex);
+        }
+        usedIngredientStash.RemoveItem(item);
+    }
+
+    public void SetBakingUI(bool isOpen)
+    {
+        _bakingUI.SetActive(isOpen);
     }
 }

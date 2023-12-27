@@ -53,6 +53,15 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
     {
         if (item == null) return;
 
+        if (BakingManager.Instance.isOpen && (item.itemDataSO.itemType == ItemType.Ingredient))
+        {
+            ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item.itemDataSO);
+            if (ingredientSO != null)
+            {
+                BakingManager.Instance.AddItem(item.itemDataSO);
+            }
+        }
+
         if (Keyboard.current.ctrlKey.isPressed)
         {
             Inventory.Instance.RemoveItem(item.itemDataSO);
