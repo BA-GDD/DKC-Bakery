@@ -14,7 +14,6 @@ public class SimpleEnemyIdleState : SimpleEnemyGroundState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Idle Enter");
         _isAlreadyChange = false;
         ChangeRoMoveWithDelay(Mathf.FloorToInt(_enemy.idleTime * 1000));
     }
@@ -31,7 +30,6 @@ public class SimpleEnemyIdleState : SimpleEnemyGroundState
     public override void Exit()
     {
         _isAlreadyChange = true;
-        Debug.Log("Idle Exit");
         base.Exit();
     }
 

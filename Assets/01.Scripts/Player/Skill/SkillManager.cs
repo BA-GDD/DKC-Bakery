@@ -6,8 +6,8 @@ using UnityEngine;
 public enum PlayerSkill
 {
     Dash = 1,
-    Clone = 2,
-    SwordAura = 3,
+    //Clone = 2,
+    SwordAura = 2,
 
     //Crystal = 3
 }
