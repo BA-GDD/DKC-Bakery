@@ -288,7 +288,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.52
-      minScalar: 0.86
+      minScalar: 1.44
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -751,7 +751,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.3
+      value: 0.5
       mode: 0
       spread: 0
       speed:
@@ -4404,11 +4404,20 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.07368421
         - serializedVersion: 3
+          time: 0.62988997
+          value: -1
+          inSlope: -0.031110799
+          outSlope: -0.031110799
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.2583184
+        - serializedVersion: 3
           time: 1
           value: -1
-          inSlope: -1.2415495
+          inSlope: -0
           outSlope: -1.2415495
-          tangentMode: 0
+          tangentMode: 69
           weightedMode: 0
           inWeight: 0.14736849
           outWeight: 0.33333334
@@ -4916,7 +4925,7 @@ GameObject:
   - component: {fileID: 5707751706223794990}
   - component: {fileID: 6816801040527121939}
   m_Layer: 0
-  m_Name: P_toon_circle_dissolve
+  m_Name: P_hit_effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4930,7 +4939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2651879547312998551}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.03, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4938,7 +4947,7 @@ Transform:
   - {fileID: 4458727976426045038}
   - {fileID: 4779918699269491316}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5707751706223794990
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5193,7 +5202,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.62
+      scalar: 2.67
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10106,7 +10115,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 9.51
+      scalar: 11.11
       minScalar: 6.7
       maxCurve:
         serializedVersion: 2
@@ -10159,7 +10168,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.49
+      scalar: 0.72
       minScalar: 0.84
       maxCurve:
         serializedVersion: 2
