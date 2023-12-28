@@ -246,12 +246,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1303ccd5febef040a09b31fba2f10ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: adecebca0aad89846a6699cbabaa7a68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 11.94, y: 6.69}
+  m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -267,7 +267,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5303, y: 1.5303, z: 1.5303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -312,6 +312,8 @@ MonoBehaviour:
   _swordScreenEffect: {fileID: 1838615619}
   _explosionPow: -100
   _explosionRad: 100
+  _delayTime: 1.2
+  _destroyTime: 3
 --- !u!4 &551847330
 Transform:
   m_ObjectHideFlags: 0
@@ -6529,38 +6531,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 783866085545179130, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 783866085545179130, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
-      objectReference: {fileID: 0}
-    - target: {fileID: 805484402289316080, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 805484402289316080, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
-      objectReference: {fileID: 0}
-    - target: {fileID: 1237280194060041184, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 1237280194060041184, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
-      objectReference: {fileID: 0}
-    - target: {fileID: 3241640152989797242, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 3241640152989797242, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
-      objectReference: {fileID: 0}
     - target: {fileID: 5363473666810695875, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6601,37 +6571,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 6859007681125507449, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859007681125507449, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
-      objectReference: {fileID: 0}
     - target: {fileID: 7620777062990696310, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
       propertyPath: m_Name
       value: P_sword_screen
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620777062990696310, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8352896991858370925, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 8352896991858370925, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
-      objectReference: {fileID: 0}
-    - target: {fileID: 8358766748953977334, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[1].time
-      value: 0.45858806
-      objectReference: {fileID: 0}
-    - target: {fileID: 8358766748953977334, guid: f08b1824cfdd0b5458a43eb8841c8390, type: 3}
-      propertyPath: CustomDataModule.vector0_1.maxCurve.m_Curve.Array.data[2].time
-      value: 0.55670106
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
