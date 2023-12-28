@@ -12,7 +12,7 @@ public class SelectableRegion : MonoBehaviour, IPointerDownHandler
     [HideInInspector]
     public string regionName;
     [SerializeField]
-    private bool _isRegion;
+    private bool _isRegion, _isCastle;
 
     private void Awake()
     {
@@ -25,7 +25,14 @@ public class SelectableRegion : MonoBehaviour, IPointerDownHandler
     {
         if (_isRegion)
         {
-            (UIManager.Instance.currentSceneUI as MapSceneUI).OnRegionSelect(this);
+            if (_isCastle)
+            {
+                // Popup the back to castle UI
+            }
+            else
+            {
+                (UIManager.Instance.currentSceneUI as MapSceneUI).OnRegionSelect(this);
+            }
         }
         else
         {

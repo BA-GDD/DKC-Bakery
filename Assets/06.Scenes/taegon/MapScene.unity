@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 123030808}
   - component: {fileID: 123030809}
   - component: {fileID: 123030807}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Region_Third
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,6 +217,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 1
+  _isCastle: 0
 --- !u!223 &123030808
 Canvas:
   m_ObjectHideFlags: 0
@@ -257,6 +258,41 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &131757943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131757944}
+  m_Layer: 15
+  m_Name: StageMap_First
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &131757944
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131757943}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1382809522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &171353780
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +307,7 @@ GameObject:
   - component: {fileID: 171353785}
   - component: {fileID: 171353786}
   - component: {fileID: 171353784}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Region_Fourth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,6 +387,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 1
+  _isCastle: 0
 --- !u!223 &171353785
 Canvas:
   m_ObjectHideFlags: 0
@@ -405,7 +442,7 @@ GameObject:
   - component: {fileID: 181316676}
   - component: {fileID: 181316677}
   - component: {fileID: 181316675}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Region_Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,6 +522,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 1
+  _isCastle: 0
 --- !u!223 &181316676
 Canvas:
   m_ObjectHideFlags: 0
@@ -539,7 +577,7 @@ GameObject:
   - component: {fileID: 497701554}
   - component: {fileID: 497701553}
   - component: {fileID: 497701552}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Panel_Background_StageMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,6 +657,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 0
+  _isCastle: 0
 --- !u!114 &497701553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,7 +712,7 @@ GameObject:
   - component: {fileID: 550286596}
   - component: {fileID: 550286597}
   - component: {fileID: 550286595}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Region_Fifth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,6 +792,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 1
+  _isCastle: 0
 --- !u!223 &550286596
 Canvas:
   m_ObjectHideFlags: 0
@@ -793,6 +833,76 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &808387973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808387974}
+  m_Layer: 15
+  m_Name: StageMap_Second
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &808387974
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808387973}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1382809522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &842055233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842055234}
+  m_Layer: 15
+  m_Name: StageMap_Fifth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &842055234
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842055233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1382809522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1336939597
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +917,7 @@ GameObject:
   - component: {fileID: 1336939603}
   - component: {fileID: 1336939604}
   - component: {fileID: 1336939602}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Panel_RegionMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,10 +999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afff0c7a5261f75458064c40f639239b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 1482234974}
-  _mapUICamera: {fileID: 1556171414}
-  _regionMapCanvas: {fileID: 1855219631}
-  _regionMapPanel: {fileID: 1336939598}
 --- !u!223 &1336939603
 Canvas:
   m_ObjectHideFlags: 0
@@ -947,7 +1053,7 @@ GameObject:
   - component: {fileID: 1340115674}
   - component: {fileID: 1340115675}
   - component: {fileID: 1340115673}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Region_First
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,6 +1133,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 1
+  _isCastle: 0
 --- !u!223 &1340115674
 Canvas:
   m_ObjectHideFlags: 0
@@ -1067,6 +1174,41 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &1351970060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351970061}
+  m_Layer: 15
+  m_Name: StageMap_Third
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1351970061
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351970060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1382809522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1382809521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,7 +1221,8 @@ GameObject:
   - component: {fileID: 1382809524}
   - component: {fileID: 1382809523}
   - component: {fileID: 1382809525}
-  m_Layer: 10
+  - component: {fileID: 1382809526}
+  m_Layer: 15
   m_Name: Panel_StageMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1097,7 +1240,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 131757944}
+  - {fileID: 808387974}
+  - {fileID: 1351970061}
+  - {fileID: 1801058788}
+  - {fileID: 842055234}
   m_Father: {fileID: 1855219632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
@@ -1166,6 +1314,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
+--- !u!114 &1382809526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382809521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1400350433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1475,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4087
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1438,7 +1603,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 32768
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1554,6 +1719,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1801058787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801058788}
+  m_Layer: 15
+  m_Name: StageMap_Fourth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1801058788
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801058787}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1382809522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1803108696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,6 +1798,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac52e41760e1154bbefcb1da38ed131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 1482234974}
+  _mapUICamera: {fileID: 1556171414}
+  _regionMapCanvas: {fileID: 1855219631}
+  _regionMapPanel: {fileID: 1336939598}
+  _dragSpeed: 0.5
+  _zoomSpeed: 10
+  _minimumZoomMultiflier: 1
+  _maximumZoomMutiflier: 2
   _stageMapBackgroundPanel: {fileID: 497701549}
   _stageMapPanel: {fileID: 1382809522}
 --- !u!1 &1855219628
@@ -1612,7 +1820,7 @@ GameObject:
   - component: {fileID: 1855219631}
   - component: {fileID: 1855219630}
   - component: {fileID: 1855219629}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Canvas_RegionMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1718,7 +1926,7 @@ GameObject:
   - component: {fileID: 1885111968}
   - component: {fileID: 1885111969}
   - component: {fileID: 1885111967}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Region_DevilKingCastle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1798,6 +2006,7 @@ MonoBehaviour:
   rectangleTransform: {fileID: 0}
   regionName: 
   _isRegion: 1
+  _isCastle: 1
 --- !u!223 &1885111968
 Canvas:
   m_ObjectHideFlags: 0
