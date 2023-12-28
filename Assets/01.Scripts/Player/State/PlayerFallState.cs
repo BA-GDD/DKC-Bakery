@@ -21,6 +21,7 @@ public class PlayerFallState : PlayerAirState
     public override void UpdateState()
     {
         base.UpdateState();
+
         //여기서 땅을 감지하면 바로 넘어가는걸로.
         if(_player.IsGroundDetected())
         {

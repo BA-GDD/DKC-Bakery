@@ -39,6 +39,8 @@ public class PlayerPrimaryAttackState : PlayerState
         {
             _player.StopImmediately(false);
         });
+
+        _player.OnStartAttack?.Invoke(_comboCounter);
     }
 
     private void HandleAnimationEvent()
@@ -52,6 +54,7 @@ public class PlayerPrimaryAttackState : PlayerState
         _lastAttackTime = Time.time;
         _player.AnimatorCompo.speed = 1f;
         PlayerAnimationTriggers.AnimationEvent -= HandleAnimationEvent;
+        _player.OnEndAttack?.Invoke();
         base.Exit();
     }
 

@@ -26,6 +26,8 @@ public class Player : Entity
     [HideInInspector]
     public SkillManager Skill { get; private set; }
 
+
+
     protected override void Awake()
     {
         base.Awake();
