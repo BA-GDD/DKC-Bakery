@@ -63,7 +63,7 @@ public class PlayerPrimaryAttackState : PlayerState
         base.UpdateState();
         if (_endTriggerCalled)
         {
-            _stateMachine.ChangeState(PlayerStateEnum.Fall);
+            _stateMachine.ChangeState(PlayerStateEnum.Idle);
         }
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerAirAttackState : PlayerState
 {
     private int _comboCounter; //현재 콤보
-    private float _lastAttackTime; //마지막으로 공격한 시간
+    private float _lastAttackTime = 0; //마지막으로 공격한 시간
+    private float _lastStartTIme = 0;
 
     private bool _attackTrigger;
 
@@ -26,12 +27,14 @@ public class PlayerAirAttackState : PlayerState
         PlayerAnimationTriggers.AnimationEvent += HandleAnimationEvent;
         _originXVelocity = _rigidbody.velocity.x;
         _originGravify = _rigidbody.gravityScale;
-        _rigidbody.gravityScale = 1;
+        
+                _comboCounter = 0;
+        _player.AnimatorCompo.SetInteger(_comboCounterHash, _comboCounter);
+
 
         _player.AnimatorCompo.speed = _player.attackSpeed;
 
         _player.OnAttackEvent.AddListener(HandleAttackHitEvent);
-        _player.OnStartAttack?.Invoke(_comboCounter);
         //_player.StartDelayAction(0.1f, () =>
         //{
         //    _player.StopImmediately(false);
@@ -40,19 +43,19 @@ public class PlayerAirAttackState : PlayerState
 
     private void AttackInputHandle()
     {
-        _attackTrigger = true;
+        if(Time.time - _lastStartTIme > 0.3f)
+            _attackTrigger = true;
     }
 
     public override void Exit()
     {
         _player.PlayerInput.PrimaryAttackEvent -= AttackInputHandle;
         PlayerAnimationTriggers.AnimationEvent -= HandleAnimationEvent;
-        _player.OnAttackEvent.RemoveListener  (HandleAttackHitEvent);
+        _player.OnAttackEvent.RemoveListener(HandleAttackHitEvent);
 
-        _comboCounter = 0;
+
         _player.AnimatorCompo.speed = 1f;
         _rigidbody.velocity = new Vector2(_originXVelocity, _rigidbody.velocity.y);
-        _player.OnEndAttack?.Invoke();
         _rigidbody.gravityScale = _originGravify;
         base.Exit();
     }
@@ -69,22 +72,31 @@ public class PlayerAirAttackState : PlayerState
 
         if (_endTriggerCalled)
         {
-            if (Time.time - _lastAttackTime > 1000000)
+            if (Time.time - _lastAttackTime > 0.15f)
             {
                 _stateMachine.ChangeState(PlayerStateEnum.Fall);
                 return;
             }
-            if(_attackTrigger)
+            if (_attackTrigger)
             {
+                _lastStartTIme = Time.time;
                 _attackTrigger = false;
                 _endTriggerCalled = false;
+                _comboCounter++;
                 if (_comboCounter > 2)
                     _comboCounter = 0; //콤보 초기화
                 _player.AnimatorCompo.SetInteger(_comboCounterHash, _comboCounter);
+                _player.OnStartAttack?.Invoke(_comboCounter);
             }
         }
 
 
+    }
+    public override void AnimationEndTrigger()
+    {
+        _lastAttackTime = Time.time;
+        base.AnimationEndTrigger();
+        _player.OnEndAttack?.Invoke();
     }
 
     private void HandleAnimationEvent()
@@ -93,7 +105,7 @@ public class PlayerAirAttackState : PlayerState
     }
     private void HandleAttackHitEvent()
     {
+        _rigidbody.gravityScale = 1;
         _player.SetVelocity(_rigidbody.velocity.x * _player.airXMovementRatio, _player.airAttackRising[_comboCounter]);
-        _comboCounter++;
     }
 }

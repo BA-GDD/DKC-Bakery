@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UnityEngine;
 
 public abstract class PlayerGroundState : PlayerState
 {
@@ -34,9 +34,12 @@ public abstract class PlayerGroundState : PlayerState
         base.UpdateState();
 
         if (_player.IsGroundDetected() == false)
-        {
+            _player.coyoteCounter += Time.deltaTime;
+        else
+            _player.coyoteCounter = 0;
+
+        if(_player.coyoteCounter > _player.CoyoteTime)
             _stateMachine.ChangeState(PlayerStateEnum.Fall);
-        }
 
     }
 
@@ -59,7 +62,7 @@ public abstract class PlayerGroundState : PlayerState
 
     private void HandleJumpEvent()
     {
-        if (_player.IsGroundDetected())
+        if (_player.coyoteCounter < _player.CoyoteTime)
         {
             _stateMachine.ChangeState(PlayerStateEnum.Jump);
         }

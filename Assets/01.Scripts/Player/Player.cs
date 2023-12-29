@@ -9,13 +9,16 @@ public class Player : Entity
     public float jumpForce = 12f;
     public float dashDuration = 0.4f;
     public float dashSpeed = 20f;
+    [field: SerializeField] public float CoyoteTime { get; private set; }
+    [HideInInspector]public float coyoteCounter;
 
     [Header("attack settings")]
     public float attackSpeed = 1f;
     public Vector2[] attackMovement;
     public float[] airAttackRising;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float airXMovementRatio;
+
 
     [field: SerializeField] public InputReader PlayerInput { get; private set; }
 

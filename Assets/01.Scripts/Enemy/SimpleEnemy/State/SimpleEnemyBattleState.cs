@@ -42,7 +42,7 @@ public class SimpleEnemyBattleState : SimpleEnemyGroundState
             _moveDirection = 1;
         else
             _moveDirection = -1;
-        _enemy.SetVelocity(_enemy.moveSpeed *_moveDirection, _rigidbody.velocity.y);
+        //_enemy.SetVelocity(_enemy.moveSpeed *_moveDirection, _rigidbody.velocity.y);
 
         RaycastHit2D hit = _enemy.IsPlayerDetected();
 
@@ -62,7 +62,7 @@ public class SimpleEnemyBattleState : SimpleEnemyGroundState
         //앞이 절벽이거나 적이 근거리라면.
         if (!_enemy.IsGroundDetected() || (distance <= _enemy.attackDistance))
         {
-            _enemy.StopImmediately(false);  //정지시에 재생할 애니메이션 상태를 하나 만들어야 해.
+            //_enemy.StopImmediately(false);  //정지시에 재생할 애니메이션 상태를 하나 만들어야 해.
             return;
         }
 

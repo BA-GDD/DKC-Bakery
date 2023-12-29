@@ -39,7 +39,7 @@ public class PlayerState
         _player.AnimatorCompo.SetBool(_animBoolHash, false);
     }
 
-    public void AnimationEndTrigger()
+    public virtual void AnimationEndTrigger()
     {
         _endTriggerCalled = true;
     }
