@@ -38,11 +38,11 @@ public class EpisodeDialogueDrawer : MonoBehaviour
     private BackGroundType _bgType = BackGroundType.Castle;
 
     private EpisodeManager _episodeManager;
-    private EpisodeSounder _episodeSounder;
+    private SoundSelecter _episodeSounder;
 
     private void Awake()
     {
-        _episodeSounder = transform.parent.Find("EpisodeSounder").GetComponent<EpisodeSounder>();
+        _episodeSounder = transform.parent.Find("EpisodeSounder").GetComponent<SoundSelecter>();
     }
 
     private void Start()
