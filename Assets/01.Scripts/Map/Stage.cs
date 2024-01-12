@@ -27,6 +27,7 @@ public class Stage : MonoBehaviour
         OnStageCleared += Print;
     }
 
+    //debug
     private void Print()
     {
         print("stage Cleared!");
@@ -47,19 +48,25 @@ public class Stage : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 카메라 크기 만큼 이동하는 거?
+    /// </summary>
     private void CamPosGenerate()
     {
         for(int i = 0; i < maximumPhase; ++i)
         {
             Transform trm = new GameObject().transform;
             trm.name = $"camTrm_{i + 1}";
-            trm.position = new Vector3(i * halfWidth, 0, 0);
+            trm.position = new Vector3(i * (halfWidth*2.0f), 0, 0);
             stageTrms.Add(trm);
         }
 
         vCam.m_Follow = stageTrms[_curPhase];
     }
 
+    /// <summary>
+    /// 한 페이즈가 끝났을 때에 실행하는 거
+    /// </summary>
     public void PhaseCleared()
     {
         if(_curPhase >= maximumPhase)
