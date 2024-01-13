@@ -6,7 +6,9 @@ using UnityEngine;
 public enum PlayerSkill
 {
     Dash = 1,
-    Clone = 2,
+    //Clone = 2,
+    SwordAura = 2,
+
     //Crystal = 3
 }
 
@@ -51,11 +53,6 @@ public class SkillManager : MonoSingleton<SkillManager>
 
     public void UseSkillFeedback(PlayerSkill skill)
     {
-        //ItemDataEquipmentSO amulet = Inventory.Instance.breadWindow.GetEquipmentByType(EquipmentType.Amulet);
-        //if (amulet != null)
-        //{ 
-        //
-        //}
 
     }
 }

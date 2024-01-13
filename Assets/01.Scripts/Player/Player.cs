@@ -13,6 +13,9 @@ public class Player : Entity
     [Header("attack settings")]
     public float attackSpeed = 1f;
     public Vector2[] attackMovement;
+    public float[] airAttackRising;
+    [Range(0,1)]
+    public float airXMovementRatio;
 
     [field: SerializeField] public InputReader PlayerInput { get; private set; }
 
@@ -40,7 +43,7 @@ public class Player : Entity
         }
     }
 
-    protected void Start()
+    protected override void Start()
     {
         Skill = SkillManager.Instance;
         StateMachine.Initialize(PlayerStateEnum.Idle, this);
@@ -83,5 +86,11 @@ public class Player : Entity
         StateMachine.CurrentState.AnimationEndTrigger();
     }
 
+    protected override void HandleDie(Vector2 direction)
+    {
+    }
 
+    public override void SlowEntityBy(float percent)
+    {
+    }
 }

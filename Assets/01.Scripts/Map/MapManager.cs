@@ -1,0 +1,86 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using ChapterDefine;
+
+public class MapManager : MonoBehaviour
+{
+    private static MapManager _instance;
+    public static MapManager Instanace
+    {
+        get
+        {
+            if (_instance != null) return _instance;
+            _instance = FindObjectOfType<MapManager>();
+            if (_instance == null)
+            {
+                Debug.LogError("Not Exist GameManager");
+            }
+            return _instance;
+        }
+    }
+
+    public List<MapDataSO> _mapDataList = new List<MapDataSO>();
+    private MapDataSO _currentChapterData;
+    private ChapterInfoPanel _chapterInfoPanel;
+    [SerializeField] private StageBubble _stageBubblePrefab;
+    private StageBubble _stageBubbleObject;
+
+    public bool isOnPanel;
+    public bool isOnLoadMap;
+
+    private ChapterType _currentChapter;
+    public ChapterType CurrentChapter
+    {
+        get
+        {
+            return _currentChapter;
+        }
+        set
+        {
+            _currentChapter = value;
+            if (value == ChapterType.None) return;
+            _currentChapterData = _mapDataList[(int)value];
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return) && !isOnPanel && !isOnLoadMap)
+        {
+            GetInfoPanel().SetInfo(_currentChapterData);
+            ActiveChapterInfoPanel(true);
+        }
+    }
+
+    public void ActiveChapterInfoPanel(bool isActive)
+    {
+        GetInfoPanel().ActivePanel(isActive);
+    }
+
+    public void ActiveLoadMapPanel(bool isActive)
+    {
+        GetInfoPanel().ActiveLoadMap(isActive);
+    }
+
+    public void CreateStageInfoBubble(string stageName, Vector2 pos, bool isReverse)
+    {
+        if(_stageBubbleObject != null)
+        {
+            Destroy(_stageBubbleObject.gameObject);
+        }
+
+        Transform parent = GetInfoPanel().GetNodeLoadMap().BubbleTrm;
+        _stageBubbleObject = Instantiate(_stageBubblePrefab, parent);
+        _stageBubbleObject.transform.localPosition = pos;
+        _stageBubbleObject.SetInfo(stageName, isReverse);
+    }
+
+    private ChapterInfoPanel GetInfoPanel()
+    {
+        if (_chapterInfoPanel != null) return _chapterInfoPanel;
+
+        _chapterInfoPanel = FindObjectOfType<ChapterInfoPanel>();
+        return _chapterInfoPanel;
+    }
+}

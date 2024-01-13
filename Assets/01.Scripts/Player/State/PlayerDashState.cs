@@ -19,14 +19,11 @@ public class PlayerDashState : PlayerState
         _dashStartTime = Time.time;
         // 그렇지 않다면 FacingDirection으로 대시 디렉션을 설정해
         // 그리고 지금 대시 시작한 시간을 대시 시작시간으로 기록한다. 
-
-        _player.Skill.GetSkill<CloneSkill>().CraeteCloneOnDashStart();
     }
 
     public override void Exit()
     {
         base.Exit();
-        _player.Skill.GetSkill<CloneSkill>().CraeteCloneOnDashEnd();
     }
 
     public override void UpdateState()
