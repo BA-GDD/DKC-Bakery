@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ public class ItemDataSO : ScriptableObject
     public ItemType itemType;
     public string itemName;
     public Sprite itemIcon;
+
+    [Range(0, 100)]
+    public float dropChance = 50f;
 
     protected StringBuilder _stringBuilder = new StringBuilder();
 

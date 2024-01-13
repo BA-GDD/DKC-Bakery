@@ -28,9 +28,21 @@ public class BakingManager : MonoSingleton<BakingManager>
     [Header("Events")]
     public UnityEvent<int> onRemoveUsedIngredientTrigger;
 
+    [SerializeField]
+    private BreadRecipeTable _recipeTable;
+
+    public Dictionary<string, ItemDataBreadSO> breadDictionary;
+    [SerializeField]
+    private List<ItemDataBreadSO> _breadList;
+
     private void Awake()
     {
         usedIngredientStash = new UsedIngredientStash(_usedIngredientParent);
+        breadDictionary = new Dictionary<string, ItemDataBreadSO>();
+        for(int i = 0; i < _breadList.Count; ++i)
+        {
+            breadDictionary.Add(_breadList[i].itemName, _breadList[i]);
+        }
     }
 
     private void Start()
@@ -76,5 +88,25 @@ public class BakingManager : MonoSingleton<BakingManager>
     public void SetBakingUI(bool isOpen)
     {
         _bakingUI.SetActive(isOpen);
+    }
+
+    public void BakeBread()
+    {
+        Debug.Log(usedIngredientStash.usedIngredDictionary.Count);
+        if(usedIngredientStash.usedIngredDictionary.Count >= 5)
+        {
+            string[] names = new string[5];
+            for(int i = 0; i < 5; ++i)
+            {
+                names[i] = usedIngredientStash.usedIngredientStash[i].itemDataSO.itemName;
+            }
+            ItemDataBreadSO returnBread = _recipeTable.Bake(names);
+            if(returnBread != null)
+            {
+                Inventory.Instance.AddItem(returnBread);
+                usedIngredientStash.RemoveAllItem();
+                usedIngredientStash.UpdateSlotUI();
+            }
+        }
     }
 }

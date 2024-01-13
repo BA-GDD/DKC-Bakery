@@ -5427,36 +5427,12 @@ MonoBehaviour:
   _breadParent: {fileID: 1359342250}
   onRemoveBreadTrigger:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1373541982}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: DebugText
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onRemoveIngredientTrigger:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1373541982}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: DebugText
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _debugItemData: {fileID: 11400000, guid: 31e5be5266569f24f9a9beeb2421453c, type: 2}
-  _debugText: is removed
+  _debugText: debugText
   _testBaseData: {fileID: 11400000, guid: d60584ca8e3c5454c8ec28a1ba657938, type: 2}
   _testLiquidData: {fileID: 11400000, guid: bb9b691412f64424caa924343e16d293, type: 2}
   _testLeavenData: {fileID: 11400000, guid: 620c49833c6612244bb523ea20cde01d, type: 2}
@@ -7397,6 +7373,13 @@ MonoBehaviour:
   onRemoveUsedIngredientTrigger:
     m_PersistentCalls:
       m_Calls: []
+  _recipeTable: {fileID: 11400000, guid: bd854f27ec7b0a14182f07aa3b2524af, type: 2}
+  _breadList:
+  - {fileID: 11400000, guid: a96fba24c4c890143a49756cb811457b, type: 2}
+  - {fileID: 11400000, guid: b1d03d02b40653b49ab592e9e792ef3e, type: 2}
+  - {fileID: 11400000, guid: c040bedd7f96b0a458f116d18a15c934, type: 2}
+  - {fileID: 11400000, guid: b113eb1faf31033409b0aa351d5b145d, type: 2}
+  - {fileID: 11400000, guid: 7c4ca15359656944fb0842d63995cf54, type: 2}
 --- !u!1 &2043775825
 GameObject:
   m_ObjectHideFlags: 0
@@ -7789,7 +7772,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2070960268}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1990027506}
+        m_TargetAssemblyTypeName: BakingManager, Assembly-CSharp
+        m_MethodName: BakeBread
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2070960268
 MonoBehaviour:
   m_ObjectHideFlags: 0

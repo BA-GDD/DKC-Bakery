@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class BakingTable : MonoBehaviour
 {
-    
+    public BreadRecipeTable recipeTable;
+
+    public void Bake()
+    {
+        
+    }
 }

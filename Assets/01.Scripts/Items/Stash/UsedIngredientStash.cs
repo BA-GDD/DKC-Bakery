@@ -72,4 +72,13 @@ public class UsedIngredientStash : Stash
 
         Inventory.Instance.AddItem(item, count);
     }
+
+    public void RemoveAllItem()
+    {
+        for(int i = 0; i < 5; ++i)
+        {
+            usedIngredDictionary.Remove(((ItemDataIngredientSO)usedIngredientStash[i].itemDataSO).ingredientType);
+            usedIngredientStash[i] = null;
+        }
+    }
 }
