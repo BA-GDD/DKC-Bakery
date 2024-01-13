@@ -8,6 +8,7 @@ public class ChaterDetecter : MonoBehaviour
     [SerializeField] private ChapterType _myChapterType;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         MapManager.Instanace.CurrentChapter = _myChapterType;
     }
 

@@ -3,7 +3,7 @@ namespace ChapterDefine
 {
     public enum ChapterType
     {
-        None,
+        None = -1,
         chapter1,
         chapter2,
         chapter3,
