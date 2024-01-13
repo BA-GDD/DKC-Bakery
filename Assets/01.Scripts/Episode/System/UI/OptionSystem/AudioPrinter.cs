@@ -46,9 +46,4 @@ public class AudioPrinter : MonoBehaviour
     {
         _sfxAudioSource.volume = sValue * _mainValue;
     }
-
-    public void SetMainVolume(float mValue)
-    {
-        MainValue = mValue;
-    }
 }
