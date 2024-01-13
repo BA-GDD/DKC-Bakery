@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public enum IngredientType
 {
-    Base = 0,       // 베이스
-    Liquid = 1,     // 액체류 - 물, 우유, 달걀
-    Leaven = 2,     // 효모
-    Butterfat = 3,  // 유지방
-    Sugars = 4,     // 당류
+    None = 0,       // 없음 (체크용)
+    Base = 1,       // 베이스
+    Liquid = 2,     // 액체류 - 물, 우유, 달걀
+    Leaven = 3,     // 효모
+    Butterfat = 4,  // 유지방
+    Sugars = 5,     // 당류
 }
 
 public class BakingManager : MonoSingleton<BakingManager>
@@ -37,6 +39,15 @@ public class BakingManager : MonoSingleton<BakingManager>
         UpdateSlotUI();
     }
 
+    private void Update()
+    {
+        if(Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            isOpen = !isOpen;
+            SetBakingUI(isOpen);
+        }
+    }
+
     public void UpdateSlotUI()
     {
         usedIngredientStash.UpdateSlotUI();
@@ -59,6 +70,7 @@ public class BakingManager : MonoSingleton<BakingManager>
             onRemoveUsedIngredientTrigger?.Invoke(ingredientSO.itemIndex);
         }
         usedIngredientStash.RemoveItem(item);
+        UpdateSlotUI();
     }
 
     public void SetBakingUI(bool isOpen)

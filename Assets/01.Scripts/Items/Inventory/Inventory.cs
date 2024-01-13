@@ -21,6 +21,11 @@ public class Inventory : MonoSingleton<Inventory>
     [Header("Debug")]
     [SerializeField] private ItemDataSO _debugItemData;
     [SerializeField] private string _debugText;
+    [SerializeField] private ItemDataSO _testBaseData;
+    [SerializeField] private ItemDataSO _testLiquidData;
+    [SerializeField] private ItemDataSO _testLeavenData;
+    [SerializeField] private ItemDataSO _testButterfatData;
+    [SerializeField] private ItemDataSO _testSugarsData;
 
     private void Awake()
     {
@@ -36,7 +41,32 @@ public class Inventory : MonoSingleton<Inventory>
     {
         if (Keyboard.current.gKey.wasPressedThisFrame)
         {
+            Debug.Log("gKey");
             AddItem(_debugItemData);
+        }
+        if (Keyboard.current.yKey.wasPressedThisFrame)
+        {
+            Debug.Log("yKey");
+            AddItem(_testBaseData);
+        }
+        if (Keyboard.current.uKey.wasPressedThisFrame)
+        {
+            Debug.Log("uKey");
+            AddItem(_testLiquidData);
+        }
+        if (Keyboard.current.iKey.wasPressedThisFrame)
+        {
+            Debug.Log("iKey");
+            AddItem(_testLeavenData);
+        }
+        if (Keyboard.current.oKey.wasPressedThisFrame)
+        {
+            Debug.Log("oKey");
+            AddItem(_testButterfatData);
+        }
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            AddItem(_testSugarsData);
         }
     }
     public void UpdateSlotUI() 
@@ -55,8 +85,10 @@ public class Inventory : MonoSingleton<Inventory>
         }
         else if (item.itemType == ItemType.Ingredient)
         {
+            Debug.Log("itemType is Ingredient");
             if (ingredientStash.CanAddItem(item))
             {
+                Debug.Log("Can Add Item");
                 ingredientStash.AddItem(item, count);
             }
         }

@@ -5,41 +5,71 @@ using UnityEngine;
 public class UsedIngredientStash : Stash
 {
     public Dictionary<IngredientType, InventoryItem> usedIngredDictionary;
+    public List<InventoryItem> usedIngredientStash;
 
     public UsedIngredientStash(Transform slotParentTrm) : base(slotParentTrm)
     {
+        usedIngredientStash = new List<InventoryItem>();
+        for (int i = 0; i < 5; ++i)
+        {
+            usedIngredientStash.Add(null);
+        }
+        usedIngredDictionary = new Dictionary<IngredientType, InventoryItem>();
+
+        _slotParentTrm = slotParentTrm;
+        _itemSlots = _slotParentTrm.GetComponentsInChildren<ItemSlot>();
     }
 
     public override void AddItem(ItemDataSO item, int count = 1)
     {
         // 그냥 Dictionary key만 enum으로 바꾼다.
-        // CanAddItem에서 같은 분류의 재료가 이미 들어가 있는지 확인헀기 때문에 그냥 넣음
+        // CanAddItem에서 같은 분류의 재료가 이미 들어가  있는지 확인헀기 때문에 그냥 넣음
         InventoryItem newItem = new InventoryItem(item);
-        stash.Add(newItem);
+        //stash.Add(newItem);
+        //usedIngredientStash.Add(newItem);
+        usedIngredientStash[(int)((ItemDataIngredientSO)item).ingredientType - 1] = newItem;
+        //Debug.Log((int)((ItemDataIngredientSO)item).ingredientType - 1);
+
         usedIngredDictionary.Add(((ItemDataIngredientSO)item).ingredientType, newItem);
+    }
+
+    public override void UpdateSlotUI()
+    {
+        //base.UpdateSlotUI();
+        for (int i = 0; i < _itemSlots.Length; ++i)
+        {
+            _itemSlots[i].CleanUpSlot();
+        }
+
+        for (int i = 0; i < usedIngredientStash.Count; ++i)
+        {
+            _itemSlots[i].UpdateSlot(usedIngredientStash[i]);
+        }
     }
 
     public override bool CanAddItem(ItemDataSO item)
     {
-        // TryGetValue하는데 딕셔너리에서 내가 원하는 분류를 가져와야함
-        // 지금은 
+        // 만약 추가하려는 재료와 같은 분류의 재료가 들어가 있을 경우 넣을 수 없음
         if (usedIngredDictionary.TryGetValue(((ItemDataIngredientSO)item).ingredientType, out InventoryItem invenItem))
         {
-            // 만약 추가하려는 재료와 같은 분류의 재료가 들어가 있을 경우 넣을 수 없음
-            if (((ItemDataIngredientSO)invenItem.itemDataSO).ingredientType == ((ItemDataIngredientSO)item).ingredientType)
-            {
-                return false;
-            }
+            return false;
         }
         return true;
     }
 
     public override void RemoveItem(ItemDataSO item, int count = 1)
     {
-        if(stashDictionary.TryGetValue(item, out InventoryItem invenItem))
+        // 만약 해당 분류의 재료가 들어있으면
+        if (usedIngredDictionary.TryGetValue(((ItemDataIngredientSO)item).ingredientType, out InventoryItem invenItem))
         {
-            stash.Remove(invenItem);
-            stashDictionary.Remove(item);
+            // stash에서 지우고
+            //stash.Remove(invenItem);
+            //usedIngredientStash.Remove(invenItem);
+            usedIngredientStash[(int)((ItemDataIngredientSO)item).ingredientType - 1] = null;
+            // Dictionary에서 지움
+            usedIngredDictionary.Remove(((ItemDataIngredientSO)item).ingredientType);
         }
+
+        Inventory.Instance.AddItem(item, count);
     }
 }

@@ -12,10 +12,12 @@ public class IngredientStash : Stash
     {
         if (stashDictionary.TryGetValue(item, out InventoryItem invenItem))
         {
+            Debug.Log("Add Item");
             invenItem.AddStack(count);
         }
         else
         {
+            Debug.Log("Add New Item");
             InventoryItem newItem = new InventoryItem(item);
             newItem.AddStack(count - 1);
             stash.Add(newItem);

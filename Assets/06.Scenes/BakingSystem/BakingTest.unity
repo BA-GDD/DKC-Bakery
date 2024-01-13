@@ -1390,11 +1390,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -181
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3670,11 +3670,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 181
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212
+      value: -580
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3909,11 +3909,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -362
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4489,11 +4489,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212
+      value: -580
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5457,6 +5457,11 @@ MonoBehaviour:
         m_CallState: 2
   _debugItemData: {fileID: 11400000, guid: 31e5be5266569f24f9a9beeb2421453c, type: 2}
   _debugText: is removed
+  _testBaseData: {fileID: 11400000, guid: d60584ca8e3c5454c8ec28a1ba657938, type: 2}
+  _testLiquidData: {fileID: 11400000, guid: bb9b691412f64424caa924343e16d293, type: 2}
+  _testLeavenData: {fileID: 11400000, guid: 620c49833c6612244bb523ea20cde01d, type: 2}
+  _testButterfatData: {fileID: 11400000, guid: 067ed6ce0a98ba64aadc7460c90c1294, type: 2}
+  _testSugarsData: {fileID: 11400000, guid: 799375321809e1a45a0b62a1014448da, type: 2}
 --- !u!4 &1373541983
 Transform:
   m_ObjectHideFlags: 0
@@ -7103,11 +7108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 362
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 2354436025174785818, guid: 92849b60a1dcb234bae87a0af0d2d28b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7386,8 +7391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6e4090b4382d0458c79f75fe84a769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useIngredientParent: {fileID: 0}
-  onBakeBreadTrigger:
+  isOpen: 0
+  _bakingUI: {fileID: 1390651687}
+  _usedIngredientParent: {fileID: 344959669}
+  onRemoveUsedIngredientTrigger:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2043775825
