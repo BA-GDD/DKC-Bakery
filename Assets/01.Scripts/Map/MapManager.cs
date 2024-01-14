@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChapterDefine;
+using DG.Tweening;
 
 public class MapManager : MonoBehaviour
 {
@@ -28,6 +29,19 @@ public class MapManager : MonoBehaviour
 
     public bool isOnPanel;
     public bool isOnLoadMap;
+
+    private int _selectStageNumber;
+    public int SelectStageNimber
+    {
+        get
+        {
+            return _selectStageNumber;
+        }
+        set
+        {
+            _selectStageNumber = value;
+        }
+    }
 
     private ChapterType _currentChapter;
     public ChapterType CurrentChapter
@@ -72,7 +86,8 @@ public class MapManager : MonoBehaviour
 
         Transform parent = GetInfoPanel().GetNodeLoadMap().BubbleTrm;
         _stageBubbleObject = Instantiate(_stageBubblePrefab, parent);
-        _stageBubbleObject.transform.localPosition = pos;
+        _stageBubbleObject.transform.localPosition = pos + new Vector2(0, 20);
+        _stageBubbleObject.transform.DOLocalMove(pos, 0.3f);
         _stageBubbleObject.SetInfo(stageName, isReverse);
     }
 

@@ -32,6 +32,8 @@ public class NodeLaodMap : MonoBehaviour
             line.transform.localPosition = centerPos;
             line.transform.rotation = Quaternion.Euler(0, 0, angle);
             line.sizeDelta = new Vector2(length, 20);
+
+            _nodeArr[i].StageNumber = i;
         }
     }
 
