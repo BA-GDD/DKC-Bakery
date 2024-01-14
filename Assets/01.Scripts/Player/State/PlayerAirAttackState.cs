@@ -76,7 +76,7 @@ public class PlayerAirAttackState : PlayerState
         if (_endTriggerCalled)
         {
             AirMovementControl();
-            if (Time.time - _lastAttackTime > 0.05f)
+            if (Time.time - _lastAttackTime > 0.01f)
             {
                 _stateMachine.ChangeState(PlayerStateEnum.Fall);
                 return;
