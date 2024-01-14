@@ -22,7 +22,7 @@ public class SimpleEnemyMoveState : SimpleEnemyGroundState
     public override void UpdateState()
     {
         base.UpdateState();
-        //_enemy.SetVelocity(_enemy.moveSpeed * _enemy.FacingDirection, _rigidbody.velocity.y);
+        _enemy.SetVelocity(_enemy.moveSpeed * _enemy.FacingDirection, _rigidbody.velocity.y);
 
         if (_enemy.IsWallDetected() || !_enemy.IsGroundDetected())
         {

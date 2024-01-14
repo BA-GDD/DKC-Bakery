@@ -254,13 +254,13 @@ MonoBehaviour:
   battleTime: 5
   _whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _whatIsObstacle:
     serializedVersion: 2
-    m_Bits: 0
-  runAwayDistance: 1
-  attackDistance: 0
-  attackCooldown: 1
+    m_Bits: 256
+  runAwayDistance: 5
+  attackDistance: 1.17
+  attackCooldown: 0
   lastTimeAttacked: 0
 --- !u!4 &184186518
 Transform:
@@ -894,13 +894,13 @@ MonoBehaviour:
   battleTime: 5
   _whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _whatIsObstacle:
     serializedVersion: 2
-    m_Bits: 0
-  runAwayDistance: 0
-  attackDistance: 0
-  attackCooldown: 1
+    m_Bits: 256
+  runAwayDistance: 5
+  attackDistance: 1.17
+  attackCooldown: 0
   lastTimeAttacked: 0
 --- !u!4 &411625309
 Transform:
@@ -2256,6 +2256,7 @@ MonoBehaviour:
   dashSpeed: 80
   <CoyoteTime>k__BackingField: 0.1
   coyoteCounter: 0
+  stance: 0
   attackSpeed: 1
   attackMovement:
   - {x: 3, y: 0}
@@ -2267,6 +2268,7 @@ MonoBehaviour:
   - 1.75
   airXMovementRatio: 0.301
   <PlayerInput>k__BackingField: {fileID: 11400000, guid: bdd74d4d50172474cba9d0d57c8baa8f, type: 2}
+  stopDebug: 0
 --- !u!70 &859669747
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3741,13 +3743,13 @@ MonoBehaviour:
   battleTime: 5
   _whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _whatIsObstacle:
     serializedVersion: 2
-    m_Bits: 0
-  runAwayDistance: 0
-  attackDistance: 0
-  attackCooldown: 1
+    m_Bits: 256
+  runAwayDistance: 5
+  attackDistance: 1.17
+  attackCooldown: 0
   lastTimeAttacked: 0
 --- !u!4 &1417404887
 Transform:
@@ -3956,13 +3958,13 @@ MonoBehaviour:
   battleTime: 5
   _whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _whatIsObstacle:
     serializedVersion: 2
-    m_Bits: 0
-  runAwayDistance: 0
-  attackDistance: 0
-  attackCooldown: 1
+    m_Bits: 256
+  runAwayDistance: 5
+  attackDistance: 1.17
+  attackCooldown: 0
   lastTimeAttacked: 0
 --- !u!4 &1453534768
 Transform:

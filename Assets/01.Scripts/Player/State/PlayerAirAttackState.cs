@@ -23,17 +23,19 @@ public class PlayerAirAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        _player.stance = true;
+
         _player.PlayerInput.PrimaryAttackEvent += AttackInputHandle;
         PlayerAnimationTriggers.AnimationEvent += HandleAnimationEvent;
         _originXVelocity = _rigidbody.velocity.x;
         _originGravify = _rigidbody.gravityScale;
-        
-                _comboCounter = 0;
+
+        _comboCounter = 0;
         _player.AnimatorCompo.SetInteger(_comboCounterHash, _comboCounter);
 
 
         _player.AnimatorCompo.speed = _player.attackSpeed;
-
+        _player.OnStartAttack?.Invoke(_comboCounter);
         _player.OnAttackEvent.AddListener(HandleAttackHitEvent);
         //_player.StartDelayAction(0.1f, () =>
         //{
@@ -43,12 +45,14 @@ public class PlayerAirAttackState : PlayerState
 
     private void AttackInputHandle()
     {
-        if(Time.time - _lastStartTIme > 0.3f)
+        if (Time.time - _lastStartTIme > 0.3f)
             _attackTrigger = true;
     }
 
     public override void Exit()
     {
+        _player.stance = false;
+
         _player.PlayerInput.PrimaryAttackEvent -= AttackInputHandle;
         PlayerAnimationTriggers.AnimationEvent -= HandleAnimationEvent;
         _player.OnAttackEvent.RemoveListener(HandleAttackHitEvent);
@@ -63,16 +67,16 @@ public class PlayerAirAttackState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-        float attackDirection = _player.FacingDirection;
-        float xInput = _player.PlayerInput.XInput;
-        if (Mathf.Abs(xInput) > 0.05f)
+        if (_player.stopDebug)
         {
-            attackDirection = xInput;
+            Debug.Log($"{_endTriggerCalled}/{Time.time}-{_lastAttackTime}/{_attackTrigger}");
         }
+
 
         if (_endTriggerCalled)
         {
-            if (Time.time - _lastAttackTime > 0.15f)
+            AirMovementControl();
+            if (Time.time - _lastAttackTime > 0.05f)
             {
                 _stateMachine.ChangeState(PlayerStateEnum.Fall);
                 return;
@@ -99,6 +103,15 @@ public class PlayerAirAttackState : PlayerState
         _player.OnEndAttack?.Invoke();
     }
 
+    private void AirMovementControl()
+    {
+        float xInput = _player.PlayerInput.XInput;
+        if (Mathf.Abs(xInput) > 0.05f)
+        {
+            float xVelocity = xInput * _player.moveSpeed;
+            _player.SetVelocity(xVelocity * _player.airXMovementRatio, _rigidbody.velocity.y);
+        }
+    }
     private void HandleAnimationEvent()
     {
         _player.Attack();
