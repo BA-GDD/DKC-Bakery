@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,13 +10,18 @@ public class Player : Entity
     public float jumpForce = 12f;
     public float dashDuration = 0.4f;
     public float dashSpeed = 20f;
+    [field: SerializeField] public float CoyoteTime { get; private set; }
+    [HideInInspector] public float coyoteCounter;
+    [HideInInspector] public bool stance;
 
     [Header("attack settings")]
     public float attackSpeed = 1f;
     public Vector2[] attackMovement;
     public float[] airAttackRising;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float airXMovementRatio;
+
+
 
     [field: SerializeField] public InputReader PlayerInput { get; private set; }
 
@@ -25,6 +31,8 @@ public class Player : Entity
 
     [HideInInspector]
     public SkillManager Skill { get; private set; }
+
+    public bool stopDebug;
 
     protected override void Awake()
     {
@@ -75,10 +83,18 @@ public class Player : Entity
         base.Update();
         StateMachine.CurrentState.UpdateState();
 
-        //if(Keyboard.current.pKey.wasPressedThisFrame)
-        //{
-        //    PlayerStat.IncreaseStatBy(10, 4f, PlayerStat.GetStatByType(StatType.strength));
-        //}
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            stopDebug = true;
+        }
+    }
+
+    protected override void HandleKnockback(Vector2 direction)
+    {
+        if (!stance)
+        {
+            base.HandleKnockback(direction);
+        }
     }
 
     public void AnimationEndTrigger()

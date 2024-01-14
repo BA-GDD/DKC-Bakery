@@ -22,6 +22,7 @@ public class DamageText : PoolableMono
         _tmpText.fontSize = fontSize;
         _tmpText.text = damage.ToString();
 
+        position.z = -5;
         transform.position = position;
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOMove(transform.position + _moveOffset, 0.7f));

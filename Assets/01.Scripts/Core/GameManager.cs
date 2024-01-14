@@ -18,4 +18,12 @@ public class GameManager : MonoSingleton<GameManager>
             PoolManager.Instance.CreatePool(item.prefab, item.type, item.count);
         }
     }
+    #region Debug
+    [Header("Debug")]
+    [SerializeField] private InputReader _inputReader;
+    private void Update()
+    {
+        _inputReader.UpdateBuffer();
+    }
+    #endregion
 }
