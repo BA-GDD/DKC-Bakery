@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-
 public class EnemyStateMachine<T> where T : Enum
 {
     public EnemyState<T> CurrentState { get; private set; }

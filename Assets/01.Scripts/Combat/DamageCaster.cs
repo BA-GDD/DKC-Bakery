@@ -36,6 +36,7 @@ public class DamageCaster : MonoBehaviour
             if (_hitResult[i].TryGetComponent<IDamageable>(out IDamageable health))
             {
                 int damage = _owner.CharStat.GetDamage();
+                print(direction);
                 health.ApplyDamage(damage, direction, knockbackPower, _owner);
                 SetAilmentByStat(health);
             }

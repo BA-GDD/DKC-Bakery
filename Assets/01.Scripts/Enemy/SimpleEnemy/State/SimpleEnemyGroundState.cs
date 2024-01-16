@@ -36,7 +36,7 @@ public class SimpleEnemyGroundState : EnemyState<SimpleEnemyStateEnum>
 
         if(distance < 2f || (hit && !_enemy.IsWallDetected()))
         {
-            //_stateMachine.ChangeState(SimpleEnemyStateEnum.Battle);
+            _stateMachine.ChangeState(SimpleEnemyStateEnum.Battle);
             return;
         }
     }

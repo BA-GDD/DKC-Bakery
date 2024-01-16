@@ -38,7 +38,9 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     public UnityEvent<float> OnHealthBarChanged;
-    public UnityEvent AttackEvent;
+    public UnityEvent OnAttackEvent;//때렸을 때 실행될 이벤트들
+    public Action<int> OnStartAttack;
+    public Action OnEndAttack;
 
     protected virtual void Awake()
     {
@@ -113,7 +115,7 @@ public abstract class Entity : MonoBehaviour
     {
         if ((DamageCasterCompo?.CastDamage()).Value)
         {
-            AttackEvent?.Invoke();
+            OnAttackEvent?.Invoke();
         }
     }
 
@@ -152,6 +154,10 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     #region velocity control
+    public void SetVelocity(Vector2 velocity, bool doNotFlip = false)
+    {
+        SetVelocity(velocity.x, velocity.y, doNotFlip);
+    }
     public void SetVelocity(float x, float y, bool doNotFlip = false)
     {
         RigidbodyCompo.velocity = new Vector2(x, y);
