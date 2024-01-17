@@ -23,6 +23,12 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     public void HandleNextDialogue()
     {
+        if(_selectEpisodeData.dialogueElement.Count == EpisodeManager.Instanace.dialogueIdx)
+        {
+            EpisodeManager.Instanace.EpisodeEndEvent?.Invoke();
+            return;
+        }
+
         _selectDialogueElement = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx];
         PhaseEventConnect();
         while (_selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx].isLinker)

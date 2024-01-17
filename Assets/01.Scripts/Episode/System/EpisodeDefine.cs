@@ -17,6 +17,7 @@ namespace EpisodeDialogueDefine
 
     public enum BackGroundType
     {
+        None,
         Black,
         Castle,
         Sheet

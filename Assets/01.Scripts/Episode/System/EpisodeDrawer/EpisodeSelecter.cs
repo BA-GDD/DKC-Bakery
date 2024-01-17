@@ -5,12 +5,10 @@ using UnityEngine.Events;
 
 public class EpisodeSelecter : MonoBehaviour
 {
-    [SerializeField] private EpisodeData[] _episodeDataArr = new EpisodeData[10];
     [SerializeField] private UnityEvent<EpisodeData> _episodeStartEvent;
 
-    private void OnEnable()
+    public void EpisodeStart(EpisodeData data)
     {
-        EpisodeData selectData = _episodeDataArr[MawangManager.Instanace.currentLikeability - 1];
-        _episodeStartEvent?.Invoke(selectData);
+        _episodeStartEvent?.Invoke(data);
     }
 }
