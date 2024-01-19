@@ -9,18 +9,25 @@ namespace EpisodeDialogueDefine
 
     public enum FaceType
     {
+        hesitate,
         smile,
+        noEnergy,
         surprise,
         angry,
         sad,
+        cutesad,
+        embrass,
+        cutesmile,
+        curious
     }
 
     public enum BackGroundType
     {
         None,
         Black,
+        Guild,
         Castle,
-        Sheet
+        CastleAround
     }
 
     public enum FadeOutType
