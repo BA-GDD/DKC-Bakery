@@ -11,7 +11,6 @@ namespace EpisodeDialogueDefine
     {
         hesitate,
         smile,
-        noEnergy,
         surprise,
         angry,
         sad,

@@ -44,7 +44,8 @@ public class EpisodeManager : MonoBehaviour
 
     public Action EpisodeEndEvent = null;
 
-    [HideInInspector] public int dialogueIdx;
+    [HideInInspector] public int DialogueIdx { get; set; }
+    [HideInInspector] public int EpisodeIdx { get; set; }
     [HideInInspector] public List<LogData> dialogueLog = new List<LogData>();
     [HideInInspector] public bool isTextInTyping;
 

@@ -6,7 +6,7 @@ using EpisodeDialogueDefine;
 
 public class EpisodeDialogueCore : MonoBehaviour
 {
-    [SerializeField] private EpisodeData _selectEpisodeData;
+    [SerializeField] private List<EpisodeData> _selectEpisodeDataList;
     private DialogueElement _selectDialogueElement;
 
     [SerializeField] private UnityEvent<string, string, BackGroundType> StandardDrawEvent;
@@ -15,25 +15,31 @@ public class EpisodeDialogueCore : MonoBehaviour
     [SerializeField] private UnityEvent<CharacterType, MoveType, ExitType> CharacterMoveEvent;
     [SerializeField] private UnityEvent<CharacterType, EmotionType> CharacterEmotionEvent;
 
-    public void HandleEpisodeStart(EpisodeData episodeData)
+    public void HandleEpisodeStart(List<EpisodeData> episodeDataList)
     {
-        _selectEpisodeData = episodeData;
+        _selectEpisodeDataList = episodeDataList;
         HandleNextDialogue();
     }
 
     public void HandleNextDialogue()
     {
-        if(_selectEpisodeData.dialogueElement.Count == EpisodeManager.Instanace.dialogueIdx)
+        if(_selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement.Count == EpisodeManager.Instanace.DialogueIdx)
         {
-            EpisodeManager.Instanace.EpisodeEndEvent?.Invoke();
-            return;
+            EpisodeManager.Instanace.EpisodeIdx++;
+            EpisodeManager.Instanace.DialogueIdx = 0;
+
+            if(EpisodeManager.Instanace.EpisodeIdx == _selectEpisodeDataList.Count)
+            {
+                EpisodeManager.Instanace.EpisodeEndEvent?.Invoke();
+                return;
+            }
         }
 
-        _selectDialogueElement = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx];
+        _selectDialogueElement = _selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement[EpisodeManager.Instanace.DialogueIdx];
         PhaseEventConnect();
-        while (_selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx].isLinker)
+        while (_selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement[EpisodeManager.Instanace.DialogueIdx].isLinker)
         {
-            _selectDialogueElement = _selectEpisodeData.dialogueElement[EpisodeManager.Instanace.dialogueIdx];
+            _selectDialogueElement = _selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement[EpisodeManager.Instanace.DialogueIdx];
             PhaseConnectStandard();
         }
     }
@@ -67,6 +73,6 @@ public class EpisodeDialogueCore : MonoBehaviour
         EpisodeManager.Instanace.AddDialogeLogData(_selectDialogueElement.characterElement.characterType,
                                                    _selectDialogueElement.standardElement.name,
                                                    _selectDialogueElement.standardElement.sentence);
-        EpisodeManager.Instanace.dialogueIdx++;
+        EpisodeManager.Instanace.DialogueIdx++;
     }
 }
