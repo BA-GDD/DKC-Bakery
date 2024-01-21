@@ -1,21 +1,51 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UIDefine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-    [HideInInspector]
-    public SceneUI currentSceneUI;
+    [SerializeField] private SceneUI[] _screenElementGroup;
+    private Dictionary<UIScreenType, List<SceneUI>> _sceneUIDic = new Dictionary<UIScreenType, List<SceneUI>>();
+    private UIScreenType _currentSceneUIType;
+    public UIScreenType CurrentSceneUI => _currentSceneUIType;
+    private List<SceneUI> _currentSceneUIObjectList = new List<SceneUI>();
+
+    private Canvas _canvas;
+    public Canvas Canvas
+    {
+        get
+        {
+            if (_canvas != null) return _canvas;
+            return FindObjectOfType<Canvas>();
+        }
+        set
+        {
+            _canvas = value;
+        }
+    }
+    public Transform CanvasTrm => Canvas.transform;
 
     private void Awake()
     {
-        SceneManager.activeSceneChanged += ChangeSceneUIOnChangeScene;
+        foreach(SceneUI su in _screenElementGroup)
+        {
+            if(_sceneUIDic.ContainsKey(su.ScreenType))
+            {
+                List<SceneUI> sceneUIList = new List<SceneUI>();
+                sceneUIList.Add(su);
+                _sceneUIDic.Add(su.ScreenType, sceneUIList);
 
-        // Debug
-        currentSceneUI = GetSceneUI<MapSceneUI>();
+                continue;
+            }
+
+            _sceneUIDic[su.ScreenType].Add(su);
+        }
+
+        SceneManager.sceneLoaded += ChangeSceneUIOnChangeScene;
+        ChangeSceneUIOnChangeScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     public T GetSceneUI<T>() where T : SceneUI
@@ -28,13 +58,23 @@ public class UIManager : MonoSingleton<UIManager>
         return FindFirstObjectByType(Type.GetType($"{sceneName}UI")) as SceneUI;
     }
 
-    public SceneUI GetSceneUI()
+    public void ChangeSceneUIOnChangeScene(Scene updateScene, LoadSceneMode mode)
     {
-        return FindFirstObjectByType<SceneUI>();
-    }
+        _currentSceneUIType = (UIScreenType)updateScene.buildIndex;
 
-    public void ChangeSceneUIOnChangeScene(Scene previousScene, Scene nextScene)
-    {
-        currentSceneUI = GetSceneUI(nextScene.name);
+        if(_currentSceneUIObjectList.Count > 0)
+        {
+            foreach (SceneUI su in _currentSceneUIObjectList)
+            {
+                Destroy(su.gameObject);
+            }
+            _currentSceneUIObjectList.Clear();
+        }
+
+        foreach(SceneUI su in _sceneUIDic[_currentSceneUIType])
+        {
+            GameObject suObject = Instantiate(su.gameObject, CanvasTrm);
+            suObject.name = su.gameObject.name + "__[SceneUI]";
+        }
     }
 }
