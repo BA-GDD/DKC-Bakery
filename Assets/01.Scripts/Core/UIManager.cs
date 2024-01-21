@@ -19,7 +19,14 @@ public class UIManager : MonoSingleton<UIManager>
         get
         {
             if (_canvas != null) return _canvas;
-            return FindObjectOfType<Canvas>();
+            Canvas findCanvas = FindObjectOfType<Canvas>();
+
+            if(findCanvas.renderMode == RenderMode.ScreenSpaceCamera)
+            {
+                findCanvas.worldCamera = Camera.main;
+            }
+
+            return findCanvas;
         }
         set
         {
@@ -50,7 +57,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public T GetSceneUI<T>() where T : SceneUI
     {
-        return FindFirstObjectByType(typeof(T)) as T;
+        return (T)FindFirstObjectByType(typeof(T));
     }
 
     public SceneUI GetSceneUI(string sceneName)
@@ -74,7 +81,9 @@ public class UIManager : MonoSingleton<UIManager>
         foreach(SceneUI su in _sceneUIDic[_currentSceneUIType])
         {
             GameObject suObject = Instantiate(su.gameObject, CanvasTrm);
-            suObject.name = su.gameObject.name + "__[SceneUI]";
+            suObject.name = su.gameObject.name + "_MAESTRO_[SceneUI]_";
+
+            _currentSceneUIObjectList.Add(su);
         }
     }
 }
