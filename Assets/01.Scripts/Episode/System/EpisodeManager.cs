@@ -42,17 +42,33 @@ public class EpisodeManager : MonoBehaviour
     [SerializeField] private UnityEvent<bool> _activeSyntexPanel;
     [SerializeField] private Sprite[] _characterSprite;
 
-    public Action EpisodeEndEvent = null;
+    public Action EpisodeEndEvent { get; set; }
 
     [HideInInspector] public int DialogueIdx { get; set; }
     [HideInInspector] public int EpisodeIdx { get; set; }
     [HideInInspector] public List<LogData> dialogueLog = new List<LogData>();
     [HideInInspector] public bool isTextInTyping;
 
+    public void SetPauseEpisode(bool isPause)
+    {
+        ActiveUIPlanel(!isPause);
+    }
+
+    public void SetPauseEpisode(bool isPause, Action callback)
+    {
+        ActiveUIPlanel(!isPause);
+        callback?.Invoke();
+    }
+
     public void StartEpisode(EpisodeData data)
     {
-        _episodeGroup.SetActive(true);
+        ActiveUIPlanel(true);
         _episodeStartEvent?.Invoke(data);
+    }
+
+    public void ActiveUIPlanel(bool isActive)
+    {
+        _episodeGroup.SetActive(isActive);
     }
 
     public void AddDialogeLogData(CharacterType ct, string name, string syntex)
