@@ -32,14 +32,10 @@ public class InfoBlockSelectBtn : MonoBehaviour
     [SerializeField] private float _easingTime;
 
     private Color _blurColor;
-    private Vector2 _normalPos;
-    private Vector2 _selectPos;
+    private readonly float _normalPosX = -428;
 
     private void Start()
     {
-        _normalPos = transform.localPosition;
-        _selectPos = _normalPos + new Vector2(_selectMoveValue, 0);
-
         _blurColor = Color.white * _colorBlurValue;
         _blurColor.a = 1;
 
@@ -72,10 +68,10 @@ public class InfoBlockSelectBtn : MonoBehaviour
         _markBlock.enabled = isSelect;
         _markBlock.interactable = isSelect;
 
-        Vector2 movingPos = isSelect ? _selectPos : _normalPos;
+        float movingPosX = isSelect ? _normalPosX + _selectMoveValue : _normalPosX;
         Color btnColor = isSelect ? Color.white : _blurColor;
 
-        _btnImg.transform.DOLocalMove(movingPos, _easingTime);
+        _btnImg.transform.DOLocalMoveX(movingPosX, _easingTime);
         _btnImg.DOColor(btnColor, _easingTime);
     }
 }
