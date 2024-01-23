@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CustomEditor(typeof(PanelUI))]
+[CustomEditor(typeof(PanelUI), true)]
 public class PanelUIEditor : Editor
 {
     private PanelUI _targetPanelUI;
@@ -16,18 +16,17 @@ public class PanelUIEditor : Editor
     {
         DrawDefaultInspector();
 
-        PanelUI inspectorObj = _targetPanelUI;
-        if (inspectorObj.useBlackPanel)
+        if (_targetPanelUI.useBlackPanel)
         {
-            inspectorObj.blackPanel = EditorGUILayout.ObjectField("BlackPanel",
-                                      inspectorObj.blackPanel,
+            _targetPanelUI.blackPanel = EditorGUILayout.ObjectField("BlackPanel",
+                                      _targetPanelUI.blackPanel,
                                       typeof(Image), true) as Image;
 
-            inspectorObj.easingTime = EditorGUILayout.FloatField("EasingTime",
-                                      inspectorObj.easingTime);
+            _targetPanelUI.easingTime = EditorGUILayout.FloatField("EasingTime",
+                                      _targetPanelUI.easingTime);
 
-            inspectorObj.endOfAlpha = EditorGUILayout.FloatField("End of alpha",
-                                      inspectorObj.endOfAlpha);
+            _targetPanelUI.endOfAlpha = EditorGUILayout.FloatField("End of alpha",
+                                      _targetPanelUI.endOfAlpha);
         }
 
         if(GUI.changed)
