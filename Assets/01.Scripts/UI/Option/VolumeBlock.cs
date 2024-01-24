@@ -18,6 +18,8 @@ public class VolumeBlock : MonoBehaviour
     private SoundData _soundData = new SoundData();
     private bool _isHasChanges;
 
+    private const string VolumeSettingKey = "VolumeDataKey";
+
     private void Awake()
     {
         _masterSlider.onValueChanged.AddListener(SetMasterVolumeValue);
@@ -27,9 +29,9 @@ public class VolumeBlock : MonoBehaviour
 
     private void Start()
     {
-        if(DataManager.Instance.IsHaveData(_soundData))
+        if(DataManager.Instance.IsHaveData(VolumeSettingKey))
         {
-            _soundData = DataManager.Instance.LoadData<SoundData>();
+            _soundData = DataManager.Instance.LoadData<SoundData>(VolumeSettingKey);
         }
 
         _masterSlider.value = _soundData.MasterVoume;
@@ -56,7 +58,7 @@ public class VolumeBlock : MonoBehaviour
 
     public void SaveData()
     {
-        _savebtn.SaveData(_soundData, out _isHasChanges);
+        _savebtn.SaveData(_soundData, VolumeSettingKey, out _isHasChanges);
         _notifyIsChangeText.enabled = _isHasChanges;
     }
 

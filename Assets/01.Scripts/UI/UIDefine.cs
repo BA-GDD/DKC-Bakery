@@ -10,4 +10,9 @@ namespace UIDefine
         bakery,
     }
 
+    public enum PanelType
+    {
+        option,
+        normal
+    }
 }

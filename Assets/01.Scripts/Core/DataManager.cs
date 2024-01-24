@@ -10,19 +10,21 @@ public class DataManager : MonoSingleton<DataManager>
 
     private void Awake()
     {
-        string[] keyArr = File.ReadAllText(_dataKeyFilePath).Split(",");
-        int saveFileCount = keyArr.Length - 1;
-
-        for(int i = 0; i < saveFileCount; i++)
+        if(File.Exists(_dataKeyFilePath))
         {
-            _datakeyList.Add(keyArr[i]);
+            string[] keyArr = File.ReadAllText(_dataKeyFilePath).Split(",");
+            int saveFileCount = keyArr.Length - 1;
+
+            for (int i = 0; i < saveFileCount; i++)
+            {
+                _datakeyList.Add(keyArr[i]);
+            }
         }
     }
 
-    public void SaveData(CanSaveData saveData)
+    public void SaveData(CanSaveData saveData, string dataKey) 
     {
-        string dataKey = nameof(saveData);
-
+        Debug.Log(dataKey);
         if(!IsHaveData(dataKey))
         {
             File.WriteAllText(_dataKeyFilePath, $"{dataKey},");
@@ -32,27 +34,20 @@ public class DataManager : MonoSingleton<DataManager>
         File.WriteAllText(GetFilePath(dataKey), JsonUtility.ToJson(saveData));
     }
 
-    public T LoadData<T>() where T : CanSaveData
+    public T LoadData<T>(string dataKey) where T : CanSaveData
     {
-        string dataKey = nameof(T);
-
         if (!IsHaveData(dataKey))
         {
-            Debug.LogError($"Error! No exit data key!! Key name : {dataKey}");
+            Debug.LogWarning($"Error! No exit data key!! Key name : {dataKey}");
             return default(T);
         }
 
         return JsonUtility.FromJson<T>(File.ReadAllText(GetFilePath(dataKey)));
     }
 
-    public bool IsHaveData(CanSaveData saveData)
-    {
-        return _datakeyList.Contains(nameof(saveData));
-    }
-
     public bool IsHaveData(string dataKey)
     {
-        return _datakeyList.Contains(nameof(dataKey));
+        return _datakeyList.Contains(dataKey);
     }
 
     private string GetFilePath(string dataKey)

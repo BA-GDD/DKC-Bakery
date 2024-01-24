@@ -65,7 +65,8 @@ public class InfoBlockSelectBtn : MonoBehaviour
 
     private void HandlePointerClickBtn(bool isSelect)
     {
-        _markBlock.enabled = isSelect;
+        _markBlock.alpha = MaestrOffice.ConvertBoolToInt(isSelect);
+        _markBlock.blocksRaycasts = isSelect;
         _markBlock.interactable = isSelect;
 
         float movingPosX = isSelect ? _normalPosX + _selectMoveValue : _normalPosX;

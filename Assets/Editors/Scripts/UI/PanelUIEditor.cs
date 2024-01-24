@@ -15,7 +15,7 @@ public class PanelUIEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-
+        
         if (_targetPanelUI.useBlackPanel)
         {
             _targetPanelUI.blackPanel = EditorGUILayout.ObjectField("BlackPanel",
@@ -27,6 +27,13 @@ public class PanelUIEditor : Editor
 
             _targetPanelUI.endOfAlpha = EditorGUILayout.FloatField("End of alpha",
                                       _targetPanelUI.endOfAlpha);
+
+        }
+        
+        if (_targetPanelUI.canSeconderyActivePanel)
+        {
+            _targetPanelUI.toCreatedCount = EditorGUILayout.IntField("Beforehand Create Panel Count",
+                                            _targetPanelUI.toCreatedCount);
         }
 
         if(GUI.changed)

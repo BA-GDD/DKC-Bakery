@@ -8,7 +8,9 @@ using UIDefine;
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private SceneUI[] _screenElementGroup;
+
     private Dictionary<UIScreenType, List<SceneUI>> _sceneUIDic = new Dictionary<UIScreenType, List<SceneUI>>();
+
     private UIScreenType _currentSceneUIType;
     public UIScreenType CurrentSceneUI => _currentSceneUIType;
     private List<SceneUI> _currentSceneUIObjectList = new List<SceneUI>();
@@ -51,20 +53,18 @@ public class UIManager : MonoSingleton<UIManager>
             _sceneUIDic[su.ScreenType].Add(su);
         }
 
-        SceneManager.sceneLoaded += ChangeSceneUIOnChangeScene;
-        ChangeSceneUIOnChangeScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        //SceneManager.sceneLoaded += ChangeSceneUIOnChangeScene;
+        //ChangeSceneUIOnChangeScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     public T GetSceneUI<T>() where T : SceneUI
     {
         return (T)FindFirstObjectByType(typeof(T));
     }
-
     public SceneUI GetSceneUI(string sceneName)
     {
         return FindFirstObjectByType(Type.GetType($"{sceneName}UI")) as SceneUI;
     }
-
     public void ChangeSceneUIOnChangeScene(Scene updateScene, LoadSceneMode mode)
     {
         _currentSceneUIType = (UIScreenType)updateScene.buildIndex;

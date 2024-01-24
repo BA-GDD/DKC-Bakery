@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SaveBtn : MonoBehaviour
 {
-    public void SaveData(CanSaveData toSaveData, out bool isHasChange)
+    public void SaveData(CanSaveData toSaveData, string saveKey, out bool isHasChange)
     {
         isHasChange = false;
-        DataManager.Instance.SaveData(toSaveData);
+        DataManager.Instance.SaveData(toSaveData, saveKey);
     }
 }
