@@ -5,6 +5,8 @@ using UnityEngine;
 public class OptionGroup : MonoBehaviour
 {
     private InfoBlockSelectBtn[] _infoBlockArr;
+    public SaveBtn saveBtn;
+    public SetInitialValueBtn setInitialBtn;
 
     private void Awake()
     {

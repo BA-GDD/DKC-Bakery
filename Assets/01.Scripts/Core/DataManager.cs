@@ -24,10 +24,16 @@ public class DataManager : MonoSingleton<DataManager>
 
     public void SaveData(CanSaveData saveData, string dataKey) 
     {
-        Debug.Log(dataKey);
         if(!IsHaveData(dataKey))
         {
-            File.WriteAllText(_dataKeyFilePath, $"{dataKey},");
+            string prevData = "";
+            if(File.Exists(_dataKeyFilePath))
+            {
+                prevData = File.ReadAllText(_dataKeyFilePath);
+            }
+            string saveKey = prevData + $"{dataKey},";
+
+            File.WriteAllText(_dataKeyFilePath, saveKey);
             _datakeyList.Add(dataKey);
         }
 
@@ -41,7 +47,6 @@ public class DataManager : MonoSingleton<DataManager>
             Debug.LogWarning($"Error! No exit data key!! Key name : {dataKey}");
             return default(T);
         }
-
         return JsonUtility.FromJson<T>(File.ReadAllText(GetFilePath(dataKey)));
     }
 

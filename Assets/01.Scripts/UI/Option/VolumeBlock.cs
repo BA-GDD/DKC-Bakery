@@ -5,19 +5,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class VolumeBlock : MonoBehaviour
+public class VolumeBlock : FuncBlock
 {
     [Header("참조")]
-    [SerializeField] private TextMeshProUGUI _notifyIsChangeText;
     [SerializeField] private Slider _masterSlider;
     [SerializeField] private Slider _bgmSlider;
     [SerializeField] private Slider _sfxSlider;
-    [SerializeField] private SaveBtn _savebtn;
-    [SerializeField] private SetInitialValueBtn _setInitialValueBtn;
 
     private SoundData _soundData = new SoundData();
-    private bool _isHasChanges;
-
     private const string VolumeSettingKey = "VolumeDataKey";
 
     private void Awake()
@@ -37,34 +32,39 @@ public class VolumeBlock : MonoBehaviour
         _masterSlider.value = _soundData.MasterVoume;
         _bgmSlider.value = _soundData.BgmVolume;
         _sfxSlider.value = _soundData.SfxVolume;
+
+        _isReadChanging = true;
     }
 
     #region 밸류 셋 메서드 개노답 삼인방
     private void SetMasterVolumeValue(float value)
     {
         _soundData.MasterVoume = value;
+        IsHasChanges = true;
     }
 
     private void SetBgmVolumeValue(float value)
     {
         _soundData.BgmVolume = value;
+        IsHasChanges = true;
     }
 
     private void SetSfxVolumeValue(float value)
     {
         _soundData.SfxVolume = value;
+        IsHasChanges = true;
     }
     #endregion
 
-    public void SaveData()
+    public override void SaveData()
     {
-        _savebtn.SaveData(_soundData, VolumeSettingKey, out _isHasChanges);
+        _optionGroup.saveBtn.SaveData(_soundData, VolumeSettingKey, out _isHasChanges);
         _notifyIsChangeText.enabled = _isHasChanges;
     }
 
-    public void SetInitialValue()
+    public override void SetInitialValue()
     {
-        _setInitialValueBtn.InitializeData(_soundData, out _isHasChanges);
+        _optionGroup.setInitialBtn.InitializeData(_soundData, out _isHasChanges);
         _notifyIsChangeText.enabled = _isHasChanges;
     }
 }

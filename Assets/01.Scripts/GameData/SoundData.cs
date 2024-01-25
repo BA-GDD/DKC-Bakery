@@ -6,9 +6,9 @@ using System;
 [Serializable]
 public class SoundData : CanSaveData
 {
-    public float MasterVoume { get; set; }
-    public float BgmVolume { get; set; }
-    public float SfxVolume { get; set; }
+    public float MasterVoume;
+    public float BgmVolume;
+    public float SfxVolume;
 
     public override void SetInitialValue()
     {

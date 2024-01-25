@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetInitialValueBtn : MonoBehaviour
+public class SetInitialValueBtn : ButtonElement
 {
     public void InitializeData(CanSaveData toSaveData, out bool isHasChange)
     {

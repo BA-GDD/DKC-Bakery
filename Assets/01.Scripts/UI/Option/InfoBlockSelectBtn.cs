@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class InfoBlockSelectBtn : MonoBehaviour
 {
-    [Header("셋팅값")]
+    [Header("참조")]
     [SerializeField] private TextMeshProUGUI _selectText;
     [SerializeField] private Image _btnImg;
-    [SerializeField] private CanvasGroup _markBlock;
+    [SerializeField] private FuncBlock _markBlock;
+    [SerializeField] private OptionGroup _optionGroup;
     [SerializeField] private bool _clickThisPanel;
     public bool ClickThisPanel
     {
@@ -65,12 +66,16 @@ public class InfoBlockSelectBtn : MonoBehaviour
 
     private void HandlePointerClickBtn(bool isSelect)
     {
-        _markBlock.alpha = MaestrOffice.ConvertBoolToInt(isSelect);
-        _markBlock.blocksRaycasts = isSelect;
-        _markBlock.interactable = isSelect;
+        CanvasGroup markBlockCanvas = _markBlock.CanvasGroup;
+        markBlockCanvas.alpha = MaestrOffice.ConvertBoolToInt(isSelect);
+        markBlockCanvas.blocksRaycasts = isSelect;
+        markBlockCanvas.interactable = isSelect;
 
         float movingPosX = isSelect ? _normalPosX + _selectMoveValue : _normalPosX;
         Color btnColor = isSelect ? Color.white : _blurColor;
+
+        _optionGroup.saveBtn.SetOneShotCallbackToPress(_markBlock.SaveData);
+        _optionGroup.setInitialBtn.SetOneShotCallbackToPress(_markBlock.SetInitialValue);
 
         _btnImg.transform.DOLocalMoveX(movingPosX, _easingTime);
         _btnImg.DOColor(btnColor, _easingTime);

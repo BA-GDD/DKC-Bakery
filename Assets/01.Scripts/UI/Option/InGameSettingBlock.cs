@@ -6,19 +6,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 
-public class InGameSettingBlock : MonoBehaviour
+public class InGameSettingBlock : FuncBlock
 {
     [Header("ÂüÁ¶")]
-    [SerializeField] private TextMeshProUGUI _notifyIsChangeText;
+    
     [SerializeField] private TMP_InputField _vibrationValueField;
-    [SerializeField] private TMP_Dropdown _screenModeDropDown;
+    [SerializeField] private Dropdown _screenModeDropDown;
     [SerializeField] private CheckBox _verticalSyncCheckBox;
-    [SerializeField] private SaveBtn _saveBtn;
-    [SerializeField] private SetInitialValueBtn _setInitialBtn;
 
     private InGameSettingData _inGameSettingData = new InGameSettingData();
-    private bool _isHasChanges;
-
     private Regex _numberFilter = new Regex(@"^[0-9]+$");
 
     private const string InGameSettingDatakey = "InGameDataKey";
@@ -26,31 +22,23 @@ public class InGameSettingBlock : MonoBehaviour
     private void Awake()
     {
         _vibrationValueField.onValueChanged.AddListener(ChangeVibrationValue);
-        _screenModeDropDown.onValueChanged.AddListener(ChangeModeType);
+        _screenModeDropDown.OnValueChanged += ChangeModeType;
+        _verticalSyncCheckBox.OnValueChanged += HandleGetVsyncValue;
     }
 
     public void Start()
     {
         if(DataManager.Instance.IsHaveData(InGameSettingDatakey))
         {
+            Debug.Log(1);
             _inGameSettingData = DataManager.Instance.LoadData<InGameSettingData>(InGameSettingDatakey);
         }
 
         _vibrationValueField.text = _inGameSettingData.vibrationValue.ToString();
-        _screenModeDropDown.value = _inGameSettingData.modeNum;
+        _screenModeDropDown.SetItem(_inGameSettingData.modeNum);
         _verticalSyncCheckBox.IsActive = _inGameSettingData.isVerticalSync;
-    }
 
-    public void SaveData()
-    {
-        _saveBtn.SaveData(_inGameSettingData, InGameSettingDatakey, out _isHasChanges);
-        _notifyIsChangeText.enabled = _isHasChanges;
-    }
-
-    public void SetInitialValue()
-    {
-        _setInitialBtn.InitializeData(_inGameSettingData, out _isHasChanges);
-        _notifyIsChangeText.enabled = _isHasChanges;
+        _isReadChanging = true;
     }
 
     private void ChangeVibrationValue(string sentencec)
@@ -71,13 +59,41 @@ public class InGameSettingBlock : MonoBehaviour
         }
 
         _inGameSettingData.vibrationValue = value;
+        IsHasChanges = true;
     }
     private void ChangeModeType(int num)
     {
+        switch (num)
+        {
+            case 0:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            default:
+                break;
+        }
+
         _inGameSettingData.modeNum = num;
+        IsHasChanges = true;
     }
-    public void ClickCheckBox()
+    private void HandleGetVsyncValue (bool value)
     {
-        _verticalSyncCheckBox.IsActive = !_verticalSyncCheckBox.IsActive;
+        QualitySettings.vSyncCount = value ? 1 : 0;
+        _inGameSettingData.isVerticalSync = value;
+        IsHasChanges = true;
+    }
+
+    public override void SaveData()
+    {
+        _optionGroup.saveBtn.SaveData(_inGameSettingData, InGameSettingDatakey, out _isHasChanges);
+        _notifyIsChangeText.enabled = _isHasChanges;
+    }
+
+    public override void SetInitialValue()
+    {
+        _optionGroup.setInitialBtn.InitializeData(_inGameSettingData, out _isHasChanges);
+        _notifyIsChangeText.enabled = _isHasChanges;
     }
 }

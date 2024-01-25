@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SaveBtn : MonoBehaviour
+public class SaveBtn : ButtonElement
 {
     public void SaveData(CanSaveData toSaveData, string saveKey, out bool isHasChange)
     {
