@@ -71,11 +71,11 @@ public class InfoBlockSelectBtn : MonoBehaviour
         markBlockCanvas.blocksRaycasts = isSelect;
         markBlockCanvas.interactable = isSelect;
 
-        float movingPosX = isSelect ? _normalPosX + _selectMoveValue : _normalPosX;
-        Color btnColor = isSelect ? Color.white : _blurColor;
-
         _optionGroup.saveBtn.SetOneShotCallbackToPress(_markBlock.SaveData);
         _optionGroup.setInitialBtn.SetOneShotCallbackToPress(_markBlock.SetInitialValue);
+        
+        float movingPosX = isSelect ? _normalPosX + _selectMoveValue : _normalPosX;
+        Color btnColor = isSelect ? Color.white : _blurColor;
 
         _btnImg.transform.DOLocalMoveX(movingPosX, _easingTime);
         _btnImg.DOColor(btnColor, _easingTime);

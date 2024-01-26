@@ -5,14 +5,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+[Flags]
 public enum IngredientType
 {
     None = 0,       // 없음 (체크용)
     Base = 1,       // 베이스
     Liquid = 2,     // 액체류 - 물, 우유, 달걀
-    Leaven = 3,     // 효모
-    Butterfat = 4,  // 유지방
-    Sugars = 5,     // 당류
+    Leaven = 4,     // 효모
+    Butterfat = 8,  // 유지방
+    Sugars = 16, // 당류
 }
 
 public class BakingManager : MonoSingleton<BakingManager>
