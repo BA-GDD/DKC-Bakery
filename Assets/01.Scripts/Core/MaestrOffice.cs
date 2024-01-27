@@ -50,4 +50,15 @@ public static class MaestrOffice
     {
         return Convert.ToInt16(value);
     }
+
+    public static int SelectedNumberOfFlagEnums(int flagEnum)
+    {
+        int count = 0;
+        while (flagEnum > 0)
+        {
+            count += flagEnum & 1;
+            flagEnum >>= 1;
+        }
+        return count;
+    }
 }

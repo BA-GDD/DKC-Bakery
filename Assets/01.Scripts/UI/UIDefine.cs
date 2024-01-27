@@ -9,15 +9,11 @@ namespace UIDefine
         bakery,
     }
 
-    [System.Flags]
-    public enum BakeryUIFilterType
+    public enum BakeryCombinationType
     {
-        all,
-        floor,
-        liquid,
-        sugar,
-        leaven,
-        butterfat
+        none,
+        dough,
+        cake
     }
 
     public enum PanelType

@@ -32,19 +32,19 @@ public class FilterTabGroup : MonoBehaviour
         _currentFilterType.ActiveTab(false);
         filterTab.ActiveTab(true);
 
-        //foreach (ItemElement item in  _itemElementList)
+        //foreach (ItemElement item in _itemElementList)
         //{
         //    PoolManager.Instance.Push(item);
         //}
         //_itemElementList.Clear();
-        //foreach(InventoryItem item in Inventory.Instance.ingredientStash.stash)
+        //foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
         //{
         //    ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
 
-        //    if(filterTab.GetIngredientType == ingso.ingredientType)
+        //    if (filterTab.GetIngredientType == ingso.ingredientType)
         //    {
         //        ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
-        //        ie.ItemImg = ingso.itemIcon;
+        //        ie.IngredientSO = ingso;
         //        ie.CountText = item.stackSize.ToString();
         //        ie.transform.SetParent(_contentTrm);
 
