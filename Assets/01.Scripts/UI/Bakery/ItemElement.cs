@@ -5,7 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemElement : PoolableMono, IPointerClickHandler
+public class ItemElement : PoolableMono, 
+                           IPointerClickHandler, 
+                           IPointerEnterHandler, 
+                           IPointerExitHandler
 {
     [SerializeField] private Image _itemImg;
     private ItemDataIngredientSO _myIngredientSO;
@@ -30,6 +33,9 @@ public class ItemElement : PoolableMono, IPointerClickHandler
         }
     }
 
+    private ItemInfoPopUp _popupPanel;
+    private readonly float _popupSetUpWaitSecond = 1f;
+
     public override void Init()
     {
 
@@ -38,5 +44,13 @@ public class ItemElement : PoolableMono, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
     }
 }
