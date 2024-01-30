@@ -13,7 +13,8 @@ public enum IngredientType
     Liquid = 2,     // 액체류 - 물, 우유, 달걀
     Leaven = 4,     // 효모
     Butterfat = 8,  // 유지방
-    Sugars = 16, // 당류
+    Sugars = 16,    // 당류
+    Else = 32
 }
 
 public class BakingManager : MonoSingleton<BakingManager>

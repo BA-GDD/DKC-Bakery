@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class FilterTabGroup : MonoBehaviour
 {
-    [SerializeField] private ItemElement _bakeryItemElementPrefab;
     private List<ItemElement> _itemElementList = new List<ItemElement>();
-    [SerializeField] private Transform _contentTrm;
+    [SerializeField] private RectTransform _contentTrm;
     [SerializeField] private Transform _popUpParent;
     private FilterTab _currentFilterType;
     private FilterTab[] _filterTabArr;
@@ -38,12 +37,16 @@ public class FilterTabGroup : MonoBehaviour
         //    PoolManager.Instance.Push(item);
         //}
         //_itemElementList.Clear();
+
+        //int matchItemCount = 0;
         //foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
         //{
         //    ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
 
-        //    if (filterTab.GetIngredientType == ingso.ingredientType)
+        //    if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
         //    {
+        //        matchItemCount++;
+
         //        ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
         //        ie.IngredientSO = ingso;
         //        ie.CountText = item.stackSize.ToString();
@@ -53,6 +56,7 @@ public class FilterTabGroup : MonoBehaviour
         //        _itemElementList.Add(ie);
         //    }
         //}
+        //_contentTrm.sizeDelta = new Vector2(0, ((matchItemCount % 4) + 1) * 140);
         _currentFilterType = filterTab;
     }
 }
