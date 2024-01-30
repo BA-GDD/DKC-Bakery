@@ -7,6 +7,7 @@ public class FilterTabGroup : MonoBehaviour
     [SerializeField] private ItemElement _bakeryItemElementPrefab;
     private List<ItemElement> _itemElementList = new List<ItemElement>();
     [SerializeField] private Transform _contentTrm;
+    [SerializeField] private Transform _popUpParent;
     private FilterTab _currentFilterType;
     private FilterTab[] _filterTabArr;
 
@@ -46,6 +47,7 @@ public class FilterTabGroup : MonoBehaviour
         //        ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
         //        ie.IngredientSO = ingso;
         //        ie.CountText = item.stackSize.ToString();
+        //        ie.PopUpPanelParent = _popUpParent;
         //        ie.transform.SetParent(_contentTrm);
 
         //        _itemElementList.Add(ie);

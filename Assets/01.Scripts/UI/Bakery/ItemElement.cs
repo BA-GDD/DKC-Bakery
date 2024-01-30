@@ -33,8 +33,8 @@ public class ItemElement : PoolableMono,
         }
     }
 
+    public Transform PopUpPanelParent { get; set; }
     private ItemInfoPopUp _popupPanel;
-    private readonly float _popupSetUpWaitSecond = 1f;
 
     public override void Init()
     {
@@ -43,14 +43,18 @@ public class ItemElement : PoolableMono,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        _popupPanel = PoolManager.Instance.Pop(PoolingType.ItemInfoPopUpPanel) as ItemInfoPopUp;
+        _popupPanel.transform.SetParent(PopUpPanelParent);
+        _popupPanel.Setup(transform.localPosition, IngredientSO);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        PoolManager.Instance.Push(_popupPanel);
     }
 }
