@@ -19,6 +19,7 @@ namespace UIDefine
     public enum PanelType
     {
         option,
+        inventory,
         normal
     }
 }

@@ -73,6 +73,7 @@ public class UIManager : MonoSingleton<UIManager>
         {
             foreach (SceneUI su in _currentSceneUIObjectList)
             {
+                su.SceneUIEnd();
                 Destroy(su.gameObject);
             }
             _currentSceneUIObjectList.Clear();
@@ -80,8 +81,9 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach(SceneUI su in _sceneUIDic[_currentSceneUIType])
         {
-            GameObject suObject = Instantiate(su.gameObject, CanvasTrm);
-            suObject.name = su.gameObject.name + "_MAESTRO_[SceneUI]_";
+            SceneUI suObject = Instantiate(su, CanvasTrm);
+            suObject.gameObject.name = su.gameObject.name + "_MAESTRO_[SceneUI]_";
+            suObject.SceneUIStart();
 
             _currentSceneUIObjectList.Add(su);
         }

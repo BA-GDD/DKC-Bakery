@@ -43,20 +43,20 @@ public class FilterTabGroup : MonoBehaviour
         //{
         //    ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
 
-        //    if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
-        //    {
-        //        matchItemCount++;
+            //if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
+            //    {
+            //        matchItemCount++;
 
-        //        ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
-        //        ie.IngredientSO = ingso;
-        //        ie.CountText = item.stackSize.ToString();
-        //        ie.PopUpPanelParent = _popUpParent;
-        //        ie.transform.SetParent(_contentTrm);
+            //        ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
+            //        ie.IngredientSO = ingso;
+            //        ie.CountText = item.stackSize.ToString();
+            //        ie.PopUpPanelParent = _popUpParent;
+            //        ie.transform.SetParent(_contentTrm);
 
-        //        _itemElementList.Add(ie);
-        //    }
-        //}
-        //_contentTrm.sizeDelta = new Vector2(0, ((matchItemCount % 4) + 1) * 140);
-        _currentFilterType = filterTab;
+            //        _itemElementList.Add(ie);
+            //    }
+            //}
+            //_contentTrm.sizeDelta = new Vector2(0, ((matchItemCount % 4) + 1) * 140);
+            _currentFilterType = filterTab;
     }
 }
