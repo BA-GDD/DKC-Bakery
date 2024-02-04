@@ -8,6 +8,7 @@ public class EpisodeDialogueCore : MonoBehaviour
 {
     [SerializeField] private List<EpisodeData> _selectEpisodeDataList;
     private DialogueElement _selectDialogueElement;
+    private EpisodeManager epiManager;
 
     [SerializeField] private UnityEvent<string, string, BackGroundType> StandardDrawEvent;
     [SerializeField] private UnityEvent<FadeOutType> ProductionDrawEvent;
@@ -17,29 +18,37 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     public void HandleEpisodeStart(List<EpisodeData> episodeDataList)
     {
+        epiManager = EpisodeManager.Instanace;
         _selectEpisodeDataList = episodeDataList;
         HandleNextDialogue();
     }
 
     public void HandleNextDialogue()
     {
-        if(_selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement.Count == EpisodeManager.Instanace.DialogueIdx)
+        if(epiManager.DialogueIdx == epiManager.PauseIdx[epiManager.PuaseCount])
         {
-            EpisodeManager.Instanace.EpisodeIdx++;
-            EpisodeManager.Instanace.DialogueIdx = 0;
+            epiManager.ActiveUIPlanel(false);
+            epiManager.PuaseCount++;
+            return;
+        }
 
-            if(EpisodeManager.Instanace.EpisodeIdx == _selectEpisodeDataList.Count)
+        if(_selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement.Count == epiManager.DialogueIdx)
+        {
+            epiManager.EpisodeIdx++;
+            epiManager.DialogueIdx = 0;
+
+            if(epiManager.EpisodeIdx == _selectEpisodeDataList.Count)
             {
-                EpisodeManager.Instanace.EpisodeEndEvent?.Invoke();
+                epiManager.EpisodeEndEvent?.Invoke();
                 return;
             }
         }
 
-        _selectDialogueElement = _selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement[EpisodeManager.Instanace.DialogueIdx];
+        _selectDialogueElement = _selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement[epiManager.DialogueIdx];
         PhaseEventConnect();
-        while (_selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement[EpisodeManager.Instanace.DialogueIdx].isLinker)
+        while (_selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement[epiManager.DialogueIdx].isLinker)
         {
-            _selectDialogueElement = _selectEpisodeDataList[EpisodeManager.Instanace.EpisodeIdx].dialogueElement[EpisodeManager.Instanace.DialogueIdx];
+            _selectDialogueElement = _selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement[epiManager.DialogueIdx];
             PhaseConnectStandard();
         }
     }
@@ -70,9 +79,9 @@ public class EpisodeDialogueCore : MonoBehaviour
         CharacterEmotionEvent?.Invoke(_selectDialogueElement.characterElement.characterType,
                                       _selectDialogueElement.characterElement.emotionType);
 
-        EpisodeManager.Instanace.AddDialogeLogData(_selectDialogueElement.characterElement.characterType,
+        epiManager.AddDialogeLogData(_selectDialogueElement.characterElement.characterType,
                                                    _selectDialogueElement.standardElement.name,
                                                    _selectDialogueElement.standardElement.sentence);
-        EpisodeManager.Instanace.DialogueIdx++;
+        epiManager.DialogueIdx++;
     }
 }

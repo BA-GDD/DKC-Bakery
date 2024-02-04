@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Episode/EpisodeDataList")]
 public class EpisodeDataListSO : ScriptableObject
 {
-    public List<EpisodeData> _episodeDataList = new List<EpisodeData>();
+    public List<EpisodeData> episodeDataList = new List<EpisodeData>();
 }
