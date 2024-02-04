@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-public class PlayerHPUI : SceneUI
+public class PlayerHPUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private Slider _hpBar;

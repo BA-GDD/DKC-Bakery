@@ -37,7 +37,7 @@ public abstract class Entity : MonoBehaviour
     public int FacingDirection { get; private set; } = 1; //오른쪽이 1, 왼쪽이 -1
     #endregion
 
-    public UnityEvent<float> OnHealthBarChanged;
+    public UnityEvent<float, float> OnHealthBarChanged;
     public UnityEvent OnAttackEvent;//때렸을 때 실행될 이벤트들
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
@@ -58,7 +58,7 @@ public abstract class Entity : MonoBehaviour
         HealthCompo.OnHit += HandleHit;
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
 
         CharStat = Instantiate(CharStat); //복제본 생성
         CharStat.SetOwner(this);
@@ -90,7 +90,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void HandleHit()
     {
         //UI갱신
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth());
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth());
     }
 
     protected virtual void HandleKnockback(Vector2 direction)

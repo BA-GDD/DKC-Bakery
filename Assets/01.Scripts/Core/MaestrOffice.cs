@@ -6,7 +6,7 @@ using System;
 public static class MaestrOffice
 {
     private static Camera _cam;
-    private static Camera Camera
+    public static Camera Camera
     {
         get
         {
@@ -20,6 +20,9 @@ public static class MaestrOffice
             return _cam;
         }
     }
+
+    private static int ScreenWidth = 1920;
+    private static int ScreenHeight = 1080;
 
     public static int GetPlusOrMinus()
     {
@@ -38,12 +41,9 @@ public static class MaestrOffice
 
     public static Vector2 GetScreenPosToWorldPos(Vector2 worldPos)
     {
-        return Camera.WorldToScreenPoint(worldPos);
-    }
-
-    public static Vector3 GetScreenPosToWorldPos(Vector3 worldPos)
-    {
-        return Camera.WorldToScreenPoint(worldPos);
+        Vector3 screenPos = Camera.WorldToScreenPoint(worldPos);
+        
+        return screenPos;
     }
 
     public static int ConvertBoolToInt(bool value)

@@ -61,10 +61,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         return (T)FindFirstObjectByType(typeof(T));
     }
-    public SceneUI GetSceneUI(string sceneName)
-    {
-        return FindFirstObjectByType(Type.GetType($"{sceneName}UI")) as SceneUI;
-    }
+    
     public void ChangeSceneUIOnChangeScene(Scene updateScene, LoadSceneMode mode)
     {
         _currentSceneUIType = (UIScreenType)updateScene.buildIndex;
