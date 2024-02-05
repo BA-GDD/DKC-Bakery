@@ -10,6 +10,9 @@ public class Stage : MonoBehaviour
     private List<Transform> _stageTrms;
     public int maximumPhase = 3;//±âº»°ª 3 
 
+    [HideInInspector]
+    public bool curPhaseCleared = false;    
+
     public Action OnStageStarted = null;
     public Action OnPhaseCleared = null;
     public Action OnStageCleared = null;
@@ -33,13 +36,16 @@ public class Stage : MonoBehaviour
         for(int i = 0; i < 2; i++)
         {
             GameObject obj = new GameObject($"mapCollider_{i}");
+
             obj.transform.localScale = new Vector3(1, 20,1);
+            
             stageCollider[i] = obj.AddComponent<BoxCollider2D>();
 
             obj.transform.position = new Vector2((halfWidth * 2) * i - halfWidth, 0);
             obj.transform.SetParent(vCam.transform, false);
-            print("asd");
         }
+
+        stageCollider[1].gameObject.AddComponent<PhaseMove>();
     }
 
     //debug
@@ -97,5 +103,7 @@ public class Stage : MonoBehaviour
         {
             vCam.m_Follow = _stageTrms[curPhase];
         }
+        curPhaseCleared = false;
     }
+
 }
