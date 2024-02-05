@@ -9326,7 +9326,7 @@ MonoBehaviour:
   OnAttackEvent:
     m_PersistentCalls:
       m_Calls: []
-  moveSpeed: 5
+  moveSpeed: 10
   idleTime: 0
   battleTime: 15
   _whatIsPlayer:
@@ -9335,8 +9335,8 @@ MonoBehaviour:
   _whatIsObstacle:
     serializedVersion: 2
     m_Bits: 0
-  runAwayDistance: 7
-  attackDistance: 3
+  runAwayDistance: 0
+  attackDistance: 0
   attackCooldown: 3
   lastTimeAttacked: 0
   targetAltitude: 0
@@ -9353,7 +9353,7 @@ Transform:
   m_GameObject: {fileID: 1882468618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 22.46, y: 24.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

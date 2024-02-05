@@ -28,7 +28,7 @@ public class BigCbeekIdleState : EnemyState<BigCbeekStateEnum>
         Vector2 dir = new Vector2(Mathf.Sin(Time.time), Mathf.Cos(Time.time * 2));
         _enemyBase.SetVelocity(dir * _enemyBase.moveSpeed * 0.25f);
         float dis = _player.transform.position.x - _enemyBase.transform.position.x;
-        if (dis < _enemyBase.runAwayDistance)
+        if (Mathf.Abs(dis) < _enemyBase.runAwayDistance)
         {
             _stateMachine.ChangeState(BigCbeekStateEnum.Battle);
         }
