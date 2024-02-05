@@ -48,7 +48,7 @@ namespace GreenerGames
         public V GetValueFromPrimary(T1 primaryKey)
         {
             if (primaryDictionary.ContainsKey(primaryKey)) return primaryDictionary[primaryKey];
-
+            Debug.Log(primaryKey);
             throw new KeyNotFoundException("primary key not found");
         }
 

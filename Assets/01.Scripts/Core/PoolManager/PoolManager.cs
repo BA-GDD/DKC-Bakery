@@ -7,8 +7,9 @@ public enum PoolingType
     DamageText,
     DialogueEffect,
     SwordAura,
-    WarmFireBall,
     HoneyTreeSpike
+    IngredientItemElement,
+    ItemInfoPopUpPanel
 }
 
 public class PoolManager
