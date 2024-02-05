@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class MapNode : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private bool _isStageBubbleReverse;
+    [SerializeField] private StageDataSO _stageData;
 
     private int _stageNumber;
     public int StageNumber
@@ -23,7 +24,10 @@ public class MapNode : MonoBehaviour, IPointerClickHandler
 
     public void ClickThisNode()
     {
-        MapManager.Instanace.CreateStageInfoBubble("Sample", transform.localPosition, _isStageBubbleReverse);
+        MapManager.Instanace.CreateStageInfoBubble(_stageData.stageName, 
+                                                   transform.localPosition, 
+                                                   _isStageBubbleReverse);
+        MapManager.Instanace.SelectStageData = _stageData;
     }
 
     public void OnPointerClick(PointerEventData eventData)

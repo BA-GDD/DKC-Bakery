@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum DoorType
 {
@@ -35,7 +36,7 @@ public class LobbyDoor : MonoBehaviour
         {
             case DoorType.OutSide:
                 {
-
+                    SceneManager.LoadScene("MapScene");
                 }
                 break;
             case DoorType.Bakery:

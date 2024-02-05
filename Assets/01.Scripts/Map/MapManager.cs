@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
 
     public List<MapDataSO> _mapDataList = new List<MapDataSO>();
     private MapDataSO _currentChapterData;
+    public StageDataSO SelectStageData { get; set; }
     private ChapterInfoPanel _chapterInfoPanel;
     [SerializeField] private StageBubble _stageBubblePrefab;
     private StageBubble _stageBubbleObject;
@@ -88,6 +89,7 @@ public class MapManager : MonoBehaviour
         _stageBubbleObject = Instantiate(_stageBubblePrefab, parent);
         _stageBubbleObject.transform.localPosition = pos + new Vector2(0, 20);
         _stageBubbleObject.transform.DOLocalMove(pos, 0.3f);
+
         _stageBubbleObject.SetInfo(stageName, isReverse);
     }
 

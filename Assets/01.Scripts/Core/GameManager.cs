@@ -4,7 +4,15 @@ public class GameManager : MonoSingleton<GameManager>
 {
     [SerializeField] private Player _player;
     public Transform PlayerTrm => _player.transform;
-    public Player Player => _player;
+    public Player Player
+    {
+        get
+        {
+            if (_player != null) return _player;
+            _player = FindObjectOfType<Player>();
+            return _player;
+        }
+    }
 
     [Header("Pooling")]
     [SerializeField] private PoolListSO _poolingList;
