@@ -24,7 +24,7 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
     public event Action PrimaryAttackEvent;
     public event Action SwordAuraEvent;
 
-    private Controls _controls;
+    public Controls _controls;
     private void OnEnable()
     {
         if (_controls == null)
