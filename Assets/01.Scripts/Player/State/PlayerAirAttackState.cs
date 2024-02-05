@@ -45,8 +45,7 @@ public class PlayerAirAttackState : PlayerState
 
     private void AttackInputHandle()
     {
-        if (Time.time - _lastStartTIme > 0.3f)
-            _attackTrigger = true;
+        _attackTrigger = true;
     }
 
     public override void Exit()
@@ -76,7 +75,7 @@ public class PlayerAirAttackState : PlayerState
         if (_endTriggerCalled)
         {
             AirMovementControl();
-            if (Time.time - _lastAttackTime > 0.01f)
+            if (Time.time - _lastAttackTime > 0.1f)
             {
                 _stateMachine.ChangeState(PlayerStateEnum.Fall);
                 return;
@@ -118,7 +117,7 @@ public class PlayerAirAttackState : PlayerState
     }
     private void HandleAttackHitEvent()
     {
-        _rigidbody.gravityScale = 1;
+        _rigidbody.gravityScale = 1f;
         _player.SetVelocity(_rigidbody.velocity.x * _player.airXMovementRatio, _player.airAttackRising[_comboCounter]);
     }
 }

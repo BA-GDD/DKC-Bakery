@@ -29,11 +29,6 @@ public abstract class PlayerAirState : PlayerState
         {
             _player.SetVelocity(_player.moveSpeed * 0.9f * xInput, _rigidbody.velocity.y);
         }
-
-        if(_player.IsWallDetected() )
-        {
-            _stateMachine.ChangeState(PlayerStateEnum.WallSlide);
-        }
     }
     private void HandleAirAttackEvent()
     {
