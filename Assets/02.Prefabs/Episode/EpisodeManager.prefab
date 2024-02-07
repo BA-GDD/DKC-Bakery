@@ -719,7 +719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1616646095197213012
 Transform:
   m_ObjectHideFlags: 0
@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dbf3fdb174b251479df3068a2deddbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectEpisodeData: {fileID: 11400000, guid: b8a3b01a69db31d43a3b23d9c83162b5, type: 2}
+  _selectEpisodeDataList: []
   StandardDrawEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2651,7 +2651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7639696425545151514}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2720,7 +2720,6 @@ MonoBehaviour:
   _characterSprite:
   - {fileID: 21300000, guid: d89fd84e3b2718e488827b469742ec49, type: 3}
   - {fileID: 21300000, guid: d89fd84e3b2718e488827b469742ec49, type: 3}
-  dialogueIdx: 0
   isTextInTyping: 0
 --- !u!1 &7866559356610515782
 GameObject:

@@ -6,7 +6,10 @@ public enum PoolingType
 {
     DamageText,
     DialogueEffect,
-    SwordAura
+    SwordAura,
+    HoneyTreeSpike
+    IngredientItemElement,
+    ItemInfoPopUpPanel
 }
 
 public class PoolManager

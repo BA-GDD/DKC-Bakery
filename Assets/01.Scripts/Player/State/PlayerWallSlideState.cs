@@ -12,12 +12,10 @@ public class PlayerWallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        _player.PlayerInput.JumpEvent += HandleJumpEvent;
     }
 
     public override void Exit()
     {
-        _player.PlayerInput.JumpEvent -= HandleJumpEvent;
         base.Exit();
     }
 
@@ -50,10 +48,5 @@ public class PlayerWallSlideState : PlayerState
         {
             _stateMachine.ChangeState(PlayerStateEnum.Idle);
         }
-    }
-
-    private void HandleJumpEvent()
-    {
-        _stateMachine.ChangeState(PlayerStateEnum.WallJump);
     }
 }

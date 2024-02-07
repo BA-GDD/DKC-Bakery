@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class EnemyAnimationTrigger : MonoBehaviour
 {
-    [SerializeField] private LayerMask _whatIsEnemy;
     private Enemy _enemy;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _enemy = transform.parent.GetComponent<Enemy>();
     }

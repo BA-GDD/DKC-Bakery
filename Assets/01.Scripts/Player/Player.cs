@@ -1,10 +1,47 @@
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
+#if UNITY_EDITOR
+    [HideInInspector] public PlayerStateEnum debugState;
+
+    [CustomEditor(typeof(Player))]
+    public class PlayerEditor : Editor
+    {
+        private Player _player;
+        private PlayerStateEnum _stateEnum;
+
+        private void OnEnable()
+        {
+            _player = (Player)target;
+        }
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            _stateEnum = _player.debugState;
+
+            if (Application.isPlaying)
+            {
+                GUILayout.Label("강제 상태 전환");
+                _player.debugState = (PlayerStateEnum)EditorGUILayout.EnumPopup("상태", _stateEnum);
+                if (GUILayout.Button("ChangeState"))
+                {
+                    _player.StateMachine.ChangeState(_stateEnum);
+                }
+            }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(_player);
+            }
+        }
+    }
+#endif
     [Header("movement settings")]
     public float moveSpeed = 12f;
     public float jumpForce = 12f;

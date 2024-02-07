@@ -23,7 +23,7 @@ public class InputBuffer
         }
     }
 
-    public static float TimeBeforeActionsExpire = 0.1f;
+    public static float TimeBeforeActionsExpire = 0.05f;
 
     public void GetInput(float stamp, PlayerInput inputType)
     {

@@ -15,7 +15,6 @@ public class SimpleEnemyBattleState : SimpleEnemyGroundState
     public override void Enter()
     {
         base.Enter();
-        _player = GameManager.Instance.Player;
         SetDirectionToEnemy();
     }
 
