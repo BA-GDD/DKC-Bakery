@@ -59,9 +59,9 @@ public class Warm: Enemy
     }
     public override void Attack()
     {
-        WarmFireBall fireBall = PoolManager.Instance.Pop(PoolingType.WarmFireBall) as WarmFireBall;
+        /*WarmFireBall fireBall = PoolManager.Instance.Pop(PoolingType.WarmFireBall) as WarmFireBall;
         fireBall.transform.position = _fireTrm.position;
-        fireBall.Fire(FacingDirection,this);
+        fireBall.Fire(FacingDirection,this);*/
     }
 
 

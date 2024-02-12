@@ -7,7 +7,7 @@ public enum PoolingType
     DamageText,
     DialogueEffect,
     SwordAura,
-    HoneyTreeSpike
+    HoneyTreeSpike,
     IngredientItemElement,
     ItemInfoPopUpPanel
 }
