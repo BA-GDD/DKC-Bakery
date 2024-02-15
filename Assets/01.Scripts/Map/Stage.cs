@@ -10,6 +10,8 @@ public class Stage : MonoBehaviour
     private List<Transform> _stageTrms;
     public int maximumPhase = 3;//±âº»°ª 3 
 
+    public Transform camTrmsParent;
+
     [HideInInspector]
     public bool curPhaseCleared = false;    
 
@@ -79,6 +81,7 @@ public class Stage : MonoBehaviour
             Transform trm = new GameObject().transform;
             trm.name = $"camTrm_{i + 1}";
             trm.position = new Vector3(i * (halfWidth*2.0f), 0, 0);
+            trm.SetParent(camTrmsParent);
             _stageTrms.Add(trm);
         }
 
