@@ -15,6 +15,7 @@ public class IngredientSelectComplete : MonoBehaviour
     [SerializeField] private Button _myButton;
     [SerializeField] private TextMeshProUGUI _btnOkText;
     [SerializeField] private TextMeshProUGUI _btnCancleText;
+    [SerializeField] private GameObject _bakingBtn;
 
     [Header("·ºÆ®")]
     [SerializeField] private RectTransform _boxTrm;
@@ -42,7 +43,12 @@ public class IngredientSelectComplete : MonoBehaviour
 
         _boxTrm.DOLocalMoveY(-350, 0.2f);
         Tween t = DOTween.To(() => _boxTrm.sizeDelta, v => _boxTrm.sizeDelta = v, new Vector2(1000, 270), 0.2f);
-        t.OnComplete(()=> _myButton.transform.DOLocalMoveY(-190, 0.1f));
+        t.OnComplete(()=> 
+        {
+            _myButton.transform.DOLocalMoveY(-190, 0.1f);
+            _bakingBtn.gameObject.SetActive(true);
+            _bakingBtn.transform.DOLocalMoveY(-168, 0.1f);
+        });
 
         _myButton.onClick.RemoveAllListeners();
         _myButton.onClick.AddListener(SelectRevert);
@@ -60,9 +66,14 @@ public class IngredientSelectComplete : MonoBehaviour
         for (int i = 0; i < _iconBoxArr.Length; i++)
             _iconBoxArr[i].DOLocalMoveY(-35, 0.2f);
 
+        _bakingBtn.transform.DOLocalMoveY(-300, 0.1f);
         _boxTrm.DOLocalMoveY(-290, 0.2f);
         Tween t = DOTween.To(() => _boxTrm.sizeDelta, v => _boxTrm.sizeDelta = v, new Vector2(1000, 400), 0.2f);
-        t.OnComplete(() => _myButton.transform.DOLocalMoveY(-72, 0.1f));
+        t.OnComplete(() => 
+        {
+            _myButton.transform.DOLocalMoveY(-72, 0.1f);
+            _bakingBtn.gameObject.SetActive(false);
+        });
 
         _myButton.onClick.RemoveAllListeners();
         _myButton.onClick.AddListener(SelectComplete);

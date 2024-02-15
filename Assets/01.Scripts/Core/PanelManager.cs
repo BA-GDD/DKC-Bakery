@@ -42,7 +42,7 @@ public class PanelManager : MonoSingleton<PanelManager>
         }
 
         PanelUI pu = _panelUIDic[panelType].Pop();
-        pu.transform.parent = parent;
+        pu.transform.SetParent(parent);
         pu.transform.localPosition = screenPos;
 
         return pu;
@@ -50,7 +50,7 @@ public class PanelManager : MonoSingleton<PanelManager>
 
     public void DeletePanel(PanelUI panelUI)
     {
-        panelUI.transform.parent = transform;
+        panelUI.transform.SetParent(transform);
         panelUI.gameObject.SetActive(false);
 
         _panelUIDic[panelUI.PanelType].Push(panelUI);

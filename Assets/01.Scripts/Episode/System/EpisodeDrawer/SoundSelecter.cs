@@ -14,11 +14,11 @@ public class SoundSelecter : MonoBehaviour
 
     public void HandleChangeBGM(BGMType bg)
     {
-        _bgmEvent?.Invoke(bg, _bgmClipList[(int)bg - 2]);
+        //_bgmEvent?.Invoke(bg, _bgmClipList[(int)bg - 2]);
     }
 
     public void HandleOutputSFX(SFXType st)
     {
-        _sfxEvent?.Invoke(_sfxClipList[(int)st]);
+        //_sfxEvent?.Invoke(_sfxClipList[(int)st]);
     }
 }

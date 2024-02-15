@@ -74,7 +74,7 @@ public class Inventory : MonoSingleton<Inventory>
         ingredientStash.UpdateSlotUI();
         breadStash.UpdateSlotUI();
     }
-    public void AddItem(ItemDataSO item, int count = 1)
+    public void AddItem(ItemDataSO item, int count = 0)
     { 
         if (item.itemType == ItemType.Bread)
         {

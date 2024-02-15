@@ -52,15 +52,19 @@ public class EpisodeManager : MonoBehaviour
     [HideInInspector] public int PuaseCount { get; set; }
     private int[] _pauseIdx;
     [HideInInspector] public int[] PauseIdx => _pauseIdx;
+    private bool _isInPuase;
+    public bool isInPause => _isInPuase;
 
     public void SetPauseEpisode(bool isPause)
     {
         ActiveUIPlanel(!isPause);
+        _isInPuase = isPause;
     }
 
     public void SetPauseEpisode(bool isPause, Action callback)
     {
         ActiveUIPlanel(!isPause);
+        _isInPuase = isPause;
         callback?.Invoke();
     }
 

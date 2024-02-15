@@ -41,7 +41,7 @@ public class LobbyDoor : MonoBehaviour
                 break;
             case DoorType.Bakery:
                 {
-
+                    SceneManager.LoadScene("BakeryScene");
                 }
                 break;
         }

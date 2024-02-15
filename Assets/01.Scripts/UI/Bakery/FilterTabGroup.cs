@@ -8,7 +8,10 @@ public class FilterTabGroup : MonoBehaviour
     [SerializeField] private RectTransform _contentTrm;
     [SerializeField] private Transform _popUpParent;
     private FilterTab _currentFilterType;
+    public FilterTab CurrentFilterTab => _currentFilterType;
     private FilterTab[] _filterTabArr;
+
+    [SerializeField] private ItemDataSO[] _sampleitemData;
 
     private void Awake()
     {
@@ -22,41 +25,44 @@ public class FilterTabGroup : MonoBehaviour
 
     private void Start()
     {
+        for(int i = 0; i < _sampleitemData.Length; i++)
+        {
+            Inventory.Instance.AddItem(_sampleitemData[i], 1);
+        }
+        
         FilteringItem(_filterTabArr[0]);
     }
 
     public void FilteringItem(FilterTab filterTab)
     {
-        if (_currentFilterType.GetIngredientType == filterTab.GetIngredientType) return;
-
         _currentFilterType.ActiveTab(false);
         filterTab.ActiveTab(true);
 
-        //foreach (ItemElement item in _itemElementList)
-        //{
-        //    PoolManager.Instance.Push(item);
-        //}
-        //_itemElementList.Clear();
+        foreach (ItemElement item in _itemElementList)
+        {
+            PoolManager.Instance.Push(item);
+        }
+        _itemElementList.Clear();
 
-        //int matchItemCount = 0;
-        //foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
-        //{
-        //    ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
+        int matchItemCount = 0;
+        foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
+        {
+            ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
 
-            //if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
-            //    {
-            //        matchItemCount++;
+            if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
+            {
+                matchItemCount++;
 
-            //        ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
-            //        ie.IngredientSO = ingso;
-            //        ie.CountText = item.stackSize.ToString();
-            //        ie.PopUpPanelParent = _popUpParent;
-            //        ie.transform.SetParent(_contentTrm);
+                ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
+                ie.IngredientSO = ingso;
+                ie.CountText = item.stackSize.ToString();
+                ie.PopUpPanelParent = _popUpParent;
+                ie.transform.SetParent(_contentTrm);
 
-            //        _itemElementList.Add(ie);
-            //    }
-            //}
-            //_contentTrm.sizeDelta = new Vector2(0, ((matchItemCount % 4) + 1) * 140);
-            _currentFilterType = filterTab;
+                _itemElementList.Add(ie);
+            }
+        }
+        _contentTrm.sizeDelta = new Vector2(0, ((matchItemCount % 4) + 1) * 140);
+        _currentFilterType = filterTab;
     }
 }

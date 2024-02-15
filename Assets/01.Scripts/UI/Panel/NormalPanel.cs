@@ -8,6 +8,13 @@ public struct NormalPanelInfo
     public string subject;
     public string content;
     public bool useBlackPanel;
+
+    public NormalPanelInfo(string _subject, string _content, bool _useBlackPanel)
+    {
+        subject = _subject;
+        content = _content;
+        useBlackPanel = _useBlackPanel;
+    }
 }
 
 public class NormalPanel : PanelUI

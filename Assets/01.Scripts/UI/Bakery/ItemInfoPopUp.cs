@@ -10,12 +10,13 @@ public class ItemInfoPopUp : PoolableMono
     [SerializeField] private Image _itemIcon;
     [SerializeField] private TextMeshProUGUI _itemInfoText;
 
-    public void Setup(Vector2 pos, ItemDataIngredientSO ItemInfo)
+    public void Setup(Transform ieTrm, ItemDataIngredientSO ItemInfo)
     {
-        transform.localPosition = pos;
-        _itemInfoText.text = ItemInfo.itemName;
+        transform.SetParent(ieTrm);
+        transform.localPosition = Vector3.zero;
+        _itemNameText.text = ItemInfo.itemName;
         _itemIcon.sprite = ItemInfo.itemIcon;
-        //_itemInfoText.text = ItemInfo.in
+        _itemInfoText.text = ItemInfo.itemInfo;
     }
 
     public override void Init()

@@ -10,7 +10,7 @@ public class UsedIngredientStash : Stash
     public UsedIngredientStash(Transform slotParentTrm) : base(slotParentTrm)
     {
         usedIngredientStash = new List<InventoryItem>();
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 17; ++i)
         {
             usedIngredientStash.Add(null);
         }
@@ -27,7 +27,7 @@ public class UsedIngredientStash : Stash
         InventoryItem newItem = new InventoryItem(item);
         //stash.Add(newItem);
         //usedIngredientStash.Add(newItem);
-        usedIngredientStash[(int)((ItemDataIngredientSO)item).ingredientType - 1] = newItem;
+        usedIngredientStash[(int)((ItemDataIngredientSO)item).ingredientType] = newItem;
         //Debug.Log((int)((ItemDataIngredientSO)item).ingredientType - 1);
 
         usedIngredDictionary.Add(((ItemDataIngredientSO)item).ingredientType, newItem);
@@ -41,9 +41,11 @@ public class UsedIngredientStash : Stash
             _itemSlots[i].CleanUpSlot();
         }
 
-        for (int i = 0; i < usedIngredientStash.Count; ++i)
+        for (int i = 0; i < 5; ++i)
         {
-            _itemSlots[i].UpdateSlot(usedIngredientStash[i]);
+            int result = (int)Mathf.Pow(2, i);
+            Debug.Log($"{i}, {result}");
+            _itemSlots[i].UpdateSlot(usedIngredientStash[result]);
         }
     }
 
@@ -77,7 +79,8 @@ public class UsedIngredientStash : Stash
     {
         for(int i = 0; i < 5; ++i)
         {
-            usedIngredDictionary.Remove(((ItemDataIngredientSO)usedIngredientStash[i].itemDataSO).ingredientType);
+            int result = (int)Mathf.Pow(2, i);
+            usedIngredDictionary.Remove(((ItemDataIngredientSO)usedIngredientStash[result].itemDataSO).ingredientType);
             usedIngredientStash[i] = null;
         }
     }

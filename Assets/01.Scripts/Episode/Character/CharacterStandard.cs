@@ -26,7 +26,7 @@ public class CharacterStandard : MonoBehaviour
     {
         if (_currentFaceType == faceType) return;
 
-        _characterDraw.sprite = _faceGroup[(int)faceType];
+        //_characterDraw.sprite = _faceGroup[(int)faceType];
         _currentFaceType = faceType;
     }
 

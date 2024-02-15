@@ -42,12 +42,13 @@ public class EpisodeDialogueDrawer : MonoBehaviour
 
     private void Awake()
     {
+        _episodeManager = EpisodeManager.Instanace;
         _episodeSounder = transform.parent.Find("EpisodeSounder").GetComponent<SoundSelecter>();
     }
 
     private void Start()
     {
-        _episodeManager = EpisodeManager.Instanace;
+        
     }
 
     private void FixedUpdate()
@@ -111,6 +112,7 @@ public class EpisodeDialogueDrawer : MonoBehaviour
         {
             _backGround[0].color = new Color(1, 1, 1, 0);
             _backGround[1].color = new Color(1, 1, 1, 0);
+            return;
         }
 
         _backGround[0].sprite = _backGround[1].sprite;

@@ -19,6 +19,30 @@ public enum IngredientType
 
 public class BakingManager : MonoSingleton<BakingManager>
 {
+    private CookingBox _cookingBox;
+    public CookingBox CookingBox
+    {
+        get
+        {
+            if (_cookingBox != null)
+                return _cookingBox;
+            _cookingBox = FindObjectOfType<CookingBox>();
+            return _cookingBox;
+        }
+    }
+
+    private FilterTabGroup _fiterTabGroup;
+    public FilterTabGroup FilterTabGroup
+    {
+        get
+        {
+            if (_fiterTabGroup != null)
+                return _fiterTabGroup;
+            _fiterTabGroup = FindObjectOfType<FilterTabGroup>();
+            return _fiterTabGroup;
+        }
+    }
+
     public UsedIngredientStash usedIngredientStash;
     public bool isOpen = false;
 
@@ -92,23 +116,34 @@ public class BakingManager : MonoSingleton<BakingManager>
         _bakingUI.SetActive(isOpen);
     }
 
-    public void BakeBread()
+    public bool CanBake()
     {
-        Debug.Log(usedIngredientStash.usedIngredDictionary.Count);
-        if(usedIngredientStash.usedIngredDictionary.Count >= 5)
+        return usedIngredientStash.usedIngredDictionary.Count >= 5;
+    }
+
+    public ItemDataBreadSO BakeBread()
+    {
+        if(!CanBake())
         {
-            string[] names = new string[5];
-            for(int i = 0; i < 5; ++i)
-            {
-                names[i] = usedIngredientStash.usedIngredientStash[i].itemDataSO.itemName;
-            }
-            ItemDataBreadSO returnBread = _recipeTable.Bake(names);
-            if(returnBread != null)
-            {
-                Inventory.Instance.AddItem(returnBread);
-                usedIngredientStash.RemoveAllItem();
-                usedIngredientStash.UpdateSlotUI();
-            }
+            Debug.LogError("Plz Check Can Bake");
+            return null;
         }
+
+        string[] names = new string[5];
+        for (int i = 0; i < 5; ++i)
+        {
+            int result = (int)Mathf.Pow(2, i);
+            names[i] = usedIngredientStash.usedIngredientStash[result].itemDataSO.itemName;
+        }
+        ItemDataBreadSO returnBread = _recipeTable.Bake(names);
+        if (returnBread != null)
+        {
+            Inventory.Instance.AddItem(returnBread);
+            usedIngredientStash.RemoveAllItem();
+            usedIngredientStash.UpdateSlotUI();
+        }
+
+        FilterTabGroup.FilteringItem(FilterTabGroup.CurrentFilterTab);
+        return returnBread;
     }
 }

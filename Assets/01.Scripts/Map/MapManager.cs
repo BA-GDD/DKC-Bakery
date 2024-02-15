@@ -55,6 +55,7 @@ public class MapManager : MonoBehaviour
         {
             _currentChapter = value;
             if (value == ChapterType.None) return;
+            Debug.Log((int)value);
             _currentChapterData = _mapDataList[(int)value];
         }
     }

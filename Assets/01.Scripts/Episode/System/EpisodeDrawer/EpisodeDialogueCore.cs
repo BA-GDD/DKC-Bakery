@@ -27,7 +27,7 @@ public class EpisodeDialogueCore : MonoBehaviour
     {
         if(epiManager.DialogueIdx == epiManager.PauseIdx[epiManager.PuaseCount])
         {
-            epiManager.ActiveUIPlanel(false);
+            epiManager.SetPauseEpisode(true);
             epiManager.PuaseCount++;
             return;
         }
@@ -64,7 +64,6 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     private void PhaseConnectStandard()
     {
-        Debug.Log(1);
         ProductionDrawEvent?.Invoke(_selectDialogueElement.productElement.fadeType);
 
         CharacterDrawEvent?.Invoke(_selectDialogueElement.characterElement.characterType,

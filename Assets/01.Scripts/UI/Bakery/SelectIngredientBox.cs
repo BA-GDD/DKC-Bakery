@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class SelectIngredientBox : MonoBehaviour
+public class SelectIngredientBox : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private IngredientType _markIngredientType;
     public IngredientType IngredientType => _markIngredientType;
@@ -20,7 +21,16 @@ public class SelectIngredientBox : MonoBehaviour
 
     public void RemoveIngredient()
     {
-        _itemInfo = null;
         _iconImg.enabled = false;
+        BakingManager.Instance.RemoveItem(_itemInfo);
+        Inventory.Instance.AddItem(_itemInfo);
+        _itemInfo.isUsed = false;
+        BakingManager.Instance.FilterTabGroup.FilteringItem(BakingManager.Instance.FilterTabGroup.CurrentFilterTab);
+        _itemInfo = null;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        BakingManager.Instance.CookingBox.RemoveSelectIngredientInfo(IngredientType);
     }
 }

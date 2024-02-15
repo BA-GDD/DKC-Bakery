@@ -22,6 +22,8 @@ public class ItemElement : PoolableMono,
         {
             _myIngredientSO = value;
             _itemImg.sprite = value.itemIcon;
+
+            _useMask.SetActive(value.isUsed);
         }
     }
     [SerializeField] private TextMeshProUGUI _countText;
@@ -36,21 +38,35 @@ public class ItemElement : PoolableMono,
     public Transform PopUpPanelParent { get; set; }
     private ItemInfoPopUp _popupPanel;
 
+    [SerializeField] private GameObject _useMask;
+
     public override void Init()
     {
+        
+    }
 
+    public void ActiveUpdateIngredientUseMask()
+    {
+        _useMask.SetActive(IngredientSO.isUsed);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        
+        if (IngredientSO.isUsed) return;
+
+        BakingManager.Instance.AddItem(IngredientSO);
+        BakingManager.Instance.CookingBox.AddSelectIngredientInfo(IngredientSO);
+        Inventory.Instance.RemoveItem(IngredientSO);
+
+        IngredientSO.isUsed = true;
+        ActiveUpdateIngredientUseMask();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         _popupPanel = PoolManager.Instance.Pop(PoolingType.ItemInfoPopUpPanel) as ItemInfoPopUp;
         _popupPanel.transform.SetParent(PopUpPanelParent);
-        _popupPanel.Setup(transform.localPosition, IngredientSO);
+        _popupPanel.Setup(transform, IngredientSO);
     }
 
     public void OnPointerExit(PointerEventData eventData)

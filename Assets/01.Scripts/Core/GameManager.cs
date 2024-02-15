@@ -31,7 +31,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private InputReader _inputReader;
     private void Update()
     {
-        _inputReader.UpdateBuffer();
+        _inputReader?.UpdateBuffer();
     }
     #endregion
 }
