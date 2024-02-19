@@ -17,6 +17,7 @@ public class ItemObjectTrigger : MonoBehaviour
         if(collision.TryGetComponent<Player>(out Player player))
         {
             _addFeedback.PlayFeedback();
+            player.onPickUpItem?.Invoke();
             _itemObject.PickUpItem();
         }
     }

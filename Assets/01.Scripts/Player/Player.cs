@@ -58,7 +58,7 @@ public class Player : Entity
     [Range(0, 1)]
     public float airXMovementRatio;
 
-
+    public Action onPickUpItem;
 
     [field: SerializeField] public InputReader PlayerInput { get; private set; }
 
