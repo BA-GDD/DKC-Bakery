@@ -7,6 +7,9 @@ public class DebugMapSpawner : MonoBehaviour
 {
     public Transform mapTrmsParent;
     public Transform btnParent;
+    public Transform phaseBtnParent;
+
+    public Stage stage;
 
     //include prefabs
     public GameObject[] objs;
@@ -15,6 +18,7 @@ public class DebugMapSpawner : MonoBehaviour
     private int _curStageIndex = 0;
 
     private Button[] _btns;
+    private Button[] _phaseBtns;
 
     private void Awake()
     {
@@ -24,6 +28,14 @@ public class DebugMapSpawner : MonoBehaviour
         {
             int index = i;
             _btns[index].onClick.AddListener(() => StageIns(index));
+        }
+
+        _phaseBtns = phaseBtnParent.GetComponentsInChildren<Button>();
+
+        for(int i = 0; i < _phaseBtns.Length; ++i)
+        {
+            int index = i;
+            _phaseBtns[index].onClick.AddListener(()=> PhaseMove(index) );
         }
     }
 
@@ -45,5 +57,12 @@ public class DebugMapSpawner : MonoBehaviour
     {
         _curObjects[_curStageIndex].SetActive(false);
         _curObjects[index].SetActive(true);
+    }
+
+    //Phase Event
+    public void PhaseMove(int index)
+    {
+        stage.curPhase = index-1;
+        stage.PhaseCleared();
     }
 }

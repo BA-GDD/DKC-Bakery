@@ -6,8 +6,11 @@ using System.Collections.Generic;
 
 public class Stage : MonoBehaviour
 {
+    public int stageIndex = 0;
     public CinemachineVirtualCamera vCam;
-    private List<Transform> _stageTrms;
+    public StageInfoSO stageInfo;
+    
+    private List<Transform> _stageInfo;
     public int maximumPhase = 3;//기본값 3 
 
     public Transform camTrmsParent;
@@ -19,16 +22,16 @@ public class Stage : MonoBehaviour
     public Action OnPhaseCleared = null;
     public Action OnStageCleared = null;
 
-    private float halfHeight = 0;
-    private float halfWidth = 0;
+    private static float halfHeight = 0;
+    private static float halfWidth = 0;
 
     private BoxCollider2D[] stageCollider = {null, null};
 
-    protected int curPhase = 0;
+    public int curPhase = 0;
 
     protected virtual void Awake()
     {
-        _stageTrms = new List<Transform>();
+        _stageInfo = new List<Transform>();
 
          halfHeight = Camera.main.orthographicSize;
          halfWidth= Camera.main.aspect * halfHeight;
@@ -48,6 +51,8 @@ public class Stage : MonoBehaviour
         }
 
         stageCollider[1].gameObject.AddComponent<PhaseMove>();
+
+
     }
 
     //debug
@@ -58,7 +63,9 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
-        CamPosGenerate();
+        stageInfo.GetList();
+
+        StageInfoGenerate();
         OnStageStarted?.Invoke();
     }
 
@@ -74,18 +81,35 @@ public class Stage : MonoBehaviour
     /// <summary>
     /// 카메라 크기 만큼 이동하는 거?
     /// </summary>
-    private void CamPosGenerate()
+    private void StageInfoGenerate()
     {
         for(int i = 0; i < maximumPhase; ++i)
         {
-            Transform trm = new GameObject().transform;
-            trm.name = $"camTrm_{i + 1}";
-            trm.position = new Vector3(i * (halfWidth*2.0f), 0, 0);
-            trm.SetParent(camTrmsParent);
-            _stageTrms.Add(trm);
+            if(int.Parse(stageInfo.datas[stageIndex].str[i]) == 0)
+            {
+                Transform trm = new GameObject().transform;
+                trm.name = $"camTrm_{i + 1}";
+                trm.position = new Vector3(i * (halfWidth * 2.0f), 0, 0);
+                trm.SetParent(camTrmsParent);
+                _stageInfo.Add(trm);
+            }
+            else
+            {
+                _stageInfo.Add(GameManager.Instance.PlayerTrm);
+            }
         }
 
-        vCam.m_Follow = _stageTrms[curPhase];
+        vCam.m_Follow = _stageInfo[curPhase];
+    }
+
+    private void ConfinerGenerate(string objName, Vector2 size)
+    {
+        GameObject obj = new GameObject();
+        obj.name = objName;
+        BoxCollider2D col = obj.AddComponent<BoxCollider2D>();
+        col.isTrigger = true;
+
+        col.size = size;
     }
 
     /// <summary>
@@ -104,7 +128,7 @@ public class Stage : MonoBehaviour
 
         if(curPhase < maximumPhase)
         {
-            vCam.m_Follow = _stageTrms[curPhase];
+            vCam.m_Follow = _stageInfo[curPhase];
         }
         curPhaseCleared = false;
     }
