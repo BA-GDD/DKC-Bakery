@@ -10,13 +10,14 @@ public class Player : Entity
     [HideInInspector] public PlayerStateEnum debugState;
 
     [CustomEditor(typeof(Player))]
-    public class PlayerEditor : Editor
+    public class PlayerEditor : EntityEditor
     {
         private Player _player;
         private PlayerStateEnum _stateEnum;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             _player = (Player)target;
         }
         public override void OnInspectorGUI()

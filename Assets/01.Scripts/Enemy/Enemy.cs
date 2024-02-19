@@ -1,16 +1,56 @@
 using System;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class Enemy : Entity
 {
+    [CustomEditor(typeof(Enemy), true)]
+    public class EnemyEditor : EntityEditor
+    {
+        private Enemy _enemy;
+        private bool _stateSetting;
+        private bool _attackSetting;
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _enemy = (Enemy)target;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            var boldtext = new GUIStyle(GUI.skin.label);
+            boldtext.fontStyle = FontStyle.Bold;
+
+
+            _stateSetting = EditorGUILayout.Foldout(_stateSetting, "Setting", true);
+            if(_stateSetting)
+            {
+                _enemy.moveSpeed = EditorGUILayout.FloatField("MoveSpeed", _enemy.moveSpeed);
+                _enemy.idleTime = EditorGUILayout.FloatField("IdleTime", _enemy.idleTime);
+                _enemy.battleTime = EditorGUILayout.FloatField("BattleTime", _enemy.battleTime);
+            }
+
+            _attackSetting = EditorGUILayout.Foldout(_attackSetting, "AttackSetting", true);
+            if(_attackSetting)
+            {
+                _enemy.runAwayDistance = EditorGUILayout.FloatField("RunAwayDistance", _enemy.runAwayDistance);
+                _enemy.attackDistance = EditorGUILayout.FloatField("AttackDistance", _enemy.attackDistance);
+                _enemy.attackCooldown = EditorGUILayout.FloatField("AttackCooldown", _enemy.attackCooldown);
+            }
+        }
+    }
+
+    [HideInInspector] public int phase;
 
     [Header("셋팅값들")]
-    public float moveSpeed;
-    public float idleTime;
-    public float battleTime; //전투시간을 초과하면 idle상태로 이동한다.
+    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public float idleTime;
+    [HideInInspector] public float battleTime; //전투시간을 초과하면 idle상태로 이동한다.
 
     private float _defaultMoveSpeed;
 
@@ -18,9 +58,10 @@ public abstract class Enemy : Entity
     [SerializeField] protected LayerMask _whatIsObstacle;
 
     [Header("공격상태설정값")]
-    public float runAwayDistance;
-    public float attackDistance;
-    public float attackCooldown;
+    [HideInInspector] public float runAwayDistance;
+    [HideInInspector] public float attackDistance;
+    [HideInInspector] public float attackCooldown;
+
     [HideInInspector] public float lastTimeAttacked;
 
     protected bool _isFrozen = false; //얼어있는 상태

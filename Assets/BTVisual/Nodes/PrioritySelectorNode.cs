@@ -32,7 +32,6 @@ namespace BTVisual
                         {
                             children[_beforeIndex].Break();
                         }
-                        Debug.Log($"{i}, {_beforeIndex}");
                         _beforeIndex = i;
                         return State.RUNNING;
                     case State.FAILURE:
