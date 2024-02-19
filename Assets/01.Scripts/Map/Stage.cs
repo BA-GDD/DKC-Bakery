@@ -62,15 +62,6 @@ public class Stage : MonoBehaviour
         OnStageStarted?.Invoke();
     }
 
-    private void Update()
-    {
-        //디버그 코드
-        if (Keyboard.current.gKey.wasPressedThisFrame)
-        {
-            PhaseCleared();
-        }
-    }
-
     /// <summary>
     /// 카메라 크기 만큼 이동하는 거?
     /// </summary>

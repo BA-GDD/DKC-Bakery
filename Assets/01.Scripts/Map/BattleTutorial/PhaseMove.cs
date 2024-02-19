@@ -17,7 +17,6 @@ public class PhaseMove : MonoBehaviour
         {
             if(_curStage.TryGetComponent<BattleTutorial>(out BattleTutorial b))
             {
-                b.triggerVolume = null;
                 _curStage.PhaseCleared();
                 b.QuaterEnd("Quater End");
                 GameManager.Instance.PlayerTrm.position += Vector3.right * 2;

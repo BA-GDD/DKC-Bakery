@@ -20,9 +20,6 @@ public class TutorialTriggerObject : MonoBehaviour
         {
             playerIsInTriggered = true;
             _stage.curPhaseCleared = true;
-
-            Instantiate(effect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
         }
     }
 }

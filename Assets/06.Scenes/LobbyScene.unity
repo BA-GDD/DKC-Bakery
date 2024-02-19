@@ -888,31 +888,7 @@ MonoBehaviour:
   _speed: 0.06
   _playerMoveEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BackgroundObject, Assembly-CSharp
-        m_MethodName: MoveObject
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BackgroundObject, Assembly-CSharp
-        m_MethodName: MoveObject
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!50 &567851153
 Rigidbody2D:
   serializedVersion: 4
@@ -1370,6 +1346,110 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1208310006}
     m_Modifications:
+    - target: {fileID: 5034854296469259726, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296469259726, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296469259726, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296596956898, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296596956898, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296596956898, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296652350435, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296652350435, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296652350435, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296892071602, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortAtRoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296892071602, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854296892071602, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297103689203, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297224060658, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297224060658, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297224060658, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297320594240, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297320594242, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_FrontSortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297320594242, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_FrontSortingOrder
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297320594242, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_FrontSortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297344654883, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297344654883, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297344654883, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297382532291, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297382532291, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034854297382532291, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 449556385
+      objectReference: {fileID: 0}
     - target: {fileID: 5034854298163136608, guid: d1c78f7f2375b684c807a7e8cec6bb3e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5

@@ -23,11 +23,11 @@ public class BattleTutorial : Stage
     [Header("디버그용 변수")]
     public GameObject dummyEnemyPrefab;
     public CinemachineVirtualCamera enemyZoomCam;
-    public TutorialTriggerObject triggerVolumeParticlePrefab;
 
-
-    [HideInInspector]
-    public TutorialTriggerObject triggerVolume = null;
+    [Header("트리거")]
+    [SerializeField] private TutorialTriggerObject _moveTrigger;
+    [SerializeField] private TutorialTriggerObject _jumpTrigger;
+    [SerializeField] private TutorialTriggerObject _dashTrigger;
 
     private GameObject _curEnemy;
 
@@ -41,13 +41,12 @@ public class BattleTutorial : Stage
         
         tutorialActionList.Add(MoveTutorial);
         tutorialActionList.Add(JumpTutorial);
-        tutorialActionList.Add(AttackTutorial);
         tutorialActionList.Add(DashTutorial);
+        tutorialActionList.Add(AttackTutorial);
         tutorialActionList.Add(TutorialEnd);
 
         #endregion
 
-        onQuaterStartTrigger += tutorialActionList[0];
         onQuaterEndTrigger += QuaterStart;
 
         
@@ -61,7 +60,8 @@ public class BattleTutorial : Stage
 
         QuaterStart();
         int[] pauseIdx = { 14, 18, 22, 28, 36 };
-        EpisodeManager.Instanace.StartEpisode(_battleTutorialSO, pauseIdx);
+        //EpisodeManager.Instanace.StartEpisode(_battleTutorialSO, pauseIdx);
+
         //대화창이 나와서 설명을 한다.
         //대화창이 끝날 경우에는 분기 시작을 알린다.
         //하지만 그딴거 지금은 없으니까 그냥 디버그 용으로 입력받아 넘겨주는 친구 하나면 된다.
@@ -91,30 +91,28 @@ public class BattleTutorial : Stage
     //대화창은 튜토리얼 내용이 끝난 뒤 페이즈를 넘어갔을 때에 나온다고 볼 수 있다.
     private void QuaterStart()
     {
-        Debug.Log(1);
+        onQuaterStartTrigger = null;
+        onQuaterStartTrigger += tutorialActionList[curPhase];
+        Debug.Log(curPhase);
         onQuaterStartTrigger?.Invoke();
 
-        if (curPhase >= 1)
-        {
-            onQuaterStartTrigger -= tutorialActionList[curPhase - 1];
-            onQuaterStartTrigger += tutorialActionList[curPhase];
-        }
-        else
-        {
-            onQuaterStartTrigger -= tutorialActionList[0];
-            onQuaterStartTrigger += tutorialActionList[1];
-        }
-        
+        //if (curPhase >= 1)
+        //{
+        //    onQuaterStartTrigger -= tutorialActionList[curPhase - 1];
+        //    onQuaterStartTrigger += tutorialActionList[curPhase];
+        //}
+        //else
+        //{
+        //    onQuaterStartTrigger -= tutorialActionList[0];
+        //    onQuaterStartTrigger += tutorialActionList[1];
+        //}
     }
 
     public void QuaterEnd(string message)
     {
         print(message);
 
-        EpisodeManager.Instanace.SetPauseEpisode(false);
-        StartCoroutine(DebugInputCoroutine("쿼터 종료", () =>
-            Keyboard.current.spaceKey.wasPressedThisFrame
-        , false));
+        //EpisodeManager.Instanace.SetPauseEpisode(false);
         onQuaterEndTrigger?.Invoke();
     }
 
@@ -124,38 +122,29 @@ public class BattleTutorial : Stage
     {
         Debug.Log("Let's move");
 
-        triggerVolume = Instantiate(triggerVolumeParticlePrefab, new Vector3(34.01f, -5.51f), Quaternion.identity);
-        StartCoroutine(DebugInputCoroutine("움직이자!", () => triggerVolume.playerIsInTriggered));
+        StartCoroutine(DebugInputCoroutine("움직이자!", () => _moveTrigger.playerIsInTriggered));
     }
 
     private void JumpTutorial()
     {
-        print("Let's jump");
+        Debug.Log("Let's jump");
 
-        triggerVolume = Instantiate(triggerVolumeParticlePrefab, new Vector3(58.49f, 2.51f), Quaternion.identity);
-        
-        StartCoroutine(DebugInputCoroutine("뛰자!", () =>
-            triggerVolume.playerIsInTriggered
-        ));
+        StartCoroutine(DebugInputCoroutine("뛰자!", () => _jumpTrigger.playerIsInTriggered));
     }
 
     private void AttackTutorial()
     {
-        print("Let's attack");
+        Debug.Log("Let's attack");
 
         _curEnemy = Instantiate(dummyEnemyPrefab);
-        _curEnemy.transform.position = new Vector3(82f, -3.13f, 0);
+        _curEnemy.transform.position = new Vector3(83f, -3.13f, 0);
 
         StartCoroutine(ZoomToEnemy());
     }
 
     private void DashTutorial()
     {
-        triggerVolume = Instantiate(triggerVolumeParticlePrefab, new Vector3(58.49f, 2.51f), Quaternion.identity);
-
-        StartCoroutine(DebugInputCoroutine("뛰자!", () =>
-            triggerVolume.playerIsInTriggered
-        ));
+        StartCoroutine(DebugInputCoroutine("뛰자!", () => _dashTrigger.playerIsInTriggered));
     }
 
     private IEnumerator ZoomToEnemy()
@@ -193,10 +182,11 @@ public class BattleTutorial : Stage
 
     private IEnumerator DebugInputCoroutine(string message, Func<bool> action, bool phaseClear = true)
     {
-        print(message);
+        Debug.Log(message);
         GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
 
-        yield return new WaitUntil(() => EpisodeManager.Instanace.isInPause);
+        //yield return new WaitUntil(() => EpisodeManager.Instanace.isInPause);
+
         GameManager.Instance.Player.PlayerInput._controls.Player.Enable();
 
         yield return new WaitUntil(()=> action.Invoke());
