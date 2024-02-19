@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1953854560415867832}
   - component: {fileID: 2567988859117426839}
   - component: {fileID: 492499424570136159}
-  - component: {fileID: 4372454188740799113}
+  - component: {fileID: 8087340773145916692}
   m_Layer: 5
   m_Name: DialogueEffect
   m_TagString: Untagged
@@ -90,12 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83466f2a7770c35499d2e0ea2c0e167e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolingType: 1
   _bubble: {fileID: 2567988859117426839}
   _effectElement: {fileID: 5886746105291298747}
   _fadingTime: 0.2
   _effectAnimator: {fileID: 22100000, guid: 00419fc65587a494a935e418ca174f69, type: 2}
-  _animator: {fileID: 4372454188740799113}
---- !u!95 &4372454188740799113
+  _animator: {fileID: 8087340773145916692}
+--- !u!95 &8087340773145916692
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
