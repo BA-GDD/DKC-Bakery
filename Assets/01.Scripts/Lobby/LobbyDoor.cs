@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 public enum DoorType
 {
     OutSide,
-    Bakery
+    Bakery,
+    Teatime
 }
 
 public class LobbyDoor : MonoBehaviour
@@ -42,6 +43,11 @@ public class LobbyDoor : MonoBehaviour
             case DoorType.Bakery:
                 {
                     SceneManager.LoadScene("BakeryScene");
+                }
+                break;
+            case DoorType.Teatime:
+                {
+                    SceneManager.LoadScene("TeaTimeScene");
                 }
                 break;
         }

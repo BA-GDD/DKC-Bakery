@@ -7,8 +7,9 @@ namespace UIDefine
         mapSelect,
         battle,
         bakery,
+        teaTime,
         diary,
-        teaTime
+
     }
 
     public enum BakeryCombinationType

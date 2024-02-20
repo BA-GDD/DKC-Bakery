@@ -46,11 +46,6 @@ public class EpisodeDialogueDrawer : MonoBehaviour
         _episodeSounder = transform.parent.Find("EpisodeSounder").GetComponent<SoundSelecter>();
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         TypingText();
