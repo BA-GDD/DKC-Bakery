@@ -67,7 +67,7 @@ public class InfoBlockSelectBtn : MonoBehaviour
     private void HandlePointerClickBtn(bool isSelect)
     {
         CanvasGroup markBlockCanvas = _markBlock.CanvasGroup;
-        markBlockCanvas.alpha = MaestrOffice.ConvertBoolToInt(isSelect);
+        markBlockCanvas.alpha = MaestrOffice.BoolToInt(isSelect);
         markBlockCanvas.blocksRaycasts = isSelect;
         markBlockCanvas.interactable = isSelect;
 

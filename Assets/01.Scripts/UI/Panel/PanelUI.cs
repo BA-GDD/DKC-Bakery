@@ -30,7 +30,7 @@ public class PanelUI : MonoBehaviour
             return;
         }
 
-        blackPanel.DOFade(endOfAlpha * MaestrOffice.ConvertBoolToInt(isActive), easingTime);
+        blackPanel.DOFade(endOfAlpha * MaestrOffice.BoolToInt(isActive), easingTime);
     }
 
     public void FadePanel(bool isActive, Action callBack)
@@ -41,6 +41,6 @@ public class PanelUI : MonoBehaviour
             return;
         }
 
-        blackPanel.DOFade(endOfAlpha * MaestrOffice.ConvertBoolToInt(isActive), easingTime).OnComplete(()=> callBack());
+        blackPanel.DOFade(endOfAlpha * MaestrOffice.BoolToInt(isActive), easingTime).OnComplete(()=> callBack());
     }
 }

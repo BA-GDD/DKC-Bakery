@@ -11,14 +11,17 @@ public class TeaTimeCakeObject : MonoBehaviour, IEndDragHandler, IDragHandler
     [SerializeField] private EatRange _eatRange;
     private Vector2 _usuallyPos;
 
+    private ItemDataBreadSO _cakeSO;
+
     private void Awake()
     {
         //_cakeImg.enabled = false;
         _usuallyPos = transform.position;
     }
-    public void SetCakeImage(Sprite cakeSprite)
+    public void SetCakeImage(ItemDataBreadSO info)
     {
-        _cakeImg.sprite = cakeSprite;
+        _cakeSO = info;
+        _cakeImg.sprite = info.itemIcon;
         _cakeImg.enabled = true;
     }
 

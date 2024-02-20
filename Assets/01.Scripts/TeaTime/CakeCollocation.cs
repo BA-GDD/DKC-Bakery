@@ -12,7 +12,7 @@ public class CakeCollocation : MonoBehaviour
         {
             if (_cakeObjectArr[i].CanCollocate)
             {
-                _cakeObjectArr[i].SetCakeImage(cakeInfo.itemIcon);
+                _cakeObjectArr[i].SetCakeImage(cakeInfo);
                 return;
             }
         }

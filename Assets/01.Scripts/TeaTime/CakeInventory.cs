@@ -7,6 +7,8 @@ public class CakeInventory : MonoBehaviour
     [SerializeField] private RectTransform _content;
     [SerializeField] private float _contentStretchValue = 260;
     [SerializeField] private CakeInventoryElement _cakeElementPrefab;
+    [SerializeField] private CakeCollocation _cakeCollocation;
+    [SerializeField] private CakeInventoryPanel _cakeInvenPanel;
 
     private void Start()
     {
@@ -17,7 +19,10 @@ public class CakeInventory : MonoBehaviour
                 _content.sizeDelta = 
                 new Vector2(_content.sizeDelta.x, _content.sizeDelta.y + _contentStretchValue);
             }
-            Instantiate(_cakeElementPrefab, _content);
+
+            CakeInventoryElement cie =Instantiate(_cakeElementPrefab, _content);
+            cie.SetInfo(Inventory.Instance.breadStash.stash[i].itemDataSO, 
+                        _cakeCollocation, _cakeInvenPanel);
         }
     }
 }

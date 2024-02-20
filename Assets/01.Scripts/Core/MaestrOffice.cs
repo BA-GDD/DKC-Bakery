@@ -46,7 +46,7 @@ public static class MaestrOffice
         return screenPos;
     }
 
-    public static int ConvertBoolToInt(bool value)
+    public static int BoolToInt(bool value)
     {
         return Convert.ToInt16(value);
     }
