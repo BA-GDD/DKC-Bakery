@@ -66,7 +66,7 @@ public class ItemElement : PoolableMono,
     {
         _popupPanel = PoolManager.Instance.Pop(PoolingType.ItemInfoPopUpPanel) as ItemInfoPopUp;
         _popupPanel.transform.SetParent(PopUpPanelParent);
-        _popupPanel.Setup(transform, IngredientSO);
+        _popupPanel.Setup(transform, PopUpPanelParent, IngredientSO);
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -31,8 +31,8 @@ public class Inventory : MonoSingleton<Inventory>
     {
         ingredientStash = new IngredientStash(_ingredientParent);
         breadStash = new BreadStash(_breadParent);
-
     }
+
     private void Start()
     {
         UpdateSlotUI();

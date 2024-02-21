@@ -49,6 +49,18 @@ public class CookingBox : MonoBehaviour
         }
     }
 
+    public void ClearImgAllSelectedIngredient()
+    {
+        foreach(IngredientType igt in Enum.GetValues(typeof(IngredientType)))
+        {
+            if (igt == IngredientType.None || igt == IngredientType.Else) continue;
+
+            _getBoxInstanceDic[igt].SetImage(null, false);
+            
+        }
+        ChangeBlurObject(BakeryCombinationType.none);
+    }
+
     public void RemoveSelectIngredientInfo(IngredientType ingType)
     {
         _getBoxInstanceDic[ingType].RemoveIngredient();

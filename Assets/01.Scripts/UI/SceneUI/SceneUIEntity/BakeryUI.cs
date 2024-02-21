@@ -25,6 +25,7 @@ public class BakeryUI : SceneUI
     public void ClearBakingCakePanel(bool value)
     {
         _bakingCakePanelObj.SetActive(value);
+        BakingManager.Instance.CookingBox.ClearImgAllSelectedIngredient();
     }
 
     public void BakeBread()

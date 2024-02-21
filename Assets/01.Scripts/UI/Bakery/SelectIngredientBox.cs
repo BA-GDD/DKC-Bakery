@@ -14,9 +14,15 @@ public class SelectIngredientBox : MonoBehaviour, IPointerClickHandler
     public void SelectIngredient(ItemDataIngredientSO itemInfo)
     {
         _itemInfo = itemInfo;
-        _iconImg.sprite = itemInfo.itemIcon;
+        SetImage(itemInfo.itemIcon);
 
         _iconImg.enabled = true;
+    }
+
+    public void SetImage(Sprite imgSprite, bool enbled = true)
+    {
+        _iconImg.sprite = imgSprite;
+        _iconImg.enabled = enbled;
     }
 
     public void RemoveIngredient()

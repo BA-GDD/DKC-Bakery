@@ -58,6 +58,7 @@ public class FilterTabGroup : MonoBehaviour
                 ie.CountText = item.stackSize.ToString();
                 ie.PopUpPanelParent = _popUpParent;
                 ie.transform.SetParent(_contentTrm);
+                ie.transform.localScale = Vector3.one;
 
                 _itemElementList.Add(ie);
             }

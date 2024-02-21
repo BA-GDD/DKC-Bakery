@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class TeaTimeCakeObject : MonoBehaviour, IEndDragHandler, IDragHandler
 {
-    public bool CanCollocate { get; set; }
+    public bool CanCollocate { get; set; } = true;
     [SerializeField] private Image _cakeImg;
     [SerializeField] private EatRange _eatRange;
     private Vector2 _usuallyPos;
@@ -29,6 +29,7 @@ public class TeaTimeCakeObject : MonoBehaviour, IEndDragHandler, IDragHandler
     {
         transform.position = _usuallyPos;
 
+        _cakeImg.enabled = false;
         _eatRange.IsHoldingCake = false;
         _eatRange.OnPointerUp();
     }

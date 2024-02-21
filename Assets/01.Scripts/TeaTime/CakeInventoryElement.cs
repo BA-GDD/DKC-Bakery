@@ -23,7 +23,7 @@ public class CakeInventoryElement : MonoBehaviour, IPointerClickHandler
     {
         _cakeCollocation.CollocateCake(_myBreadData);
         _usingMask.SetActive(true);
-        _cakeInvenPanel.FadePanel(false, ()=>_cakeInvenPanel.gameObject.SetActive(false));
+        _cakeInvenPanel.FadePanel(false, ()=> _cakeInvenPanel.gameObject.SetActive(false));
     }
 
     public void SetInfo(ItemDataSO info, 

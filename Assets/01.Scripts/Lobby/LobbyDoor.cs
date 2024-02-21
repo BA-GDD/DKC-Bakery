@@ -37,17 +37,17 @@ public class LobbyDoor : MonoBehaviour
         {
             case DoorType.OutSide:
                 {
-                    SceneManager.LoadScene("MapScene");
+                    GameManager.Instance.ChangeScene(SceneList.MapScene);
                 }
                 break;
             case DoorType.Bakery:
                 {
-                    SceneManager.LoadScene("BakeryScene");
+                    GameManager.Instance.ChangeScene(SceneList.BakeryScene);
                 }
                 break;
             case DoorType.Teatime:
                 {
-                    SceneManager.LoadScene("TeaTimeScene");
+                    GameManager.Instance.ChangeScene(SceneList.TeaTimeScene);
                 }
                 break;
         }

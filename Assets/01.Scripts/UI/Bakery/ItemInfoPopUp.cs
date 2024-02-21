@@ -10,10 +10,12 @@ public class ItemInfoPopUp : PoolableMono
     [SerializeField] private Image _itemIcon;
     [SerializeField] private TextMeshProUGUI _itemInfoText;
 
-    public void Setup(Transform ieTrm, ItemDataIngredientSO ItemInfo)
+    public void Setup(Transform ieTrm, Transform panelParent, ItemDataIngredientSO ItemInfo)
     {
-        transform.SetParent(ieTrm);
-        transform.localPosition = Vector3.zero;
+        transform.position = ieTrm.position;
+        transform.SetParent(panelParent);
+        transform.localScale = Vector3.one;
+
         _itemNameText.text = ItemInfo.itemName;
         _itemIcon.sprite = ItemInfo.itemIcon;
         _itemInfoText.text = ItemInfo.itemInfo;
