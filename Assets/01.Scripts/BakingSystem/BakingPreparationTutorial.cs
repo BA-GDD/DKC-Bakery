@@ -14,18 +14,17 @@ public class BakingPreparationTutorial : MonoBehaviour
     /// 필요한 재료를 모두 모은 후 대화 진행 - 대충 이제 다 모았으니 집 가자는 내용
     /// </summary>
 
-    //필요한 재료 목록
     [SerializeField]
-    private List<ItemDataIngredientSO> _necessaryIngredList;
-    private bool _isCompleted = false;
-    private bool _theFirstPickUp = true;
+    private List<ItemDataIngredientSO> _necessaryIngredList; // 필요한 재료 목록
+    private bool _isCompleted = false;                       // 모든 재료를 모았는지
+    private bool _theFirstPickUp = true;                     // 처음으로 아이템을 주웠는지
+    private bool _isFirstOpenInventory = true;               // 처음으로 인벤토리를 열었는지
     [SerializeField]
-    private GameObject _inventoryTutorialPanel;
+    private GameObject _inventoryTutorialPanel;              // 인벤토리 튜토리얼 패널(하나로 전부 설명할 예정)
 
     private void Start()
     {
         GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
-        
     }
 
     public void ShowInventoryTutorialHandle()
@@ -41,23 +40,35 @@ public class BakingPreparationTutorial : MonoBehaviour
             _theFirstPickUp = false;
         }
 
+        // 필요한 재료 목록만큼 반복
         for (int i = 0; i < _necessaryIngredList.Count; ++i)
         {
+            // 만약 인벤토리 딕셔너리에 하나라도 없다면
             if (!Inventory.Instance.ingredientStash.stashDictionary.ContainsKey(_necessaryIngredList[i]))
             {
+                // 실패 띄우고 반복문 탈출
                 _isCompleted = false;
                 break;
             }
+            // 만약 인벤토리 딕셔너리에 있다면
             else
             {
+                // 우선 성공을 띄움
                 _isCompleted = true;
             }
         }
 
+        // 전부 돌고난 후 성공했다면(필요한 모든 재료가 있다면)
         if (_isCompleted)
         {
             // 대충 이제 집 가서 케이크 만들자는 이야기 출력
             GameManager.Instance.Player.onPickUpItem -= TraverseInventoryHandle;
         }
+    }
+
+    private void Update()
+    {
+        // 인벤토리 튜토리얼이 열리고 나서 클릭하면 없어져야하기 때문에
+        // 클릭받는 코드 작성해야함
     }
 }
