@@ -44,7 +44,7 @@ namespace BTVisual
                 for (int i = 0; i < 6; i++)
                 {
 
-                    FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlowerBullet) as FlowerBullet;
+                    FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlontrolBullet) as FlowerBullet;
                     bullet.transform.position = enemy.flowerShotTransfom.position;
                     float angle = Mathf.Deg2Rad * (angleDiff * (i + 1)) + mainAsix;
                     Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
@@ -58,7 +58,7 @@ namespace BTVisual
                 {
 
                     float angleDiff = 360 / 24;
-                    FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlowerBullet) as FlowerBullet;
+                    FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlontrolBullet) as FlowerBullet;
                     bullet.transform.position = enemy.flowerShotTransfom.position;
                     float angle = Mathf.Deg2Rad * (angleDiff * i);
                     Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));

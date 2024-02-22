@@ -10,7 +10,8 @@ public enum PoolingType
     HoneyTreeSpike,
     IngredientItemElement,
     ItemInfoPopUpPanel,
-    FlowerBullet
+    FlontrolBullet ,
+    FlontrolSpike ,
 }
 
 public class PoolManager

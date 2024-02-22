@@ -16,7 +16,6 @@ public class PlayerFallState : PlayerAirState
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("´Ï¿¥");
     }
 
     public override void UpdateState()
