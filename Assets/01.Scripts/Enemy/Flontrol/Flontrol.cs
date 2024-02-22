@@ -23,6 +23,8 @@ public class Flontrol : Enemy
 
     public float animationSpeed;
 
+    [SerializeField] private List<HealthShareInfo> _shareInfos;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +42,11 @@ public class Flontrol : Enemy
         }
 
         _renders = GetComponentsInChildren<SpriteRenderer>().ToList();
+
+        foreach(var s in _shareInfos)
+        {
+            s.health.Init(this,HealthCompo, Mathf.FloorToInt(HealthCompo.maxHealth * s._healthAmount));
+        }
     }
 
     public override void AnimationFinishTrigger()
