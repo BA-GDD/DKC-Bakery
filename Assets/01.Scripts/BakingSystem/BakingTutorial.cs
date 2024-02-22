@@ -38,8 +38,9 @@ public class BakingTutorial : MonoBehaviour
         }
     }
 
-    private void CloseThePanel()
+    public void CloseThePanel()
     {
-        _tutorialPanelList[_curIdx].SetActive(false);
+        //_tutorialPanelList[_curIdx].SetActive(false);
+        gameObject.SetActive(false);
     }
 }
