@@ -24,7 +24,7 @@ public class BakingPreparationTutorial : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
+        //GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
     }
 
     public void ShowInventoryTutorialHandle()
@@ -37,6 +37,7 @@ public class BakingPreparationTutorial : MonoBehaviour
         if (_theFirstPickUp)
         {
             // 인벤 여는 버튼 알려주는 혼잣말 출력
+            Debug.Log("인벤 열어라");
             _theFirstPickUp = false;
         }
 
@@ -62,13 +63,49 @@ public class BakingPreparationTutorial : MonoBehaviour
         if (_isCompleted)
         {
             // 대충 이제 집 가서 케이크 만들자는 이야기 출력
-            GameManager.Instance.Player.onPickUpItem -= TraverseInventoryHandle;
+            Debug.Log("집 가서 케이크 만들어라");
+            //GameManager.Instance.Player.onPickUpItem -= TraverseInventoryHandle;
         }
+    }
+
+    public void ClosePanel()
+    {
+        _inventoryTutorialPanel.SetActive(false);
     }
 
     private void Update()
     {
-        // 인벤토리 튜토리얼이 열리고 나서 클릭하면 없어져야하기 때문에
-        // 클릭받는 코드 작성해야함
+        if (Keyboard.current.yKey.wasPressedThisFrame)
+        {
+            Inventory.Instance.AddItem(_necessaryIngredList[0]);
+            TraverseInventoryHandle();
+        }
+        if (Keyboard.current.uKey.wasPressedThisFrame)
+        {
+            Inventory.Instance.AddItem(_necessaryIngredList[1]);
+            TraverseInventoryHandle();
+        }
+        if (Keyboard.current.iKey.wasPressedThisFrame)
+        {
+            Inventory.Instance.AddItem(_necessaryIngredList[2]);
+            TraverseInventoryHandle();
+        }
+        if (Keyboard.current.oKey.wasPressedThisFrame)
+        {
+            Inventory.Instance.AddItem(_necessaryIngredList[3]);
+            TraverseInventoryHandle();
+        }
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            Inventory.Instance.AddItem(_necessaryIngredList[4]);
+            TraverseInventoryHandle();
+        }
+
+        if (Keyboard.current.aKey.wasPressedThisFrame
+            && _isFirstOpenInventory)
+        {
+            ShowInventoryTutorialHandle();
+            _isFirstOpenInventory = false;
+        }
     }
 }
