@@ -9,7 +9,8 @@ public enum PoolingType
     SwordAura,
     HoneyTreeSpike,
     IngredientItemElement,
-    ItemInfoPopUpPanel
+    ItemInfoPopUpPanel,
+    FlowerBullet
 }
 
 public class PoolManager
