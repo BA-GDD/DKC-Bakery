@@ -3,6 +3,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
+[Serializable]
+public struct HealthShareInfo
+{
+    [Range(0f, 1f)] public float _healthAmount;
+    public HealthShare health;
+}
+
 [Flags]
 public enum Ailment : int
 {
@@ -14,7 +21,7 @@ public enum Ailment : int
 public class Health : MonoBehaviour, IDamageable
 {
     public int maxHealth;
-    private int _currentHealth;
+    [SerializeField] private int _currentHealth;
 
     public Action OnHit;
     //public Action OnDied;
@@ -29,6 +36,7 @@ public class Health : MonoBehaviour, IDamageable
     public bool isDead = false;
     private bool _isInvincible = false; //무적상태
     [SerializeField] private AilmentStat _ailmentStat; //질병 및 디버프 관리 스탯
+    public AilmentStat AilmentStat => _ailmentStat;
 
     public bool isLastHitCritical = false; //마지막 공격이 크리티컬로 적중했냐?
     public Vector2 lastAttackDirection;
@@ -88,7 +96,12 @@ public class Health : MonoBehaviour, IDamageable
         //체력증가에 따른 UI필요.
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
     }
+    public void ApplyTrueDamage(int damage)
+    {
+        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
+        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+    }
     public void ApplyDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
     {
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
@@ -131,7 +144,7 @@ public class Health : MonoBehaviour, IDamageable
     public void ApplyMagicDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
     {
         int magicDamage = _owner.CharStat.GetMagicDamageAfterRegist(damage);
-         _currentHealth = Mathf.Clamp(_currentHealth - magicDamage, 0, maxHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth - magicDamage, 0, maxHealth);
         Debug.Log($"apply magic damage to {_owner.gameObject.name}! : {damage}");
 
         knockbackPower.x *= attackDirection.x; //y값은 고정으로.

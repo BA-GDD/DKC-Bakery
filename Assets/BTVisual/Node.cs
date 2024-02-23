@@ -16,7 +16,7 @@ namespace BTVisual
         [HideInInspector] public string guid;
         [HideInInspector] public Vector2 position;
         [HideInInspector] public BlackBoard blackboard;
-        [HideInInspector] public EnemyBrain brain;
+        [HideInInspector] public Enemy enemy;
         [HideInInspector] public Context context;
         [TextArea] public string description;
 
@@ -54,6 +54,13 @@ namespace BTVisual
         protected abstract void OnStart();
         protected abstract void OnStop();
         protected abstract State OnUpdate();
+
+        public virtual void Bind(BlackBoard blackboard,Context context, Enemy enemy)
+        {
+            this.blackboard = blackboard;
+            this.context = context;
+            this.enemy = enemy;
+        }
     }
     
 }
