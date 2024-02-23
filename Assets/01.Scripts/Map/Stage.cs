@@ -97,15 +97,18 @@ public class Stage : MonoBehaviour
             {
                 _stageInfo.Add(GameManager.Instance.PlayerTrm);
             }
+
+            ConfinerGenerate($"confiner{i}", new Vector2(halfWidth, halfHeight), new Vector2(i * (halfWidth * 2.0f), 0));
         }
 
         vCam.m_Follow = _stageInfo[curPhase];
     }
 
-    private void ConfinerGenerate(string objName, Vector2 size)
+    private void ConfinerGenerate(string objName, Vector2 size, Vector2 pos)
     {
         GameObject obj = new GameObject();
         obj.name = objName;
+        obj.transform.position = pos;
         BoxCollider2D col = obj.AddComponent<BoxCollider2D>();
         col.isTrigger = true;
 
