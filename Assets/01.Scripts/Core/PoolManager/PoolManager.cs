@@ -14,6 +14,7 @@ public enum PoolingType
     FlowerBullet,
     FlontrolBullet ,
     FlontrolSpike ,
+    FlontrolStone
 
 }
 

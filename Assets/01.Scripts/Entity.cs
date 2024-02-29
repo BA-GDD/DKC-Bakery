@@ -5,6 +5,8 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum FacingDirectionEnum { Right = 1, Left = -1}
+
 public abstract class Entity : MonoBehaviour
 {
     [CustomEditor(typeof(Entity), true)]
@@ -99,7 +101,8 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     #region facing 
-    public int FacingDirection { get; private set; } = 1; //오른쪽이 1, 왼쪽이 -1
+    [SerializeField] private FacingDirectionEnum facingDirection = FacingDirectionEnum.Right;
+    public int FacingDirection { get { return (int)facingDirection; } private set { facingDirection = (FacingDirectionEnum)value; } } //오른쪽이 1, 왼쪽이 -1
     #endregion
 
     public UnityEvent<float, float> OnHealthBarChanged;
@@ -276,7 +279,7 @@ public abstract class Entity : MonoBehaviour
         if (_groundChecker != null)
             Gizmos.DrawLine(_groundChecker.position, _groundChecker.position + new Vector3(0, -_groundCheckDistance, 0));
         if (_wallChecker != null)
-            Gizmos.DrawLine(_wallChecker.position, _wallChecker.position + new Vector3(_wallCheckDistance, 0, 0));
+            Gizmos.DrawLine(_wallChecker.position, _wallChecker.position + new Vector3(_wallCheckDistance * FacingDirection, 0, 0));
     }
 #endif
 }

@@ -19,6 +19,9 @@ public class Flontrol : Enemy
     public List<DamageCaster> leftArmDamageCast;
     public List<DamageCaster> rightArmDamageCast;
     public List<DamageCaster> seqAttackDamageCaster;
+    public List<PlatformEffector2D> platforms;
+    public Transform leftHandTrm;
+    public Transform rightHandTrm;
 
     public Transform flowerShotTransfom;
     public GameObject flower;
@@ -49,12 +52,12 @@ public class Flontrol : Enemy
             d.SetOwner(this);
         }
 
-        _renders = GetComponentsInChildren<SpriteRenderer>().ToList();
-
-        foreach(var s in _shareInfos)
+        foreach (var s in _shareInfos)
         {
-            s.health.Init(this,HealthCompo, Mathf.FloorToInt(HealthCompo.maxHealth * s._healthAmount));
+            s.health.Init(this, HealthCompo, s.healthAmount);
         }
+
+        _renders = GetComponentsInChildren<SpriteRenderer>().ToList();
     }
     protected override void Update()
     {
@@ -81,6 +84,11 @@ public class Flontrol : Enemy
         {
             sp.color = Color.red;
         }
+        foreach (var s in _shareInfos)
+        {
+            s.health.ApplyHealth(HealthCompo.maxHealth , true);
+        }
+        Collider.enabled = true;
         HealthCompo.ApplyHeal(HealthCompo.maxHealth);
         CharStat.damage.AddModifier(CharStat.damage.GetValue());
         AnimatorCompo.speed = 2;

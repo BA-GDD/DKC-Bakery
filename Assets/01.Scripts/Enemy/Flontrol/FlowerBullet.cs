@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class FlowerBullet : PoolableMono
 {
-    [SerializeField] private Vector2 knockbackPower;
+    private DamageCaster _damageCaster;
+
     private Flontrol _enemy;
     private Rigidbody2D _rigidbody;
     private void Awake()
     {
+        _damageCaster = GetComponent<DamageCaster>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        
     }
     public override void Init()
     {
@@ -17,17 +20,23 @@ public class FlowerBullet : PoolableMono
     public void SetOwner(Flontrol entity, Vector2 dir)
     {
         _enemy = entity;
+        _damageCaster.SetOwner(entity);
         _rigidbody.velocity = dir.normalized * 10;
+    }
+    public void Update()
+    {
+        if(_damageCaster.CastDamage())
+        {
+            PoolManager.Instance.Push(this);
+            return;
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.CompareTag("Stage"))
         {
-            IDamageable damageable = collision.GetComponent<IDamageable>();
-            Vector2 knockbackVector = new Vector2(collision.transform.position.x - transform.position.x,1);
-            damageable.ApplyDamage(_enemy.CharStat.GetDamage(), knockbackVector, knockbackPower, _enemy);
             PoolManager.Instance.Push(this);
         }
     }
-
 }

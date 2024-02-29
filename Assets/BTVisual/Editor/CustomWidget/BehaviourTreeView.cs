@@ -63,7 +63,6 @@ namespace BTVisual
             {
                 var children = tree.GetChildren(n);
                 NodeView parent = FindNodeView(n);
-                Debug.Log(n.name);
 
                 children.ForEach(c =>
                 {

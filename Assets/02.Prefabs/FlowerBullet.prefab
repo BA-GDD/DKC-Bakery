@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 2485046110732130411}
   - component: {fileID: 5450389349110932331}
   - component: {fileID: 1598170406098661866}
+  - component: {fileID: 4896388916767596111}
   m_Layer: 0
   m_Name: FlowerBullet
   m_TagString: Untagged
@@ -132,7 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingType: 6
-  knockbackPower: {x: 0, y: 0}
 --- !u!50 &5450389349110932331
 Rigidbody2D:
   serializedVersion: 4
@@ -195,3 +195,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4896388916767596111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658608087183590724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbbd93b43256ba4b840346c55ab2a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  share: 0
+  attackChecker: {fileID: 4328509887072009112}
+  attackCheckRadius: 0.5
+  attackCheckSize: {x: 0, y: 0}
+  knockbackPower: {x: 1, y: 10}
+  _maxHitCount: 5
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 64
