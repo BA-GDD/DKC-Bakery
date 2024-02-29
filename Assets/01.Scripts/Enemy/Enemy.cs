@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class Enemy : Entity
 {
-
-
     [Header("셋팅값들")]
     public float moveSpeed;
     public float idleTime;

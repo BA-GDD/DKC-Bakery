@@ -80,7 +80,11 @@ public class UsedIngredientStash : Stash
         for(int i = 0; i < 5; ++i)
         {
             int result = (int)Mathf.Pow(2, i);
-            usedIngredDictionary.Remove(((ItemDataIngredientSO)usedIngredientStash[result].itemDataSO).ingredientType);
+            ItemDataIngredientSO id = (ItemDataIngredientSO)usedIngredientStash[result].itemDataSO;
+            id.isUsed = false;
+            usedIngredDictionary.Remove(id.ingredientType);
+            
+
             usedIngredientStash[i] = null;
         }
     }

@@ -21,7 +21,7 @@ public class BattleTutorial : Stage
     public Action onQuaterEndTrigger = null;
 
     [Header("디버그용 변수")]
-    public GameObject dummyEnemyPrefab;
+    public SimpleEnemy dummyEnemyPrefab;
     public CinemachineVirtualCamera enemyZoomCam;
 
     [Header("트리거")]
@@ -29,7 +29,7 @@ public class BattleTutorial : Stage
     [SerializeField] private TutorialTriggerObject _jumpTrigger;
     [SerializeField] private TutorialTriggerObject _dashTrigger;
 
-    private GameObject _curEnemy;
+    private SimpleEnemy _curEnemy;
 
     protected override void Awake()
     {
@@ -137,7 +137,8 @@ public class BattleTutorial : Stage
         Debug.Log("Let's attack");
 
         _curEnemy = Instantiate(dummyEnemyPrefab);
-        _curEnemy.transform.position = new Vector3(83f, -3.13f, 0);
+        _curEnemy.FreezeTime(true, true);
+        _curEnemy.transform.position = new Vector3(81f, -3.13f, 0);
 
         StartCoroutine(ZoomToEnemy());
     }
@@ -166,7 +167,7 @@ public class BattleTutorial : Stage
         yield return new WaitUntil(() => !Camera.main.GetComponent<CinemachineBrain>().IsBlending);
 
         GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
-
+        _curEnemy.FreezeTime(false);
         StartCoroutine(DebugInputCoroutine("적을 쓰러뜨려라!", () =>
         {
             print(_curEnemy.transform.GetComponent<Health>().isDead);

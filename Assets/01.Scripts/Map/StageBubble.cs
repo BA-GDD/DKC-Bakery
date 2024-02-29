@@ -22,6 +22,6 @@ public class StageBubble : MonoBehaviour
 
     public void EnterStage()
     {
-        SceneManager.LoadScene("BattleScene");
+        GameManager.Instance.ChangeScene(SceneList.BattleScene);
     }
 }

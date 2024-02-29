@@ -107,6 +107,7 @@ public class Player : Entity
     #region handling input
     private void HandleDashEvent()
     {
+        Debug.Log(Skill.gameObject);
         if (Skill.GetSkill<DashSkill>().AttemptUseSkill())
         {
             StateMachine.ChangeState(PlayerStateEnum.Dash);

@@ -63,6 +63,11 @@ public class BakingManager : MonoSingleton<BakingManager>
 
     private void Awake()
     {
+        if(_usedIngredientParent == null)
+        {
+            _usedIngredientParent = Inventory.Instance.IngredientParent;
+        }
+
         usedIngredientStash = new UsedIngredientStash(_usedIngredientParent);
         breadDictionary = new Dictionary<string, ItemDataBreadSO>();
         for(int i = 0; i < _breadList.Count; ++i)
@@ -73,6 +78,8 @@ public class BakingManager : MonoSingleton<BakingManager>
 
     private void Start()
     {
+
+
         SetBakingUI(isOpen);
         UpdateSlotUI();
     }
@@ -113,7 +120,7 @@ public class BakingManager : MonoSingleton<BakingManager>
 
     public void SetBakingUI(bool isOpen)
     {
-        _bakingUI.SetActive(isOpen);
+        //_bakingUI.SetActive(isOpen);
     }
 
     public bool CanBake()

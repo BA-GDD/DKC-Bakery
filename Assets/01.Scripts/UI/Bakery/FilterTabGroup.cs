@@ -11,8 +11,6 @@ public class FilterTabGroup : MonoBehaviour
     public FilterTab CurrentFilterTab => _currentFilterType;
     private FilterTab[] _filterTabArr;
 
-    [SerializeField] private ItemDataSO[] _sampleitemData;
-
     private void Awake()
     {
         _filterTabArr = GetComponentsInChildren<FilterTab>();
@@ -25,11 +23,6 @@ public class FilterTabGroup : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < _sampleitemData.Length; i++)
-        {
-            Inventory.Instance.AddItem(_sampleitemData[i], 1);
-        }
-        
         FilteringItem(_filterTabArr[0]);
     }
 

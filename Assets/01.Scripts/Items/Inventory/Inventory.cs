@@ -9,6 +9,7 @@ public class Inventory : MonoSingleton<Inventory>
     public IngredientStash ingredientStash;
     public BreadStash breadStash;
 
+    public Transform IngredientParent => _ingredientParent;
     [Header("ParentTrms")]
     [SerializeField] private Transform _ingredientParent; 
     [SerializeField] private Transform _breadParent;

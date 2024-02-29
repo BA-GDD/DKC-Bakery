@@ -31,7 +31,7 @@ public class Stage : MonoBehaviour
         _stageTrms = new List<Transform>();
 
          halfHeight = Camera.main.orthographicSize;
-         halfWidth= Camera.main.aspect * halfHeight;
+         halfWidth = Mathf.Ceil(Camera.main.aspect * halfHeight);
 
         OnStageCleared += Print;
 
@@ -43,6 +43,7 @@ public class Stage : MonoBehaviour
             
             stageCollider[i] = obj.AddComponent<BoxCollider2D>();
 
+            Debug.Log(halfWidth);
             obj.transform.position = new Vector2((halfWidth * 2) * i - halfWidth, 0);
             obj.transform.SetParent(vCam.transform, false);
         }
