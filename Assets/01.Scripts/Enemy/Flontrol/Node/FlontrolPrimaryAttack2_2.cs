@@ -4,11 +4,14 @@ using UnityEngine;
 
 namespace BTVisual
 {
-    public class FlontrolPrimaryAttack1_1 : FlontrolPattrenNode
+    public class FlontrolPrimaryAttack2_2 : FlontrolPattrenNode
     {
+        private int _invokeCnt;
+
         private int _spikeType;
 
-        private int _invokeCnt;
+        private Queue<FlontrolSpike> spawnSpikes = new Queue<FlontrolSpike>();
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -44,12 +47,18 @@ namespace BTVisual
             switch (_invokeCnt)
             {
                 case 0:
+                    enemy.StartCoroutine(SpawnChaseSpike());
+                    break;
+                case 1:
+                    enemy.StartCoroutine(AttackChaseSpike());
+                    break;
+                case 2:
                     foreach (var spike in enemy.spikePatten[_spikeType].spikes)
                     {
                         spike.gameObject.SetActive(true);
                     }
                     break;
-                case 1:
+                case 3:
                     foreach (var spike in enemy.spikePatten[_spikeType].spikes)
                     {
                         spike.Attack();
@@ -59,6 +68,27 @@ namespace BTVisual
                     break;
             }
             _invokeCnt++;
+        }
+
+        private IEnumerator SpawnChaseSpike()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+                FlontrolSpike spike = PoolManager.Instance.Pop(PoolingType.FlontrolSpike) as FlontrolSpike;
+                spike.Bind(enemy);
+                spike.transform.position = enemy.IsGroundDetectedByPlayer(GameManager.Instance.PlayerTrm.position).point;
+                spawnSpikes.Enqueue(spike);
+            }
+        }
+        private IEnumerator AttackChaseSpike()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+                FlontrolSpike spike = spawnSpikes.Dequeue();
+                spike.Attack(true);
+            }
         }
     }
 }

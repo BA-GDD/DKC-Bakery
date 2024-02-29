@@ -6,12 +6,10 @@ namespace BTVisual
 {
     public class FlontrolPrimaryAttack1_4 : FlontrolPattrenNode
     {
-        private int _shotCnt;
+        private int _invokeCnt;
         protected override void OnStart()
         {
             base.OnStart();
-
-            _shotCnt = Random.Range(3, 6);
 
             enemy.animationEvent += Attack;
         }
@@ -19,7 +17,7 @@ namespace BTVisual
         protected override void OnStop()
         {
             base.OnStop();
-
+            _invokeCnt = 0;
             enemy.animationEvent -= Attack;
             enemy.lastTimeAttacked = Time.time;
         }
@@ -35,18 +33,39 @@ namespace BTVisual
         }
         private void Attack()
         {
-            float angleDiff = 180 / (_shotCnt + 1);
-            for (int i = 0; i < _shotCnt; i++)
+            _invokeCnt++;
+            if (_invokeCnt < 3)
             {
-                FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlowerBullet) as FlowerBullet;
-                bullet.transform.position = enemy.flowerShotTransfom.position;
-                float angle = Mathf.Deg2Rad * (angleDiff * (i + 1) + 180);
-                Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                Transform player = GameManager.Instance.PlayerTrm;
+                float angleDiff = 100 / 6;
 
-                bullet.SetOwner(enemy, dir);
+                Vector2 tempVec = player.transform.position - enemy.flowerShotTransfom.position;
+                float mainAsix = Mathf.Atan2(tempVec.y, tempVec.x) - 50 * Mathf.Deg2Rad;
+                for (int i = 0; i < 6; i++)
+                {
+
+                    FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlontrolBullet) as FlowerBullet;
+                    bullet.transform.position = enemy.flowerShotTransfom.position;
+                    float angle = Mathf.Deg2Rad * (angleDiff * (i + 1)) + mainAsix;
+                    Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+                    bullet.SetOwner(enemy, dir);
+                }
             }
+            else
+            {
+                for (int i = 0; i < 24; i++)
+                {
 
+                    float angleDiff = 360 / 24;
+                    FlowerBullet bullet = PoolManager.Instance.Pop(PoolingType.FlontrolBullet) as FlowerBullet;
+                    bullet.transform.position = enemy.flowerShotTransfom.position;
+                    float angle = Mathf.Deg2Rad * (angleDiff * i);
+                    Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
+                    bullet.SetOwner(enemy, dir);
+                }
+            }
         }
     }
 }

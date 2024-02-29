@@ -11,7 +11,10 @@ public enum PoolingType
     IngredientItemElement,
     ItemInfoPopUpPanel,
     CakeElbum,
-    FlowerBullet
+    FlowerBullet,
+    FlontrolBullet ,
+    FlontrolSpike ,
+
 }
 
 public class PoolManager
