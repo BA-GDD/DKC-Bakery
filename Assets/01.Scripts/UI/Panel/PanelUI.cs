@@ -22,6 +22,17 @@ public class PanelUI : MonoBehaviour
     public bool canSeconderyActivePanel;
     [HideInInspector] public int toCreatedCount = 3;
 
+    public void ActivePanel(bool isActive)
+    {
+        if(useBlackPanel)
+        {
+            Color bpColor = blackPanel.color;
+            bpColor.a = endOfAlpha;
+            blackPanel.color = bpColor;
+        }
+        gameObject.SetActive(isActive);
+    }
+
     public void FadePanel(bool isActive)
     {
         if(!useBlackPanel)

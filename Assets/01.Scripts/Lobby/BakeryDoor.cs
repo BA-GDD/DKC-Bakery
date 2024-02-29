@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 public class BakeryDoor : LobbyDoor
 {
@@ -22,7 +23,7 @@ public class BakeryDoor : LobbyDoor
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _isInit)
+        if (Keyboard.current.eKey.wasPressedThisFrame && _isInit)
         {
             DoorOpen();
         }
