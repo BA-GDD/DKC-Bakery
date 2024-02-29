@@ -41,7 +41,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 567ea9bb30c94d6488707152e88871de
-  position: {x: -177, y: 670}
+  position: {x: -254.0498, y: 872.40015}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 986ff60e267a0154e9cd53675f3df389
-  position: {x: 1200, y: 1109}
+  position: {x: 1026, y: 1192}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -184,7 +184,9 @@ MonoBehaviour:
   enemy: {fileID: 0}
   description: 
   children:
+  - {fileID: 7011311434094205121}
   - {fileID: -3504772615153245431}
+  - {fileID: 2062296239085481186}
 --- !u!114 &-300336519307616447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +251,7 @@ MonoBehaviour:
   - {fileID: -2456787958092440141}
   - {fileID: 7011311434094205121}
   - {fileID: -3504772615153245431}
+  - {fileID: 2062296239085481186}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -336,6 +339,32 @@ MonoBehaviour:
   enemy: {fileID: 0}
   description: 
   _cooldown: 4
+--- !u!114 &2062296239085481186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc82129f63582f408e0f3a87eb59fdd, type: 3}
+  m_Name: FlontrolPrimaryAttack2_3
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 65a89a2605098644096ed1702f76d3c5
+  position: {x: 1287, y: 1131}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    enemySpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    phase: 0
+  enemy: {fileID: 0}
+  description: 
+  parameterName: ThrowStone
 --- !u!114 &3528663138665853619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +380,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 0c89723dc34193244a9678030864e385
-  position: {x: -573, y: 538}
+  position: {x: -650.04987, y: 740.40015}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -379,7 +408,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 8029b4e7d3aabbb4d8e9e81daa8f1ce5
-  position: {x: -412, y: 403}
+  position: {x: -500.0498, y: 621.4001}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -412,7 +441,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 91386c6a44cb30e44a3d4f1ed5c3da45
-  position: {x: -711, y: 689}
+  position: {x: -788.04987, y: 891.40015}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -493,7 +522,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: ae1a58ee0b2b63b46b420c54d01ff041
-  position: {x: 146.00006, y: 1196.7808}
+  position: {x: 149.99986, y: 1192}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}
@@ -519,7 +548,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 0b20acbc623310b4cb579c8c2e20f35d
-  position: {x: -548.81506, y: 689.4175}
+  position: {x: -626.04987, y: 891.40015}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     enemySpotPosition: {x: 0, y: 0, z: 0}

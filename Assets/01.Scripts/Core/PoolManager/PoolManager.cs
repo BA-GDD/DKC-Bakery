@@ -12,6 +12,7 @@ public enum PoolingType
     ItemInfoPopUpPanel,
     FlontrolBullet ,
     FlontrolSpike ,
+    FlontrolStone
 }
 
 public class PoolManager

@@ -60,11 +60,18 @@ public class HealthShare : MonoBehaviour,IDamageable
         _ailmentStat.UpdateAilment(); //질병 업데이트
     }
 
-    public void Init(Entity owner, Health main, int hp)
+    public void Init(Entity owner, Health main, float value)
     {
         _owner = owner;
         _mainHealth = main;
-        _currentHealth = maxHealth = hp;
+        maxHealth = main.maxHealth;
+        _currentHealth = Mathf.FloorToInt(main.maxHealth * value);
+    }
+    public void ApplyHealth(int health, bool isResurrection = false)
+    {
+        if (isDead && !isResurrection) return;
+        _currentHealth += health;
+        if (isResurrection) isDead = false; 
     }
 
     public void ApplyDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)

@@ -64,7 +64,6 @@ public class SlimedesuBattleState : EnemyState<SlimedesuStateEnum>
         if (!_enemy.IsGroundDetected() || (distance <= _enemy.attackDistance))
         {
             _enemy.StopImmediately(false);  //정지시에 재생할 애니메이션 상태를 하나 만들어야 해.
-            return;
         }
 
         if (_timer >= 0 && distance < _enemy.runAwayDistance)

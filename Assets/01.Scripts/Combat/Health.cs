@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -6,7 +7,7 @@ using UnityEngine.Serialization;
 [Serializable]
 public struct HealthShareInfo
 {
-    [Range(0f, 1f)] public float _healthAmount;
+    [Range(0f, 1f)] public float healthAmount;
     public HealthShare health;
 }
 
@@ -42,14 +43,15 @@ public class Health : MonoBehaviour, IDamageable
     public Vector2 lastAttackDirection;
     public bool isHitByMelee;
 
+
     protected void Awake()
     {
         _ailmentStat = new AilmentStat();
         _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
         _ailmentStat.AilmentDamageEvent += HandleAilementDamage;
+        
         isDead = false;
     }
-
     private void OnDestroy()
     {
         _ailmentStat.EndOFAilmentEvent -= HandleEndOfAilment;
@@ -71,7 +73,6 @@ public class Health : MonoBehaviour, IDamageable
         OnHit?.Invoke();
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
     }
-
 
     protected void Update()
     {
