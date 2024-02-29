@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoSingleton<GameManager>
 {
     [SerializeField] private Player _player;
-    public Transform PlayerTrm => _player.transform;
+    public Transform PlayerTrm => Player.transform;
     public Player Player
     {
         get

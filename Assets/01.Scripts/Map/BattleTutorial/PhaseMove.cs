@@ -28,7 +28,7 @@ public class PhaseMove : MonoBehaviour
             else
             {
                 _curStage.PhaseCleared();
-                if (int.Parse(_curStage.stageInfo.datas[_curStage.stageIndex].str[_curStage.curPhase]) == 1)
+                if (int.Parse(_curStage.stageInfo.datas[_curStage.stageIndex].str[_curStage.CurPhase]) == 1)
                 {
                     print("콘파이너 적용");
                     _cinemachineConfiner.m_BoundingShape2D = _curStage.confiners[_curStage.curConfinerIndex];

@@ -92,8 +92,8 @@ public class BattleTutorial : Stage
     private void QuaterStart()
     {
         onQuaterStartTrigger = null;
-        onQuaterStartTrigger += tutorialActionList[curPhase];
-        Debug.Log(curPhase);
+        onQuaterStartTrigger += tutorialActionList[CurPhase];
+        Debug.Log(CurPhase);
         onQuaterStartTrigger?.Invoke();
 
         //if (curPhase >= 1)

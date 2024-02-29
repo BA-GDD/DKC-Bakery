@@ -32,7 +32,7 @@ public class Stage : MonoBehaviour
 
     private BoxCollider2D[] stageCollider = {null, null};
 
-    public int curPhase = 0;
+    public int CurPhase { get; set; }
 
     protected virtual void Awake()
     {
@@ -64,7 +64,7 @@ public class Stage : MonoBehaviour
         print("stage Cleared!");
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         stageInfo.GetList();
 
@@ -121,7 +121,7 @@ public class Stage : MonoBehaviour
             }
         }
 
-        vCam.m_Follow = _stageInfo[curPhase];
+        vCam.m_Follow = _stageInfo[CurPhase];
     }
 
     /// <summary>
@@ -129,18 +129,18 @@ public class Stage : MonoBehaviour
     /// </summary>
     public void PhaseCleared()
     {
-        if(curPhase >= maximumPhase)
+        if(CurPhase >= maximumPhase)
         {
             OnStageCleared?.Invoke();
             return;
         }
 
         OnPhaseCleared?.Invoke();
-        curPhase++;
+        CurPhase++;
 
-        if(curPhase < maximumPhase)
+        if(CurPhase < maximumPhase)
         {
-            vCam.m_Follow = _stageInfo[curPhase];
+            vCam.m_Follow = _stageInfo[CurPhase];
         }
         curPhaseCleared = false;
     }

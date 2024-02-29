@@ -9,6 +9,8 @@ public class CheckOnFirst : CanSaveData
     public bool isFirstOnBaking;
     public bool isFirstOnTeaTime;
     public bool isFirstOnPhotoZone;
+    public bool isFirstPickUpitem;
+    public bool isFirstOpenInventory;
 
     public override void SetInitialValue()
     {

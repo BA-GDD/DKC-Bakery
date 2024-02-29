@@ -62,7 +62,7 @@ public class DebugMapSpawner : MonoBehaviour
     //Phase Event
     public void PhaseMove(int index)
     {
-        stage.curPhase = index-1;
+        stage.CurPhase = index-1;
         stage.PhaseCleared();
     }
 }

@@ -17,28 +17,21 @@ public class BakingPreparationTutorial : MonoBehaviour
     [SerializeField]
     private List<ItemDataIngredientSO> _necessaryIngredList; // 필요한 재료 목록
     private bool _isCompleted = false;                       // 모든 재료를 모았는지
-    private bool _theFirstPickUp = true;                     // 처음으로 아이템을 주웠는지
-    private bool _isFirstOpenInventory = true;               // 처음으로 인벤토리를 열었는지
     [SerializeField]
     private GameObject _inventoryTutorialPanel;              // 인벤토리 튜토리얼 패널(하나로 전부 설명할 예정)
 
     private void Start()
     {
-        //GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
-    }
-
-    public void ShowInventoryTutorialHandle()
-    {
-        _inventoryTutorialPanel.SetActive(true);
+        GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
     }
 
     public void TraverseInventoryHandle()
     {
-        if (_theFirstPickUp)
+        if (DataManager.Instance.CheckOnFirstData.isFirstPickUpitem)
         {
             // 인벤 여는 버튼 알려주는 혼잣말 출력
             Debug.Log("인벤 열어라");
-            _theFirstPickUp = false;
+            DataManager.Instance.CheckOnFirstData.isFirstPickUpitem = false;
         }
 
         // 필요한 재료 목록만큼 반복
@@ -68,44 +61,39 @@ public class BakingPreparationTutorial : MonoBehaviour
         }
     }
 
-    public void ClosePanel()
-    {
-        _inventoryTutorialPanel.SetActive(false);
-    }
+    //private void Update()
+    //{
+    //    if (Keyboard.current.yKey.wasPressedThisFrame)
+    //    {
+    //        Inventory.Instance.AddItem(_necessaryIngredList[0]);
+    //        TraverseInventoryHandle();
+    //    }
+    //    if (Keyboard.current.uKey.wasPressedThisFrame)
+    //    {
+    //        Inventory.Instance.AddItem(_necessaryIngredList[1]);
+    //        TraverseInventoryHandle();
+    //    }
+    //    if (Keyboard.current.iKey.wasPressedThisFrame)
+    //    {
+    //        Inventory.Instance.AddItem(_necessaryIngredList[2]);
+    //        TraverseInventoryHandle();
+    //    }
+    //    if (Keyboard.current.oKey.wasPressedThisFrame)
+    //    {
+    //        Inventory.Instance.AddItem(_necessaryIngredList[3]);
+    //        TraverseInventoryHandle();
+    //    }
+    //    if (Keyboard.current.pKey.wasPressedThisFrame)
+    //    {
+    //        Inventory.Instance.AddItem(_necessaryIngredList[4]);
+    //        TraverseInventoryHandle();
+    //    }
 
-    private void Update()
-    {
-        if (Keyboard.current.yKey.wasPressedThisFrame)
-        {
-            Inventory.Instance.AddItem(_necessaryIngredList[0]);
-            TraverseInventoryHandle();
-        }
-        if (Keyboard.current.uKey.wasPressedThisFrame)
-        {
-            Inventory.Instance.AddItem(_necessaryIngredList[1]);
-            TraverseInventoryHandle();
-        }
-        if (Keyboard.current.iKey.wasPressedThisFrame)
-        {
-            Inventory.Instance.AddItem(_necessaryIngredList[2]);
-            TraverseInventoryHandle();
-        }
-        if (Keyboard.current.oKey.wasPressedThisFrame)
-        {
-            Inventory.Instance.AddItem(_necessaryIngredList[3]);
-            TraverseInventoryHandle();
-        }
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            Inventory.Instance.AddItem(_necessaryIngredList[4]);
-            TraverseInventoryHandle();
-        }
-
-        if (Keyboard.current.aKey.wasPressedThisFrame
-            && _isFirstOpenInventory)
-        {
-            ShowInventoryTutorialHandle();
-            _isFirstOpenInventory = false;
-        }
-    }
+    //    if (Keyboard.current.aKey.wasPressedThisFrame
+    //        && _isFirstOpenInventory)
+    //    {
+    //        ShowInventoryTutorialHandle();
+    //        _isFirstOpenInventory = false;
+    //    }
+    //}
 }
