@@ -21,7 +21,8 @@ public class Stage : MonoBehaviour
     public Transform camTrmsParent;
 
     //[HideInInspector]
-    public bool curPhaseCleared = false;    
+    public bool curPhaseCleared = false;
+    public bool CanPhseCleard { get; set; }
 
     public Action OnStageStarted = null;
     public Action OnPhaseCleared = null;
