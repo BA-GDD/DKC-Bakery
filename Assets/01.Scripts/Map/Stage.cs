@@ -11,11 +11,16 @@ public class Stage : MonoBehaviour
     public StageInfoSO stageInfo;
     
     private List<Transform> _stageInfo;
-    public int maximumPhase = 3;//기본값 3 
+    public int maximumPhase = 3;//기본값 3
+
+    public PolygonCollider2D[] confiners;
+
+    [HideInInspector]
+    public int curConfinerIndex = 0;
 
     public Transform camTrmsParent;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool curPhaseCleared = false;    
 
     public Action OnStageStarted = null;
@@ -47,12 +52,10 @@ public class Stage : MonoBehaviour
             stageCollider[i] = obj.AddComponent<BoxCollider2D>();
 
             obj.transform.position = new Vector2((halfWidth * 2) * i - halfWidth, 0);
-            obj.transform.SetParent(vCam.transform, false);
+            obj.transform.SetParent(Camera.main.transform, false);
         }
 
         stageCollider[1].gameObject.AddComponent<PhaseMove>();
-
-
     }
 
     //debug
@@ -76,6 +79,7 @@ public class Stage : MonoBehaviour
         {
             PhaseCleared();
         }
+
     }
 
     /// <summary>
@@ -83,36 +87,41 @@ public class Stage : MonoBehaviour
     /// </summary>
     private void StageInfoGenerate()
     {
+        int generateConfinerIndex = 0;
         for(int i = 0; i < maximumPhase; ++i)
         {
             if(int.Parse(stageInfo.datas[stageIndex].str[i]) == 0)
             {
                 Transform trm = new GameObject().transform;
                 trm.name = $"camTrm_{i + 1}";
-                trm.position = new Vector3(i * (halfWidth * 2.0f), 0, 0);
+                if(i == 0)
+                {
+                    trm.position = new Vector3(i * (halfWidth * 2.0f), 0, 0);
+                }
+                else
+                {
+                    trm.position = _stageInfo[i - 1].position + new Vector3(halfWidth * 2.0f, 0, 0);
+                }
                 trm.SetParent(camTrmsParent);
                 _stageInfo.Add(trm);
             }
             else
             {
                 _stageInfo.Add(GameManager.Instance.PlayerTrm);
-            }
 
-            ConfinerGenerate($"confiner{i}", new Vector2(halfWidth, halfHeight), new Vector2(i * (halfWidth * 2.0f), 0));
+                Transform trm = new GameObject().transform;
+                trm.name = $"camTrm_{i + 1}";
+                trm.position = new Vector3(i * halfWidth * 2.0f + confiners[generateConfinerIndex].bounds.size.x, 0, 0);
+                trm.SetParent(camTrmsParent);
+                _stageInfo.Add(trm);
+
+                generateConfinerIndex++;
+
+                i++;
+            }
         }
 
         vCam.m_Follow = _stageInfo[curPhase];
-    }
-
-    private void ConfinerGenerate(string objName, Vector2 size, Vector2 pos)
-    {
-        GameObject obj = new GameObject();
-        obj.name = objName;
-        obj.transform.position = pos;
-        BoxCollider2D col = obj.AddComponent<BoxCollider2D>();
-        col.isTrigger = true;
-
-        col.size = size;
     }
 
     /// <summary>
@@ -135,5 +144,4 @@ public class Stage : MonoBehaviour
         }
         curPhaseCleared = false;
     }
-
 }
