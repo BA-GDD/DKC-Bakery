@@ -10,7 +10,7 @@ public enum PlayerSkill
     SwordAura = 2,
 
     //Crystal = 3
-    SlashDown = 3,
+    //SlashDown = 3,
 }
 
 public class SkillManager : MonoSingleton<SkillManager>

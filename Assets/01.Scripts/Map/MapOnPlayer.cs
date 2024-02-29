@@ -11,8 +11,8 @@ public class MapOnPlayer : MonoBehaviour
 
     private void Update()
     {
-        float moveX = Input.GetAxis("Horizontal") * _speed;
-        float moveY = Input.GetAxis("Vertical") * _speed;
+        float moveX = Input.GetAxisRaw("Horizontal") * _speed;
+        float moveY = Input.GetAxisRaw("Vertical") * _speed;
 
         transform.position += new Vector3(moveX, moveY);
 

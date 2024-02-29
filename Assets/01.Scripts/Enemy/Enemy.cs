@@ -6,8 +6,6 @@ using UnityEngine;
 
 public abstract class Enemy : Entity
 {
-<<<<<<< HEAD
-=======
     [CustomEditor(typeof(Enemy), true)]
     public class EnemyEditor : EntityEditor
     {
@@ -49,7 +47,6 @@ public abstract class Enemy : Entity
 
     [HideInInspector] public int phase;
 
->>>>>>> origin/Baking
     [Header("셋팅값들")]
     [HideInInspector] public float moveSpeed;
     [HideInInspector] public float idleTime;

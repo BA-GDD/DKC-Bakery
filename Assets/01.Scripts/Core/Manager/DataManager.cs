@@ -8,6 +8,9 @@ public class DataManager : MonoSingleton<DataManager>
     private List<string> _datakeyList = new List<string>();
     private readonly string _dataKeyFilePath = Path.Combine(Application.dataPath, "DataKeys.json");
 
+    public CheckOnFirst CheckOnFirstData { get; set; }
+    public const string checkFirstDataKey = "checkFirstDatakey";
+
     private void Awake()
     {
         if(File.Exists(_dataKeyFilePath))

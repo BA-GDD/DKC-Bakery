@@ -74,11 +74,13 @@ public class BakingManager : MonoSingleton<BakingManager>
         {
             breadDictionary.Add(_breadList[i].itemName, _breadList[i]);
         }
+
+
     }
 
     private void Start()
     {
-
+        
 
         SetBakingUI(isOpen);
         UpdateSlotUI();

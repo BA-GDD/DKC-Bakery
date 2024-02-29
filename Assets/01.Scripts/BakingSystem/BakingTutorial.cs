@@ -8,9 +8,21 @@ public class BakingTutorial : MonoBehaviour
     // 처음 켜는 거면 설명해주는 패널이 떠야함
 
     [SerializeField]
-    private List<GameObject> _tutorialPanelList;
+    private List<GameObject> _tutorialPanelList = new List<GameObject>();
     private int _curIdx = 0;
-    
+
+    public void Start()
+    {
+        if(DataManager.Instance.CheckOnFirstData.isFirstOnBaking)
+        {
+            _tutorialPanelList[_curIdx].SetActive(true);
+        }
+        else
+        {
+            CloseThePanel();
+        }
+    }
+
     private void EntryIntoBaking()
     {
         // 대충 이제 케이크 처만들어 라고 말하는 내용 출력
@@ -42,5 +54,9 @@ public class BakingTutorial : MonoBehaviour
     {
         //_tutorialPanelList[_curIdx].SetActive(false);
         gameObject.SetActive(false);
+
+        DataManager.Instance.CheckOnFirstData.isFirstOnBaking = false;
+        DataManager.Instance.SaveData(DataManager.Instance.CheckOnFirstData, 
+                                      DataManager.checkFirstDataKey);
     }
 }
