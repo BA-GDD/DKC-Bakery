@@ -7,4 +7,5 @@ public class BlackBoard
     public Vector3 moveToPosition;
     public Vector3 enemySpotPosition;
     public LayerMask whatIsEnemy;
+    public int phase;
 }

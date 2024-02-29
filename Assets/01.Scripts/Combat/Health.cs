@@ -14,7 +14,7 @@ public enum Ailment : int
 public class Health : MonoBehaviour, IDamageable
 {
     public int maxHealth;
-    private int _currentHealth;
+    [SerializeField]private int _currentHealth;
 
     public Action OnHit;
     //public Action OnDied;

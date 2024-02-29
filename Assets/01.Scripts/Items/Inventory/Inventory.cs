@@ -40,35 +40,35 @@ public class Inventory : MonoSingleton<Inventory>
     }
     private void Update()
     {
-        if (Keyboard.current.gKey.wasPressedThisFrame)
-        {
-            Debug.Log("gKey");
-            AddItem(_debugItemData);
-        }
-        if (Keyboard.current.yKey.wasPressedThisFrame)
-        {
-            Debug.Log("yKey");
-            AddItem(_testBaseData);
-        }
-        if (Keyboard.current.uKey.wasPressedThisFrame)
-        {
-            Debug.Log("uKey");
-            AddItem(_testLiquidData);
-        }
-        if (Keyboard.current.iKey.wasPressedThisFrame)
-        {
-            Debug.Log("iKey");
-            AddItem(_testLeavenData);
-        }
-        if (Keyboard.current.oKey.wasPressedThisFrame)
-        {
-            Debug.Log("oKey");
-            AddItem(_testButterfatData);
-        }
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            AddItem(_testSugarsData);
-        }
+        //if (Keyboard.current.gKey.wasPressedThisFrame)
+        //{
+        //    Debug.Log("gKey");
+        //    AddItem(_debugItemData);
+        //}
+        //if (Keyboard.current.yKey.wasPressedThisFrame)
+        //{
+        //    Debug.Log("yKey");
+        //    AddItem(_testBaseData);
+        //}
+        //if (Keyboard.current.uKey.wasPressedThisFrame)
+        //{
+        //    Debug.Log("uKey");
+        //    AddItem(_testLiquidData);
+        //}
+        //if (Keyboard.current.iKey.wasPressedThisFrame)
+        //{
+        //    Debug.Log("iKey");
+        //    AddItem(_testLeavenData);
+        //}
+        //if (Keyboard.current.oKey.wasPressedThisFrame)
+        //{
+        //    Debug.Log("oKey");
+        //    AddItem(_testButterfatData);
+        //}
+        //if (Keyboard.current.pKey.wasPressedThisFrame)
+        //{
+        //    AddItem(_testSugarsData);
+        //}
     }
     public void UpdateSlotUI() 
     {
