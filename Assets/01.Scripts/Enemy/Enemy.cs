@@ -12,6 +12,7 @@ public abstract class Enemy : Entity
         private Enemy _enemy;
         private bool _stateSetting;
         private bool _attackSetting;
+        
 
         protected override void OnEnable()
         {

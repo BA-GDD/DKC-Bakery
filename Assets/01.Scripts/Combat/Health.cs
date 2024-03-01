@@ -43,7 +43,6 @@ public class Health : MonoBehaviour, IDamageable
     public Vector2 lastAttackDirection;
     public bool isHitByMelee;
 
-
     protected void Awake()
     {
         _ailmentStat = new AilmentStat();

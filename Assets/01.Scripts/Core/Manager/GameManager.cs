@@ -16,6 +16,7 @@ public class GameManager : MonoSingleton<GameManager>
             return _player;
         }
     }
+    public string beforeSceneName;
 
     [Header("Pooling")]
     [SerializeField] private PoolListSO _poolingList;
@@ -32,6 +33,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void ChangeScene(string sceneName)
     {
+        beforeSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("LoadingScene");
         StartCoroutine(LoadingProcessCo(sceneName));
     }

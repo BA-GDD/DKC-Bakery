@@ -10,4 +10,10 @@ public class ExpansionList<T> : List<T>
         base.Add(item);
         ListChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    public new void Remove(T item) 
+    { 
+        base.Remove(item);
+        ListChanged?.Invoke(this, EventArgs.Empty);
+    }
 }

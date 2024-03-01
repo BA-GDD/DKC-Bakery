@@ -14,7 +14,7 @@ public class InventoryTrigger : MonoBehaviour
     {
         if(Keyboard.current.iKey.wasPressedThisFrame)
         {
-            if(_isOnInventory)
+            if(!_isOnInventory)
             {
                 _invenPanel = PanelManager.Instance.CreatePanel(PanelType.inventory, _invenParent, Vector2.zero);
                 _invenPanel.ActivePanel(true);
