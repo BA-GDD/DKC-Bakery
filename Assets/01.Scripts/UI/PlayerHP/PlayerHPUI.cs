@@ -15,6 +15,8 @@ public class PlayerHPUI : MonoBehaviour
 
     public void SetHpOnUI(float playerCurrentHpValue, float playerMaxHpValue)
     {
+        Debug.Log($"{playerCurrentHpValue}, {playerMaxHpValue}");
+
         _hpText.SetText($"{playerCurrentHpValue} / {playerMaxHpValue}");
         _hpText.transform.DOShakeRotation(_easingTime, 50, 30);
 
@@ -30,13 +32,5 @@ public class PlayerHPUI : MonoBehaviour
             DOTween.To(() => _hpBarTurm.value, v => _hpBarTurm.value = v,
             targetHpValue, _easingTime + 0.15f)
         );
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SetHpOnUI(50, 100);
-        }
     }
 }

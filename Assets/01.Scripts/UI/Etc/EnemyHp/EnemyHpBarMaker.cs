@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyHpBarMaker : MonoBehaviour
 {
-    [SerializeField] private Transform _enemyHealthBarParent;
+    private Transform _enemyHealthBarParent;
     [SerializeField] private EnemyHPBar _enemyHpBarPrefab;
 
-    private void Start()
+    private void Awake()
     {
-        SetupEnemyHpBar();
+        _enemyHealthBarParent = UIManager.Instance.CanvasTrm;
     }
 
     public void SetupEnemyHpBar()
@@ -21,7 +21,7 @@ public class EnemyHpBarMaker : MonoBehaviour
             EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
             e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
 
-            enemyHpBar.OwnerOfThisHpBar = e.transform;
+            enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;
         }
     }
 }

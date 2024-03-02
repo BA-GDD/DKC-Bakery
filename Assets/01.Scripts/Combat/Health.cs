@@ -28,6 +28,7 @@ public class Health : MonoBehaviour, IDamageable
     //public Action OnDied;
     public Action<Vector2> OnKnockBack;
     public Action<Color, int> OnDamageText; //데미지 텍스트를 띄워야 할때.
+    public Action<float, float> OnDamageEvent;
 
     public UnityEvent<Vector2> OnDeathEvent;
     public UnityEvent OnHitEvent;
@@ -101,6 +102,7 @@ public class Health : MonoBehaviour, IDamageable
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        OnDamageEvent?.Invoke(_currentHealth, maxHealth);
     }
     public void ApplyDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
     {
@@ -127,6 +129,7 @@ public class Health : MonoBehaviour, IDamageable
         damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(Ailment.Chilled));
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        OnDamageEvent?.Invoke(_currentHealth, maxHealth);
 
         isHitByMelee = true;
         lastAttackDirection = (transform.position - dealer.transform.position).normalized;

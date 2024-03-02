@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : Entity
 {
@@ -71,6 +72,7 @@ public class Player : Entity
     public SkillManager Skill { get; private set; }
 
     public bool stopDebug;
+    private PlayerHPUI _hpUI;
 
     protected override void Awake()
     {
@@ -93,6 +95,13 @@ public class Player : Entity
     {
         Skill = SkillManager.Instance;
         StateMachine.Initialize(PlayerStateEnum.Idle, this);
+
+        if(SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            _hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
+            Debug.Log(_hpUI);
+            HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
+        }
     }
 
     protected void OnEnable()
@@ -103,6 +112,7 @@ public class Player : Entity
     protected void OnDisable()
     {
         PlayerInput.DashEvent -= HandleDashEvent;
+        HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
 
     #region handling input

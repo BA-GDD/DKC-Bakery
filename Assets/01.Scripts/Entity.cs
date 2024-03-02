@@ -105,7 +105,7 @@ public abstract class Entity : MonoBehaviour
     public int FacingDirection { get { return (int)facingDirection; } private set { facingDirection = (FacingDirectionEnum)value; } } //오른쪽이 1, 왼쪽이 -1
     #endregion
 
-    public UnityEvent<float, float> OnHealthBarChanged;
+    public UnityEvent<float> OnHealthBarChanged;
     public UnityEvent OnAttackEvent;//때렸을 때 실행될 이벤트들
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
@@ -128,7 +128,7 @@ public abstract class Entity : MonoBehaviour
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
 
         CharStat = Instantiate(CharStat); //복제본 생성
         CharStat.SetOwner(this);
@@ -136,7 +136,6 @@ public abstract class Entity : MonoBehaviour
 
     private void HandleCutInOnFieldMonsterList(Vector2 arg0)
     {
-        Debug.Log("Die");
         BattleController.onFieldMonsterList.Remove(this as Enemy);
         HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
     }
@@ -167,7 +166,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void HandleHit()
     {
         //UI갱신
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth());
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth());
     }
 
     protected virtual void HandleKnockback(Vector2 direction)

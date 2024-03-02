@@ -21,6 +21,7 @@ public class BattleController : MonoBehaviour
     [HideInInspector]
     public ExpansionList<Enemy> onFieldMonsterList = new ExpansionList<Enemy>();
     private Stage _currentStage;
+    private EnemyHpBarMaker _enemyHpBarMaker;
 
     [Header("√‚«ˆ ≈“")]
     [SerializeField][Range(0.01f, 0.1f)] private float _spawnTurm;
@@ -34,6 +35,8 @@ public class BattleController : MonoBehaviour
                 _monsterGimicList.list[i].list[j].gameObject.SetActive(false);
             }
         }
+
+        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
     }
 
     private void Start()
@@ -65,12 +68,13 @@ public class BattleController : MonoBehaviour
                 onFieldMonsterList.Add(selectEnemy);
             }
             _divineCount++;
+
+            _enemyHpBarMaker.SetupEnemyHpBar();
         }
     }
 
     private void HandleChangeMonsterCountOnField(object sender, EventArgs e)
     {
-        Debug.Log(onFieldMonsterList.Count);
         if(onFieldMonsterList.Count == 0)
         {
             if((_divineCount % _divineToken) == 0)
