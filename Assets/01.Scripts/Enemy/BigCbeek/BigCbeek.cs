@@ -63,8 +63,6 @@ public class BigCbeek: Enemy
         return false;
     }
 
-
-
     protected override void HandleHit()
     {
         base.HandleHit();

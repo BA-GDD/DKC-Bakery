@@ -109,8 +109,8 @@ public abstract class Entity : MonoBehaviour
     public UnityEvent OnAttackEvent;//때렸을 때 실행될 이벤트들
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
+    public UnityEvent OnDieEvent;
     
-
     protected virtual void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
@@ -166,7 +166,12 @@ public abstract class Entity : MonoBehaviour
     protected virtual void HandleHit()
     {
         //UI갱신
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth());
+        float currentHealth = HealthCompo.GetNormalizedHealth();
+        if(currentHealth <= 0)
+        {
+            OnDieEvent?.Invoke();
+        }
+        OnHealthBarChanged?.Invoke(currentHealth);
     }
 
     protected virtual void HandleKnockback(Vector2 direction)
