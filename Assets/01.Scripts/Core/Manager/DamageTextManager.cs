@@ -51,6 +51,7 @@ public class DamageTextManager : MonoSingleton<DamageTextManager>
         int idx = (int)category;
 
         int randomIdx = UnityEngine.Random.Range(0, _reactionType[idx].reactionWordArr.Length);
-        _reactionText.ShowReactionText(position, _reactionType[idx].reactionWordArr[randomIdx], 6, Color.white);
+        _reactionText.ShowReactionText(position, _reactionType[idx].reactionWordArr[randomIdx], 6, _textColors[idx]);
     }
 }
+              
