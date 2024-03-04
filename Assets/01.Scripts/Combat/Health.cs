@@ -99,11 +99,17 @@ public class Health : MonoBehaviour, IDamageable
         //체력증가에 따른 UI필요.
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
     }
-    public void ApplyTrueDamage(int damage, Vector2 knockbackPower)
+
+    public void HealthShareDamage(int damage)
     {
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
-
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+    }
+    public void ApplyTrueDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
+    {
+        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        knockbackPower.x *= attackDirection.x;
         AfterHitFeedbacks(knockbackPower);
     }
     public void ApplyDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)

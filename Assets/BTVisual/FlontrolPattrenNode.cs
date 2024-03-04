@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace BTVisual
 {
     public abstract class FlontrolPattrenNode : ActionNode
@@ -13,6 +15,7 @@ namespace BTVisual
         {
             enemy.endAnimationTrigger = false;
             enemy.AnimatorCompo.SetBool(parameterName, false);
+            enemy.pattenAreaInfo.First(a => a.pattenName == parameterName).areas.Reset();
         }
 
         public override void Bind(BlackBoard blackboard, Context context, Enemy enemy)
