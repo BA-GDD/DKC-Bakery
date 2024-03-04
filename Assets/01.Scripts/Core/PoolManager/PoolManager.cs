@@ -11,7 +11,6 @@ public enum PoolingType
     IngredientItemElement,
     ItemInfoPopUpPanel,
     CakeElbum,
-    FlowerBullet,
     FlontrolBullet ,
     FlontrolSpike ,
     FlontrolStone
