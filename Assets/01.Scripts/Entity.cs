@@ -129,7 +129,6 @@ public abstract class Entity : MonoBehaviour
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
         OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
-
         CharStat = Instantiate(CharStat); //복제본 생성
         CharStat.SetOwner(this);
     }
@@ -171,6 +170,7 @@ public abstract class Entity : MonoBehaviour
         {
             OnDieEvent?.Invoke();
         }
+        Debug.Log("hit");
         OnHealthBarChanged?.Invoke(currentHealth);
     }
 

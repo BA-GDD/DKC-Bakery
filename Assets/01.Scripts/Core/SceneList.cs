@@ -7,4 +7,5 @@ public static class SceneList
     public const string BattleScene = "BattleScene";
     public const string BakeryScene = "BakeryScene";
     public const string TeaTimeScene = "TeaTimeScene";
+    public const string TitleScene = "TitleScene";
 }

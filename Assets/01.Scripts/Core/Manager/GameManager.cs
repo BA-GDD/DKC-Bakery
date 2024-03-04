@@ -38,6 +38,11 @@ public class GameManager : MonoSingleton<GameManager>
         StartCoroutine(LoadingProcessCo(sceneName));
     }
 
+    public Scene GetCurrentSceneInfo()
+    {
+        return SceneManager.GetActiveScene();
+    }
+
     private IEnumerator LoadingProcessCo(string sceneName)
     {
         yield return null;

@@ -137,6 +137,9 @@ MonoBehaviour:
   OnAttackEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
   debugState: 2
   moveSpeed: 12
   jumpForce: 30
@@ -29183,6 +29186,10 @@ PrefabInstance:
     - target: {fileID: 228780570101977088, guid: 34ec17fe5e188414c9955f30f6057ed9, type: 3}
       propertyPath: m_Name
       value: MilkDeer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3909119227406032238, guid: 34ec17fe5e188414c9955f30f6057ed9, type: 3}
+      propertyPath: _showKnockbackSetting
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5278102723246684824, guid: 34ec17fe5e188414c9955f30f6057ed9, type: 3}
       propertyPath: m_LocalPosition.x

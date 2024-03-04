@@ -3,13 +3,12 @@ namespace UIDefine
 {
     public enum UIScreenType
     {
-        title,
+        title = 1,
         mapSelect,
         battle,
         bakery,
         teaTime,
         diary,
-
     }
 
     public enum BakeryCombinationType

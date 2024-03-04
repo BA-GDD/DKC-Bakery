@@ -44,6 +44,7 @@ public class PanelManager : MonoSingleton<PanelManager>
         PanelUI pu = _panelUIDic[panelType].Pop();
         pu.transform.SetParent(parent);
         pu.transform.localPosition = screenPos;
+        pu.transform.localScale = Vector3.one;
 
         return pu;
     }
