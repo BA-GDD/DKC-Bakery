@@ -40,6 +40,8 @@ public class PhaseMove : MonoBehaviour
                 }
                 GameManager.Instance.PlayerTrm.position += Vector3.right * 2;
             }
+
+            _curStage.curPhaseCleared = false;
         }
         else
         {
