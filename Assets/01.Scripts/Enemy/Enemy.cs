@@ -12,6 +12,7 @@ public abstract class Enemy : Entity
         private Enemy _enemy;
         private bool _stateSetting;
         private bool _attackSetting;
+        
 
         protected override void OnEnable()
         {
@@ -51,6 +52,7 @@ public abstract class Enemy : Entity
     [HideInInspector] public float moveSpeed;
     [HideInInspector] public float idleTime;
     [HideInInspector] public float battleTime; //전투시간을 초과하면 idle상태로 이동한다.
+    public Transform hpBarPos;
 
     private float _defaultMoveSpeed;
 
@@ -91,7 +93,7 @@ public abstract class Enemy : Entity
         enemyStat.Modify(enemyStat.damage);
         enemyStat.Modify(enemyStat.maxHealth);
 
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth()); //최대치로 UI변경. 
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //최대치로 UI변경. 
     }
 
     protected override void Update()

@@ -22,8 +22,8 @@ public class EnemyHPBar : MonoBehaviour
         transform.position = MaestrOffice.GetScreenPosToWorldPos(_ownerOfThisHpBar.position);
     }
 
-    public void HandleHealthChanged(float currentHP, float maxHP)
+    public void HandleHealthChanged(float generatedHealth)
     {
-
+        Debug.Log(generatedHealth);
     }
 }

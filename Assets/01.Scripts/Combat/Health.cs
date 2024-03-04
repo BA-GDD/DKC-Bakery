@@ -30,6 +30,7 @@ public class Health : MonoBehaviour, IDamageable
     //public Action OnDied;
     public Action<Vector2> OnKnockBack;
     public Action<Color, int> OnDamageText; //데미지 텍스트를 띄워야 할때.
+    public Action<float, float> OnDamageEvent;
 
     public UnityEvent<Vector2> OnDeathEvent;
     public UnityEvent OnHitEvent;
@@ -44,7 +45,6 @@ public class Health : MonoBehaviour, IDamageable
     public bool isLastHitCritical = false; //마지막 공격이 크리티컬로 적중했냐?
     public Vector2 lastAttackDirection;
     public bool isHitByMelee;
-
 
     protected void Awake()
     {
@@ -104,6 +104,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        OnDamageEvent?.Invoke(_currentHealth, maxHealth);
     }
     public void ApplyTrueDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
     {
@@ -137,12 +138,14 @@ public class Health : MonoBehaviour, IDamageable
         damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(Ailment.Chilled));
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        OnDamageEvent?.Invoke(_currentHealth, maxHealth);
 
         isHitByMelee = true;
         lastAttackDirection = (transform.position - dealer.transform.position).normalized;
 
         //여기서 데미지 띄워주기
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
+        DamageTextManager.Instance.PopupReactionText(_owner.transform.position, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
         //감전데미지 체크
         CheckAilmentByDamage(damage);

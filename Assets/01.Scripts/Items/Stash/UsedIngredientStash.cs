@@ -44,7 +44,6 @@ public class UsedIngredientStash : Stash
         for (int i = 0; i < 5; ++i)
         {
             int result = (int)Mathf.Pow(2, i);
-            Debug.Log($"{i}, {result}");
             _itemSlots[i].UpdateSlot(usedIngredientStash[result]);
         }
     }

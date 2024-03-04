@@ -3,13 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
-[Serializable]
-public class MonsterGimic
-{
-    public Enemy enemy;
-    public Transform appearTrm;
-}
+using UnityEngine.Events;
 
 [Serializable]
 public class SEList<T>
@@ -17,27 +11,38 @@ public class SEList<T>
     public List<T> list;
 }
 
-[Serializable]
-public class MonsterGimicList : SEList<SEList<MonsterGimic>>
-{
-
-}
-
 public class BattleController : MonoBehaviour
 {
     [Header("페이지에 따른 몬스터 출현 기믹")]
-    [SerializeField] private MonsterGimicList _monsterGimicList = new();
-    private ExpansionList<Enemy> _onFieldMonsterList = new ExpansionList<Enemy>();
+    [SerializeField] private int _divineToken;
+    private int _divineCount;
+    [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
+
+    [HideInInspector]
+    public ExpansionList<Enemy> onFieldMonsterList = new ExpansionList<Enemy>();
     private Stage _currentStage;
-    private int _phaseDevineIdx;
+    private EnemyHpBarMaker _enemyHpBarMaker;
 
     [Header("출현 텀")]
     [SerializeField][Range(0.01f, 0.1f)] private float _spawnTurm;
 
+    private void Awake()
+    {
+        for(int i = 0; i< _monsterGimicList.list.Count; i++)
+        {
+            for(int j = 0; j < _monsterGimicList.list[i].list.Count; j++)
+            {
+                _monsterGimicList.list[i].list[j].gameObject.SetActive(false);
+            }
+        }
+
+        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+    }
+
     private void Start()
     {
         _currentStage = FindObjectOfType<Stage>();
-        _onFieldMonsterList.ListChanged += HandleChangeMonsterCountOnField;
+        onFieldMonsterList.ListChanged += HandleChangeMonsterCountOnField;
 
         _currentStage.OnPhaseCleared += () => StartCoroutine(SpawnMonster());
         StartCoroutine(SpawnMonster());
@@ -45,38 +50,41 @@ public class BattleController : MonoBehaviour
 
     private IEnumerator SpawnMonster()
     {
-        _currentStage.CanPhseCleard = false;
         yield return null;
-
-        for(int i = 0; i < _monsterGimicList.list[_currentStage.CurPhase].list.Count; i++)
+        if(_monsterGimicList.list.Count >= _divineCount)
         {
-            yield return new WaitForSeconds(_spawnTurm);
+            for (int i = 0; i < _monsterGimicList.list[_divineCount].list.Count; i++)
+            {
+                yield return new WaitForSeconds(_spawnTurm);
 
-            MonsterGimic mg = _monsterGimicList.list[_currentStage.CurPhase].list[i];
+                Enemy selectEnemy = _monsterGimicList.list[_divineCount].list[i];
+                selectEnemy.gameObject.SetActive(true);
+                selectEnemy.BattleController = this;
 
-            Enemy enemy = Instantiate(mg.enemy, mg.appearTrm.position, Quaternion.identity);
-            _onFieldMonsterList.Add(enemy);
+                Color startColor = new Color(1, 1, 1, 0);
+                selectEnemy.SpriteRendererCompo.color = startColor;
+                selectEnemy.SpriteRendererCompo.DOFade(1, 0.1f);
 
-            enemy.SpriteRendererCompo.color = new Color(1, 1, 1, 0);
-            enemy.SpriteRendererCompo.DOFade(1, 0.1f);
+                onFieldMonsterList.Add(selectEnemy);
+            }
+            _divineCount++;
+
+            _enemyHpBarMaker.SetupEnemyHpBar();
         }
     }
 
     private void HandleChangeMonsterCountOnField(object sender, EventArgs e)
     {
-        if(_onFieldMonsterList.Count == 0)
+        if(onFieldMonsterList.Count == 0)
         {
-            _phaseDevineIdx++;
-
-            if (_phaseDevineIdx !=
-               _monsterGimicList.list[_currentStage.CurPhase].list.Count)
+            if((_divineCount % _divineToken) == 0)
             {
+                Debug.Log("Phase Clear");
+                _currentStage.curPhaseCleared = true;
                 StartCoroutine(SpawnMonster());
             }
-            else
-            {
-                _currentStage.CanPhseCleard = true;
-            }
+
+            StartCoroutine(SpawnMonster());
         }
     }
 }

@@ -51,6 +51,7 @@ public class BakeryUI : SceneUI
                                                                                Vector3.zero) 
                 as NormalPanel;
 
+            bakingWarningPanel.transform.localScale = Vector3.one;
             bakingWarningPanel.SetUpPanel(_warningPanelInfo);
             bakingWarningPanel.gameObject.SetActive(true);
         }

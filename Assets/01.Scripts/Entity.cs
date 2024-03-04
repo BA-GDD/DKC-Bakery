@@ -96,7 +96,7 @@ public abstract class Entity : MonoBehaviour
     public DamageCaster DamageCasterCompo { get; private set; }
     public SpriteRenderer SpriteRendererCompo { get; private set; }
     public CapsuleCollider2D Collider { get; private set; }
-
+    public BattleController BattleController { get; set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
     #endregion
 
@@ -105,11 +105,12 @@ public abstract class Entity : MonoBehaviour
     public int FacingDirection { get { return (int)facingDirection; } private set { facingDirection = (FacingDirectionEnum)value; } } //오른쪽이 1, 왼쪽이 -1
     #endregion
 
-    public UnityEvent<float, float> OnHealthBarChanged;
+    public UnityEvent<float> OnHealthBarChanged;
     public UnityEvent OnAttackEvent;//때렸을 때 실행될 이벤트들
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
-
+    public UnityEvent OnDieEvent;
+    
     protected virtual void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
@@ -125,11 +126,17 @@ public abstract class Entity : MonoBehaviour
         HealthCompo.OnKnockBack += HandleKnockback;
         HealthCompo.OnHit += HandleHit;
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
+        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
-
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //최대치로 UI변경.
         CharStat = Instantiate(CharStat); //복제본 생성
         CharStat.SetOwner(this);
+    }
+
+    private void HandleCutInOnFieldMonsterList(Vector2 arg0)
+    {
+        BattleController.onFieldMonsterList.Remove(this as Enemy);
+        HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
     }
 
     private void OnDestroy()
@@ -158,7 +165,13 @@ public abstract class Entity : MonoBehaviour
     protected virtual void HandleHit()
     {
         //UI갱신
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth(), HealthCompo.GetNormalizedHealth());
+        float currentHealth = HealthCompo.GetNormalizedHealth();
+        if(currentHealth <= 0)
+        {
+            OnDieEvent?.Invoke();
+        }
+        Debug.Log("hit");
+        OnHealthBarChanged?.Invoke(currentHealth);
     }
 
     protected virtual void HandleKnockback(Vector2 direction)
