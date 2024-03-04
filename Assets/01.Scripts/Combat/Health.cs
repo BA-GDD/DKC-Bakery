@@ -136,6 +136,7 @@ public class Health : MonoBehaviour, IDamageable
 
         //여기서 데미지 띄워주기
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
+        DamageTextManager.Instance.PopupReactionText(_owner.transform.position, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
         //감전데미지 체크
         CheckAilmentByDamage(damage);
