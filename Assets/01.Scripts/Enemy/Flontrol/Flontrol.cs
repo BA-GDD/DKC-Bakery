@@ -6,10 +6,13 @@ using UnityEngine;
 
 [System.Serializable]
 public struct SpikePatternInfo { public List<FlontrolSpike> spikes; }
+[System.Serializable]
+public struct PatternAreaInfo { public string pattenName; public EnemyDangerAttackArea areas; }
 public class Flontrol : Enemy
 {
     private readonly int _playerXHash = Animator.StringToHash("playerX");
 
+    public List<PatternAreaInfo> pattenAreaInfo;
     public List<SpikePatternInfo> spikePatten;
     public bool endAnimationTrigger;
     public Action animationEvent;

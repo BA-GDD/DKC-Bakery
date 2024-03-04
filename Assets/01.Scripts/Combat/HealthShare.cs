@@ -35,7 +35,7 @@ public class HealthShare : MonoBehaviour,IDamageable
 
     private void OnHitHandle(int daamage)
     {
-        _mainHealth.ApplyTrueDamage(daamage);
+        _mainHealth.HealthShareDamage(daamage);
     }
 
     private void HandleEndOfAilment(Ailment ailment)
@@ -100,7 +100,6 @@ public class HealthShare : MonoBehaviour,IDamageable
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
         damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(Ailment.Chilled));
 
-        OnHit?.Invoke(_currentHealth - damage < 0 ? _currentHealth : damage);
 
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
@@ -110,6 +109,7 @@ public class HealthShare : MonoBehaviour,IDamageable
 
         //감전데미지 체크
         CheckAilmentByDamage(damage);
+        OnHit?.Invoke(_currentHealth - damage < 0 ? _currentHealth : damage);
 
         if (_currentHealth <= 0) isDead = true;
     }

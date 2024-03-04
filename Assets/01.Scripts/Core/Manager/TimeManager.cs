@@ -18,6 +18,11 @@ public class TimeManager : MonoSingleton<TimeManager>
             _baseTimeScale = Time.timeScale;
             _delayCor = StartCoroutine(DelayCorutine(scaleValue, time));
         }
+        else
+        {
+            StopCoroutine(_delayCor);
+            _delayCor = StartCoroutine(DelayCorutine(scaleValue, time));
+        }
     }
     private IEnumerator DelayCorutine(float value, float time)
     {

@@ -22,6 +22,8 @@ public enum Ailment : int
 public class Health : MonoBehaviour, IDamageable
 {
     public int maxHealth;
+    public bool isPowerCrash;
+
     [SerializeField] private int _currentHealth;
 
     public Action OnHit;
@@ -49,7 +51,7 @@ public class Health : MonoBehaviour, IDamageable
         _ailmentStat = new AilmentStat();
         _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
         _ailmentStat.AilmentDamageEvent += HandleAilementDamage;
-        
+
         isDead = false;
     }
     private void OnDestroy()
@@ -97,12 +99,19 @@ public class Health : MonoBehaviour, IDamageable
         //체력증가에 따른 UI필요.
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
     }
-    public void ApplyTrueDamage(int damage)
+
+    public void HealthShareDamage(int damage)
     {
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
-
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
         OnDamageEvent?.Invoke(_currentHealth, maxHealth);
+    }
+    public void ApplyTrueDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
+    {
+        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        knockbackPower.x *= attackDirection.x;
+        AfterHitFeedbacks(knockbackPower);
     }
     public void ApplyDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
     {
@@ -170,7 +179,10 @@ public class Health : MonoBehaviour, IDamageable
             return;
         }
 
-        OnKnockBack?.Invoke(knockbackPower);
+        if (!isPowerCrash)
+        {
+            OnKnockBack?.Invoke(knockbackPower);
+        }
         OnHitEvent?.Invoke();
         OnHit?.Invoke();
     }

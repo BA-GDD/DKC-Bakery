@@ -33,7 +33,7 @@ public class ShakeCamFeedback : MonoBehaviour, Feedback
         switch (shakeType)
         {
             case ShakeTypeEnum.Default:
-                impulseSource.GenerateImpulse();
+                impulseSource.GenerateImpulse(impulseRatio);
                 break;
             case ShakeTypeEnum.PositionWithVelocity:
                 impulseSource.GenerateImpulseAtPositionWithVelocity(transform.position, _rigid.velocity.normalized * impulseRatio * -1);
