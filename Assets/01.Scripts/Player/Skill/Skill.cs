@@ -11,16 +11,12 @@ public class Skill : MonoBehaviour
     [SerializeField] protected LayerMask _whatisEnemy;
     [SerializeField] protected float _cooldown;
     protected float _cooldownTiemr;
-    protected Player _player;
+    protected Player _player => GameManager.Instance.Player;
 
     [SerializeField] protected PlayerSkill _skillType;
 
     public event CooldownNotify OnCooldown;
 
-    protected virtual void Start()
-    {
-        _player = GameManager.Instance.Player;
-    }
     protected virtual void Update()
 
     {

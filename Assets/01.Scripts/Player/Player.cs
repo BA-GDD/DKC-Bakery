@@ -112,7 +112,8 @@ public class Player : Entity
     protected void OnDisable()
     {
         PlayerInput.DashEvent -= HandleDashEvent;
-        HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
+        if(_hpUI != null)
+            HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
 
     #region handling input
