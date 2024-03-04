@@ -17,6 +17,7 @@ public class EnemyHPBar : MonoBehaviour
         }
     }
     private Sequence _playerGetDamageSequence;
+
     [SerializeField] private Slider _hpBar;
     [SerializeField] private Slider _hpBarTurm;
     [SerializeField] private float _easingTime;
