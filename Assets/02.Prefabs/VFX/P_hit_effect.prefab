@@ -4924,6 +4924,7 @@ GameObject:
   - component: {fileID: 8689338221366495684}
   - component: {fileID: 5707751706223794990}
   - component: {fileID: 6816801040527121939}
+  - component: {fileID: 5036695818786887629}
   m_Layer: 6
   m_Name: P_hit_effect
   m_TagString: Untagged
@@ -9828,6 +9829,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5036695818786887629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651879547312998551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c9a4986b0a3d9478413956f2bc28eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolingType: 10
+  mainParticleSystem: {fileID: 5707751706223794990}
 --- !u!1 &5461076321152379448
 GameObject:
   m_ObjectHideFlags: 0
