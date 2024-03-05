@@ -105,6 +105,7 @@ public abstract class Entity : MonoBehaviour
     public int FacingDirection { get { return (int)facingDirection; } private set { facingDirection = (FacingDirectionEnum)value; } } //오른쪽이 1, 왼쪽이 -1
     #endregion
 
+    public Action OnBeforeHit;
     public UnityEvent<float> OnHealthBarChanged;
     public UnityEvent OnAttackEvent;//때렸을 때 실행될 이벤트들
     public Action<int> OnStartAttack;
@@ -164,13 +165,14 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void HandleHit()
     {
+        OnBeforeHit?.Invoke();
         //UI갱신
         float currentHealth = HealthCompo.GetNormalizedHealth();
-        if(currentHealth <= 0)
+        Debug.Log(currentHealth);
+        if (currentHealth <= 0)
         {
             OnDieEvent?.Invoke();
         }
-        Debug.Log("hit");
         OnHealthBarChanged?.Invoke(currentHealth);
     }
 

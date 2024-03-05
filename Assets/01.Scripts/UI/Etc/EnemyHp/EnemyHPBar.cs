@@ -32,8 +32,6 @@ public class EnemyHPBar : MonoBehaviour
 
     public void HandleHealthChanged(float generatedHealth)
     {
-        Debug.Log(generatedHealth);
-
         _playerGetDamageSequence = DOTween.Sequence();
         _playerGetDamageSequence.Append
         (

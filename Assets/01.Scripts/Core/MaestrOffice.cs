@@ -21,9 +21,6 @@ public static class MaestrOffice
         }
     }
 
-    private static int ScreenWidth = 1920;
-    private static int ScreenHeight = 1080;
-
     public static int GetPlusOrMinus()
     {
         return (int)Mathf.Sign(UnityEngine.Random.Range(0, 2) * 2 - 1);

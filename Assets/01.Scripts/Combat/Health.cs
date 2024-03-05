@@ -90,6 +90,7 @@ public class Health : MonoBehaviour, IDamageable
     public float GetNormalizedHealth()
     {
         if (maxHealth <= 0) return 0;
+        Debug.Log($"{_currentHealth}, {maxHealth}");
         return Mathf.Clamp((float)_currentHealth / maxHealth, 0, 1f);
     }
 

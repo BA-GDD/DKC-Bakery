@@ -21,6 +21,7 @@ public class EnemyHpBarMaker : MonoBehaviour
             EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
             e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
             e.OnDieEvent.AddListener(() => Destroy(enemyHpBar));
+            e.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
 
             enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;
         }

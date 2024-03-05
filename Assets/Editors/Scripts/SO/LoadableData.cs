@@ -54,6 +54,11 @@ public class LoadableData : ScriptableObject
         RangeCalculator rangeCal = new RangeCalculator(range[0], range[1]);
         Vector2[] callingRanges = rangeCal.CalculateCellRange();
 
+        for(int i = 0; i < callingRanges.Length; i++)
+        {
+            Debug.Log($"{callingRanges[i].x},{callingRanges[i].y}");
+        }
+
         generateData.Clear();
         for (int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y + 1; i++)
         {

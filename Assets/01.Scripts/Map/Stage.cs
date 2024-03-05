@@ -21,7 +21,19 @@ public class Stage : MonoBehaviour
     public Transform camTrmsParent;
 
     //[HideInInspector]
-    public bool curPhaseCleared = false;
+    private bool _curPhaseCleared = false;
+    public bool CurPhaseCleared
+    {
+        get
+        {
+            return _curPhaseCleared;
+        }
+        set
+        {
+            Debug.Log("Change Value");
+            _curPhaseCleared = value;
+        }
+    }
 
     public Action OnStageStarted = null;
     public Action OnPhaseCleared = null;
@@ -142,6 +154,6 @@ public class Stage : MonoBehaviour
         {
             vCam.m_Follow = _stageInfo[CurPhase];
         }
-        curPhaseCleared = false;
+        CurPhaseCleared = false;
     }
 }
