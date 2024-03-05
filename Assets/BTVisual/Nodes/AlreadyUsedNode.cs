@@ -13,6 +13,7 @@ namespace BTVisual
 
         protected override void OnStop()
         {
+            _isAlreadyActive = true;
         }
 
         protected override State OnUpdate()

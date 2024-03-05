@@ -7,6 +7,8 @@ namespace BTVisual
     public class FlontrolPrimaryAttack1_1 : FlontrolPattrenNode
     {
         private int _spikeType;
+
+        private int _invokeCnt;
         protected override void OnStart()
         {
             base.OnStart();
@@ -14,10 +16,7 @@ namespace BTVisual
             enemy.animationEvent += Attack;
 
             _spikeType = Random.Range(0, enemy.spikePatten.Count);
-            foreach (var spike in enemy.spikePatten[_spikeType].spikes)
-            {
-                spike.gameObject.SetActive(true);
-            }
+
         }
 
         protected override void OnStop()
@@ -26,11 +25,7 @@ namespace BTVisual
 
 
             enemy.animationEvent -= Attack;
-
-            foreach (var spike in enemy.spikePatten[_spikeType].spikes)
-            {
-                spike.gameObject.SetActive(false);
-            }
+            _invokeCnt = 0;
 
             enemy.lastTimeAttacked = Time.time;
         }
@@ -46,10 +41,24 @@ namespace BTVisual
         }
         private void Attack()
         {
-            foreach (var spike in enemy.spikePatten[_spikeType].spikes)
+            switch (_invokeCnt)
             {
-                spike.Attack();
+                case 0:
+                    foreach (var spike in enemy.spikePatten[_spikeType].spikes)
+                    {
+                        spike.gameObject.SetActive(true);
+                    }
+                    break;
+                case 1:
+                    foreach (var spike in enemy.spikePatten[_spikeType].spikes)
+                    {
+                        spike.Attack();
+                    }
+                    break;
+                default:
+                    break;
             }
+            _invokeCnt++;
         }
     }
 }
