@@ -20,15 +20,17 @@ public class BackgroundParallax : MonoBehaviour
     {
         _camTrm = Camera.main.transform;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 camPos = _camTrm.position;
-        foreach (var bg in backgrounds)
+        //foreach (var bg in backgrounds)
+        for(int i = 0; i < backgrounds.Count; ++i)
         {
-            Vector2 valueVec = bg.value;
+            //Vector2 valueVec = bg.value;
+            Vector2 valueVec = backgrounds[i].value;
             Vector2 pos = new Vector2(camPos.x * valueVec.x, camPos.y * valueVec.y);
-            bg.transform.position = pos;
+            //bg.transform.position = pos;
+            backgrounds[i].transform.position = pos;
         }
     }
-
 }

@@ -10,7 +10,7 @@ public class Stage : MonoBehaviour
     public CinemachineVirtualCamera vCam;
     public StageInfoSO stageInfo;
     
-    private List<Transform> _stageInfo;
+    protected List<Transform> _stageInfo;
     public int maximumPhase = 3;//기본값 3
 
     public PolygonCollider2D[] confiners;
@@ -127,9 +127,9 @@ public class Stage : MonoBehaviour
     /// <summary>
     /// 한 페이즈가 끝났을 때에 실행하는 거
     /// </summary>
-    public void PhaseCleared()
+    public virtual void PhaseCleared()
     {
-        if(curPhase >= maximumPhase)
+        if (curPhase >= maximumPhase)
         {
             OnStageCleared?.Invoke();
             return;
