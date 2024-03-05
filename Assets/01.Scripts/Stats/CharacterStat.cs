@@ -27,10 +27,10 @@ public enum StatType
 public class CharacterStat : ScriptableObject
 {
     [Header("Major stat")]
-    public Stat strength; // 1포인트당 데미지 증가, 크증뎀 1%
-    public Stat agility; // 1포인트당 회피 1%, 크리티컬 1%
-    public Stat intelligence; // 1포인트당 마법데미지 1증가, 마법저항 3증가, 도트 데미지에 지능의 10% 증뎀(지능10당 도트뎀 10퍼 증가)
-    public Stat vitality; // 1포인트당 체력 5증가.
+    public Stat strength;
+    public Stat agility;
+    public Stat intelligence;
+    public Stat vitality;
 
 
     [Header("Defensive stats")]
@@ -56,12 +56,12 @@ public class CharacterStat : ScriptableObject
 
     protected Entity _owner;
 
-    protected Dictionary<StatType, FieldInfo> _fieldInfoDictionary 
+    protected Dictionary<StatType, FieldInfo> _fieldInfoDictionary
             = new Dictionary<StatType, FieldInfo>();
 
     public virtual void SetOwner(Entity owner)
     {
-        _owner = owner; 
+        _owner = owner;
     }
 
 
@@ -80,7 +80,7 @@ public class CharacterStat : ScriptableObject
 
     public int GetDamage()
     {
-        return 0;
+        return strength.GetValue();
     }
 
     public bool CanEvasion()
@@ -90,7 +90,9 @@ public class CharacterStat : ScriptableObject
 
     public int ArmoredDamage(int incomingDamage, bool isChilled)
     {
-        return 0;
+        int curArmor = armor.GetValue();
+        if (isChilled) curArmor = curArmor >> 1;
+        return Mathf.Max(incomingDamage - curArmor, 0);
     }
 
     public bool IsCritical(ref int incomingDamage)
@@ -110,7 +112,7 @@ public class CharacterStat : ScriptableObject
 
     public int GetMaxHealthValue()
     {
-        return 0;
+        return maxHealth.GetValue();
     }
 
 

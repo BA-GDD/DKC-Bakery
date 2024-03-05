@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Stage
   layers:
   - Default
   - TransparentFX
@@ -11,16 +12,16 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
+  - Enemy
+  - Ground
+  - Item
+  - ItemTrigger
   - FX
+  - FlyingEnemy
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PopupUI
   - 
   - 
   - 
@@ -38,6 +39,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 1368417157
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 449556385
+    locked: 0
+  - name: Player
+    uniqueID: 3452341969
+    locked: 0
+  - name: UI
+    uniqueID: 3242311815
     locked: 0

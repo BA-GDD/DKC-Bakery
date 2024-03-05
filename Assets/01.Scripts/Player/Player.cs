@@ -1,18 +1,66 @@
 using System;
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : Entity
 {
+#if UNITY_EDITOR
+    [HideInInspector] public PlayerStateEnum debugState;
+
+    [CustomEditor(typeof(Player))]
+    public class PlayerEditor : EntityEditor
+    {
+        private Player _player;
+        private PlayerStateEnum _stateEnum;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _player = (Player)target;
+        }
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            _stateEnum = _player.debugState;
+
+            if (Application.isPlaying)
+            {
+                GUILayout.Label("강제 상태 전환");
+                _player.debugState = (PlayerStateEnum)EditorGUILayout.EnumPopup("상태", _stateEnum);
+                if (GUILayout.Button("ChangeState"))
+                {
+                    _player.StateMachine.ChangeState(_stateEnum);
+                }
+            }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(_player);
+            }
+        }
+    }
+#endif
     [Header("movement settings")]
     public float moveSpeed = 12f;
     public float jumpForce = 12f;
     public float dashDuration = 0.4f;
     public float dashSpeed = 20f;
+    [field: SerializeField] public float CoyoteTime { get; private set; }
+    [HideInInspector] public float coyoteCounter;
+    [HideInInspector] public bool stance;
 
     [Header("attack settings")]
     public float attackSpeed = 1f;
     public Vector2[] attackMovement;
+    public float[] airAttackRising;
+    [Range(0, 1)]
+    public float airXMovementRatio;
+
+    public Action onPickUpItem;
 
     [field: SerializeField] public InputReader PlayerInput { get; private set; }
 
@@ -22,6 +70,9 @@ public class Player : Entity
 
     [HideInInspector]
     public SkillManager Skill { get; private set; }
+
+    public bool stopDebug;
+    private PlayerHPUI _hpUI;
 
     protected override void Awake()
     {
@@ -40,10 +91,17 @@ public class Player : Entity
         }
     }
 
-    protected void Start()
+    protected override void Start()
     {
         Skill = SkillManager.Instance;
         StateMachine.Initialize(PlayerStateEnum.Idle, this);
+
+        if(SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            _hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
+            Debug.Log(_hpUI);
+            HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
+        }
     }
 
     protected void OnEnable()
@@ -54,11 +112,13 @@ public class Player : Entity
     protected void OnDisable()
     {
         PlayerInput.DashEvent -= HandleDashEvent;
+        HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
 
     #region handling input
     private void HandleDashEvent()
     {
+        Debug.Log(Skill.gameObject);
         if (Skill.GetSkill<DashSkill>().AttemptUseSkill())
         {
             StateMachine.ChangeState(PlayerStateEnum.Dash);
@@ -72,10 +132,18 @@ public class Player : Entity
         base.Update();
         StateMachine.CurrentState.UpdateState();
 
-        //if(Keyboard.current.pKey.wasPressedThisFrame)
-        //{
-        //    PlayerStat.IncreaseStatBy(10, 4f, PlayerStat.GetStatByType(StatType.strength));
-        //}
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            stopDebug = true;
+        }
+    }
+
+    protected override void HandleKnockback(Vector2 direction)
+    {
+        if (!stance)
+        {
+            base.HandleKnockback(direction);
+        }
     }
 
     public void AnimationEndTrigger()
@@ -83,5 +151,11 @@ public class Player : Entity
         StateMachine.CurrentState.AnimationEndTrigger();
     }
 
+    protected override void HandleDie(Vector2 direction)
+    {
+    }
 
+    public override void SlowEntityBy(float percent)
+    {
+    }
 }
