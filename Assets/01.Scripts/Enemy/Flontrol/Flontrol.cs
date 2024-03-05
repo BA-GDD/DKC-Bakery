@@ -16,6 +16,7 @@ public class Flontrol : Enemy
     public List<SpikePatternInfo> spikePatten;
     public bool endAnimationTrigger;
     public Action animationEvent;
+    public Action attackAreaEvent;
     public FlontrolClapWave clapWave;
 
     public List<FlontrolSpike> mapSpikes;

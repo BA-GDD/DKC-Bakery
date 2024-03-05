@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace BTVisual
             base.OnStart();
 
             enemy.animationEvent += Attack;
+            enemy.attackAreaEvent += SetArea;
         }
 
         protected override void OnStop()
@@ -18,6 +20,7 @@ namespace BTVisual
             base.OnStop();
 
             enemy.animationEvent -= Attack;
+            enemy.attackAreaEvent -= SetArea;
             enemy.lastTimeAttacked = Time.time;
         }
 
@@ -30,8 +33,15 @@ namespace BTVisual
             }
             return State.RUNNING;
         }
+
+        private void SetArea()
+        {
+            attackArea.Show();
+        }
+
         private void Attack()
         {
+            attackArea.End();
             enemy.clapWave.Wave();
         }
 

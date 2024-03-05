@@ -19,4 +19,8 @@ public class FlontrolAnimationEvent : MonoBehaviour
     {
         _flontrol.AnimationFinishTrigger();
     }
+    public void AttackAreaEvent()
+    {
+        _flontrol.attackAreaEvent?.Invoke();
+    }
 }
