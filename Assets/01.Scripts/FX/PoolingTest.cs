@@ -25,7 +25,7 @@ public class PoolingTest : MonoBehaviour
     {
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            PoolManager.Instance.Pop(PoolingType.Effect);
+            PoolManager.Instance.Pop(PoolingType.HitEffect);
         }
     }
 }
