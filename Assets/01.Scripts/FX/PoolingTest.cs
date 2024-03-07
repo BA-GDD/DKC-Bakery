@@ -21,11 +21,4 @@ public class PoolingTest : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            PoolManager.Instance.Pop(PoolingType.Effect);
-        }
-    }
 }
