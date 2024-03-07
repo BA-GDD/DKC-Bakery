@@ -13,8 +13,8 @@ public enum PoolingType
     CakeElbum,
     FlontrolBullet ,
     FlontrolSpike ,
-    FlontrolStone
-
+    FlontrolStone,
+    HitEffect,
 }
 
 public class PoolManager
@@ -48,6 +48,7 @@ public class PoolManager
             Debug.LogError($"not have [${type.ToString()}] pool");
         }
         obj = _poolDic[type].Pop();
+        obj.Init();
         return obj;
     }
 }
