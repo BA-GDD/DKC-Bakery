@@ -145,12 +145,6 @@ public abstract class CardBase : MonoBehaviour,
     }
     private void Shuffling()
     {
-        if(!CostCalculator.CanUseCost(1))
-        {
-
-            return;
-        }
-
         CardReader.ShuffleInHandCard(CardReader.OnPointerCard, this);
         SetUpCard(CardReader.GetHandPos(this), false);
     }

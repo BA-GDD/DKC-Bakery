@@ -16,6 +16,6 @@ public static class CostCalculator
 
     public static bool CanUseCost(int toUseCost)
     {
-        return toUseCost > CurrentMoney;
+        return toUseCost <= CurrentMoney;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CardDefine;
+using UnityEngine.EventSystems;
 
 public class ActivationChecker : MonoBehaviour
 {
@@ -36,14 +37,21 @@ public class ActivationChecker : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            CardReader.CaptureHand();
             CardReader.OnBinding = true;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             CardReader.OnBinding = false;
-            Activation();
-            CardReader.OnPointerCard = null;
+            if(!CardReader.IsSameCaptureHand())
+            {
+                Activation();
+            }
+            else
+            {
+                CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
+            }
         }
     }
 
@@ -60,8 +68,19 @@ public class ActivationChecker : MonoBehaviour
                 CardReader.SpellCardManagement.UseAbility(CardReader.OnPointerCard);
             }
         }
-        else
+        else //셔플
         {
+            if (CardReader.OnPointerCard == CardReader.ShufflingCard) return;
+
+            if(!CostCalculator.CanUseCost(1))
+            {
+                CardReader.ShuffleInHandCard(CardReader.OnPointerCard, CardReader.ShufflingCard);
+                CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
+                CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
+                return;
+            }
+
+            CostCalculator.UseCost(1);
             CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
         }
     }
