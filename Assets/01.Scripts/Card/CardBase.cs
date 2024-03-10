@@ -1,0 +1,173 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+using CardDefine;
+using UnityEngine.EventSystems;
+
+public abstract class CardBase : MonoBehaviour, 
+                                 IPointerEnterHandler, 
+                                 IPointerExitHandler
+{
+    [SerializeField] private float _toMovePosInSec;
+    public RectTransform VisualRectTrm { get; private set; }
+    public CardInfo CardInfo => _myCardInfo;
+    [SerializeField] private CardInfo _myCardInfo;
+    public bool CanUseThisCard { get; set; } = true;
+    [SerializeField] private GameObject[] _objArr = new GameObject[3];
+    [SerializeField] private CombineLevel _combineLevel;
+    public CombineLevel CombineLevel
+    {
+        get
+        {
+            return _combineLevel;
+        }
+        set
+        {
+            _combineLevel = value;
+            _objArr[(int)_combineLevel].SetActive(true);
+        }
+    }
+    [SerializeField] private Transform visualTrm;
+    public Transform VisualTrm
+    {
+        get
+        {
+            return visualTrm;
+        }
+        set
+        {
+            visualTrm = value;
+        }
+    }
+    [SerializeField] private Transform _cardInfoPanelTrm;
+    private bool _isActivingAbillity;
+    protected bool IsActivingAbillity
+    {
+        get
+        {
+            return _isActivingAbillity;
+        }
+        set
+        {
+            _isActivingAbillity = value;
+
+            if(_isActivingAbillity)
+            {
+                CardReader.LockHandCard(true);
+            }
+            else
+            {
+                CardReader.SkillCardManagement.ChainingSkill();
+                CardReader.LockHandCard(false);
+
+                _cardInfoPanel.transform.
+                DOLocalMoveX(_cardInfoPanel.transform.localPosition.x + 500, 0.001f).
+                OnComplete(() => PoolManager.Instance.Push(_cardInfoPanel));
+
+                ExitThisCard();
+            }
+        }
+    }
+    private CardInfoPanel _cardInfoPanel;
+
+    private void Awake()
+    {
+        VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
+    }
+    public abstract void Abillity();
+    public void ActiveInfo()
+    {
+        _cardInfoPanel = PoolManager.Instance.Pop(PoolingType.CardInfoPanel) as CardInfoPanel;
+        _cardInfoPanel.transform.SetParent(_cardInfoPanelTrm);
+        _cardInfoPanel.transform.localPosition = Vector3.zero;
+        _cardInfoPanel.transform.localScale = Vector3.one;
+        _cardInfoPanel.SetInfo(CardInfo);
+
+        VisualRectTrm.DOScale(1.3f, 0.2f);
+        _cardInfoPanelTrm.DOLocalMoveX(_cardInfoPanelTrm.localPosition.x - 150f, 0.2f);
+    }
+    private void ExitThisCard()
+    {
+
+    }
+    public void SetUpCard(float moveToXPos, bool generateCallback)
+    {
+        CanUseThisCard = false;
+        Vector2 movePos = new Vector2(moveToXPos, 0);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOLocalMove(movePos, _toMovePosInSec).SetEase(Ease.OutBack));
+        seq.AppendCallback(() =>
+        {
+            if(generateCallback)
+            {
+                CardReader.CombineMaster.CombineGenerate();
+            }
+            CanUseThisCard = true;
+        });
+    }
+    public bool CheckCanCombine(out CardBase frontCard)
+    {
+        if (CardReader.GetIdx(this) != 0)
+        {
+            CardBase frontOfThisCard = CardReader.GetCardinfoInHand(CardReader.GetIdx(this) - 1);
+            if (frontOfThisCard.CardInfo.CardName == _myCardInfo.CardName &&
+                frontOfThisCard.CombineLevel == CombineLevel &&
+                frontOfThisCard.CombineLevel != CombineLevel.III)
+            {
+                frontCard = frontOfThisCard;
+                return true;
+            }
+            else
+            {
+                frontCard = null;
+                return false;
+            }
+        }
+        else
+        {
+            frontCard = null;
+            return false;
+        }
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (CardReader.OnBinding || !CanUseThisCard) return;
+
+        CardReader.OnPointerCard = this;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (CardReader.OnBinding || !CanUseThisCard) return;
+
+        CardReader.OnPointerCard = null;
+    }
+    private void Shuffling()
+    {
+        CardReader.ShuffleInHandCard(CardReader.OnPointerCard, this);
+        SetUpCard(CardReader.GetHandPos(this), false);
+    }
+    private void Update()
+    {
+        if (!CanUseThisCard) return;
+
+        if (CardReader.OnPointerCard == null ||
+            CardReader.OnPointerCard == this ||
+            CardReader.OnBinding   == false) return;
+
+        if (UIFunction.IsImagesOverlapping(CardReader.OnPointerCard.VisualRectTrm, VisualRectTrm))
+        {
+            if(CardReader.OnPointerCard.transform.position.x > transform.position.x
+            && CardReader.GetIdx(CardReader.OnPointerCard) > CardReader.GetIdx(this))
+            {
+                Shuffling();
+            }
+            else if(CardReader.OnPointerCard.transform.position.x < transform.position.x
+                 && CardReader.GetIdx(CardReader.OnPointerCard) < CardReader.GetIdx(this))
+            {
+                Shuffling();
+            }
+        }
+    }
+}

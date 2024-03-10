@@ -45,7 +45,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1819860656642868405}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2.67
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -4959,7 +4959,7 @@ ParticleSystem:
   m_GameObject: {fileID: 2046584343117113195}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2.67
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -9872,7 +9872,7 @@ ParticleSystem:
   m_GameObject: {fileID: 3178233497715035774}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2.67
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -14785,7 +14785,7 @@ ParticleSystem:
   m_GameObject: {fileID: 4088416271302043866}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2.67
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -19698,7 +19698,7 @@ ParticleSystem:
   m_GameObject: {fileID: 4461594829997588184}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2.67
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -24580,6 +24580,7 @@ GameObject:
   - component: {fileID: 2818542701389128649}
   - component: {fileID: 9217711222862181661}
   - component: {fileID: 4920294612580305226}
+  - component: {fileID: -1414748327507860718}
   m_Layer: 0
   m_Name: P_Card_Add
   m_TagString: Untagged
@@ -24596,8 +24597,8 @@ Transform:
   m_GameObject: {fileID: 5967044954516746548}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.33, y: -0.37, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3343271617202723632}
@@ -24615,8 +24616,8 @@ ParticleSystem:
   m_GameObject: {fileID: 5967044954516746548}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
-  stopAction: 0
+  simulationSpeed: 3.1
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -29486,6 +29487,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-1414748327507860718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967044954516746548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a38cad71c2bb5049ae12bfe6d8f2d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7643168349618150471
 GameObject:
   m_ObjectHideFlags: 0
@@ -29503,7 +29516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &553497474362879763
 Transform:
   m_ObjectHideFlags: 0
@@ -29528,7 +29541,7 @@ ParticleSystem:
   m_GameObject: {fileID: 7643168349618150471}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2.67
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -34396,6 +34409,10 @@ PrefabInstance:
     - target: {fileID: 1281374234801525908, guid: dafb0be0371956e41b198e7a4accdb1b, type: 3}
       propertyPath: lengthInSec
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1281374234801525908, guid: dafb0be0371956e41b198e7a4accdb1b, type: 3}
+      propertyPath: simulationSpeed
+      value: 2.67
       objectReference: {fileID: 0}
     - target: {fileID: 1281374234801525908, guid: dafb0be0371956e41b198e7a4accdb1b, type: 3}
       propertyPath: startDelay.scalar
