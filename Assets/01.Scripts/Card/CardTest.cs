@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+
+public class CardTest : MonoBehaviour
+{
+    [SerializeField] private CardBase samplePrefab;
+    
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            CardReader.AddCardInDeck(samplePrefab);
+            CardReader.CardDrawer.DrawCard(1);
+        }
+    }
+}

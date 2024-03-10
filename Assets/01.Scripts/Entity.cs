@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour
     protected int _deathAnimationHash = Animator.StringToHash("death");
 
 
+    public Action OnBeforeHit;
     public UnityEvent<float> OnHealthBarChanged;
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
@@ -45,8 +46,8 @@ public abstract class Entity : MonoBehaviour
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //ÃÖ´ëÄ¡·Î UIº¯°æ.
-        CharStat = Instantiate(CharStat); //º¹Á¦º» »ý¼º
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //ï¿½Ö´ï¿½Ä¡ï¿½ï¿½ UIï¿½ï¿½ï¿½ï¿½.
+        CharStat = Instantiate(CharStat); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         CharStat.SetOwner(this);
     }
 
@@ -61,12 +62,12 @@ public abstract class Entity : MonoBehaviour
         HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
     }
 
-    //µ¿°á¿¡ µû¸¥ Ã³¸®.
+    //ï¿½ï¿½ï¿½á¿¡ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.
     private void HandleAilmentChanged(Ailment ailment)
     {
-        if ((ailment & Ailment.Chilled) > 0) //µ¿°á»óÅÂ¸é ½ºÇÇµå ´À¸®°Ô
+        if ((ailment & Ailment.Chilled) > 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            //¸¶¹ý ÀúÇ×¿¡ µû¶ó Àû°Ô
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             float resistance = (100 - CharStat.magicResistance.GetValue()) * 0.01f;
             SlowEntityBy(0.5f * resistance);
         }
@@ -78,7 +79,8 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void HandleHit()
     {
-        //UI°»½Å
+        OnBeforeHit?.Invoke();
+        //UIï¿½ï¿½ï¿½ï¿½
         float currentHealth = HealthCompo.GetNormalizedHealth();
         if (currentHealth <= 0)
         {
@@ -99,11 +101,11 @@ public abstract class Entity : MonoBehaviour
     }
 
 
-    public abstract void SlowEntityBy(float percent); //½½·Î¿ì´Â ÀÚ½ÄµéÀÌ ±¸Çö.
+    public abstract void SlowEntityBy(float percent); //ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ ï¿½Ú½Äµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
     protected virtual void ReturnDefaultSpeed()
     {
-        AnimatorCompo.speed = 1; //¿ø·¡ ½ºÇÇµå·Î µÇµ¹¸®±â.
+        AnimatorCompo.speed = 1; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½.
     }
 
     public virtual void FreezeTime(bool isFreeze, bool isFrozenWithoutTimer = false)
@@ -111,7 +113,7 @@ public abstract class Entity : MonoBehaviour
         if (isFreeze)
         {
             Debug.Log("Freezed");
-            AnimatorCompo.speed = 0; //¾Ö´Ï¸ÞÀÌ¼Ç Á¤Áö. ÀÌµ¿ Á¤Áö.
+            AnimatorCompo.speed = 0; //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½.
         }
         else
         {

@@ -16,7 +16,7 @@ public class PhaseMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(_curStage.curPhaseCleared && collision.collider.CompareTag("Player"))
+        if(_curStage.CurPhaseCleared && collision.collider.CompareTag("Player"))
         {
             if(_curStage.TryGetComponent<BattleTutorial>(out BattleTutorial b))
             {
@@ -40,6 +40,8 @@ public class PhaseMove : MonoBehaviour
                 }
                 GameManager.Instance.PlayerTrm.position += Vector3.right * 2;
             }
+
+            _curStage.CurPhaseCleared = false;
         }
         else
         {

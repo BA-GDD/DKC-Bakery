@@ -30,7 +30,6 @@ public class InGameSettingBlock : FuncBlock
     {
         if(DataManager.Instance.IsHaveData(InGameSettingDatakey))
         {
-            Debug.Log(1);
             _inGameSettingData = DataManager.Instance.LoadData<InGameSettingData>(InGameSettingDatakey);
         }
 

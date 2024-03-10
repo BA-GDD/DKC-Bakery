@@ -44,6 +44,7 @@ class Pool<T> where T : PoolableMono
     public void Push(T obj)
     {
         obj.gameObject.SetActive(false);
+        obj.transform.SetParent(_parent);
         _pool.Push(obj);
     }
 }

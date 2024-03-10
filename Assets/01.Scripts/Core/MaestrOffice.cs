@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public static class MaestrOffice
 {
@@ -21,8 +22,21 @@ public static class MaestrOffice
         }
     }
 
-    private static int ScreenWidth = 1920;
-    private static int ScreenHeight = 1080;
+    private static Canvas _can;
+    public static Canvas Canvas
+    {
+        get
+        {
+            if (_can != null)
+            {
+                return _can;
+            }
+
+            _can = GameObject.FindObjectOfType<Canvas>();
+
+            return _can;
+        }
+    }
 
     public static int GetPlusOrMinus()
     {
@@ -31,10 +45,12 @@ public static class MaestrOffice
 
     public static Vector2 GetWorldPosToScreenPos(Vector2 screenPos)
     {
-        return Camera.ScreenToWorldPoint(screenPos);
+        //return Camera.ScreenToWorldPoint(screenPos);
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(Canvas.transform as RectTransform, screenPos, Camera, out Vector3 worldPosition);
+        return worldPosition;
     }
 
-    public static Vector3 GetWorldPosToScreenPos(Vector3 screenPos)
+    public static Vector2 GetWorldPosToScreenPos(Vector3 screenPos)
     {
         return Camera.ScreenToWorldPoint(screenPos);
     }

@@ -191,6 +191,6 @@ public class BattleTutorial : Stage
 
         yield return new WaitUntil(()=> action.Invoke());
         Debug.Log("clear");
-        if(phaseClear) curPhaseCleared = true;
+        if(phaseClear) CurPhaseCleared = true;
     }
 }

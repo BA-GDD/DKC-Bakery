@@ -11,7 +11,7 @@ public struct Battle
     public AudioClip battle_5;
 }
 
-[CreateAssetMenu(menuName ="SO/BGM/List")]
+[CreateAssetMenu(menuName ="SO/Sound/BGMList")]
 public class BGMListSO : ScriptableObject
 {
     public Battle battleType;

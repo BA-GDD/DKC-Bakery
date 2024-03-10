@@ -26,7 +26,6 @@ public class ChapterInfoPanel : MonoBehaviour
 
     public void SetInfo(MapDataSO mapData)
     {
-        Debug.Log(mapData.myChapterType);
         _chapterTypeText.text = mapData.myChapterType.ToString().ToUpper();
         _chapterNameText.text = mapData.chapterName;
         _chapterImage.sprite = mapData.chapterSprite;

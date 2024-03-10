@@ -28,19 +28,19 @@ public class BattleController : MonoBehaviour
 
     private void Awake()
     {
-        for(int i = 0; i< _monsterGimicList.list.Count; i++)
-        {
-            for(int j = 0; j < _monsterGimicList.list[i].list.Count; j++)
-            {
-                _monsterGimicList.list[i].list[j].gameObject.SetActive(false);
-            }
-        }
-
         _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
     }
 
     private void Start()
     {
+        for (int i = 0; i < _monsterGimicList.list.Count; i++)
+        {
+            for (int j = 0; j < _monsterGimicList.list[i].list.Count; j++)
+            {
+                _monsterGimicList.list[i].list[j].gameObject.SetActive(false);
+            }
+        }
+
         _currentStage = FindObjectOfType<Stage>();
         onFieldMonsterList.ListChanged += HandleChangeMonsterCountOnField;
 
@@ -53,6 +53,7 @@ public class BattleController : MonoBehaviour
         yield return null;
         if(_monsterGimicList.list.Count >= _divineCount)
         {
+            Debug.Log($"{_monsterGimicList.list.Count}, {_divineCount}");
             for (int i = 0; i < _monsterGimicList.list[_divineCount].list.Count; i++)
             {
                 yield return new WaitForSeconds(_spawnTurm);
@@ -67,7 +68,6 @@ public class BattleController : MonoBehaviour
 
                 onFieldMonsterList.Add(selectEnemy);
             }
-            _divineCount++;
 
             _enemyHpBarMaker.SetupEnemyHpBar();
         }
@@ -77,10 +77,12 @@ public class BattleController : MonoBehaviour
     {
         if(onFieldMonsterList.Count == 0)
         {
-            if((_divineCount % _divineToken) == 0)
+            _divineCount++;
+
+            if ((_divineCount % _divineToken) == 0)
             {
                 Debug.Log("Phase Clear");
-                _currentStage.curPhaseCleared = true;
+                _currentStage.CurPhaseCleared = true;
                 StartCoroutine(SpawnMonster());
             }
 

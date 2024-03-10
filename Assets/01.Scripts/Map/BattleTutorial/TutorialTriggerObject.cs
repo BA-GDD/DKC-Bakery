@@ -18,8 +18,9 @@ public class TutorialTriggerObject : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("!!");
             playerIsInTriggered = true;
-            _stage.curPhaseCleared = true;
+            _stage.CurPhaseCleared = true;
         }
     }
 }

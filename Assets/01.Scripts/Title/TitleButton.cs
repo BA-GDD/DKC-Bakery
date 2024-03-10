@@ -20,6 +20,7 @@ public abstract class TitleButton : MonoBehaviour
     {
         _disappearSeq.Kill();
 
+        _labelImg.enabled = true;
         _labelRect.localPosition = new Vector3(_startXValue, _labelRect.transform.localPosition.y);
         _labelRect.localScale = Vector3.one;
         _labelImg.color = _normalColor;
@@ -33,6 +34,7 @@ public abstract class TitleButton : MonoBehaviour
         _disappearSeq = DOTween.Sequence();
         _disappearSeq.Append(_labelRect.DOScaleY(0, 0.4f));
         _disappearSeq.Join(_labelImg.DOFade(0, 0.4f));
+        _disappearSeq.AppendCallback(()=> _labelImg.enabled = false);
     }
     public abstract void PressEvent();
 }
