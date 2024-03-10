@@ -60,7 +60,11 @@ public abstract class CardBase : MonoBehaviour,
             {
                 CardReader.SkillCardManagement.ChainingSkill();
                 CardReader.LockHandCard(false);
-                PoolManager.Instance.Push(_cardInfoPanel);
+
+                _cardInfoPanel.transform.
+                DOLocalMoveX(_cardInfoPanel.transform.localPosition.x + 500, 0.001f).
+                OnComplete(() => PoolManager.Instance.Push(_cardInfoPanel));
+
                 ExitThisCard();
             }
         }
@@ -81,7 +85,7 @@ public abstract class CardBase : MonoBehaviour,
         _cardInfoPanel.SetInfo(CardInfo);
 
         VisualRectTrm.DOScale(1.3f, 0.2f);
-        _cardInfoPanelTrm.DOLocalMoveX(_cardInfoPanelTrm.localPosition.x - 100f, 0.2f);
+        _cardInfoPanelTrm.DOLocalMoveX(_cardInfoPanelTrm.localPosition.x - 150f, 0.2f);
     }
     private void ExitThisCard()
     {

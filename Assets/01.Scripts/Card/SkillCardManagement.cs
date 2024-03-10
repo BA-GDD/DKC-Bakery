@@ -50,9 +50,9 @@ public class SkillCardManagement : CardManagement
             selectTrm.SetParent(_activationCardZone);
 
             Sequence seq = DOTween.Sequence();
-            seq.Append(selectTrm.DOLocalRotate(new Vector3(0, 0, 10), 0.2f).SetEase(Ease.InOutBack));
+            seq.Append(selectTrm.DOLocalRotate(new Vector3(0, 0, 10), 0.1f));
             seq.Append(selectTrm.DOLocalMove(targetPos, 0.5f).SetEase(Ease.InOutBack));
-            seq.Join(selectTrm.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.InOutBack));
+            seq.Join(selectTrm.DOLocalRotate(Vector3.zero, 0.5f));
 
             if(i == maxCount - 1)
             {
