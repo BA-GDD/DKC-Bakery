@@ -21,7 +21,7 @@ public class BattleTutorial : Stage
     public Action onQuaterEndTrigger = null;
 
     [Header("디버그용 변수")]
-    public SimpleEnemy dummyEnemyPrefab;
+    //public SimpleEnemy dummyEnemyPrefab;
     public CinemachineVirtualCamera enemyZoomCam;
 
     [Header("트리거")]
@@ -29,7 +29,7 @@ public class BattleTutorial : Stage
     [SerializeField] private TutorialTriggerObject _jumpTrigger;
     [SerializeField] private TutorialTriggerObject _dashTrigger;
 
-    private SimpleEnemy _curEnemy;
+    //private SimpleEnemy _curEnemy;
 
     protected override void Awake()
     {
@@ -136,9 +136,8 @@ public class BattleTutorial : Stage
     {
         Debug.Log("Let's attack");
 
-        _curEnemy = Instantiate(dummyEnemyPrefab);
-        _curEnemy.FreezeTime(true, true);
-        _curEnemy.transform.position = new Vector3(81f, -3.13f, 0);
+        //_curEnemy = Instantiate(dummyEnemyPrefab);
+        //_curEnemy.transform.position = new Vector3(81f, -3.13f, 0);
 
         StartCoroutine(ZoomToEnemy());
     }
@@ -153,7 +152,7 @@ public class BattleTutorial : Stage
         int front = 15;
         int behind = 10;
 
-        GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
+        //GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
 
         enemyZoomCam.m_Priority = front;
         vCam.m_Priority = behind;
@@ -166,29 +165,29 @@ public class BattleTutorial : Stage
 
         yield return new WaitUntil(() => !Camera.main.GetComponent<CinemachineBrain>().IsBlending);
 
-        GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
-        _curEnemy.FreezeTime(false);
-        StartCoroutine(DebugInputCoroutine("적을 쓰러뜨려라!", () =>
-        {
-            print(_curEnemy.transform.GetComponent<Health>().isDead);
-            bool dead = _curEnemy.transform.GetComponent<Health>().isDead;
-            if (dead)
-            {
-                _curEnemy = null;
-            }
-            return dead;
-        }, true));
+        //GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
+        //_curEnemy.FreezeTime(false);
+        //StartCoroutine(DebugInputCoroutine("적을 쓰러뜨려라!", () =>
+        //{
+        //    print(_curEnemy.transform.GetComponent<Health>().isDead);
+        //    bool dead = _curEnemy.transform.GetComponent<Health>().isDead;
+        //    if (dead)
+        //    {
+        //        _curEnemy = null;
+        //    }
+        //    return dead;
+        //}, true));
     }
     #endregion
 
     private IEnumerator DebugInputCoroutine(string message, Func<bool> action, bool phaseClear = true)
     {
         Debug.Log(message);
-        GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
+        //GameManager.Instance.Player.PlayerInput._controls.Player.Disable();
 
         //yield return new WaitUntil(() => EpisodeManager.Instanace.isInPause);
 
-        GameManager.Instance.Player.PlayerInput._controls.Player.Enable();
+        //GameManager.Instance.Player.PlayerInput._controls.Player.Enable();
 
         yield return new WaitUntil(()=> action.Invoke());
         Debug.Log("clear");
