@@ -6,4 +6,10 @@ namespace CardDefine
         II,
         III
     }
+
+    public enum CardType
+    {
+        SKILL,
+        SPELL
+    }
 }

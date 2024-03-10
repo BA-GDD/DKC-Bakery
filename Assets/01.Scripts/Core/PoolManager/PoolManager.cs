@@ -15,6 +15,7 @@ public enum PoolingType
     FlontrolSpike ,
     FlontrolStone,
     HitEffect,
+    CardInfoPanel
 }
 
 public class PoolManager

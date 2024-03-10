@@ -21,7 +21,7 @@ public class CardDrawer : MonoBehaviour
             }
         }
     }
-
+    int idx;
     public void DrawCard(int count)
     {
         if(count > CardReader.CountOfCardInDeck())
@@ -35,7 +35,6 @@ public class CardDrawer : MonoBehaviour
             CardBase selectInfo = CardReader.GetRandomCardInDeck();
 
             _toDrawCatalog.Enqueue(selectInfo);
-            Debug.Log(selectInfo);
         }
 
         DrawCardLogic(_toDrawCatalog.Dequeue());
@@ -43,14 +42,15 @@ public class CardDrawer : MonoBehaviour
 
     private void DrawCardLogic(CardBase selectInfo)
     {
-        int goToX = (800 - ((CardReader.CountOfCardInHand()) * 230));
-
         CardBase spawnCard = Instantiate(selectInfo, _cardParent);
+        spawnCard.name = idx.ToString();
+        idx++;
+
         CardReader.RemoveCardInDeck(selectInfo);
         CardReader.AddCardInHand(spawnCard);
         
         spawnCard.transform.position = _cardSpawnTrm.position;
         
-        spawnCard.SetUpCard(goToX);
+        spawnCard.SetUpCard(CardReader.GetPosOnTopDrawCard(), true);
     }
 }

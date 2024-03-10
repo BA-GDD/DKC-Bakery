@@ -32,6 +32,31 @@ public static class CardReader
         }
     }
 
+    private static SkillCardManagement _skillCardManagement;
+    public static SkillCardManagement SkillCardManagement
+    {
+        get
+        {
+            if(_skillCardManagement != null) return _skillCardManagement;
+            _skillCardManagement = GameObject.FindObjectOfType<SkillCardManagement>();
+            return _skillCardManagement;
+        }
+    }
+
+    private static SpellCardManagement _spellCardManagement;
+    public static SpellCardManagement SpellCardManagement
+    {
+        get
+        {
+            if(_spellCardManagement != null) return _spellCardManagement;
+            _spellCardManagement = GameObject.FindObjectOfType<SpellCardManagement>();
+            return _spellCardManagement;
+        }
+    }
+
+    public static CardBase OnPointerCard { get; set; }
+    public static bool OnBinding { get; set; }
+
     public static void AddCardInHand(CardBase addingCardInfo)
     {
         _inHandCardList.Add(addingCardInfo);
@@ -72,5 +97,38 @@ public static class CardReader
     public static CardBase GetRandomCardInDeck()
     {
         return _inDeckCardList[Random.Range(0, _inDeckCardList.Count)];
+    }
+
+    public static int GetIdx(CardBase handCard)
+    {
+        return _inHandCardList.IndexOf(handCard);
+    }
+
+    public static void ShuffleInHandCard(CardBase cb_1, CardBase cb_2)
+    {
+        int idx1 = _inHandCardList.IndexOf(cb_1);
+        int idx2 = _inHandCardList.IndexOf(cb_2);
+
+        (_inHandCardList[idx1], _inHandCardList[idx2]) =
+        (_inHandCardList[idx2], _inHandCardList[idx1]);
+    }
+
+    public static int GetPosOnTopDrawCard()
+    {
+        return 800 - ((CountOfCardInHand() -1) * 230);
+    }
+
+    public static int GetHandPos(CardBase cardBase)
+    {
+        int idx = _inHandCardList.IndexOf(cardBase);
+        return 800 - (idx * 230);
+    }
+
+    public static void LockHandCard(bool isLock)
+    {
+        foreach(CardBase card in _inHandCardList)
+        {
+            card.CanUseThisCard = !isLock;
+        }
     }
 }
