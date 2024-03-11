@@ -14,6 +14,8 @@ public class SkillCardManagement : CardManagement
     [SerializeField] private Transform _cardWaitZone;
     [SerializeField] private Vector2 _normalZonePos;
     [SerializeField] private float _waitTurmValue = 85f;
+    [SerializeField] private Transform _cardInfoTrm;
+    private CardInfoPanel _cardInfoPanel;
 
     [Header("발동존 셋팅값")]
     [SerializeField] private Transform _activationCardZone;
@@ -30,12 +32,10 @@ public class SkillCardManagement : CardManagement
     {
         InCardZoneCatalogue.ListChanged += HandleCheckAcceptBtn;
     }
-
     private void HandleCheckAcceptBtn(object sender, EventArgs e)
     {
         _acceptBtnSwitchEvent?.Invoke(InCardZoneCatalogue.Count != 0);
     }
-
     public void SetupCardsInActivationZone()
     {
         _acceptBtnSwitchEvent?.Invoke(false);
@@ -60,7 +60,6 @@ public class SkillCardManagement : CardManagement
             }
         }
     }
-
     public void ChainingSkill()
     {
         if(!_isInChaining && InCardZoneCatalogue.Count != 0)
@@ -118,5 +117,18 @@ public class SkillCardManagement : CardManagement
             Transform selectTrm = InCardZoneCatalogue[i].transform;
             selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 85f, 0), 0.3f);
         }
+    }
+    public void SetCardInfo(CardInfo info, bool isSet)
+    {
+        if(isSet)
+        {
+            _cardInfoPanel = PoolManager.Instance.Pop(PoolingType.CardInfoPanel) as CardInfoPanel;
+            _cardInfoPanel.SetInfo(info, _cardInfoTrm);
+        }
+        else
+        {
+            _cardInfoPanel.UnSetInfo();
+        }
+
     }
 }

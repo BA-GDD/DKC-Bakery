@@ -59,13 +59,6 @@ public abstract class CardBase : MonoBehaviour,
             }
             else
             {
-                CardReader.SkillCardManagement.ChainingSkill();
-                CardReader.LockHandCard(false);
-
-                _cardInfoPanel.transform.
-                DOLocalMoveX(_cardInfoPanel.transform.localPosition.x + 500, 0.001f).
-                OnComplete(() => PoolManager.Instance.Push(_cardInfoPanel));
-
                 ExitThisCard();
             }
         }
@@ -79,23 +72,24 @@ public abstract class CardBase : MonoBehaviour,
     public abstract void Abillity();
     public void ActiveInfo()
     {
-        _cardInfoPanel = PoolManager.Instance.Pop(PoolingType.CardInfoPanel) as CardInfoPanel;
-        _cardInfoPanel.transform.SetParent(_cardInfoPanelTrm);
-        _cardInfoPanel.transform.localPosition = Vector3.zero;
-        _cardInfoPanel.transform.localScale = Vector3.one;
-        _cardInfoPanel.SetInfo(CardInfo);
-
+        CardReader.SkillCardManagement.SetCardInfo(CardInfo, true);
         VisualRectTrm.DOScale(1.3f, 0.2f);
-        _cardInfoPanelTrm.DOLocalMoveX(_cardInfoPanelTrm.localPosition.x - 150f, 0.2f);
     }
     private void ExitThisCard()
     {
         Image img = VisualRectTrm.GetComponent<Image>();
-        Material mat = _cardMat;
+        Material mat = new Material(_cardMat);
         img.material = mat;
 
-        Tween ext = DOTween.To(() => mat.GetFloat("_dissolve_amount"), d => mat.SetFloat("_dissolve_amount", d), 0, 1.2f);
-        ext.OnComplete(() => Destroy(gameObject));
+        Sequence seq = DOTween.Sequence();
+        seq.Append(DOTween.To(() => mat.GetFloat("_dissolve_amount"), d => mat.SetFloat("_dissolve_amount", d), -0.1f, 2f));
+        seq.InsertCallback(1, () =>
+        {
+            CardReader.SkillCardManagement.SetCardInfo(CardInfo, false);
+            CardReader.SkillCardManagement.ChainingSkill();
+            CardReader.LockHandCard(false);
+            Destroy(gameObject);
+        });
     }
     public void SetUpCard(float moveToXPos, bool generateCallback)
     {
