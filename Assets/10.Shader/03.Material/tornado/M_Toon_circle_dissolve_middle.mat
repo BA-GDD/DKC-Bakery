@@ -7,12 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_tornado_01
-  m_Shader: {fileID: 4800000, guid: f0bb648ee7ee41447b11415777d9f299, type: 3}
+  m_Name: M_Toon_circle_dissolve_middle
+  m_Shader: {fileID: 4800000, guid: 69de958254bdb024092e03a8896bad05, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_CUSTOM1_ON
+  - USE_CUSTOM_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,7 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: _Out_Fresnel_Scale1
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -28,32 +28,40 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Dissolve_Texutre1:
-        m_Texture: {fileID: 2800000, guid: 89077298ef5a77c44a33b40e1e7122fc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Main_Texture1:
-        m_Texture: {fileID: 2800000, guid: 89077298ef5a77c44a33b40e1e7122fc, type: 3}
-        m_Scale: {x: 1, y: 1}
+    - _Main_Texture:
+        m_Texture: {fileID: 2800000, guid: 870ae2d60d57cd04fba95274a1472f67, type: 3}
+        m_Scale: {x: 1, y: 1.04}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask_Texture:
+        m_Texture: {fileID: 2800000, guid: df9e34652b2692b4daf5cea2ebeee232, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _TextureSample0:
-        m_Texture: {fileID: 2800000, guid: 97ebf45aa5fef4241a022d60daaa2214, type: 3}
+    - _diss_tex:
+        m_Texture: {fileID: 2800000, guid: 89077298ef5a77c44a33b40e1e7122fc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Vertex_Texture1:
-        m_Texture: {fileID: 2800000, guid: 0eba15a0ffe5ad341896e044785c94a0, type: 3}
+    - _noise_tex_a:
+        m_Texture: {fileID: 2800000, guid: d6b17fdebfb35da4f9bd82661ff94718, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _noise_tex_b:
+        m_Texture: {fileID: 2800000, guid: 870ae2d60d57cd04fba95274a1472f67, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _normal_tex:
+        m_Texture: {fileID: 2800000, guid: 0c9e585b001cd8048afcd07b5676b774, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -70,42 +78,42 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Use_Custom: 1
     - _AlphaCutoff: 0.5
-    - _Base_Range1: 0.755
-    - _Dissolve1: 0.435
+    - _Dissolve: 1
     - _EnableExternalAlpha: 0
-    - _Hight_Range1: 1.008
-    - _In_Frenel_Pow1: 0.95
-    - _In_Fresnel_Range1: 0.086
-    - _In_Fresnel_Scale1: 1
-    - _Main_UPanner1: 0
-    - _Main_VPanner1: -0.79
-    - _Opacity1: 1
-    - _Out_Fresnel_Pow1: 1
-    - _Out_Fresnel_Scale1: 1
-    - _Out_Frsnel_Range1: 1.008
+    - _Keyword0: 0
+    - _Main_UPanner: 0
+    - _Main_VPanner: 0.73
+    - _Mask_Pow: 18
+    - _Opacity: 2.33
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rotator1: -2.58
-    - _Smooth1: 0.05
-    - _Use_Custom1: 1
-    - _Vertex_Normal1: 0.28
-    - _Wave_speed: 4.8783603
-    - _main_upanner: 1.08
-    - _main_vpanner: 2
-    - _mask_clip: 0
-    - _opacity: 1
-    - _rot: -0.32
-    - _wave_count: 5.1403666
-    - _wave_rad: 4.926844
+    - _Soffteness: 0.14
+    - _Use_Mask: 0
+    - _VOffset: -1
+    - _diss_upanner: 0
+    - _diss_vpanner: 2.23
+    - _dissolve: 1
+    - _down_range: 0.91
+    - _noise_a_upanner: 0
+    - _noise_a_vpanner: 0.83
+    - _noise_b_upanner: 0
+    - _noise_b_vpanner: 2.16
+    - _normal_str: 0.167
+    - _normal_upanner: 0
+    - _normal_vpanner: 1
+    - _shadow_off: -0.18
+    - _shadow_range: 0.89
+    - _step_a: 0.74
+    - _step_b: 1
+    - _threshold: 0.5
     m_Colors:
-    - _Base_Color1: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _High_Color1: {r: 1, g: 1, b: 1, a: 0}
-    - _In_Fresnel_Color1: {r: 1, g: 1, b: 1, a: 0}
+    - _Main_Color: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Shadow_Color1: {r: 1, g: 1, b: 1, a: 0}
-    - _main_color: {r: 1, g: 1, b: 1, a: 0}
+    - _color_a: {r: 1, g: 1, b: 1, a: 0}
+    - _color_b: {r: 0.18560876, g: 0.25442815, b: 0.9150943, a: 0}
   m_BuildTextureStacks: []
