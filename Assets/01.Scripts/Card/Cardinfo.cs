@@ -13,4 +13,5 @@ public class CardInfo : ScriptableObject
     [Header("스킬 정보")]
     public string AbillityName;
     public string AbillityInfo;
+    public int AbillityCost;
 }
