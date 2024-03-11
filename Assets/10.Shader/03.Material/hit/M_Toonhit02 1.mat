@@ -8,10 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Toonhit02 1
-  m_Shader: {fileID: 4800000, guid: 4b7c34181f4d74244be6861121c94efa, type: 3}
+  m_Shader: {fileID: 4800000, guid: 818e6b661f41a2e449790eefaf387853, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_CUSTOMDATA1_ON
-  - _USE_CUSTOMDATA_ON
+  - _USE_CUSTOM_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -19,6 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -51,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: ced7ebf7e022ced42b17ba9e19a01b44, type: 3}
+        m_Texture: {fileID: 2800000, guid: d87a1d2f84c8a7a45bc269e0915f28bf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,6 +66,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _main_tex:
+        m_Texture: {fileID: 2800000, guid: d87a1d2f84c8a7a45bc269e0915f28bf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _tex4coord:
@@ -111,12 +117,19 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _Use_Customdata: 1
+    - _Use_Customdata: 0
     - _Use_Customdata1: 1
     - _ZWrite: 1
     - __dirty: 0
+    - _grad_amount: 1
+    - _main_intencity: 2.51
+    - _main_pow: 1
+    - _mask_clip: 0.5
+    - _use_custom: 1
+    - _use_oneminus: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color: {r: 2.4608104, g: 1.1055815, b: 0.54684675, a: 0}
+    - _main_color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
