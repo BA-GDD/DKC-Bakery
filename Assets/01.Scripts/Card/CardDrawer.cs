@@ -22,6 +22,7 @@ public class CardDrawer : MonoBehaviour
         }
     }
     int idx;
+
     public void DrawCard(int count)
     {
         if(count > CardReader.CountOfCardInDeck())
