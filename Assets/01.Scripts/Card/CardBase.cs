@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using CardDefine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public abstract class CardBase : MonoBehaviour, 
                                  IPointerEnterHandler, 
@@ -70,7 +71,7 @@ public abstract class CardBase : MonoBehaviour,
         }
     }
     private CardInfoPanel _cardInfoPanel;
-
+    [SerializeField] private Material _cardMat;
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
@@ -89,7 +90,12 @@ public abstract class CardBase : MonoBehaviour,
     }
     private void ExitThisCard()
     {
+        Image img = VisualRectTrm.GetComponent<Image>();
+        Material mat = _cardMat;
+        img.material = mat;
 
+        Tween ext = DOTween.To(() => mat.GetFloat("_dissolve_amount"), d => mat.SetFloat("_dissolve_amount", d), 0, 1.2f);
+        ext.OnComplete(() => Destroy(gameObject));
     }
     public void SetUpCard(float moveToXPos, bool generateCallback)
     {
