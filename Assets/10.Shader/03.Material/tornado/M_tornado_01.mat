@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_tornado
+  m_Name: M_tornado_01
   m_Shader: {fileID: 4800000, guid: f0bb648ee7ee41447b11415777d9f299, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Dissolve_Texutre1:
-        m_Texture: {fileID: 2800000, guid: 97ebf45aa5fef4241a022d60daaa2214, type: 3}
+        m_Texture: {fileID: 2800000, guid: 89077298ef5a77c44a33b40e1e7122fc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -70,15 +70,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _Base_Range1: 0.782
-    - _Dissolve1: 1.1
+    - _Base_Range1: 0.755
+    - _Dissolve1: 0.435
     - _EnableExternalAlpha: 0
     - _Hight_Range1: 1.008
     - _In_Frenel_Pow1: 0.95
     - _In_Fresnel_Range1: 0.086
     - _In_Fresnel_Scale1: 1
     - _Main_UPanner1: 0
-    - _Main_VPanner1: -0.5
+    - _Main_VPanner1: -0.79
     - _Opacity1: 1
     - _Out_Fresnel_Pow1: 1
     - _Out_Fresnel_Scale1: 1
@@ -88,7 +88,7 @@ Material:
     - _Rotator1: -2.58
     - _Smooth1: 0.05
     - _Use_Custom1: 0
-    - _Vertex_Normal1: 0.57
+    - _Vertex_Normal1: 0.28
     - _Wave_speed: 4.8783603
     - _main_upanner: 1.08
     - _main_vpanner: 2
@@ -98,13 +98,13 @@ Material:
     - _wave_count: 5.1403666
     - _wave_rad: 4.926844
     m_Colors:
-    - _Base_Color1: {r: 0, g: 0.026043775, b: 0.6698113, a: 0}
+    - _Base_Color1: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _High_Color1: {r: 0.19149972, g: 0.14849591, b: 0.4433962, a: 0}
-    - _In_Fresnel_Color1: {r: 0.4433962, g: 0.2739854, b: 0.2739854, a: 0}
+    - _High_Color1: {r: 1, g: 1, b: 1, a: 0}
+    - _In_Fresnel_Color1: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Shadow_Color1: {r: 0.06024062, g: 0, b: 0.2264151, a: 0}
+    - _Shadow_Color1: {r: 1, g: 1, b: 1, a: 0}
     - _main_color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
