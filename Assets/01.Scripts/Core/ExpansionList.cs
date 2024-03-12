@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+[Serializable]
 public class ExpansionList<T> : List<T>
 {
     public event EventHandler ListChanged;
