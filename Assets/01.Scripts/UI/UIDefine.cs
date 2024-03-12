@@ -9,6 +9,7 @@ namespace UIDefine
         bakery,
         teaTime,
         diary,
+        deckBuild
     }
 
     public enum BakeryCombinationType
