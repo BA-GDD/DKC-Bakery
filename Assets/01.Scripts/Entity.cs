@@ -6,7 +6,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Entity : MonoBehaviour
+public abstract class Entity : PoolableMono
 {
     #region components
     public Animator AnimatorCompo { get; private set; }
@@ -19,14 +19,20 @@ public abstract class Entity : MonoBehaviour
     protected int _hitAnimationHash = Animator.StringToHash("hit");
     protected int _deathAnimationHash = Animator.StringToHash("death");
 
+    [SerializeField]protected Transform _camFollowTrm, _camLookTrm;
 
-    public Action OnBeforeHit;
+    protected bool _turnEnd = true;
+    public bool isTurnEnd => _turnEnd;
+
     public UnityEvent<float> OnHealthBarChanged;
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
+
+    //예네 지울지 고민 좀만 해보자
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
-    public UnityEvent OnDieEvent;
+
+    
 
     public Entity target;
 
@@ -59,6 +65,7 @@ public abstract class Entity : MonoBehaviour
 
     private void OnDestroy()
     {
+        _turnEnd = true;
         HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
     }
 
@@ -79,14 +86,9 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void HandleHit()
     {
-        OnBeforeHit?.Invoke();
         //UI����
         float currentHealth = HealthCompo.GetNormalizedHealth();
-        if (currentHealth <= 0)
-        {
-            OnDieEvent?.Invoke();
-        }
-        else
+        if (currentHealth > 0)
         {
             AnimatorCompo.SetTrigger(_hitAnimationHash);
         }
@@ -97,7 +99,6 @@ public abstract class Entity : MonoBehaviour
     protected virtual void HandleDie()
     {
         AnimatorCompo.SetTrigger(_deathAnimationHash);
-
     }
 
 
@@ -123,8 +124,18 @@ public abstract class Entity : MonoBehaviour
     }
 
     public abstract void MoveToTargetForward();
-    public void MoveToLastPos()
+    public virtual void MoveToLastPos()
     {
         transform.DOMove(lastMovePos, moveDuration);
+    }
+
+    public abstract void TurnStart();
+    public abstract void TurnAction();
+    public abstract void TurnEnd();
+
+
+    public override void Init()
+    {
+
     }
 }

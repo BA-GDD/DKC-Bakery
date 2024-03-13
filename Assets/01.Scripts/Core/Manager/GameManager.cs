@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -66,6 +67,11 @@ public class GameManager : MonoSingleton<GameManager>
     private void Update()
     {
         _inputReader?.UpdateBuffer();
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            TurnCounter.ChangeTurn();
+        }
+
     }
     #endregion
 }

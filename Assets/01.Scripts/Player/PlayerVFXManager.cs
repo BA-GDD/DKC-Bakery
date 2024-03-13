@@ -11,8 +11,6 @@ public class PlayerVFXManager : MonoBehaviour
     private void Awake()
     {
         _player = GetComponent<Player>();
-        _player.OnStartAttack += PlayBlade;
-        _player.OnEndAttack += StopBlade;
     }
     private void PlayBlade(int comboCount)
     {

@@ -1,10 +1,10 @@
 using DG.Tweening;
 using System;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sequence = DG.Tweening.Sequence;
 
 public class Enemy : Entity
 {
@@ -20,7 +20,7 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-        OnAnimationCall += ApplyDamage;
+        OnAnimationCall += TakeDamage;
         target = GameManager.Instance.Player;
     }
     private void Update()
@@ -28,10 +28,6 @@ public class Enemy : Entity
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
             Attack();
-        }
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            ApplyDamageTest();
         }
     }
     public void AnimationFinishTrigger()
@@ -42,7 +38,6 @@ public class Enemy : Entity
     {
 
     }
-    [ContextMenu("AttackTest")]
     public void Attack()
     {
         AnimatorCompo.SetBool(_attackAnimationHash, true);
@@ -53,27 +48,47 @@ public class Enemy : Entity
             AnimatorCompo.SetBool(_attackAnimationHash, false);
             CameraController.Instance.SetDefaultCam();
             OnAnimationEnd = null;
+            
         };
     }
 
     public override void MoveToTargetForward()
     {
-        CameraController.Instance.SetFollowCam(transform, target.transform);
+        //CameraController.Instance.SetFollowCam(transform, target.transform);
 
         lastMovePos = transform.position;
-        transform.DOMoveX(target.transform.position.x - 2, moveDuration).OnComplete(() =>
+        Vector3 forwardPos = target.transform.position + Vector3.right * 2;
+        Sequence seq = DOTween.Sequence();
+
+
+        seq.Append(transform.DOMove(forwardPos, moveDuration));
+        //seq.Join(transform.DOMove(forwardPos, moveDuration));
+
+        seq.OnComplete(() =>
         {
             AnimatorCompo.SetTrigger(_attackTriggerAnimationHash);
         });
     }
+    public override void MoveToLastPos()
+    {
+        base.MoveToLastPos();
+        transform.DOMove(lastMovePos, moveDuration).OnComplete(()=> _turnEnd = true);
+    }
 
-    private void ApplyDamage()
+    private void TakeDamage()
     {
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
     }
-    [ContextMenu("Test")]
-    private void ApplyDamageTest()
+
+    public override void TurnStart()
     {
-        HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
+    }
+    public override void TurnAction()
+    {
+        Attack();
+    }
+    public override void TurnEnd()
+    {
+        _turnEnd = false;
     }
 }
