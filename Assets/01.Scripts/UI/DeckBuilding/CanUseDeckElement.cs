@@ -14,7 +14,7 @@ public class CanUseDeckElement : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        _deckGenerator.SetSelectDeck(_deckName, _deckInfo.deck);
+        _deckGenerator.SelectDeck = _deckInfo;
     }
 
     public void SetDeckInfo(DeckElement deckInfo, DeckGenerator deckGenerator)

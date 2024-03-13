@@ -7,6 +7,7 @@ public class NodeLaodMap : MonoBehaviour
     [SerializeField] private MapNode[] _nodeArr;
     [SerializeField] private RectTransform _linePrefab;
     [SerializeField] private Transform _lineTrm;
+    [SerializeField] private Transform _deckSelectParent;
 
     [SerializeField] private Transform _bubbleTrm;
     public Transform BubbleTrm => _bubbleTrm;
@@ -36,7 +37,6 @@ public class NodeLaodMap : MonoBehaviour
             _nodeArr[i].StageNumber = i;
         }
     }
-
     public void ExitLoadMap()
     {
         MapManager.Instanace.ActiveLoadMapPanel(false);

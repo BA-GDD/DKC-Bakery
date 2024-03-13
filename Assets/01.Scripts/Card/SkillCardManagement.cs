@@ -72,6 +72,7 @@ public class SkillCardManagement : CardManagement
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
 
+            TurnCounter.ChangeTurn();
             return;
         }
 
