@@ -1649,7 +1649,7 @@ MonoBehaviour:
   - {fileID: 8559003119945635687}
   _linePrefab: {fileID: 7911190742450823158, guid: df6f431ee4df42e4d8fe777252b7dd4d, type: 3}
   _lineTrm: {fileID: 1413159211236633714}
-  _deckSelectParent: {fileID: 0}
+  _deckSelectParent: {fileID: 714745384166219698}
   _bubbleTrm: {fileID: 3561601223384634715}
 --- !u!1 &8791982492993271189
 GameObject:
@@ -1749,6 +1749,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 714745384166219698}
     m_Modifications:
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _sampleDeck.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _sampleDeck.Array.data[0]
+      value: 
+      objectReference: {fileID: 6492409836198635659, guid: ed4f08ddca664c84eb1951a4386359e9, type: 3}
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _sampleDeck.Array.data[1]
+      value: 
+      objectReference: {fileID: 6492409836198635659, guid: ed4f08ddca664c84eb1951a4386359e9, type: 3}
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _sampleDeck.Array.data[2]
+      value: 
+      objectReference: {fileID: 6492409836198635659, guid: ed4f08ddca664c84eb1951a4386359e9, type: 3}
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _sampleDeck.Array.data[3]
+      value: 
+      objectReference: {fileID: 6492409836198635659, guid: ed4f08ddca664c84eb1951a4386359e9, type: 3}
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _sampleDeck.Array.data[4]
+      value: 
+      objectReference: {fileID: 6492409836198635659, guid: ed4f08ddca664c84eb1951a4386359e9, type: 3}
     - target: {fileID: 1929079001895421758, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
       propertyPath: m_Name
       value: DeckSelectPanel
