@@ -16,8 +16,8 @@ public class EnemyAnimationTrigger : MonoBehaviour
         _enemy.AnimationFinishTrigger();
     }
 
-    private void AttackTrigger()
+    private void CallAnimationEvent()
     {
-        _enemy.Attack();
+        _enemy.OnAnimationCall?.Invoke();
     }
 }

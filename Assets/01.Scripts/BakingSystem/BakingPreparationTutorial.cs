@@ -22,7 +22,7 @@ public class BakingPreparationTutorial : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
+        //GameManager.Instance.Player.onPickUpItem += TraverseInventoryHandle;
     }
 
     public void TraverseInventoryHandle()

@@ -10,6 +10,7 @@ public class EnemyHpBarMaker : MonoBehaviour
     private void Awake()
     {
         _enemyHealthBarParent = UIManager.Instance.CanvasTrm;
+
     }
 
     public void SetupEnemyHpBar()
