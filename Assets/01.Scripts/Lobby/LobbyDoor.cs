@@ -9,7 +9,8 @@ public enum DoorType
 {
     OutSide,
     Bakery,
-    Teatime
+    Teatime,
+    DeckBuild
 }
 
 public class LobbyDoor : MonoBehaviour
@@ -48,6 +49,11 @@ public class LobbyDoor : MonoBehaviour
             case DoorType.Teatime:
                 {
                     GameManager.Instance.ChangeScene(SceneList.TeaTimeScene);
+                }
+                break;
+            case DoorType.DeckBuild:
+                {
+                    GameManager.Instance.ChangeScene(SceneList.DeckBuildScene);
                 }
                 break;
         }
