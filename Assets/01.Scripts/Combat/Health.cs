@@ -4,13 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-[Serializable]
-public struct HealthShareInfo
-{
-    [Range(0f, 1f)] public float healthAmount;
-    public HealthShare health;
-}
-
 [Flags]
 public enum Ailment : int
 {
@@ -22,17 +15,13 @@ public enum Ailment : int
 public class Health : MonoBehaviour, IDamageable
 {
     public int maxHealth;
-    public bool isPowerCrash;
 
     [SerializeField] private int _currentHealth;
 
-    public Action OnHit;
-    //public Action OnDied;
-    public Action<Vector2> OnKnockBack;
     public Action<Color, int> OnDamageText; //데미지 텍스트를 띄워야 할때.
     public Action<float, float> OnDamageEvent;
 
-    public UnityEvent<Vector2> OnDeathEvent;
+    public UnityEvent OnDeathEvent;
     public UnityEvent OnHitEvent;
     public UnityEvent<Ailment> OnAilmentChanged;
 
@@ -43,8 +32,6 @@ public class Health : MonoBehaviour, IDamageable
     public AilmentStat AilmentStat => _ailmentStat;
 
     public bool isLastHitCritical = false; //마지막 공격이 크리티컬로 적중했냐?
-    public Vector2 lastAttackDirection;
-    public bool isHitByMelee;
 
     protected void Awake()
     {
@@ -72,7 +59,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         //종류에 맞춰 글자가 뜨도록 해야한다.
         Debug.Log($"{ailment.ToString()} dot damaged : {damage}");
-        OnHit?.Invoke();
+        OnHitEvent?.Invoke();
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
     }
 
@@ -101,20 +88,12 @@ public class Health : MonoBehaviour, IDamageable
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
     }
 
-    public void HealthShareDamage(int damage)
+    public void ApplyTrueDamage(int damage, Entity dealer)
     {
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
-        OnDamageEvent?.Invoke(_currentHealth, maxHealth);
     }
-    public void ApplyTrueDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
-    {
-        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
-        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
-        knockbackPower.x *= attackDirection.x;
-        AfterHitFeedbacks(knockbackPower);
-    }
-    public void ApplyDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
+    public void ApplyDamage(int damage, Entity dealer)
     {
         if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
@@ -141,18 +120,14 @@ public class Health : MonoBehaviour, IDamageable
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
         OnDamageEvent?.Invoke(_currentHealth, maxHealth);
 
-        isHitByMelee = true;
-        lastAttackDirection = (transform.position - dealer.transform.position).normalized;
 
         //여기서 데미지 띄워주기
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
-        DamageTextManager.Instance.PopupReactionText(_owner.transform.position, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
+        //DamageTextManager.Instance.PopupReactionText(_owner.transform.position, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
         //감전데미지 체크
         CheckAilmentByDamage(damage);
-
-        knockbackPower.x *= attackDirection.x; //y값은 고정으로.
-        AfterHitFeedbacks(knockbackPower);
+        AfterHitFeedbacks();
     }
 
     public void ApplyMagicDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
@@ -165,27 +140,19 @@ public class Health : MonoBehaviour, IDamageable
 
         //데미지 띄우기
         //DamageTextManager.Instance.PopupDamageText(_owner.transform.position, magicDamage, DamageCategory.Noraml);
-        isHitByMelee = false;
-        AfterHitFeedbacks(knockbackPower);
+        AfterHitFeedbacks();
     }
 
-    private void AfterHitFeedbacks(Vector2 knockbackPower)
+    private void AfterHitFeedbacks()
     {
 
         if (_currentHealth == 0)
         {
             isDead = true;
-            //OnDied?.Invoke();
-            OnDeathEvent?.Invoke(knockbackPower);
+            OnDeathEvent?.Invoke();
             return;
         }
-
-        if (!isPowerCrash)
-        {
-            OnKnockBack?.Invoke(knockbackPower);
-        }
         OnHitEvent?.Invoke();
-        OnHit?.Invoke();
     }
 
     //상태이상 걸기.
