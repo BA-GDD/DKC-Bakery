@@ -47,7 +47,7 @@ public class DeckGenerator : MonoBehaviour
         }
     }
 
-    public         void SetSelectDeck(string deckName, List<CardBase> deck)
+    public void SetSelectDeck(string deckName, List<CardBase> deck)
     {
         if(deck == null)
         {
