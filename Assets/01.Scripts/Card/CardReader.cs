@@ -76,6 +76,11 @@ public static class CardReader
         _captureHandList = _inHandCardList;
     }
 
+    public static void SetDeck(List<CardBase> deck)
+    {
+        _inDeckCardList = deck;
+    }
+
     public static bool IsSameCaptureHand()
     {
         return _captureHandList == _inHandCardList;

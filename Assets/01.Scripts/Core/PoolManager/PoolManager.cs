@@ -13,7 +13,6 @@ public enum PoolingType
     CardInfoPanel,
     ErrorText,
     SimpleEnemy
-
 }
 
 public class PoolManager

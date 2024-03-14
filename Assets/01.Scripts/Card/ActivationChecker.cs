@@ -59,7 +59,7 @@ public class ActivationChecker : MonoBehaviour
                 CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
                 return;
             }
-
+            
             CostCalculator.UseCost(CardReader.OnPointerCard.CardInfo.AbillityCost);
 
             if (CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL)

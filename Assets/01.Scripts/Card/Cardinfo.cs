@@ -9,6 +9,7 @@ public class CardInfo : ScriptableObject
     [Header("카드 정보")]
     public string CardName;
     public CardType CardType;
+    public Sprite CardVisual;
 
     [Header("스킬 정보")]
     public string AbillityName;

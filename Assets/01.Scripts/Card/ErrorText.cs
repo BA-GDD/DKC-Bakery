@@ -15,6 +15,7 @@ public class ErrorText : PoolableMono
     public void Erroring(string errorText)
     {
         transform.localScale = Vector3.one;
+        transform.localPosition = Vector3.zero;
 
         _errorText.text = errorText;
         transform.DOLocalMoveY(transform.localPosition.y + 30f, _fadeTime - 0.2f);

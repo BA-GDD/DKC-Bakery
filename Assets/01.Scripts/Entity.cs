@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -19,9 +20,10 @@ public abstract class Entity : PoolableMono
     protected int _hitAnimationHash = Animator.StringToHash("hit");
     protected int _deathAnimationHash = Animator.StringToHash("death");
 
-    [SerializeField]protected Transform _camFollowTrm, _camLookTrm;
+    [SerializeField]protected CinemachineSmoothPath _camFollowPath, _camLookPath;
+    [SerializeField]protected CinemachineDollyCart _camLookObjCart;
 
-    protected bool _turnEnd = true;
+    protected bool _turnEnd = false;
     public bool isTurnEnd => _turnEnd;
 
     public UnityEvent<float> OnHealthBarChanged;
