@@ -44,10 +44,10 @@ public class AdventureMaster : MonoBehaviour
             _adventureData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _missionPanel.clearCountTxt.text = _adventureData.ClearMissionCount.ToString();
+        _missionPanel.clearCountTxt.text = _adventureData.ClearMissionCount;
         _missionPanel.inMissionNameTxt.text = _adventureData.InChallingingMissionName;
 
-        _minePanel.clearCountTxt.text = _adventureData.ClearMineCount.ToString();
+        _minePanel.clearCountTxt.text = _adventureData.ClearMineFloor;
         _minePanel.inMineNameTxt.text = _adventureData.InChallingingMineName;
 
         _stagePanel.inChapterName.text = _adventureData.InChapterName;
