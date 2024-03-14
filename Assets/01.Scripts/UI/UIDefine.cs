@@ -10,7 +10,8 @@ namespace UIDefine
         teaTime,
         diary,
         deckBuild,
-        Lobby
+        Lobby,
+        Mine
     }
 
     public enum BakeryCombinationType

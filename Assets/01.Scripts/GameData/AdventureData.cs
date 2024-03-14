@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AdventureData : CanSaveData
 {
-    public int ClearMissionCount;
+    public string ClearMissionCount;
     public string InChallingingMissionName;
 
-    public int ClearMineCount;
+    public string ClearMineFloor;
     public string InChallingingMineName;
 
     public string InChapterName;
