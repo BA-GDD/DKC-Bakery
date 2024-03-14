@@ -20,9 +20,6 @@ public abstract class Entity : PoolableMono
     protected int _hitAnimationHash = Animator.StringToHash("hit");
     protected int _deathAnimationHash = Animator.StringToHash("death");
 
-    [SerializeField]protected CinemachineSmoothPath _camFollowPath, _camLookPath;
-    [SerializeField]protected CinemachineDollyCart _camLookObjCart;
-
     protected bool _turnEnd = false;
     public bool isTurnEnd => _turnEnd;
 
@@ -34,7 +31,7 @@ public abstract class Entity : PoolableMono
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
 
-    
+    public Transform forwardTrm;
 
     public Entity target;
 
