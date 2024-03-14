@@ -23,7 +23,7 @@ public abstract class Entity : PoolableMono
     [SerializeField]protected CinemachineSmoothPath _camFollowPath, _camLookPath;
     [SerializeField]protected CinemachineDollyCart _camLookObjCart;
 
-    protected bool _turnEnd = true;
+    protected bool _turnEnd = false;
     public bool isTurnEnd => _turnEnd;
 
     public UnityEvent<float> OnHealthBarChanged;

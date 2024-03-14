@@ -24,14 +24,16 @@ public class Enemy : Entity
         target = GameManager.Instance.Player;
 
     }
-    private void Start()
+    protected virtual void Start()
     {
         Vector3 endPos = target.transform.position - _camLookPath.transform.position;
         endPos.y = 1.3f;
-        endPos.x += 1;
+        endPos.x -= 1;
         _camLookPath.m_Waypoints[1].position = endPos;
 
-        for(int i = 0; i < _camFollowPath.m_Waypoints.Length; i++)
+
+        _camFollowPath.m_Waypoints[1].position.x = target.transform.position.x - _camFollowPath.transform.position.x - 2;
+        for (int i = 0; i < _camFollowPath.m_Waypoints.Length; i++)
         {
             float z = CameraController.Instance._defaultCVCam.transform.position.z - _camFollowPath.transform.position.z;
             _camFollowPath.m_Waypoints[i].position.z = z;
@@ -71,7 +73,7 @@ public class Enemy : Entity
         CameraController.Instance.SetFollowCam(this, _camFollowPath, _camLookObjCart.transform);
 
         lastMovePos = transform.position;
-        Vector3 forwardPos = target.transform.position + Vector3.right * 2;
+        Vector3 forwardPos = target.transform.position - Vector3.right * 2;
         _camLookPath.transform.SetParent(null);
         _camFollowPath.transform.SetParent(null);
             
