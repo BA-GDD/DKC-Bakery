@@ -24,7 +24,7 @@ public class TurnCounting : MonoBehaviour
         Debug.Log(CardReader.CountOfCardInDeck());
         TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
         CardReader.CardDrawer.DrawCard(5);
-        TurnCounter.ChangeTurn();
+        ToPlayerTurnChanging();
     }
 
     public void ToPlayerTurnChanging()
@@ -47,6 +47,5 @@ public class TurnCounting : MonoBehaviour
         seq.Append(_selectTrm.DOLocalMove(_normalPos.localPosition, 0.5f).SetEase(Ease.OutCubic));
         seq.AppendInterval(0.5f);
         seq.Append(_selectTrm.DOLocalMove(_endPos.localPosition, 0.5f).SetEase(Ease.InCubic));
-        seq.AppendCallback(() => TurnCounter.ChangeTurn());
     }
 }

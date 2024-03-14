@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class AdventureButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Transform _visualTrm;
+    [SerializeField] private GameObject _selectAdventureType;
     private Tween _hoverTween;
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -29,6 +30,6 @@ public class AdventureButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void PressButton()
     {
-
+        _selectAdventureType.SetActive(true);
     }
 }
