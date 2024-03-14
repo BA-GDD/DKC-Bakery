@@ -22,13 +22,9 @@ public class CardDrawer : MonoBehaviour
         }
     }
     int idx;
+
     public void DrawCard(int count)
     {
-        if(count > CardReader.CountOfCardInDeck())
-        {
-            Debug.LogError("카드 없음!!");
-        }
-
         CanDraw = false;
         for (int i = 0; i < count; i++)
         {

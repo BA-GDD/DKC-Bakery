@@ -7,6 +7,7 @@ public static class CardReader
 {
     private static List<CardBase> _inHandCardList = new List<CardBase>();
     private static List<CardBase> _inDeckCardList = new List<CardBase>();
+    private static List<CardBase> _captureHandList = new List<CardBase>();
 
     private static CardDrawer _cardDrawer;
     public static CardDrawer CardDrawer
@@ -54,8 +55,36 @@ public static class CardReader
         }
     }
 
+    private static InGameError _inGameError;
+    public static InGameError InGameError
+    {
+        get
+        {
+            if(_inGameError != null) return _inGameError;
+            _inGameError = GameObject.FindObjectOfType<InGameError>();
+            return _inGameError;
+        }
+    }
+
     public static CardBase OnPointerCard { get; set; }
     public static bool OnBinding { get; set; }
+
+    public static CardBase ShufflingCard { get; set; }
+
+    public static void CaptureHand()
+    {
+        _captureHandList = _inHandCardList;
+    }
+
+    public static void SetDeck(List<CardBase> deck)
+    {
+        _inDeckCardList = deck;
+    }
+
+    public static bool IsSameCaptureHand()
+    {
+        return _captureHandList == _inHandCardList;
+    }
 
     public static void AddCardInHand(CardBase addingCardInfo)
     {
@@ -104,10 +133,12 @@ public static class CardReader
         return _inHandCardList.IndexOf(handCard);
     }
 
-    public static void ShuffleInHandCard(CardBase cb_1, CardBase cb_2)
+    public static void ShuffleInHandCard(CardBase pointerCard, CardBase shufflingCard)
     {
-        int idx1 = _inHandCardList.IndexOf(cb_1);
-        int idx2 = _inHandCardList.IndexOf(cb_2);
+        ShufflingCard = shufflingCard;
+
+        int idx1 = _inHandCardList.IndexOf(pointerCard);
+        int idx2 = _inHandCardList.IndexOf(shufflingCard);
 
         (_inHandCardList[idx1], _inHandCardList[idx2]) =
         (_inHandCardList[idx2], _inHandCardList[idx1]);

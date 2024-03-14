@@ -24,6 +24,7 @@ public class MapManager : MonoBehaviour
     public List<MapDataSO> _mapDataList = new List<MapDataSO>();
     private MapDataSO _currentChapterData;
     public StageDataSO SelectStageData { get; set; }
+    public List<CardBase> SelectDeck { get; set; }
     private ChapterInfoPanel _chapterInfoPanel;
     [SerializeField] private StageBubble _stageBubblePrefab;
     private StageBubble _stageBubbleObject;

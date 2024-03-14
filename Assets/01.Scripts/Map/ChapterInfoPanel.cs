@@ -23,6 +23,7 @@ public class ChapterInfoPanel : MonoBehaviour
     [SerializeField] private Transform _loadMapParentTrm;
     private NodeLaodMap _loadMapPrefab;
     private NodeLaodMap _loadMapObject;
+    private List<CardBase> _selectDeck;
 
     public void SetInfo(MapDataSO mapData)
     {
@@ -31,6 +32,7 @@ public class ChapterInfoPanel : MonoBehaviour
         _chapterImage.sprite = mapData.chapterSprite;
         _chapterInfoText.text = mapData.chapterInfo;
         _loadMapPrefab = mapData.loadMap;
+
     }
 
     public void ActivePanel(bool isActive)

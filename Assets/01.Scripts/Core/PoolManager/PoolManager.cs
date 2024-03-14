@@ -11,8 +11,8 @@ public enum PoolingType
     CakeElbum,
     HitEffect,
     CardInfoPanel,
+    ErrorText
     SimpleEnemy
-
 }
 
 public class PoolManager

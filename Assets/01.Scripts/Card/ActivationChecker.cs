@@ -6,8 +6,9 @@ using CardDefine;
 public class ActivationChecker : MonoBehaviour
 {
     [SerializeField] private RectTransform _waitZone;
-
     private Vector2 _mousePos;
+
+    private int _selectIDX;
 
     public bool IsMouseInWaitZone()
     {
@@ -36,6 +37,7 @@ public class ActivationChecker : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
             CardReader.OnBinding = true;
         }
 
@@ -51,7 +53,16 @@ public class ActivationChecker : MonoBehaviour
     {
         if (IsMouseInWaitZone())
         {
-            if(CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL)
+            if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost))
+            {
+                CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
+                CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
+                return;
+            }
+            
+            CostCalculator.UseCost(CardReader.OnPointerCard.CardInfo.AbillityCost);
+
+            if (CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL)
             {
                 CardReader.SkillCardManagement.SetSkillCardInCardZone(CardReader.OnPointerCard);
             }
@@ -60,8 +71,24 @@ public class ActivationChecker : MonoBehaviour
                 CardReader.SpellCardManagement.UseAbility(CardReader.OnPointerCard);
             }
         }
-        else
+        else //셔플
         {
+            if(CardReader.GetIdx(CardReader.OnPointerCard) == _selectIDX
+            || CardReader.OnPointerCard == CardReader.ShufflingCard)
+            {
+                CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
+                return;
+            }
+
+            if(!CostCalculator.CanUseCost(1))
+            {
+                CardReader.ShuffleInHandCard(CardReader.OnPointerCard, CardReader.ShufflingCard);
+                CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
+                CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
+                return;
+            }
+
+            CostCalculator.UseCost(1);
             CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
         }
     }
