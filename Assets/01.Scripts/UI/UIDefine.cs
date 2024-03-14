@@ -3,7 +3,7 @@ namespace UIDefine
 {
     public enum UIScreenType
     {
-        title = 1,
+        title = 0,
         mapSelect,
         battle,
         bakery,
