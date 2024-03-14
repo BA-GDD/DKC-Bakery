@@ -52,6 +52,15 @@ public class Player : Entity
 
     public override void MoveToTargetForward()
     {
-        throw new NotImplementedException();
+    }
+
+    public override void TurnStart()
+    {
+    }
+    public override void TurnAction()
+    {
+    }
+    public override void TurnEnd()
+    {
     }
 }

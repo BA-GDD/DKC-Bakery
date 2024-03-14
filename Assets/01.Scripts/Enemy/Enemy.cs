@@ -1,10 +1,10 @@
 using DG.Tweening;
 using System;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sequence = DG.Tweening.Sequence;
 
 public class Enemy : Entity
 {
@@ -20,18 +20,28 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-        OnAnimationCall += ApplyDamage;
+        OnAnimationCall += TakeDamage;
         target = GameManager.Instance.Player;
+
+    }
+    private void Start()
+    {
+        Vector3 endPos = target.transform.position - _camLookPath.transform.position;
+        endPos.y = 1.3f;
+        endPos.x += 1;
+        _camLookPath.m_Waypoints[1].position = endPos;
+
+        for(int i = 0; i < _camFollowPath.m_Waypoints.Length; i++)
+        {
+            float z = CameraController.Instance._defaultCVCam.transform.position.z - _camFollowPath.transform.position.z;
+            _camFollowPath.m_Waypoints[i].position.z = z;
+        }
     }
     private void Update()
     {
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
             Attack();
-        }
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            ApplyDamageTest();
         }
     }
     public void AnimationFinishTrigger()
@@ -42,7 +52,6 @@ public class Enemy : Entity
     {
 
     }
-    [ContextMenu("AttackTest")]
     public void Attack()
     {
         AnimatorCompo.SetBool(_attackAnimationHash, true);
@@ -53,27 +62,52 @@ public class Enemy : Entity
             AnimatorCompo.SetBool(_attackAnimationHash, false);
             CameraController.Instance.SetDefaultCam();
             OnAnimationEnd = null;
+
         };
     }
 
     public override void MoveToTargetForward()
     {
-        CameraController.Instance.SetFollowCam(transform, target.transform);
+        CameraController.Instance.SetFollowCam(this, _camFollowPath, _camLookObjCart.transform);
 
         lastMovePos = transform.position;
-        transform.DOMoveX(target.transform.position.x - 2, moveDuration).OnComplete(() =>
+        Vector3 forwardPos = target.transform.position + Vector3.right * 2;
+        _camLookPath.transform.SetParent(null);
+        _camFollowPath.transform.SetParent(null);
+            
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOMove(forwardPos, moveDuration));
+        seq.Join(DOTween.To(() => _camLookObjCart.m_Position, x => _camLookObjCart.m_Position = x, _camLookPath.PathLength, moveDuration));
+        seq.Join(DOTween.To(() => CameraController.Instance.DollyPos, x => CameraController.Instance.DollyPos = x, 1, moveDuration));
+
+        seq.OnComplete(() =>
         {
             AnimatorCompo.SetTrigger(_attackTriggerAnimationHash);
         });
     }
+    public override void MoveToLastPos()
+    {
+        base.MoveToLastPos();
+        transform.DOMove(lastMovePos, moveDuration).OnComplete(() => _turnEnd = true);
+    }
 
-    private void ApplyDamage()
+    private void TakeDamage()
     {
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
     }
-    [ContextMenu("Test")]
-    private void ApplyDamageTest()
+
+    public override void TurnStart()
     {
-        HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
+    }
+    public override void TurnAction()
+    {
+        Attack();
+    }
+    public override void TurnEnd()
+    {
+        _camLookPath.transform.SetParent(transform);
+        _camFollowPath.transform.SetParent(transform);
+        _turnEnd = false;
     }
 }

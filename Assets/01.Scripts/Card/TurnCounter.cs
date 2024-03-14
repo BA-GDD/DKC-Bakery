@@ -50,6 +50,7 @@ public static class TurnCounter
 
     public static void ChangeTurn()
     {
+        Debug.Log(CurrentTurnType);
         TurnCount++;
 
         if(CurrentTurnType == TurnType.Player)

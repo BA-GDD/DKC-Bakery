@@ -21,6 +21,7 @@ public class Health : MonoBehaviour, IDamageable
     public Action<Color, int> OnDamageText; //데미지 텍스트를 띄워야 할때.
     public Action<float, float> OnDamageEvent;
 
+    public Action OnBeforeHit;
     public UnityEvent OnDeathEvent;
     public UnityEvent OnHitEvent;
     public UnityEvent<Ailment> OnAilmentChanged;

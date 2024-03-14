@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class Stage : MonoBehaviour
 {
+    public EnemyGroupSO enemyGroup;
+    public Transform enemySpawnTrm;
+
     public int stageIndex = 0;
     public CinemachineVirtualCamera vCam;
     public StageInfoSO stageInfo;
@@ -48,26 +51,26 @@ public class Stage : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _stageInfo = new List<Transform>();
+        //_stageInfo = new List<Transform>();
 
-         halfHeight = Camera.main.orthographicSize;
-         halfWidth= Camera.main.aspect * halfHeight;
+        // halfHeight = Camera.main.orthographicSize;
+        // halfWidth= Camera.main.aspect * halfHeight;
 
-        OnStageCleared += Print;
+        //OnStageCleared += Print;
 
-        for(int i = 0; i < 2; i++)
-        {
-            GameObject obj = new GameObject($"mapCollider_{i}");
+        //for(int i = 0; i < 2; i++)
+        //{
+        //    GameObject obj = new GameObject($"mapCollider_{i}");
 
-            obj.transform.localScale = new Vector3(1, 20,1);
+        //    obj.transform.localScale = new Vector3(1, 20,1);
             
-            stageCollider[i] = obj.AddComponent<BoxCollider2D>();
+        //    stageCollider[i] = obj.AddComponent<BoxCollider2D>();
 
-            obj.transform.position = new Vector2((halfWidth * 2) * i - halfWidth, 0);
-            obj.transform.SetParent(Camera.main.transform, false);
-        }
+        //    obj.transform.position = new Vector2((halfWidth * 2) * i - halfWidth, 0);
+        //    obj.transform.SetParent(Camera.main.transform, false);
+        //}
 
-        stageCollider[1].gameObject.AddComponent<PhaseMove>();
+        //stageCollider[1].gameObject.AddComponent<PhaseMove>();
     }
 
     //debug
@@ -78,10 +81,10 @@ public class Stage : MonoBehaviour
 
     protected virtual void Start()
     {
-        stageInfo.GetList();
+        //stageInfo.GetList();
 
-        StageInfoGenerate();
-        OnStageStarted?.Invoke();
+        //StageInfoGenerate();
+        //OnStageStarted?.Invoke();
     }
 
     private void Update()
