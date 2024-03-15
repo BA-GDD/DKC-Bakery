@@ -11,11 +11,9 @@ public enum PoolingType
     IngredientItemElement,
     ItemInfoPopUpPanel,
     CakeElbum,
-    FlontrolBullet ,
-    FlontrolSpike ,
-    FlontrolStone,
     HitEffect,
     CardInfoPanel,
+    SimpleEnemy,
     ErrorText
 }
 

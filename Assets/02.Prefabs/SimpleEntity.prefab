@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df20e0aa27f349743bcf120ac957cfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillType: 0
   camMoves:
   - pos: {x: -2, y: 0, z: 0.66}
     duration: 0.2
@@ -420,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 7549794581427672097}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.24, z: 0}
+  m_LocalPosition: {x: -0.842, y: 2.259, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -436,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4367754113468494226}
   - component: {fileID: 5981215042608826096}
-  - component: {fileID: 7219055925564659435}
+  - component: {fileID: 7992703496826039512}
   m_Layer: 0
   m_Name: SimpleEntity
   m_TagString: Untagged
@@ -491,7 +492,7 @@ MonoBehaviour:
   _ailmentStat:
     currentAilment: 0
   isLastHitCritical: 0
---- !u!114 &7219055925564659435
+--- !u!114 &7992703496826039512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -500,18 +501,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7779656348775410286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ace08a7d86484f49ab38da8cc6bc76a, type: 3}
+  m_Script: {fileID: 11500000, guid: c497ba1c8bba56c4ea078ca4c17b73ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolingType: 8
-  <CharStat>k__BackingField: {fileID: 11400000, guid: d7b2ea3955ed835438530f88f372f65f, type: 2}
+  poolingType: 9
+  <CharStat>k__BackingField: {fileID: 11400000, guid: 65ca55b2034a8e345a7e4502ba5a7d27, type: 2}
   OnHealthBarChanged:
     m_PersistentCalls:
       m_Calls: []
   forwardTrm: {fileID: 885987910971335551}
   target: {fileID: 0}
   lastMovePos: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
+  moveDuration: 0.2
   hpBarPos: {fileID: 508099467864292228}
   _whatIsPlayer:
     serializedVersion: 2

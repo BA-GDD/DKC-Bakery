@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using CardDefine;
 
 [System.Serializable]
-public struct CamMoveTrack
+public struct CamMovePoint
 {
     public Vector3 pos;
     public float duration;
@@ -13,8 +14,11 @@ public struct CamMoveTrack
 
 public class CameraMoveTrack : MonoBehaviour
 {
-    public List<CamMoveTrack> camMoves;
+    public PlayerSkill skillType;
+
+    public List<CamMovePoint> camMoves;
     public Transform targetTrm;
+    private Sequence seq;
 
     private void Start()
     {
@@ -23,7 +27,11 @@ public class CameraMoveTrack : MonoBehaviour
 
     public void StartMove()
     {
-        Sequence seq = DOTween.Sequence();
+        if(seq != null && seq.IsPlaying())
+        {
+            seq.Kill();
+        }
+        seq = DOTween.Sequence();
         Vector3 pos = transform.position;
         foreach (var m in camMoves)
         {

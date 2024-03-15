@@ -11,13 +11,13 @@ public class Player : Entity
     public SkillManager Skill { get; private set; }
     private PlayerHPUI _hpUI;
 
-    AnimatorOverrideController animatorOverrideController;
-
     protected override void Awake()
     {
         base.Awake();
 
         PlayerStat = CharStat as PlayerStat;
+
+        TurnCounter.PlayerTurnStartEvent += TurnStart;
     }
     protected void Start()
     {
@@ -54,13 +54,13 @@ public class Player : Entity
     {
     }
 
-    public override void TurnStart()
+    public void TurnStart()
     {
+        CameraMoveTrack track = PlayerCameraMoveDic.Instance[CardDefine.PlayerSkill.Heal];
+        CameraController.Instance.SetFollowCam(track.targetTrm, transform);
+        track.StartMove();
     }
-    public override void TurnAction()
-    {
-    }
-    public override void TurnEnd()
+    public void TurnEnd()
     {
     }
 }

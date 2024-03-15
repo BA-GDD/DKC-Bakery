@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CardDefine;
 
 public delegate void CooldownNotify(float current, float total);
 

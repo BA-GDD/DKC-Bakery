@@ -128,9 +128,6 @@ public abstract class Entity : PoolableMono
         transform.DOMove(lastMovePos, moveDuration);
     }
 
-    public abstract void TurnStart();
-    public abstract void TurnAction();
-    public abstract void TurnEnd();
 
 
     public override void Init()
