@@ -7,7 +7,7 @@ public class AdventureData : CanSaveData
     public string ClearMissionCount;
     public string InChallingingMissionName;
 
-    public string ClearMineFloor;
+    public string ClearMineFloor = "0";
     public string InChallingingMineName;
 
     public string InChapterName;
