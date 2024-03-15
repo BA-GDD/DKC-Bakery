@@ -75,6 +75,7 @@ public class AdventurePanel : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             case AdventureType.Mission:
                 break;
             case AdventureType.Mine:
+                GameManager.Instance.ChangeScene(SceneList.MineScene);
                 break;
             case AdventureType.Stage:
                 GameManager.Instance.ChangeScene(SceneList.MapScene);

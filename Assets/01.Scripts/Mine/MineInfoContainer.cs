@@ -8,11 +8,12 @@ public class MineInfoContainer : MonoBehaviour
 
     public MineInfo GetInfoByFloor(int floor)
     {
-        if(floor < 0 || floor >= _infoContainer.Count)
+        int getIdx = floor - 1;
+        if(getIdx < 0 || getIdx >= _infoContainer.Count)
         {
-            Debug.LogError("그런 층은 없는디요?");
+            Debug.LogError($"{floor}층은 없는디요?");
             return null;
         }
-        return _infoContainer[floor];
+        return _infoContainer[getIdx];
     }
 }

@@ -9,4 +9,5 @@ public static class SceneList
     public const string TeaTimeScene = "TeaTimeScene";
     public const string TitleScene = "TitleScene";
     public const string DeckBuildScene = "DeckBuildding";
+    public const string MineScene = "MineScene";
 }
