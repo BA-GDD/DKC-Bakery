@@ -58,8 +58,8 @@ public class MineSystem : MonoBehaviour
         Transform upTrm = _firstMap.position.y > _secondMap.position.y ? _firstMap : _secondMap;
         upTrm.transform.position = _downPos;
 
-        FeedbackManager.Instance.ShakeScreen(0.4f, 2.1f);
-        _firstMap.DOMoveY(_firstMap.position.y + 9, 2f);
-        _secondMap.DOMoveY(_secondMap.position.y + 9, 2f);
+        FeedbackManager.Instance.ShakeScreen(0.5f, 2.1f);
+        _firstMap.DOMoveY(_firstMap.position.y + 13, 2f);
+        _secondMap.DOMoveY(_secondMap.position.y + 13, 2f);
     }
 }
