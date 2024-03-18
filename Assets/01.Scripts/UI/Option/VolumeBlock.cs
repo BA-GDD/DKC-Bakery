@@ -15,6 +15,10 @@ public class VolumeBlock : FuncBlock
     private SoundData _soundData = new SoundData();
     private const string VolumeSettingKey = "VolumeDataKey";
 
+    private float _savingMasterVolume;
+    private float _savingBGMVolume;
+    private float _savingSFXVolume;
+
     private void Awake()
     {
         _masterSlider.onValueChanged.AddListener(SetMasterVolumeValue);
@@ -22,7 +26,7 @@ public class VolumeBlock : FuncBlock
         _sfxSlider.onValueChanged.AddListener(SetSfxVolumeValue);
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if(DataManager.Instance.IsHaveData(VolumeSettingKey))
         {
@@ -33,7 +37,11 @@ public class VolumeBlock : FuncBlock
         _bgmSlider.value = _soundData.BgmVolume;
         _sfxSlider.value = _soundData.SfxVolume;
 
-        _isReadChanging = true;
+        _savingMasterVolume = _soundData.MasterVoume;
+        _savingBGMVolume = _soundData.BgmVolume;
+        _savingSFXVolume = _soundData.SfxVolume;
+
+        IsHasChanges = false;
     }
 
     #region 밸류 셋 메서드 개노답 삼인방
@@ -66,5 +74,15 @@ public class VolumeBlock : FuncBlock
     {
         _optionGroup.setInitialBtn.InitializeData(_soundData, out _isHasChanges);
         _notifyIsChangeText.enabled = _isHasChanges;
+    }
+
+    private void OnDisable()
+    {
+        if(IsHasChanges)
+        {
+            _soundData.MasterVoume = _savingMasterVolume;
+            _soundData.BgmVolume = _savingBGMVolume;
+            _soundData.SfxVolume = _savingSFXVolume;
+        }
     }
 }

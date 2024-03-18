@@ -9,7 +9,6 @@ public abstract class FuncBlock : MonoBehaviour
     [SerializeField] protected OptionGroup _optionGroup;
     [SerializeField] protected TextMeshProUGUI _notifyIsChangeText;
 
-    protected bool _isReadChanging = false;
     protected bool _isHasChanges;
     protected bool IsHasChanges
     {
@@ -20,9 +19,7 @@ public abstract class FuncBlock : MonoBehaviour
         set
         {
             _isHasChanges = value;
-
-            if(_isReadChanging)
-                _notifyIsChangeText.enabled = value;
+            _notifyIsChangeText.enabled = value;
         }
     }
 

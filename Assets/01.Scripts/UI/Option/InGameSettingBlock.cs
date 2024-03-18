@@ -37,7 +37,6 @@ public class InGameSettingBlock : FuncBlock
         _screenModeDropDown.SetItem(_inGameSettingData.modeNum);
         _verticalSyncCheckBox.IsActive = _inGameSettingData.isVerticalSync;
 
-        _isReadChanging = true;
     }
 
     private void ChangeVibrationValue(string sentencec)
