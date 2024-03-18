@@ -11,7 +11,8 @@ namespace UIDefine
         diary,
         deckBuild,
         Lobby,
-        Mine
+        Mine,
+        Myosu
     }
 
     public enum BakeryCombinationType
