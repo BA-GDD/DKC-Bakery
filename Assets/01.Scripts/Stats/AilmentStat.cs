@@ -7,8 +7,9 @@ using UnityEngine;
 [Serializable]
 public class AilmentStat
 {
-    private Dictionary<Ailment, float> _ailmentTimerDictionary;
+    private Dictionary<Ailment, int> _ailmentTimerDictionary;
     private Dictionary<Ailment, int> _ailmentDamageDictionary;
+    private Dictionary<Ailment, int> _ailmentStackDictionary;
 
 
     public Ailment currentAilment; //질병 및 디버프 상태
@@ -21,15 +22,17 @@ public class AilmentStat
 
     public AilmentStat()
     {
-        _ailmentTimerDictionary = new Dictionary<Ailment, float>();
+        _ailmentTimerDictionary = new Dictionary<Ailment, int>();
         _ailmentDamageDictionary = new Dictionary<Ailment, int>();
+        _ailmentStackDictionary = new Dictionary<Ailment, int>();
 
         foreach (Ailment ailment in Enum.GetValues(typeof(Ailment)))
         {
             if (ailment != Ailment.None)
             {
-                _ailmentTimerDictionary.Add(ailment, 0f);
+                _ailmentTimerDictionary.Add(ailment, 0);
                 _ailmentDamageDictionary.Add(ailment, 0); //데미지와 쿨타임 초기화
+                _ailmentStackDictionary.Add(ailment, 0);
             }
         }
     }
@@ -42,7 +45,7 @@ public class AilmentStat
 
             if (_ailmentTimerDictionary[ailment] > 0)
             {
-                _ailmentTimerDictionary[ailment] -= Time.deltaTime;
+                _ailmentTimerDictionary[ailment]--;
                 if (_ailmentTimerDictionary[ailment] <= 0)
                 {
                     currentAilment ^= ailment; //XOR로 빼주고
@@ -73,29 +76,29 @@ public class AilmentStat
         return (currentAilment & ailment) > 0;
     }
 
-    public void ApplyAilments(Ailment value, float duration, int damage)
+    public void ApplyAilments(Ailment value, int turn, int damage)
     {
         currentAilment |= value; //현재 상태이상에 추가 상태이상 덧씌우고
 
         //상태이상 새로 들어온 애들은 시간 갱신해주고. 
         if ((value & Ailment.Ignited) > 0)
         {
-            SetAilment(Ailment.Ignited, duration: duration, damage: damage);
+            SetAilment(Ailment.Ignited, turn, damage);
         }
         else if ((value & Ailment.Chilled) > 0)
         {
-            SetAilment(Ailment.Chilled, duration, damage);
+            SetAilment(Ailment.Chilled, turn, damage);
         }
         else if ((value & Ailment.Shocked) > 0)
         {
-            SetAilment(Ailment.Shocked, duration, damage);
+            SetAilment(Ailment.Shocked, turn, damage);
         }
     }
 
     //질병효과와 지속시간 셋팅
-    private void SetAilment(Ailment ailment, float duration, int damage)
+    private void SetAilment(Ailment ailment, int turn, int damage)
     {
-        _ailmentTimerDictionary[ailment] = duration;
+        _ailmentTimerDictionary[ailment] = turn;
         _ailmentDamageDictionary[ailment] = damage;
     }
 
