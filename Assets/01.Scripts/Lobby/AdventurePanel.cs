@@ -73,6 +73,7 @@ public class AdventurePanel : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         switch (_adventureType)
         {
             case AdventureType.Mission:
+                GameManager.Instance.ChangeScene(SceneList.MyosuScene);
                 break;
             case AdventureType.Mine:
                 GameManager.Instance.ChangeScene(SceneList.MineScene);
@@ -81,5 +82,10 @@ public class AdventurePanel : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 GameManager.Instance.ChangeScene(SceneList.MapScene);
                 break;
         }
+    }
+
+    private void Get∏È¡¢≤‹∆¿()
+    {
+
     }
 }

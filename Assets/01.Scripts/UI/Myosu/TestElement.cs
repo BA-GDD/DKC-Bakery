@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TestElement : PoolableMono, 
                            IPointerEnterHandler,
@@ -11,17 +12,12 @@ public class TestElement : PoolableMono,
                            IPointerClickHandler
 {
     [Header("참조 값")]
+    [SerializeField] private Image _frameImg;
     [SerializeField] private TextMeshProUGUI _infoText;
     public MyosuTestInfo TestInfo { get; set; }
 
-    [Header("마스크")]
-    [SerializeField] private RectTransform _maskTrm;
-    [SerializeField] private TextMeshProUGUI _selectText;
-
     public int TestIdx { get; set; }
 
-    private Tween _maskTween;
-    private Tween _textEmphasisTween;
     private bool _isSelected;
     private bool IsSelected
     {
@@ -32,6 +28,7 @@ public class TestElement : PoolableMono,
         set
         {
             _isSelected = value;
+            UIManager.Instance.GetSceneUI<MyosuUI>().SetUpPanel(value, TestInfo);
         }
     }
 
@@ -42,24 +39,18 @@ public class TestElement : PoolableMono,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _maskTween.Kill();
-        _maskTween = _maskTrm.DOLocalMoveX(0, 0.2f);
+        if (IsSelected) return;
+        _frameImg.enabled = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _maskTween.Kill();
-        _maskTween = _maskTrm.DOLocalMoveX(700, 0.2f);
+        if (IsSelected) return;
+        _frameImg.enabled = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         IsSelected = !IsSelected;
-
-        _textEmphasisTween.Kill();
-        _textEmphasisTween = _selectText.transform.DOScale(Vector3.one * 1.1f, 0.1f).
-        OnComplete(()=> _selectText.transform.DOScale(Vector3.one, 0.1f));
-
-        _selectText.text = IsSelected ? "SELECT?" : "SELECTED!";
     }
 }

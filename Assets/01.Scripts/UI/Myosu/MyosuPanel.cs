@@ -25,5 +25,9 @@ public class MyosuPanel : MonoBehaviour
 
         _setupTween.Kill();
         _setupTween = transform.DOLocalMoveX(xValue, 0.3f).SetEase(Ease.InBack);
+
+        _titleText.text = MyosuTestInfo.MyosuName;
+        _infoText.text = MyosuTestInfo.TsumegoInfo;
+        _myosuVisual.sprite = MyosuTestInfo.MyosuImg;
     }
 }
