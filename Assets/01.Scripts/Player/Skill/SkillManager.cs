@@ -2,16 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum PlayerSkill
-{
-    Dash = 1,
-    //Clone = 2,
-    SwordAura = 2,
-
-    //Crystal = 3
-    //SlashDown = 3,
-}
+using CardDefine;
 
 public class SkillManager : MonoSingleton<SkillManager>
 {

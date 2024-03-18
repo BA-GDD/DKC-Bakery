@@ -12,4 +12,8 @@ namespace CardDefine
         SKILL,
         SPELL
     }
+    public enum PlayerSkill
+    {
+        Heal
+    }
 }
