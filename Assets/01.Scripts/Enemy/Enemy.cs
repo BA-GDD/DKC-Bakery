@@ -16,6 +16,7 @@ public abstract class Enemy : Entity
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
+    protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
     public void AnimationFinishTrigger()
     {
@@ -27,7 +28,18 @@ public abstract class Enemy : Entity
 
     public abstract void TurnStart();
     public abstract void TurnAction();
-
     public abstract void TurnEnd();
-    
+
+    public abstract void Spawn(Vector3 spawnPos);
+    public void MoveFormation(Vector3 pos)
+    {
+        transform.DOMove(pos, 1f);
+    }
+
+    [ContextMenu("TurnStart")]
+    private void TestTurnStart() => TurnStart();
+    [ContextMenu("TurnAction")]
+    private void TestTurnAction() => TurnAction();
+    [ContextMenu("TurnEnd")]
+    private void TestTurnEnd() => TurnEnd();
 }

@@ -183,6 +183,9 @@ public class Health : MonoBehaviour, IDamageable
     {
         _isInvincible = value;
     }
-
-
+    [ContextMenu("TestHitFeedback")]
+    private void TestDead()
+    {
+        AfterHitFeedbacks();
+    }
 }

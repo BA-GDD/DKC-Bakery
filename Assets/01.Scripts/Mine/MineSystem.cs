@@ -23,7 +23,7 @@ public class MineSystem : MonoBehaviour
             _addData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _currentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor + 1));
+        _currentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor)+1);
     }
 
     private void Update()

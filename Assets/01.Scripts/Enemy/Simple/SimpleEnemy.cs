@@ -66,4 +66,13 @@ public class SimpleEnemy : Enemy
     public override void TurnStart()
     {
     }
+
+    public override void Spawn(Vector3 spawnPos)
+    {
+        AnimatorCompo.SetBool(spawnAnimationHash, true);
+
+        transform.position = spawnPos + new Vector3(-4f,6f);
+        transform.DOMoveX(spawnPos.x,1f);
+        transform.DOMoveY(spawnPos.y, 1f).SetEase(Ease.InCubic).OnComplete(() => AnimatorCompo.SetBool(spawnAnimationHash,false));
+    }
 }

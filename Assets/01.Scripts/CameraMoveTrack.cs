@@ -20,13 +20,10 @@ public class CameraMoveTrack : MonoBehaviour
     public Transform targetTrm;
     private Sequence seq;
 
-    private void Start()
-    {
-        targetTrm.position = transform.position = Camera.main.transform.position;
-    }
-
     public void StartMove()
     {
+        targetTrm.position = transform.position = Camera.main.transform.position;
+
         if(seq != null && seq.IsPlaying())
         {
             seq.Kill();
