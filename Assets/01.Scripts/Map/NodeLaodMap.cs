@@ -39,6 +39,6 @@ public class NodeLaodMap : MonoBehaviour
     }
     public void ExitLoadMap()
     {
-        MapManager.Instanace.ActiveLoadMapPanel(false);
+        MapManager.Instanace.ActiveLoadMap(false);
     }
 }

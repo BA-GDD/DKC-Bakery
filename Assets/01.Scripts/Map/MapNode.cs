@@ -18,7 +18,7 @@ public class MapNode : MonoBehaviour, IPointerClickHandler
         set
         {
             _stageNumber = value;
-            MapManager.Instanace.SelectStageNimber = value;
+            MapManager.Instanace.SelectStageNumber = value;
         }
     }
 

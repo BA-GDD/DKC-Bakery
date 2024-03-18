@@ -21,63 +21,17 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public List<MapDataSO> _mapDataList = new List<MapDataSO>();
-    private MapDataSO _currentChapterData;
+    public MapDataSO SelectMapData { get; set; }
     public StageDataSO SelectStageData { get; set; }
     public List<CardBase> SelectDeck { get; set; }
-    private ChapterInfoPanel _chapterInfoPanel;
     [SerializeField] private StageBubble _stageBubblePrefab;
     private StageBubble _stageBubbleObject;
 
     public bool isOnPanel;
     public bool isOnLoadMap;
 
-    private int _selectStageNumber;
-    public int SelectStageNimber
-    {
-        get
-        {
-            return _selectStageNumber;
-        }
-        set
-        {
-            _selectStageNumber = value;
-        }
-    }
-
-    private ChapterType _currentChapter;
-    public ChapterType CurrentChapter
-    {
-        get
-        {
-            return _currentChapter;
-        }
-        set
-        {
-            _currentChapter = value;
-            if (value == ChapterType.None) return;
-            _currentChapterData = _mapDataList[(int)value];
-        }
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Return) && !isOnPanel && !isOnLoadMap)
-        {
-            GetInfoPanel().SetInfo(_currentChapterData);
-            ActiveChapterInfoPanel(true);
-        }
-    }
-
-    public void ActiveChapterInfoPanel(bool isActive)
-    {
-        GetInfoPanel().ActivePanel(isActive);
-    }
-
-    public void ActiveLoadMapPanel(bool isActive)
-    {
-        GetInfoPanel().ActiveLoadMap(isActive);
-    }
+    public int SelectStageNumber { get; set; }
+    private NodeLaodMap _loadMapObject;
 
     public void CreateStageInfoBubble(string stageName, Vector2 pos, bool isReverse)
     {
@@ -86,7 +40,7 @@ public class MapManager : MonoBehaviour
             Destroy(_stageBubbleObject.gameObject);
         }
 
-        Transform parent = GetInfoPanel().GetNodeLoadMap().BubbleTrm;
+        Transform parent = _loadMapObject.BubbleTrm;
         _stageBubbleObject = Instantiate(_stageBubblePrefab, parent);
         _stageBubbleObject.transform.localPosition = pos + new Vector2(0, 20);
         _stageBubbleObject.transform.DOLocalMove(pos, 0.3f);
@@ -94,11 +48,16 @@ public class MapManager : MonoBehaviour
         _stageBubbleObject.SetInfo(stageName, isReverse);
     }
 
-    private ChapterInfoPanel GetInfoPanel()
+    public void ActiveLoadMap(bool isActive)
     {
-        if (_chapterInfoPanel != null) return _chapterInfoPanel;
-
-        _chapterInfoPanel = FindObjectOfType<ChapterInfoPanel>();
-        return _chapterInfoPanel;
+        isOnLoadMap = isActive;
+        if (isActive)
+        {
+            _loadMapObject = Instantiate(SelectMapData.loadMap, UIManager.Instance.CanvasTrm);
+        }
+        else
+        {
+            Destroy(_loadMapObject.gameObject);
+        }
     }
 }

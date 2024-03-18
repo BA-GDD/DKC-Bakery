@@ -22,12 +22,6 @@ public class UIManager : MonoSingleton<UIManager>
         {
             if (_canvas != null) return _canvas;
             Canvas findCanvas = FindObjectOfType<Canvas>();
-
-            if(findCanvas.renderMode == RenderMode.ScreenSpaceCamera)
-            {
-                findCanvas.worldCamera = Camera.main;
-            }
-
             return findCanvas;
         }
         set
