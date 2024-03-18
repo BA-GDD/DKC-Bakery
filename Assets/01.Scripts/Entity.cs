@@ -58,7 +58,7 @@ public abstract class Entity : PoolableMono
 
     private void HandleCutInOnFieldMonsterList()
     {
-        BattleController.onFieldMonsterList.Remove(this as Enemy);
+        BattleController.DeadMonster(this as Enemy);
         HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
     }
 
