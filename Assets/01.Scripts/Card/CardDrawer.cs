@@ -46,7 +46,7 @@ public class CardDrawer : MonoBehaviour
         CardReader.AddCardInHand(spawnCard);
         
         spawnCard.transform.position = _cardSpawnTrm.position;
-        
+        spawnCard.transform.localRotation = Quaternion.identity;
         spawnCard.SetUpCard(CardReader.GetPosOnTopDrawCard(), true);
     }
 }
