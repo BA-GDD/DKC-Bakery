@@ -157,7 +157,7 @@ public class Health : MonoBehaviour, IDamageable
     }
 
     //상태이상 걸기.
-    public void SetAilment(Ailment ailment, float duration, int damage)
+    public void SetAilment(Ailment ailment, int duration, int damage)
     {
         _ailmentStat.ApplyAilments(ailment, duration, damage);
         OnAilmentChanged?.Invoke(_ailmentStat.currentAilment);

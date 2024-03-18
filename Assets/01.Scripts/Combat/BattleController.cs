@@ -69,31 +69,16 @@ public class BattleController : MonoBehaviour
         TurnCounter.ChangeTurn();
     }
 
-    private void Start()
+    public void SetStage()
     {
-        //for (int i = 0; i < _monsterGimicList.list.Count; i++)
-        //{
-        //    for (int j = 0; j < _monsterGimicList.list[i].list.Count; j++)
-        //    {
-        //        _monsterGimicList.list[i].list[j].gameObject.SetActive(false);
-        //    }
-        //}
-        _enemyQue = new Queue<PoolingType>();
-        onFieldMonsterList.ListRemoved += HandleChangeMonsterCountOnField;
-
-        //_currentStage.OnPhaseCleared += () => StartCoroutine(SpawnMonster());
         foreach (var e in _enemyGroup.enemies)
         {
             _enemyQue.Enqueue(e.poolingType);
         }
-        StartCoroutine(SpawnInitMonster());
-    }
-    public void SetStage(EnemyGroupSO groupSO)
-    {
-        _enemyGroup = groupSO;
-        StartCoroutine(SpawnInitMonster());
-    }
 
+        _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
+        StartCoroutine(SpawnInitMonster());
+    }
 
     private IEnumerator SpawnInitMonster()
     {
