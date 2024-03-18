@@ -6,5 +6,5 @@ using UnityEngine;
 public class StageDataSO : ScriptableObject
 {
     public string stageName;
-    public GameObject stagePrefab;
+    public EnemyGroupSO enemyGroup;
 }

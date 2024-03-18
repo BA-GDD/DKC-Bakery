@@ -26,8 +26,6 @@ public class BattleController : MonoBehaviour
     [Header("√‚«ˆ ≈“")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
-
-
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
 
