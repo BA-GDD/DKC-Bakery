@@ -23,7 +23,7 @@ public class PhaseMove : MonoBehaviour
                 _curStage.PhaseCleared();
                 b.QuaterEnd("Quater End");
 
-                GameManager.Instance.PlayerTrm.position +=Vector3.right * 2;
+                //GameManager.Instance.PlayerTrm.position +=Vector3.right * 2;
             }
             else
             {
@@ -38,7 +38,7 @@ public class PhaseMove : MonoBehaviour
                 {
                     _cinemachineConfiner.m_BoundingShape2D = null;
                 }
-                GameManager.Instance.PlayerTrm.position += Vector3.right * 2;
+                ////GameManager.Instance.PlayerTrm.position += Vector3.right * 2;
             }
 
             _curStage.CurPhaseCleared = false;

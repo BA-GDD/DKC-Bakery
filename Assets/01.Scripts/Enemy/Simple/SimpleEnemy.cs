@@ -9,28 +9,35 @@ public class SimpleEnemy : Enemy
     {
         base.Awake();
         OnAnimationCall += () => target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
-        target = GameManager.Instance.Player;
+    }
+
+    private void Start()
+    {
+        target = BattleController?.Player;
     }
 
     public override void MoveToTargetForward()
     {
-        CameraController.Instance.SetFollowCam(camTrack.targetTrm, transform);
-        camTrack.StartMove();
+        //CameraController.Instance.SetFollowCam(camTrack.targetTrm, transform);
+        //camTrack.StartMove();
         lastMovePos = transform.position;
-        camTrack.transform.SetParent(null);
+        //camTrack.transform.SetParent(null);
 
 
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
-        seq.Join(DOVirtual.DelayedCall(0.25f, () => CameraController.Instance.SetFollowCam(camTrack.targetTrm, target.transform)));
+        //seq.Join(DOVirtual.DelayedCall(0.25f, () => CameraController.Instance.SetFollowCam(camTrack.targetTrm, target.transform)));
         seq.OnComplete(() =>
         {
+            MoveToLastPos();
+            target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
             AnimatorCompo.SetTrigger(attackTriggerAnimationHash);
         });
     }
 
     public override void MoveToLastPos()
     {
+        Debug.Log("last");
         base.MoveToLastPos();
         transform.DOMove(lastMovePos, moveDuration).OnComplete(() => _turnEnd = true);
     }
@@ -43,7 +50,7 @@ public class SimpleEnemy : Enemy
         {
             MoveToLastPos();
             AnimatorCompo.SetBool(attackAnimationHash, false);
-            CameraController.Instance.SetDefaultCam();
+            //CameraController.Instance.SetDefaultCam();
             OnAnimationEnd = null;
 
         };

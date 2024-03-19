@@ -16,17 +16,15 @@ public class Player : Entity
         base.Awake();
 
         PlayerStat = CharStat as PlayerStat;
-
-        TurnCounter.PlayerTurnStartEvent += TurnStart;
     }
     protected void Start()
     {
         //Skill = SkillManager.Instance;
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            _hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
-            Debug.Log(_hpUI);
-            HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
+            //_hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
+            //Debug.Log(_hpUI);
+            //HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
         }
     }
 
@@ -54,11 +52,12 @@ public class Player : Entity
     {
     }
 
-    public void TurnStart()
+    public void UseAbility()
     {
-        CameraMoveTrack track = PlayerCameraMoveDic.Instance[CardDefine.PlayerSkill.Heal];
-        CameraController.Instance.SetFollowCam(track.targetTrm, transform);
-        track.StartMove();
+
+        //CameraMoveTrack track = PlayerCameraMoveDic.Instance[CardDefine.PlayerSkill.Heal];
+        //CameraController.Instance.SetFollowCam(track.targetTrm, transform);
+        //track.StartMove();
     }
     public void TurnEnd()
     {

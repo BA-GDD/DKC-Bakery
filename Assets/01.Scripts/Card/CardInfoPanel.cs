@@ -11,7 +11,7 @@ public class CardInfoPanel : PoolableMono
 
     public void SetInfo(CardInfo info, Transform parent)
     {
-        _skillNameText.text = info.AbillityName;
+        _skillNameText.text = info.CardName;
         _skillInfoText.text = info.AbillityInfo;
 
         transform.SetParent(parent);
