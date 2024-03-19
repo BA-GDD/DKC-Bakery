@@ -10,14 +10,12 @@ public enum PoolingType
     HoneyTreeSpike,
     IngredientItemElement,
     ItemInfoPopUpPanel,
-    CakeElbum,
-    FlontrolBullet ,
-    FlontrolSpike ,
-    FlontrolStone,
+    ItemElement,
     HitEffect,
     CardInfoPanel,
+    SimpleEnemy,
     ErrorText,
-    TestElement
+    TestElement,
 }
 
 public class PoolManager
