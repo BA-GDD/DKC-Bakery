@@ -56,6 +56,7 @@ public class CombineMaster : MonoBehaviour
 
             cb_2.CombineLevel = (cb_2.CombineLevel + 1);
         });
+        seq.Append(cb_2.transform.DORotate(new Vector3(0, 360, 0), 0.3f, RotateMode.FastBeyond360));
         seq.AppendCallback(() => cb_2.SetUpCard(targeXtPos, true));
     }
 }
