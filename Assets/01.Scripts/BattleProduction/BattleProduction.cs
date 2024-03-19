@@ -18,7 +18,7 @@ public class BattleProduction : MonoBehaviour
     {
         _panelSetEvent?.Invoke(MapManager.Instanace.SelectStageData.enemyGroup, "???");
         _productionAnimator.SetBool("isOnProduction", true);
-        yield return null;
+        yield return new WaitForSeconds(1);
         _productionAnimator.SetBool("isOnProduction", false);
     }
 }
