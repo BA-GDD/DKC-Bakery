@@ -82,14 +82,9 @@ public class BattleController : MonoBehaviour
         TurnCounter.ChangeTurn();
     }
 
-    private void Start()
+    public void SetStage()
     {
-        SetStage(MapManager.Instanace.SelectStageData.enemyGroup);
-    }
-
-    public void SetStage(EnemyGroupSO groupSO)
-    {
-        _enemyGroup = groupSO;
+        _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
 
         foreach (var e in _enemyGroup.enemies)
         {

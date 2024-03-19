@@ -18,7 +18,7 @@ public class BattleEnemyPanel : MonoBehaviour
         sb.Append("(");
         for(int i = 0; i < enemyGroup.enemies.Count; i++)
         {
-            _enemyImgArr[i].sprite = enemyGroup.enemies[i].SpriteRendererCompo.sprite;
+            _enemyImgArr[i].sprite = enemyGroup.enemies[i].CharStat.characterVisual;
             _enemyImgArr[i].enabled = true;
             sb.Append($"{enemyGroup.enemies[i].CharStat.characterName} ,");
         }
