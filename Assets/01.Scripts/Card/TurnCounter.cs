@@ -20,7 +20,7 @@ public static class TurnCounter
     public static Action EnemyTurnStartEvent;
     public static Action EnemyTurnEndEvent;
 
-    public static Action PlayerTurnStartEvent;
+    public static Action<bool> PlayerTurnStartEvent;
     public static Action PlayerTurnEndEvent;
 
     private static TurnCounting _turnCounting;
@@ -66,7 +66,7 @@ public static class TurnCounter
             CurrentTurnType = TurnType.Player;
 
             EnemyTurnEndEvent?.Invoke();
-            PlayerTurnStartEvent?.Invoke();
+            PlayerTurnStartEvent?.Invoke(false);
         }
         Debug.Log($"{TurnCount}{CurrentTurnType}");
     }

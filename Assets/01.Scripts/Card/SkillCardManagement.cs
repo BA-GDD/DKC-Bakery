@@ -72,7 +72,7 @@ public class SkillCardManagement : CardManagement
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
 
-            TurnCounter.TurnCounting.ToEnemyTurnChanging();
+            TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             return;
         }
 

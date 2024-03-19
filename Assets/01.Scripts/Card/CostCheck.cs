@@ -27,7 +27,7 @@ public class CostCheck : MonoBehaviour
         CostCalculator.ExtraManaChangeEvent -= HandleCheckExMana;
     }
 
-    private void HandleCalculateExMana()
+    private void HandleCalculateExMana(bool a)
     {
         CostCalculator.GetExMana(CostCalculator.CurrentMoney);
         CostCalculator.CurrentMoney = 10;
