@@ -28,6 +28,7 @@ public class MapNode : MonoBehaviour, IPointerClickHandler
                                                    transform.localPosition, 
                                                    _isStageBubbleReverse);
         MapManager.Instanace.SelectStageData = _stageData;
+        Debug.Log(_stageData);
     }
 
     public void OnPointerClick(PointerEventData eventData)

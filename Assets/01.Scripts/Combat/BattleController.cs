@@ -71,29 +71,19 @@ public class BattleController : MonoBehaviour
 
     private void Start()
     {
-        //for (int i = 0; i < _monsterGimicList.list.Count; i++)
-        //{
-        //    for (int j = 0; j < _monsterGimicList.list[i].list.Count; j++)
-        //    {
-        //        _monsterGimicList.list[i].list[j].gameObject.SetActive(false);
-        //    }
-        //}
-        _enemyQue = new Queue<PoolingType>();
-        onFieldMonsterList.ListRemoved += HandleChangeMonsterCountOnField;
+        SetStage(MapManager.Instanace.SelectStageData.enemyGroup);
+    }
 
-        //_currentStage.OnPhaseCleared += () => StartCoroutine(SpawnMonster());
+    public void SetStage(EnemyGroupSO groupSO)
+    {
+        _enemyGroup = groupSO;
+
         foreach (var e in _enemyGroup.enemies)
         {
             _enemyQue.Enqueue(e.poolingType);
         }
         StartCoroutine(SpawnInitMonster());
     }
-    public void SetStage(EnemyGroupSO groupSO)
-    {
-        _enemyGroup = groupSO;
-        StartCoroutine(SpawnInitMonster());
-    }
-
 
     private IEnumerator SpawnInitMonster()
     {
@@ -104,37 +94,8 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        //while (_enemyQue.Count > 0)
-        //{
-        //    if (onFieldMonsterList.Count >= _spawnDistanceByPoint.Count)
-        //        break;
-        //    Vector3 pos = _spawnDistanceByPoint[onFieldMonsterList.Count].position;
-        //    Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
-        //    selectEnemy.BattleController = this;
-        //    selectEnemy.transform.position = pos;
-
-        //    onFieldMonsterList.Add(selectEnemy);
-        //}
+        
         _enemyHpBarMaker.SetupEnemyHpBar();
-        //if(_monsterGimicList.list.Count >= _divineCount)
-        //{
-        //    Debug.Log($"{_monsterGimicList.list.Count}, {_divineCount}");
-        //    for (int i = 0; i < _monsterGimicList.list[_divineCount].list.Count; i++)
-        //    {
-        //        yield return new WaitForSeconds(_spawnTurm);
-
-        //        Enemy selectEnemy = _monsterGimicList.list[_divineCount].list[i];
-        //        selectEnemy.gameObject.SetActive(true);
-
-        //        Color startColor = new Color(1, 1, 1, 0);
-        //        selectEnemy.SpriteRendererCompo.color = startColor;
-        //        selectEnemy.SpriteRendererCompo.DOFade(1, 0.1f);
-
-        //        onFieldMonsterList.Add(selectEnemy);
-        //    }
-
-        //    _enemyHpBarMaker.SetupEnemyHpBar();
-        //}
     }
     private void SpawnMonster(int idx)
     {
@@ -145,6 +106,7 @@ public class BattleController : MonoBehaviour
             selectEnemy.BattleController = this;
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
+            selectEnemy.SpriteRendererCompo.sortingOrder = (idx + 2) % 2;
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 

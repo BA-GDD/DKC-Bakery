@@ -53,14 +53,14 @@ public class ActivationChecker : MonoBehaviour
     {
         if (IsMouseInWaitZone())
         {
-            if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost))
+            if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL))
             {
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
                 CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
                 return;
             }
             
-            CostCalculator.UseCost(CardReader.OnPointerCard.CardInfo.AbillityCost);
+            CostCalculator.UseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL);
 
             if (CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL)
             {
@@ -80,7 +80,7 @@ public class ActivationChecker : MonoBehaviour
                 return;
             }
 
-            if(!CostCalculator.CanUseCost(1))
+            if(!CostCalculator.CanUseCost(1, true))
             {
                 CardReader.ShuffleInHandCard(CardReader.OnPointerCard, CardReader.ShufflingCard);
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
@@ -88,7 +88,7 @@ public class ActivationChecker : MonoBehaviour
                 return;
             }
 
-            CostCalculator.UseCost(1);
+            CostCalculator.UseCost(1, true);
             CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
         }
     }
