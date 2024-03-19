@@ -58,7 +58,6 @@ public abstract class Entity : PoolableMono
 
     private void HandleCutInOnFieldMonsterList()
     {
-        BattleController.DeadMonster(this as Enemy);
         HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
     }
 
@@ -69,9 +68,9 @@ public abstract class Entity : PoolableMono
     }
 
     //���ῡ ���� ó��.
-    private void HandleAilmentChanged(Ailment ailment)
+    private void HandleAilmentChanged(AilmentEnum ailment)
     {
-        if ((ailment & Ailment.Chilled) > 0) //������¸� ���ǵ� ������
+        if ((ailment & AilmentEnum.Chilled) > 0) //������¸� ���ǵ� ������
         {
             //���� ���׿� ���� ����
             float resistance = (100 - CharStat.magicResistance.GetValue()) * 0.01f;
