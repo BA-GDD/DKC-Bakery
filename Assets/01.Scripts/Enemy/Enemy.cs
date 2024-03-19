@@ -18,11 +18,16 @@ public abstract class Enemy : Entity
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
     protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     public void AnimationFinishTrigger()
     {
         OnAnimationEnd?.Invoke();
     }
-    
+
 
     public abstract void Attack();
 

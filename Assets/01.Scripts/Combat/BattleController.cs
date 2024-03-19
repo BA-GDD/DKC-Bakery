@@ -115,7 +115,6 @@ public class BattleController : MonoBehaviour
 
         //    onFieldMonsterList.Add(selectEnemy);
         //}
-        _enemyHpBarMaker.SetupEnemyHpBar();
         //if(_monsterGimicList.list.Count >= _divineCount)
         //{
         //    Debug.Log($"{_monsterGimicList.list.Count}, {_divineCount}");
@@ -154,6 +153,7 @@ public class BattleController : MonoBehaviour
                 onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
+        _enemyHpBarMaker.SetupEnemyHpBar();
     }
 
     private void HandleChangeMonsterCountOnField(object sender, EventArgs e)
