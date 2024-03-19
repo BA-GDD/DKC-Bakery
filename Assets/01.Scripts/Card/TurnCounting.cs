@@ -23,28 +23,23 @@ public class TurnCounting : MonoBehaviour
         Debug.Log(MapManager.Instanace.SelectDeck);
         Debug.Log(CardReader.CountOfCardInDeck());
         TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
+        CardReader.CardDrawer.DrawCard(5);
+        ToPlayerTurnChanging(true);
     }
 
-    public void GameStartEvent()
-    {
-        Sequence seq = DOTween.Sequence();
-        seq.AppendCallback(() => CardReader.CardDrawer.DrawCard(5));
-        seq.AppendCallback(ToPlayerTurnChanging);
-    }
-
-    public void ToPlayerTurnChanging()
+    public void ToPlayerTurnChanging(bool isTurnChange)
     {
         _selectTrm = _toPTChangingText;
-        TurnChanging();
+        TurnChanging(isTurnChange);
     }
 
-    public void ToEnemyTurnChanging()
+    public void ToEnemyTurnChanging(bool isTurnChange)
     {
         _selectTrm = _toETChangingText;
-        TurnChanging();
+        TurnChanging(isTurnChange);
     }
 
-    private void TurnChanging()
+    private void TurnChanging(bool isTurnChange)
     {
         _selectTrm.transform.localPosition = _startPos.localPosition;
 
@@ -52,6 +47,7 @@ public class TurnCounting : MonoBehaviour
         seq.Append(_selectTrm.DOLocalMove(_normalPos.localPosition, 0.5f).SetEase(Ease.OutCubic));
         seq.AppendInterval(0.5f);
         seq.Append(_selectTrm.DOLocalMove(_endPos.localPosition, 0.5f).SetEase(Ease.InCubic));
-        seq.AppendCallback(TurnCounter.ChangeTurn);
+        if(isTurnChange)
+            seq.AppendCallback(TurnCounter.ChangeTurn);
     }
 }
