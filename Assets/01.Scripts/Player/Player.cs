@@ -24,9 +24,9 @@ public class Player : Entity
         //Skill = SkillManager.Instance;
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            _hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
-            Debug.Log(_hpUI);
-            HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
+            //_hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
+            //Debug.Log(_hpUI);
+            //HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
         }
     }
 
@@ -56,9 +56,9 @@ public class Player : Entity
 
     public void TurnStart()
     {
-        CameraMoveTrack track = PlayerCameraMoveDic.Instance[CardDefine.PlayerSkill.Heal];
-        CameraController.Instance.SetFollowCam(track.targetTrm, transform);
-        track.StartMove();
+        //CameraMoveTrack track = PlayerCameraMoveDic.Instance[CardDefine.PlayerSkill.Heal];
+        //CameraController.Instance.SetFollowCam(track.targetTrm, transform);
+        //track.StartMove();
     }
     public void TurnEnd()
     {

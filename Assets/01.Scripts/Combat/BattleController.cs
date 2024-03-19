@@ -18,7 +18,7 @@ public class BattleController : MonoBehaviour
     private int _divineCount;
     [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
 
-    [HideInInspector]
+    //[HideInInspector]
     public ExpansionList<Enemy> onFieldMonsterList = new ExpansionList<Enemy>();
     private EnemyHpBarMaker _enemyHpBarMaker;
 
@@ -29,6 +29,17 @@ public class BattleController : MonoBehaviour
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
+
+    [SerializeField] private Player _player;
+    public Player Player
+    {
+        get
+        {
+            if (_player != null) return _player;
+            _player = FindObjectOfType<Player>();
+            return _player;
+        }
+    }
 
     private void Awake()
     {
@@ -61,9 +72,11 @@ public class BattleController : MonoBehaviour
 
     private IEnumerator EnemySquence()
     {
+
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
+            Debug.Log($"모두공격?{onFieldMonsterList.Count}");
             yield return new WaitUntil(() => e.isTurnEnd);
         }
         TurnCounter.ChangeTurn();
@@ -95,7 +108,7 @@ public class BattleController : MonoBehaviour
             yield return new WaitForSeconds(_spawnTurm);
         }
         
-        _enemyHpBarMaker.SetupEnemyHpBar();
+        //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
     {

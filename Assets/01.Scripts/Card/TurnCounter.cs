@@ -50,21 +50,24 @@ public static class TurnCounter
 
     public static void ChangeTurn()
     {
+
+        Debug.Log($"{TurnCount}{CurrentTurnType}");
         TurnCount++;
 
         if(CurrentTurnType == TurnType.Player)
         {
             CurrentTurnType = TurnType.Enemy;
 
-            EnemyTurnEndEvent?.Invoke();
-            PlayerTurnStartEvent?.Invoke();
+            PlayerTurnEndEvent?.Invoke();
+            EnemyTurnStartEvent?.Invoke();
         }
         else
         {
             CurrentTurnType = TurnType.Player;
 
-            PlayerTurnEndEvent?.Invoke();
-            EnemyTurnStartEvent?.Invoke();
+            EnemyTurnEndEvent?.Invoke();
+            PlayerTurnStartEvent?.Invoke();
         }
+        Debug.Log($"{TurnCount}{CurrentTurnType}");
     }
 }
