@@ -16,8 +16,6 @@ public class Player : Entity
         base.Awake();
 
         PlayerStat = CharStat as PlayerStat;
-
-        TurnCounter.PlayerTurnStartEvent += TurnStart;
     }
     protected void Start()
     {
@@ -54,8 +52,9 @@ public class Player : Entity
     {
     }
 
-    public void TurnStart()
+    public void UseAbility()
     {
+
         //CameraMoveTrack track = PlayerCameraMoveDic.Instance[CardDefine.PlayerSkill.Heal];
         //CameraController.Instance.SetFollowCam(track.targetTrm, transform);
         //track.StartMove();

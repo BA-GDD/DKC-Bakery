@@ -38,7 +38,7 @@ public class ItemObject : MonoBehaviour
         _itemCollider = GetComponent<BoxCollider2D>();
         _trigger = transform.Find("ItemTrigger").GetComponent<ItemObjectTrigger>();
         _trigger.gameObject.SetActive(false);
-        _playerTrm = GameManager.Instance.PlayerTrm;
+        //_playerTrm = GameManager.Instance.PlayerTrm;
     }
 
     private void Update()

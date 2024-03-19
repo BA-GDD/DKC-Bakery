@@ -122,7 +122,7 @@ public class Stage : MonoBehaviour
             }
             else
             {
-                _stageInfo.Add(GameManager.Instance.PlayerTrm);
+                //_stageInfo.Add(GameManager.Instance.PlayerTrm);
 
                 Transform trm = new GameObject().transform;
                 trm.name = $"camTrm_{i + 1}";

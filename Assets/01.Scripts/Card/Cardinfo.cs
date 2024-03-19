@@ -12,7 +12,7 @@ public class CardInfo : ScriptableObject
     public Sprite CardVisual;
 
     [Header("스킬 정보")]
-    public string AbillityName;
-    public string AbillityInfo;
     public int AbillityCost;
+    [TextArea]
+    public string AbillityInfo;
 }
