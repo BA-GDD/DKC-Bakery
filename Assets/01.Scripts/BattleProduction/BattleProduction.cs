@@ -20,5 +20,7 @@ public class BattleProduction : MonoBehaviour
         _productionAnimator.SetBool("isOnProduction", true);
         yield return new WaitForSeconds(1);
         _productionAnimator.SetBool("isOnProduction", false);
+        yield return new WaitForSeconds(3.5f);
+        _battleStartEvent?.Invoke();
     }
 }
