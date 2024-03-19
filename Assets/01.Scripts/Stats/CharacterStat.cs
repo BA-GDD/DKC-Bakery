@@ -26,6 +26,7 @@ public enum StatType
 }
 public class CharacterStat : ScriptableObject
 {
+    public string characterName;
     [Header("Major stat")]
     public Stat strength;
     public Stat agility;
