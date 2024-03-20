@@ -14,7 +14,7 @@ public class BattleProduction : MonoBehaviour
         StartCoroutine(ProductionCo());
     }
 
-    IEnumerator ProductionCo()
+    protected IEnumerator ProductionCo()
     {
         _panelSetEvent?.Invoke(MapManager.Instanace.SelectStageData.enemyGroup, "???");
         _productionAnimator.SetBool("isOnProduction", true);
