@@ -18,18 +18,20 @@ public class MineSystem : MonoBehaviour
 
     private void Start()
     {
-        if(DataManager.Instance.IsHaveData(_adventureKey))
+        if(DataManager.Instance.IsHaveData(_adventureKey))  
         {
             _addData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
         _currentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor)+1);
 
+        MapManager.Instanace.SelectStageData = _currentMineInfo.stageData;
         MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
         mineUI.SetFloor(_currentMineInfo.Floor.ToString(),
-                        _currentMineInfo.StageName,
+                        _currentMineInfo.stageData.stageName,
                         _currentMineInfo.ClearGem,
                         _currentMineInfo.IsClearThisStage);
+        mineUI.SetUpFloor();
     }
 
     private void Update()
@@ -49,13 +51,15 @@ public class MineSystem : MonoBehaviour
         _currentMineInfo = _mineContainer.GetInfoByFloor(uf);
         MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
 
+        mineUI.PanelActive(false);
         mineUI.SetFloor(_currentMineInfo.Floor.ToString(), 
-                        _currentMineInfo.StageName, 
+                        _currentMineInfo.stageData.stageName, 
                         _currentMineInfo.ClearGem, 
                         _currentMineInfo.IsClearThisStage);
+        mineUI.SetUpFloor();
         MapChange();
         _addData.ClearMineFloor = (uf - 1).ToString();
-        _addData.InChallingingMineName = _currentMineInfo.StageName.ToString();
+        _addData.InChallingingMineName = _currentMineInfo.stageData.stageName;
         DataManager.Instance.SaveData(_addData, _adventureKey);
     }
 
@@ -84,6 +88,7 @@ public class MineSystem : MonoBehaviour
             upTrm.GetComponentInChildren<MineTape>().LockTape(false);
             downTrm.GetComponentInChildren<MineTape>().LockTape(true);
             downTrm.gameObject.SetActive(false);
+            UIManager.Instance.GetSceneUI<MineUI>().PanelActive(true);
         });
     }
 }

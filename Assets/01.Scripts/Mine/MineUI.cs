@@ -24,8 +24,11 @@ public class MineUI : SceneUI
         _currentStageName = stageName;
         _currentClearGem = clearGem;
         _isClearCurrentStage = isClear;
+    }
 
-        _animator.SetBool(_setUpHash, true);
+    public void PanelActive(bool isActive)
+    {
+        _animator.SetBool(_setUpHash, isActive);
     }
 
     public void SetUpFloor()
