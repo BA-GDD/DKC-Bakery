@@ -39,7 +39,7 @@ public class SimpleEnemy : Enemy
     {
         Debug.Log("last");
         base.MoveToLastPos();
-        transform.DOMove(lastMovePos, moveDuration).OnComplete(() => _turnEnd = true);
+        transform.DOMove(lastMovePos, moveDuration).OnComplete(() => turnStatus = TurnStatus.End);
     }
 
     public override void Attack()
@@ -68,18 +68,22 @@ public class SimpleEnemy : Enemy
     public override void TurnEnd()
     {
         camTrack.transform.SetParent(transform);
-        _turnEnd = false;
     }
     public override void TurnStart()
     {
+        turnStatus = TurnStatus.Ready;
     }
 
     public override void Spawn(Vector3 spawnPos)
     {
         AnimatorCompo.SetBool(spawnAnimationHash, true);
 
-        transform.position = spawnPos + new Vector3(-4f,6f);
-        transform.DOMoveX(spawnPos.x,1f);
-        transform.DOMoveY(spawnPos.y, 1f).SetEase(Ease.InCubic).OnComplete(() => AnimatorCompo.SetBool(spawnAnimationHash,false));
+        transform.position = spawnPos + new Vector3(-4f, 6f);
+        transform.DOMoveX(spawnPos.x, 1f);
+        transform.DOMoveY(spawnPos.y, 1f).SetEase(Ease.InCubic).OnComplete(() =>
+        {
+            AnimatorCompo.SetBool(spawnAnimationHash, false);
+            turnStatus = TurnStatus.Ready;
+        });
     }
 }

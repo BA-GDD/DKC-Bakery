@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TurnStatus
+{
+    Ready,
+    Running,
+    End
+}
 public enum TurnType
 {
     Player,

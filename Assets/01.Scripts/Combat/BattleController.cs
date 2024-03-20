@@ -19,13 +19,13 @@ public class BattleController : MonoBehaviour
     [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
 
     //[HideInInspector]
-    public ExpansionList<Enemy> onFieldMonsterList = new ExpansionList<Enemy>();
+    public Enemy[] onFieldMonsterList;
     private EnemyHpBarMaker _enemyHpBarMaker;
 
     [Header("√‚«ˆ ≈“")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
-    [SerializeField]private EnemyGroupSO _enemyGroup;
+    [SerializeField] private EnemyGroupSO _enemyGroup;
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
@@ -46,24 +46,30 @@ public class BattleController : MonoBehaviour
     {
         _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
-        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+        TurnCounter.RoundEndEvent += HandleRoundEnd;
+        TurnCounter.EnemyTurnStartEvent += HandleEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent += HandleEnemyTurnEnd;
     }
     private void OnDestroy()
     {
-        TurnCounter.EnemyTurnStartEvent -= OnEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
+        TurnCounter.RoundEndEvent -= HandleRoundEnd;
+        TurnCounter.EnemyTurnStartEvent -= HandleEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent -= HandleEnemyTurnEnd;
     }
+    private void HandleRoundEnd()
+    {
 
-    private void OnEnemyTurnStart()
+    }
+    private void HandleEnemyTurnStart()
     {
         foreach (var e in onFieldMonsterList)
         {
             e.TurnStart();
         }
-        if (onFieldMonsterList.Count > 0) StartCoroutine(EnemySquence());
+        if (onFieldMonsterList.Length > 0)
+            EnemySquence();
     }
-    private void OnEnemyTurnEnd()
+    private void HandleEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
         {
@@ -77,7 +83,7 @@ public class BattleController : MonoBehaviour
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
-            yield return new WaitUntil(() => e.isTurnEnd);
+            yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.ChangeTurn();
     }
@@ -107,7 +113,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        
+
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
@@ -121,12 +127,7 @@ public class BattleController : MonoBehaviour
             selectEnemy.BattleController = this;
             selectEnemy.SpriteRendererCompo.sortingOrder = (idx + 2) % 2;
 
-            selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
-
-            if (idx >= onFieldMonsterList.Count)
-                onFieldMonsterList.Add(selectEnemy);
-            else
-                onFieldMonsterList[idx] = selectEnemy;
+            onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
     }
@@ -147,11 +148,5 @@ public class BattleController : MonoBehaviour
         //    StartCoroutine(SpawnMonster());
         //}
         StartCoroutine(SpawnInitMonster());
-    }
-
-    public void DeadMonster(Enemy enemy)
-    {
-        int idx = onFieldMonsterList.IndexOf(enemy);
-        _enemyDeadQue.Enqueue(idx);
     }
 }
