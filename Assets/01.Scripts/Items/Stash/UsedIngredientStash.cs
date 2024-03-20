@@ -76,7 +76,7 @@ public class UsedIngredientStash : Stash
 
     public void RemoveAllItem()
     {
-        for(int i = 0; i < 5; ++i)
+        for(int i = 0; i < 3; ++i)
         {
             int result = (int)Mathf.Pow(2, i);
             ItemDataIngredientSO id = (ItemDataIngredientSO)usedIngredientStash[result].itemDataSO;

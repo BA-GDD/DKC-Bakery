@@ -9,12 +9,10 @@ using UnityEngine.InputSystem;
 public enum IngredientType
 {
     None = 0,       // 없음 (체크용)
-    Base = 1,       // 베이스
-    Liquid = 2,     // 액체류 - 물, 우유, 달걀
-    Leaven = 4,     // 효모
-    Butterfat = 8,  // 유지방
-    Sugars = 16,    // 당류
-    Else = 32
+    Core = 1,       // 베이스
+    Trace = 2,     // 흔적
+    Subjectivity = 4,     // 주관
+    Else = 8
 }
 
 public class BakingManager : MonoSingleton<BakingManager>
@@ -127,7 +125,7 @@ public class BakingManager : MonoSingleton<BakingManager>
 
     public bool CanBake()
     {
-        return usedIngredientStash.usedIngredDictionary.Count >= 5;
+        return usedIngredientStash.usedIngredDictionary.Count >= 3;
     }
 
     public ItemDataBreadSO BakeBread()
@@ -139,7 +137,7 @@ public class BakingManager : MonoSingleton<BakingManager>
         }
 
         string[] names = new string[5];
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 3; ++i)
         {
             int result = (int)Mathf.Pow(2, i);
             names[i] = usedIngredientStash.usedIngredientStash[result].itemDataSO.itemName;

@@ -20,11 +20,14 @@ public class TurnCounting : MonoBehaviour
     private void Start()
     {
         CardReader.SetDeck(MapManager.Instanace.SelectDeck);
-        Debug.Log(MapManager.Instanace.SelectDeck);
-        Debug.Log(CardReader.CountOfCardInDeck());
-        TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
-        CardReader.CardDrawer.DrawCard(5);
-        ToPlayerTurnChanging(true);
+        //TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
+    }
+
+    public void BattleStart()
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.AppendCallback(() => ToPlayerTurnChanging(false));
+        seq.AppendCallback(() => CardReader.CardDrawer.DrawCard(5));
     }
 
     public void ToPlayerTurnChanging(bool isTurnChange)
