@@ -32,6 +32,7 @@ public class Player : Entity
     private AnimatorOverrideController animatorOverrideController;
     private AnimationClipOverrides clipOverrides;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -87,5 +88,10 @@ public class Player : Entity
 
         AnimatorCompo.SetBool(_abilityHash, true);
         AnimatorCompo.SetBool(_moveHash, isMove);
+    }
+    public void EndAbility()
+    {
+        AnimatorCompo.SetBool(_abilityHash, false);
+        AnimatorCompo.SetBool(_moveHash, false);
     }
 }

@@ -21,14 +21,14 @@ public class CardDrawer : MonoBehaviour
             }
         }
     }
-    private Player _player;
-    public Player Player
+    private BattleController _battleController;
+    public BattleController BattleController
     {
         get
         {
-            if (_player != null) return _player;
-            _player = FindObjectOfType<Player>();
-            return _player;
+            if (_battleController != null) return _battleController;
+            _battleController = FindObjectOfType<BattleController>();
+            return _battleController;
         }
     }
     int idx;
@@ -50,7 +50,7 @@ public class CardDrawer : MonoBehaviour
     {
         CardBase spawnCard = Instantiate(selectInfo, _cardParent);
         spawnCard.name = idx.ToString();
-        spawnCard.player = this.Player;
+        spawnCard.battleController = this.BattleController;
         idx++;
 
         CardReader.RemoveCardInDeck(selectInfo);

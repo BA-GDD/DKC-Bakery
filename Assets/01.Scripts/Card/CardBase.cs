@@ -66,7 +66,8 @@ public abstract class CardBase : MonoBehaviour,
     private CardInfoPanel _cardInfoPanel;
     [SerializeField] private Material _cardMat;
 
-    [HideInInspector]public Player player;
+    [HideInInspector]public BattleController battleController;
+    protected Player Player => battleController.Player;
 
     private void Awake()
     {
