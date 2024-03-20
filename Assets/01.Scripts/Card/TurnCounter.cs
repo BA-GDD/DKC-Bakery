@@ -10,7 +10,7 @@ public enum TurnType
 
 public static class TurnCounter
 {
-    public static TurnType CurrentTurnType { get; private set; } = TurnType.Enemy;
+    public static TurnType CurrentTurnType { get; private set; } = TurnType.Player;
     public static int TurnCount { get; private set; }
     public static int RoundCount { get; private set; }
 
@@ -32,7 +32,7 @@ public static class TurnCounter
             {
                 return _turnCounting;
             }
-            _turnCounting = GameObject  .FindObjectOfType<TurnCounting>();
+            _turnCounting = GameObject.FindObjectOfType<TurnCounting>();
             return _turnCounting;
         }
     }
@@ -50,8 +50,6 @@ public static class TurnCounter
 
     public static void ChangeTurn()
     {
-
-        Debug.Log($"{TurnCount}{CurrentTurnType}");
         TurnCount++;
 
         if(CurrentTurnType == TurnType.Player)
@@ -68,6 +66,5 @@ public static class TurnCounter
             EnemyTurnEndEvent?.Invoke();
             PlayerTurnStartEvent?.Invoke(false);
         }
-        Debug.Log($"{TurnCount}{CurrentTurnType}");
     }
 }

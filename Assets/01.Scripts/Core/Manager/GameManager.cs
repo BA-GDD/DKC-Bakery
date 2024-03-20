@@ -49,18 +49,4 @@ public class GameManager : MonoSingleton<GameManager>
             yield return null;
         }
     }
-
-    #region Debug
-    [Header("Debug")]
-    [SerializeField] private InputReader _inputReader;
-    private void Update()
-    {
-        _inputReader?.UpdateBuffer();
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            TurnCounter.ChangeTurn();
-        }
-
-    }
-    #endregion
 }

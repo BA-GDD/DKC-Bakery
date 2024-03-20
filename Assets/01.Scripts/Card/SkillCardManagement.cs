@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Google.GData.Client;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,6 +71,7 @@ public class SkillCardManagement : CardManagement
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
 
+            Debug.Log(9);
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             return;
         }
@@ -82,10 +82,12 @@ public class SkillCardManagement : CardManagement
         selectCard.ActiveInfo();
         UseAbility(selectCard);
     }
+
     public override void UseAbility(CardBase selectCard)
     {
         selectCard.Abillity();
     }
+
     public void SetSkillCardInCardZone(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;

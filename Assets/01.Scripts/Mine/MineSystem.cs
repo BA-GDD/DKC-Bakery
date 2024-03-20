@@ -24,6 +24,12 @@ public class MineSystem : MonoBehaviour
         }
 
         _currentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor)+1);
+
+        MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
+        mineUI.SetFloor(_currentMineInfo.Floor.ToString(),
+                        _currentMineInfo.StageName,
+                        _currentMineInfo.ClearGem,
+                        _currentMineInfo.IsClearThisStage);
     }
 
     private void Update()
@@ -55,11 +61,29 @@ public class MineSystem : MonoBehaviour
 
     private void MapChange()
     {
-        Transform upTrm = _firstMap.position.y > _secondMap.position.y ? _firstMap : _secondMap;
-        upTrm.transform.position = _downPos;
+        Transform upTrm;
+        Transform downTrm;
 
-        FeedbackManager.Instance.ShakeScreen(0.5f, 2.1f);
-        _firstMap.DOMoveY(_firstMap.position.y + 13, 2f);
-        _secondMap.DOMoveY(_secondMap.position.y + 13, 2f);
+        if(_firstMap.position.y > _secondMap.position.y)
+        {
+            upTrm = _firstMap;
+            downTrm = _secondMap;
+        }
+        else
+        {
+            upTrm = _secondMap;
+            downTrm = _firstMap;
+        }
+        
+        upTrm.transform.position = _downPos;
+        upTrm.gameObject.SetActive(true);
+
+        _firstMap.DOMoveY(_firstMap.position.y + 14, 2f);
+        _secondMap.DOMoveY(_secondMap.position.y + 14, 2f).OnComplete(()=> 
+        {
+            upTrm.GetComponentInChildren<MineTape>().LockTape(false);
+            downTrm.GetComponentInChildren<MineTape>().LockTape(true);
+            downTrm.gameObject.SetActive(false);
+        });
     }
 }

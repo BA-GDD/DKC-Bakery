@@ -56,6 +56,7 @@ public class BattleController : MonoBehaviour
 
     private void OnEnemyTurnStart()
     {
+        Debug.Log("Enemy Turn Start");
         foreach (var e in onFieldMonsterList)
         {
             e.TurnStart();
@@ -72,24 +73,18 @@ public class BattleController : MonoBehaviour
 
     private IEnumerator EnemySquence()
     {
-
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
             Debug.Log($"모두공격?{onFieldMonsterList.Count}");
             yield return new WaitUntil(() => e.isTurnEnd);
         }
-        TurnCounter.ChangeTurn();
+        TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
     }
 
-    private void Start()
+    public void SetStage()
     {
-        SetStage(MapManager.Instanace.SelectStageData.enemyGroup);
-    }
-
-    public void SetStage(EnemyGroupSO groupSO)
-    {
-        _enemyGroup = groupSO;
+        _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
 
         foreach (var e in _enemyGroup.enemies)
         {

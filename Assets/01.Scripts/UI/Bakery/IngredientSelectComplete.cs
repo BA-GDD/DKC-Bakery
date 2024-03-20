@@ -26,7 +26,6 @@ public class IngredientSelectComplete : MonoBehaviour
         _myButton.onClick.AddListener(SelectComplete);
     }
 
-
     public void SelectComplete()
     {
         _btnOkText.enabled = false;
