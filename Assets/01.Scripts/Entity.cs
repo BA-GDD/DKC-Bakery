@@ -20,9 +20,6 @@ public abstract class Entity : PoolableMono
     protected int _hitAnimationHash = Animator.StringToHash("hit");
     protected int _deathAnimationHash = Animator.StringToHash("death");
 
-    protected bool _turnEnd = false;
-    public bool isTurnEnd => _turnEnd;
-
     public UnityEvent<float> OnHealthBarChanged;
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
@@ -63,7 +60,6 @@ public abstract class Entity : PoolableMono
 
     private void OnDestroy()
     {
-        _turnEnd = true;
         HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
     }
 

@@ -29,13 +29,12 @@ public class TornadoSkill : CardBase
     private IEnumerator AttackCor()
     {
         yield return new WaitForSeconds(0.3f);
-        List<Enemy> list = battleController.onFieldMonsterList;
         for (int i = 0; i < 5; i++)
         {
             yield return new WaitForSeconds(0.26f);
-            foreach (var e in list)
+            foreach (var e in battleController.onFieldMonsterList)
             {
-                e.HealthCompo.ApplyDamage(2, Player);
+                e?.HealthCompo.ApplyDamage(2, Player);
             }
         }
     }
