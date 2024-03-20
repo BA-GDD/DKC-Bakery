@@ -65,6 +65,9 @@ public abstract class CardBase : MonoBehaviour,
     }
     private CardInfoPanel _cardInfoPanel;
     [SerializeField] private Material _cardMat;
+
+    [HideInInspector]public Player player;
+
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();

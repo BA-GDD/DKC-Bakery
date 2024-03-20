@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShockedAilment : MonoBehaviour
+public class ShockedAilment : Ailment
 {
-    // Start is called before the first frame update
-    void Start()
+    public ShockedAilment(AilmentStat stat, Health health, AilmentEnum ailment) : base(stat, health, ailment)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

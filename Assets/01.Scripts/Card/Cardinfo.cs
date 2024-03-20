@@ -12,6 +12,8 @@ public class CardInfo : ScriptableObject
     public Sprite CardVisual;
 
     [Header("스킬 정보")]
+    public AnimationClip abilityAnimation;
+
     public int AbillityCost;
     [TextArea]
     public string AbillityInfo;

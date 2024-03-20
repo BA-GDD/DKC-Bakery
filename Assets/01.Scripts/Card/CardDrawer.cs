@@ -21,6 +21,16 @@ public class CardDrawer : MonoBehaviour
             }
         }
     }
+    private Player _player;
+    public Player Player
+    {
+        get
+        {
+            if (_player != null) return _player;
+            _player = FindObjectOfType<Player>();
+            return _player;
+        }
+    }
     int idx;
 
     public void DrawCard(int count)
@@ -40,6 +50,7 @@ public class CardDrawer : MonoBehaviour
     {
         CardBase spawnCard = Instantiate(selectInfo, _cardParent);
         spawnCard.name = idx.ToString();
+        spawnCard.player = this.Player;
         idx++;
 
         CardReader.RemoveCardInDeck(selectInfo);

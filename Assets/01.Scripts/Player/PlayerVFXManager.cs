@@ -2,26 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct CardAndEffect
+{
+    public CardInfo info;
+    public ParticleSystem particle;
+}
+
 public class PlayerVFXManager : MonoBehaviour
 {
+    [SerializeField] private List<CardAndEffect> cardAndEffects = new();
+    private Dictionary<CardInfo, ParticleSystem> _cardByEffects = new();
     //공격시 이펙트 나오게 설정
-    [SerializeField] private ParticleSystem[] _blades;
     private Player _player;
 
     private void Awake()
     {
         _player = GetComponent<Player>();
-    }
-    private void PlayBlade(int comboCount)
-    {
-        _blades[comboCount].Play();
-    }
-    private void StopBlade()
-    {
-        foreach (var particle in _blades)
+        foreach (var c in cardAndEffects)
         {
-            particle.Simulate(0);
-            particle.Stop();
+            if (!_cardByEffects.ContainsKey(c.info))
+            {
+                _cardByEffects.Add(c.info, c.particle);
+            }
+            else
+            {
+                Debug.LogError("중복이 있어요");
+            }
         }
+    }
+    public void PlayParticle(CardInfo card)
+    {
+        if (!_cardByEffects.ContainsKey(card))
+        {
+            Debug.LogError("이펙트가 없어요");
+            return;
+        }
+        _cardByEffects[card].Play();
     }
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TornadoSkill : CardBase
 {
-    private readonly int _animationHash = Animator.StringToHash("tornado");
     public override void Abillity()
     {
-
+        IsActivingAbillity = true;
+        player.UseAbility(this);
+        player.OnAnimationCall += () => player.VFXManager.PlayParticle(CardInfo);
+        player.OnAnimationEnd += () => IsActivingAbillity = false;
     }
 }

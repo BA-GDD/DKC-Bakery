@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlayerAnimationTriggers : MonoBehaviour
 {
-    public static Action AnimationEvent;
-
     private Player _player;
 
     private void Awake()
@@ -16,10 +14,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
 
     private void AnimationEndTrigger()
     {
-        _player.AnimationEndTrigger();
+        _player.OnAnimationEnd?.Invoke();
     }
     private void AnimationEventTrigger()
     {
-        AnimationEvent?.Invoke();
+        _player.OnAnimationCall?.Invoke();
     }
 }
