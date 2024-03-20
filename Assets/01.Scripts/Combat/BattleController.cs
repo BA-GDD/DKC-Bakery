@@ -29,6 +29,7 @@ public class BattleController : MonoBehaviour
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
+    private Queue<int> _enemyDeadQue = new Queue<int>();
 
     [SerializeField] private Player _player;
     public Player Player
@@ -76,7 +77,6 @@ public class BattleController : MonoBehaviour
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
-            Debug.Log($"모두공격?{onFieldMonsterList.Count}");
             yield return new WaitUntil(() => e.isTurnEnd);
         }
         TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
@@ -147,6 +147,6 @@ public class BattleController : MonoBehaviour
     public void DeadMonster(Enemy enemy)
     {
         int idx = onFieldMonsterList.IndexOf(enemy);
-        SpawnMonster(idx);
+        _enemyDeadQue.Enqueue(idx);
     }
 }
