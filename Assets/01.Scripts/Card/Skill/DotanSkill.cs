@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DotanSkill : CardBase
+public class DotanSkill : CardBase, ISkillEffectAnim
 {
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        player.UseAbility(this);
-        player.OnAnimationCall += () => player.VFXManager.PlayParticle(CardInfo);
-        player.OnAnimationEnd += () => IsActivingAbillity = false;
+        Player.UseAbility(this);
+        Player.OnAnimationCall += () => Player.VFXManager.PlayParticle(CardInfo);
+        Player.OnAnimationEnd += () => IsActivingAbillity = false;
+    }
+
+    public void HandleAnimationCall()
+    {
+
+    }
+
+    public void HandleEffectEnd()
+    {
+
     }
 }
