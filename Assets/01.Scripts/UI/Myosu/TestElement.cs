@@ -39,7 +39,6 @@ public class TestElement : PoolableMono,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(1);
         if (IsSelected) return;
         _frameImg.enabled = true;
     }
