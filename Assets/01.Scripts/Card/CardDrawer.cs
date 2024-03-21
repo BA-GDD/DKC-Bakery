@@ -21,6 +21,16 @@ public class CardDrawer : MonoBehaviour
             }
         }
     }
+    private BattleController _battleController;
+    public BattleController BattleController
+    {
+        get
+        {
+            if (_battleController != null) return _battleController;
+            _battleController = FindObjectOfType<BattleController>();
+            return _battleController;
+        }
+    }
     int idx;
 
     public void DrawCard(int count)
@@ -40,6 +50,7 @@ public class CardDrawer : MonoBehaviour
     {
         CardBase spawnCard = Instantiate(selectInfo, _cardParent);
         spawnCard.name = idx.ToString();
+        spawnCard.battleController = this.BattleController;
         idx++;
 
         CardReader.RemoveCardInDeck(selectInfo);

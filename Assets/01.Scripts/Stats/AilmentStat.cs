@@ -33,7 +33,9 @@ public class AilmentStat
         foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
         {
             if (ailment == AilmentEnum.None) continue;
-            _ailmentDictionary[ailment].Update();
+            
+            if(HasAilment(ailment))
+                _ailmentDictionary[ailment].Update();
         }
     }
     public void CuredAilment(AilmentEnum ailment)
