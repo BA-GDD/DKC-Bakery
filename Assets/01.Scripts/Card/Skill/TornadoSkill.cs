@@ -13,7 +13,7 @@ public class TornadoSkill : CardBase
     }
     private void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo,centerPos());
+        Player.VFXManager.PlayParticle(CardInfo, centerPos());
         StartCoroutine(AttackCor());    
         Player.OnAnimationCall -= HandleAnimationCall;
     }

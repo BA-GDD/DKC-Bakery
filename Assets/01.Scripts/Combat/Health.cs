@@ -150,6 +150,7 @@ public class Health : MonoBehaviour, IDamageable
         if (_currentHealth == 0)
         {
             isDead = true;
+            Debug.Log(1);
             OnDeathEvent?.Invoke();
             return;
         }
