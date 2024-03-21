@@ -18,7 +18,6 @@ public class CardSelecter : MonoBehaviour
             _canUseCardData = DataManager.Instance.LoadData<CanUseCardData>(_canUseCardDataKey);
         }
 
-        //_canUseCardData.CanUseCardsList.Add(CardBase);
         for(int i = 0; i < _canUseCardData.CanUseCardsList.Count; i++)
         {
             if(i % 6 == 0)

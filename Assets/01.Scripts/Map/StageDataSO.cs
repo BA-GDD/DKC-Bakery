@@ -15,4 +15,5 @@ public class StageDataSO : ScriptableObject
     public string stageName;
     public StageType stageType;
     public EnemyGroupSO enemyGroup;
+    public TsumegoInfo clearCondition;
 }

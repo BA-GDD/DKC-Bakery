@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoSingleton<Inventory>
 {
@@ -11,72 +12,45 @@ public class Inventory : MonoSingleton<Inventory>
 
     public Transform IngredientParent => _ingredientParent;
     [Header("ParentTrms")]
-    [SerializeField] private Transform _ingredientParent; 
+    [SerializeField] private Transform _ingredientParent;
     [SerializeField] private Transform _breadParent;
-    
+    public ExpansionList<ItemDataIngredientSO> GetIngredientInThisBattle { get; set; } = new ExpansionList<ItemDataIngredientSO>();
 
     [Header("Events")]
-    public UnityEvent<int> onRemoveBreadTrigger; 
-    public UnityEvent<int> onRemoveIngredientTrigger; 
-
-    [Header("Debug")]
-    [SerializeField] private ItemDataSO _debugItemData;
-    [SerializeField] private string _debugText;
-    [SerializeField] private ItemDataSO _testBaseData;
-    [SerializeField] private ItemDataSO _testLiquidData;
-    [SerializeField] private ItemDataSO _testLeavenData;
-    [SerializeField] private ItemDataSO _testButterfatData;
-    [SerializeField] private ItemDataSO _testSugarsData;
+    public UnityEvent<int> onRemoveBreadTrigger;
+    public UnityEvent<int> onRemoveIngredientTrigger;
 
     private void Awake()
     {
         ingredientStash = new IngredientStash(_ingredientParent);
         breadStash = new BreadStash(_breadParent);
+
+        SceneManager.activeSceneChanged += HandleClearGetIngList;
+        GetIngredientInThisBattle.ListAdded += HandleGetItem;
+    }
+
+    private void HandleGetItem(object sender, EventArgs e)
+    {
+        Debug.Log(sender);
+    }
+
+    private void HandleClearGetIngList(Scene arg0, Scene arg1)
+    {
+        GetIngredientInThisBattle.Clear();
     }
 
     private void Start()
     {
         UpdateSlotUI();
     }
-    private void Update()
-    {
-        //if (Keyboard.current.gKey.wasPressedThisFrame)
-        //{
-        //    Debug.Log("gKey");
-        //    AddItem(_debugItemData);
-        //}
-        //if (Keyboard.current.yKey.wasPressedThisFrame)
-        //{
-        //    Debug.Log("yKey");
-        //    AddItem(_testBaseData);
-        //}
-        //if (Keyboard.current.uKey.wasPressedThisFrame)
-        //{
-        //    Debug.Log("uKey");
-        //    AddItem(_testLiquidData);
-        //}
-        //if (Keyboard.current.iKey.wasPressedThisFrame)
-        //{
-        //    Debug.Log("iKey");
-        //    AddItem(_testLeavenData);
-        //}
-        //if (Keyboard.current.oKey.wasPressedThisFrame)
-        //{
-        //    Debug.Log("oKey");
-        //    AddItem(_testButterfatData);
-        //}
-        //if (Keyboard.current.pKey.wasPressedThisFrame)
-        //{
-        //    AddItem(_testSugarsData);
-        //}
-    }
-    public void UpdateSlotUI() 
+
+    public void UpdateSlotUI()
     {
         ingredientStash.UpdateSlotUI();
         breadStash.UpdateSlotUI();
     }
     public void AddItem(ItemDataSO item, int count = 0)
-    { 
+    {
         if (item.itemType == ItemType.Bread)
         {
             if (breadStash.CanAddItem(item))
@@ -100,7 +74,7 @@ public class Inventory : MonoSingleton<Inventory>
         if (item.itemType == ItemType.Bread)
         {
             ItemDataBreadSO breadSO = ((ItemDataBreadSO)item);
-            if(breadSO!= null)
+            if (breadSO != null)
             {
                 onRemoveBreadTrigger.Invoke(breadSO.hogamdo);
             }
@@ -116,10 +90,5 @@ public class Inventory : MonoSingleton<Inventory>
             ingredientStash.RemoveItem(item, count);
         }
         UpdateSlotUI();
-    }
-
-    public void DebugText(int index)
-    {
-        Debug.Log($"{ _debugText} : { index}");
     }
 }

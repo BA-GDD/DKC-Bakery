@@ -22,5 +22,6 @@ public class CardUpgradeTableSO : ScriptableObject
         {
             findCardInfo.Add(cardUpgradeInfos[i].Name, cardUpgradeInfos[i].cardUpgradeInfo);
         }
+        Debug.Log(findCardInfo.Count);
     }
 }

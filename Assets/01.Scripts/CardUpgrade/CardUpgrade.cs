@@ -16,12 +16,15 @@ public class CardUpgrade : MonoBehaviour
     private void Awake()
     {
         //나중에~
+        cardTable.SetDic();
     }
 
     public bool IsAbleToUpgrade(CardInfo cardInfo)
     {
         if (cardInfo == null) return false;
-        return cardInfo.CardLevel < 5 && currentMoney >= debugToUpgradeMoney;
+        print(cardInfo.CardName);
+        print(cardInfo.CardLevel);
+        return cardInfo.CardLevel < 5 && currentMoney >= debugToUpgradeMoney && cardTable.findCardInfo.ContainsKey(cardInfo.CardName);
     }
 
     public void UpgradeCard(CardInfo cardInfo)
@@ -32,6 +35,14 @@ public class CardUpgrade : MonoBehaviour
         //DataManager.Instance.SaveData();
 
         //시트에서 불러와서 넣기
-        cardInfo.CardAttackDamage += float.Parse(cardTable.findCardInfo[cardInfo.CardName].genDatas[0].str[cardInfo.CardLevel]);
+        cardTable.findCardInfo[cardInfo.CardName].SetList();
+        cardInfo.CardAttackDamage = float.Parse(cardTable.findCardInfo[cardInfo.CardName].genDatas[0].str[cardInfo.CardLevel]);
+    }
+
+    public void DowngradeCard(CardInfo cardInfo)
+    {
+        cardInfo.CardLevel--;
+        cardTable.findCardInfo[cardInfo.CardName].SetList();
+        cardInfo.CardAttackDamage = float.Parse(cardTable.findCardInfo[cardInfo.CardName].genDatas[0].str[cardInfo.CardLevel]);
     }
 }

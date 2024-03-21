@@ -10,7 +10,7 @@ public class AllKillCondition : TsumegoCondition
         Enemy[] eArr = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in eArr)
         {
-            if(!enemy.HealthCompo.isDead)
+            if(!enemy.HealthCompo.IsDead)
             {
                 return false;
             }

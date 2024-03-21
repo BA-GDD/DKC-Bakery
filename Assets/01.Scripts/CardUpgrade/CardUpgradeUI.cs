@@ -40,11 +40,14 @@ public class CardUpgradeUI : MonoBehaviour
 
     private void Update()
     {
-        /*if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (Keyboard.current.gKey.wasPressedThisFrame)
         {
-            CardUpgradeCard cuc = Instantiate(_upgradeCardPrefab, _contentTrm);
-            cuc.SetInfo(_sampleCard);
-        }*/
+            GetInventory();
+        }
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            _cardUpgrade.DowngradeCard(_cardUpgradeCard.CardBase.CardInfo);
+        }
     }
 
     private void GetInventory()
@@ -56,7 +59,7 @@ public class CardUpgradeUI : MonoBehaviour
 
         for (int i = 0; i < _canUseCardData.CanUseCardsList.Count; i++)
         {
-            CardUpgradeCard cuc = Instantiate(_upgradeCardPrefab, _inventoryTrm);
+            CardUpgradeCard cuc = Instantiate(_upgradeCardPrefab, _contentTrm);
             cuc.SetInfo(_canUseCardData.CanUseCardsList[i]);
         }
     } 
@@ -73,6 +76,7 @@ public class CardUpgradeUI : MonoBehaviour
     public void UpgradeCard()
     {
         if (_cardUpgradeCard == null) return;
+        print(_cardUpgradeCard.CardBase.CardInfo.CardName);
         if (_cardUpgrade.IsAbleToUpgrade(_cardUpgradeCard.CardBase.CardInfo))
         {
             print("강화 성공");

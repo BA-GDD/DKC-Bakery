@@ -61,7 +61,7 @@ public class BattleController : MonoBehaviour
         {
             e.TurnStart();
         }
-        if (onFieldMonsterList.Count > 0) StartCoroutine(EnemySquence());
+        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
     }
     private void OnEnemyTurnEnd()
     {
@@ -76,7 +76,7 @@ public class BattleController : MonoBehaviour
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
-            Debug.Log($"��ΰ���?{onFieldMonsterList.Count}");
+            Debug.Log($"��ΰ���?{onFieldMonsterList.Length}");
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
@@ -118,10 +118,6 @@ public class BattleController : MonoBehaviour
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 
-            if (idx >= onFieldMonsterList.Count)
-                onFieldMonsterList.Add(selectEnemy);
-            else
-                onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
     }

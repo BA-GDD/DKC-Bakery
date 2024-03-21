@@ -8,7 +8,7 @@ using UnityEditor;
 public class CardUpgradeInfo : LoadableData
 {
     public List<Data> genDatas = new List<Data>();
-    private void SetList()
+    public void SetList()
     {
         genDatas = generateData;
     }

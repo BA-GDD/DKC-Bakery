@@ -12,7 +12,6 @@ struct CardData
     public TextMeshProUGUI NameText;
 
     public bool isSelect;
-    public CardBase CardBase;
 }
 
 public class CardUpgradeCard : MonoBehaviour, IPointerClickHandler
@@ -29,6 +28,8 @@ public class CardUpgradeCard : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _cardRectTrm = GetComponent<RectTransform>();
+        _cardData.Visual = _cardRectTrm.GetComponent<Image>();
+        _cardData.NameText = _cardRectTrm.GetComponentInChildren<TextMeshProUGUI>();
         _upgradeUI = GetComponentInParent<CardUpgradeUI>();
     }
 
@@ -53,9 +54,9 @@ public class CardUpgradeCard : MonoBehaviour, IPointerClickHandler
     public void SetInfo(CardBase info)
     {
         _cardBase = info;
-
-        _cardData.Visual.sprite = _cardBase.CardInfo.CardVisual;
-        _cardData.NameText.text = _cardBase.CardInfo.CardName;
+        print(_cardData.Visual);
+        _cardData.Visual.sprite = info.CardInfo.CardVisual;
+        _cardData.NameText.text = info.CardInfo.CardName;
     }
 
 }
