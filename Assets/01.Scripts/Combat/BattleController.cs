@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 [Serializable]
 public class SEList<T>
@@ -29,7 +30,6 @@ public class BattleController : MonoBehaviour
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
-    private Queue<int> _enemyDeadQue = new Queue<int>();
 
     [SerializeField] private Player _player;
     public Player Player
@@ -49,9 +49,6 @@ public class BattleController : MonoBehaviour
         TurnCounter.RoundEndEvent += HandleRoundEnd;
         TurnCounter.EnemyTurnStartEvent += HandleEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += HandleEnemyTurnEnd;
-
-        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
-
     }
     private void OnDestroy()
     {
@@ -59,55 +56,66 @@ public class BattleController : MonoBehaviour
         TurnCounter.EnemyTurnStartEvent -= HandleEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent -= HandleEnemyTurnEnd;
     }
+
     private void HandleRoundEnd()
     {
-
+        StartCoroutine(RechargeEnemy());
     }
+
     private void HandleEnemyTurnStart()
     {
-        Debug.Log("Enemy Turn Start");
         foreach (var e in onFieldMonsterList)
         {
+            if (e is null) continue;
             e.TurnStart();
         }
         if (onFieldMonsterList.Length > 0)
-            EnemySquence();
+            StartCoroutine(EnemySquence());
     }
     private void HandleEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
         {
+            if (e is null) continue;
             e.TurnEnd();
         }
     }
 
     private IEnumerator EnemySquence()
     {
+        Debug.Log(onFieldMonsterList.Length);
         foreach (var e in onFieldMonsterList)
         {
+            if (e is null) continue;
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
-        TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
+        TurnCounter.ChangeTurn();
     }
 
-    public void SetStage()
+    private void Start()
     {
-        _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
+        SetStage(MapManager.Instanace.SelectStageData.enemyGroup);
+    }
+
+    public void SetStage(EnemyGroupSO groupSO)
+    {
+        _enemyGroup = groupSO;
 
         foreach (var e in _enemyGroup.enemies)
         {
             _enemyQue.Enqueue(e.poolingType);
         }
-        StartCoroutine(SpawnInitMonster());
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
+        StartCoroutine(RechargeEnemy());
     }
 
-    private IEnumerator SpawnInitMonster()
+    private IEnumerator RechargeEnemy()
     {
-        yield return null;
-
         for (int i = 0; i < _spawnDistanceByPoint.Count; i++)
         {
+            if (onFieldMonsterList[i] != null) continue;
+
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
@@ -125,26 +133,14 @@ public class BattleController : MonoBehaviour
             selectEnemy.BattleController = this;
             selectEnemy.SpriteRendererCompo.sortingOrder = (idx + 2) % 2;
 
+            selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
+
             onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
     }
-
-    private void HandleChangeMonsterCountOnField(object sender, EventArgs e)
+    private void DeadMonster(Enemy enemy)
     {
-        //if (onFieldMonsterList.Count == 0)
-        //{
-        //    _divineCount++;
-
-        //    if ((_divineCount % _divineToken) == 0)
-        //    {
-        //        Debug.Log("Phase Clear");
-        //        _currentStage.CurPhaseCleared = true;
-        //        StartCoroutine(SpawnMonster());
-        //    }
-
-        //    StartCoroutine(SpawnMonster());
-        //}
-        StartCoroutine(SpawnInitMonster());
+        onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
     }
 }
