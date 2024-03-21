@@ -14,12 +14,8 @@ public class SEList<T>
 
 public class BattleController : MonoBehaviour
 {
-    [Header("페이지에 따른 몬스터 출현 기믹")]
-    [SerializeField] private int _divineToken;
-    private int _divineCount;
-    [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
+    [SerializeField] private SEList<SEList<bool>> isStuck;
 
-    //[HideInInspector]
     public Enemy[] onFieldMonsterList;
     private EnemyHpBarMaker _enemyHpBarMaker;
 
@@ -44,7 +40,7 @@ public class BattleController : MonoBehaviour
 
     private void Awake()
     {
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
         TurnCounter.RoundEndEvent += HandleRoundEnd;
         TurnCounter.EnemyTurnStartEvent += HandleEnemyTurnStart;
@@ -142,5 +138,9 @@ public class BattleController : MonoBehaviour
     private void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
+    }
+    public bool IsStuck(int to, int who)
+    {
+        return isStuck.list[to].list[who];
     }
 }
