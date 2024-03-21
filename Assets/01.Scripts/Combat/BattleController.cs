@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
-using System.Threading.Tasks;
 
 [Serializable]
 public class SEList<T>
@@ -17,12 +16,16 @@ public class BattleController : MonoBehaviour
     [SerializeField] private SEList<SEList<bool>> isStuck;
 
     public Enemy[] onFieldMonsterList;
+    public List<Enemy> DeathEnemyList { get; set; }  = new List<Enemy>();
+
+
+    //[HideInInspector]
     private EnemyHpBarMaker _enemyHpBarMaker;
 
-    [Header("ÃâÇö ÅÒ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
-    [SerializeField] private EnemyGroupSO _enemyGroup;
+    [SerializeField]private EnemyGroupSO _enemyGroup;
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
@@ -42,80 +45,64 @@ public class BattleController : MonoBehaviour
     {
         //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
-        TurnCounter.RoundEndEvent += HandleRoundEnd;
-        TurnCounter.EnemyTurnStartEvent += HandleEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent += HandleEnemyTurnEnd;
+        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
     }
     private void OnDestroy()
     {
-        TurnCounter.RoundEndEvent -= HandleRoundEnd;
-        TurnCounter.EnemyTurnStartEvent -= HandleEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent -= HandleEnemyTurnEnd;
+        TurnCounter.EnemyTurnStartEvent -= OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
     }
 
-    private void HandleRoundEnd()
+    private void OnEnemyTurnStart()
     {
-        StartCoroutine(RechargeEnemy());
-    }
-
-    private void HandleEnemyTurnStart()
-    {
+        Debug.Log("Enemy Turn Start");
         foreach (var e in onFieldMonsterList)
         {
-            if (e is null) continue;
             e.TurnStart();
         }
-        if (onFieldMonsterList.Length > 0)
-            StartCoroutine(EnemySquence());
+        if (onFieldMonsterList.Count > 0) StartCoroutine(EnemySquence());
     }
-    private void HandleEnemyTurnEnd()
+    private void OnEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
         {
-            if (e is null) continue;
             e.TurnEnd();
         }
     }
 
     private IEnumerator EnemySquence()
     {
-        Debug.Log(onFieldMonsterList.Length);
         foreach (var e in onFieldMonsterList)
         {
-            if (e is null) continue;
             e.TurnAction();
+            Debug.Log($"ï¿½ï¿½Î°ï¿½ï¿½ï¿½?{onFieldMonsterList.Count}");
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
-        TurnCounter.ChangeTurn();
+        TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
     }
 
-    private void Start()
+    public void SetStage()
     {
-        SetStage(MapManager.Instanace.SelectStageData.enemyGroup);
-    }
-
-    public void SetStage(EnemyGroupSO groupSO)
-    {
-        _enemyGroup = groupSO;
+        _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
 
         foreach (var e in _enemyGroup.enemies)
         {
             _enemyQue.Enqueue(e.poolingType);
         }
-        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
-        StartCoroutine(RechargeEnemy());
+        StartCoroutine(SpawnInitMonster());
     }
 
-    private IEnumerator RechargeEnemy()
+    private IEnumerator SpawnInitMonster()
     {
+        yield return null;
+
         for (int i = 0; i < _spawnDistanceByPoint.Count; i++)
         {
-            if (onFieldMonsterList[i] != null) continue;
-
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-
+        
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
@@ -131,13 +118,16 @@ public class BattleController : MonoBehaviour
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 
-            onFieldMonsterList[idx] = selectEnemy;
+            if (idx >= onFieldMonsterList.Count)
+                onFieldMonsterList.Add(selectEnemy);
+            else
+                onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
     }
-    private void DeadMonster(Enemy enemy)
-    {
 
+    public void DeadMonster(Enemy enemy)
+    {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
     }
     public bool IsStuck(int to, int who)

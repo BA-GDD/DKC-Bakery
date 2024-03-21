@@ -1,8 +1,5 @@
 using DG.Tweening;
-using Google.GData.Client;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,6 +24,7 @@ public class SkillCardManagement : CardManagement
     [SerializeField] private UnityEvent _beforeChainingEvent;
     [SerializeField] private UnityEvent _afterChanningEvent;
     [SerializeField] private UnityEvent<bool> _acceptBtnSwitchEvent;
+    [SerializeField] private UnityEvent _checkStageClearEvent;
 
     private void Start()
     {
@@ -73,6 +71,7 @@ public class SkillCardManagement : CardManagement
             _isInChaining = false;
 
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
+            _checkStageClearEvent?.Invoke();
             return;
         }
 
@@ -82,10 +81,12 @@ public class SkillCardManagement : CardManagement
         selectCard.ActiveInfo();
         UseAbility(selectCard);
     }
+
     public override void UseAbility(CardBase selectCard)
     {
         selectCard.Abillity();
     }
+
     public void SetSkillCardInCardZone(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;

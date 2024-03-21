@@ -52,5 +52,6 @@ public class TestElement : PoolableMono,
     public void OnPointerClick(PointerEventData eventData)
     {
         IsSelected = !IsSelected;
+        MapManager.Instanace.SelectStageData = TestInfo.stageData;
     }
 }

@@ -18,12 +18,20 @@ public class MineSystem : MonoBehaviour
 
     private void Start()
     {
-        if(DataManager.Instance.IsHaveData(_adventureKey))
+        if(DataManager.Instance.IsHaveData(_adventureKey))  
         {
             _addData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
         _currentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor)+1);
+
+        MapManager.Instanace.SelectStageData = _currentMineInfo.stageData;
+        MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
+        mineUI.SetFloor(_currentMineInfo.Floor.ToString(),
+                        _currentMineInfo.stageData.stageName,
+                        _currentMineInfo.ClearGem,
+                        _currentMineInfo.IsClearThisStage);
+        mineUI.SetUpFloor();
     }
 
     private void Update()
@@ -43,23 +51,44 @@ public class MineSystem : MonoBehaviour
         _currentMineInfo = _mineContainer.GetInfoByFloor(uf);
         MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
 
+        mineUI.PanelActive(false);
         mineUI.SetFloor(_currentMineInfo.Floor.ToString(), 
-                        _currentMineInfo.StageName, 
+                        _currentMineInfo.stageData.stageName, 
                         _currentMineInfo.ClearGem, 
                         _currentMineInfo.IsClearThisStage);
+        mineUI.SetUpFloor();
         MapChange();
         _addData.ClearMineFloor = (uf - 1).ToString();
-        _addData.InChallingingMineName = _currentMineInfo.StageName.ToString();
+        _addData.InChallingingMineName = _currentMineInfo.stageData.stageName;
         DataManager.Instance.SaveData(_addData, _adventureKey);
     }
 
     private void MapChange()
     {
-        Transform upTrm = _firstMap.position.y > _secondMap.position.y ? _firstMap : _secondMap;
-        upTrm.transform.position = _downPos;
+        Transform upTrm;
+        Transform downTrm;
 
-        FeedbackManager.Instance.ShakeScreen(0.5f, 2.1f);
-        _firstMap.DOMoveY(_firstMap.position.y + 13, 2f);
-        _secondMap.DOMoveY(_secondMap.position.y + 13, 2f);
+        if(_firstMap.position.y > _secondMap.position.y)
+        {
+            upTrm = _firstMap;
+            downTrm = _secondMap;
+        }
+        else
+        {
+            upTrm = _secondMap;
+            downTrm = _firstMap;
+        }
+        
+        upTrm.transform.position = _downPos;
+        upTrm.gameObject.SetActive(true);
+
+        _firstMap.DOMoveY(_firstMap.position.y + 14, 2f);
+        _secondMap.DOMoveY(_secondMap.position.y + 14, 2f).OnComplete(()=> 
+        {
+            upTrm.GetComponentInChildren<MineTape>().LockTape(false);
+            downTrm.GetComponentInChildren<MineTape>().LockTape(true);
+            downTrm.gameObject.SetActive(false);
+            UIManager.Instance.GetSceneUI<MineUI>().PanelActive(true);
+        });
     }
 }
