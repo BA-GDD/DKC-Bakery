@@ -13,7 +13,7 @@ public class TornadoSkill : CardBase
     }
     private void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo,centerPos());
+        Player.VFXManager.PlayParticle(CardInfo, centerPos());
         StartCoroutine(AttackCor());    
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -35,7 +35,6 @@ public class TornadoSkill : CardBase
         float x = (maxX - minX) * 0.5f + minX;
         float y = (maxY - minY) * 0.5f + minY;
         Vector2 dir = new Vector2(x, y);
-        Debug.Log(dir);
         return dir;
     }
 

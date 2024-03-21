@@ -1,19 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO/Tsumego/Test")]
+[CreateAssetMenu(menuName = "SO/Tsumego/AllKill")]
 public class TestTsumegoCondition : TsumegoCondition
 {
     public override bool CheckCondition()
     {
-        if(Time.time >= 10f)
+        Enemy[] earr = GameObject.FindObjectsOfType<Enemy>();
+        foreach(Enemy e in earr)
         {
-            Debug.Log("10초 지남");
-            return true;
+            if(!e.HealthCompo.isDead) return false;
         }
-        else
-        {
-            Debug.Log($"10초 안 지남 {Time.time}");
-            return false;
-        }
+        return true;
     }
 }

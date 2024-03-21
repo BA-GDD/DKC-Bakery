@@ -82,6 +82,7 @@ public abstract class Entity : PoolableMono
     {
         //UI����
         float currentHealth = HealthCompo.GetNormalizedHealth();
+        Debug.Log(currentHealth);
         if (currentHealth > 0)
         {
             AnimatorCompo.SetTrigger(_hitAnimationHash);
@@ -89,9 +90,11 @@ public abstract class Entity : PoolableMono
         OnHealthBarChanged?.Invoke(currentHealth);
     }
 
-
     protected virtual void HandleDie()
     {
+        EnemyStat es = CharStat as EnemyStat;
+        Inventory.Instance.GetIngredinentsInThisBattle.Add(es.DropItem);
+        Debug.Log(es.DropItem);
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 

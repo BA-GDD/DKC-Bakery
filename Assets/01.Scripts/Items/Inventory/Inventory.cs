@@ -19,14 +19,14 @@ public class Inventory : MonoSingleton<Inventory>
     [Header("Events")]
     public UnityEvent<int> onRemoveBreadTrigger;
     public UnityEvent<int> onRemoveIngredientTrigger;
-
+    
     private void Awake()
     {
         ingredientStash = new IngredientStash(_ingredientParent);
         breadStash = new BreadStash(_breadParent);
 
-        SceneManager.activeSceneChanged += HandleClearGetIngList;
-        GetIngredientInThisBattle.ListAdded += HandleGetItem;
+        GetIngredinentsInThisBattle.ListAdded += HandleGetItem;
+        SceneManager.activeSceneChanged += (Scene a, Scene v) => GetIngredinentsInThisBattle.Clear();
     }
 
     private void HandleGetItem(object sender, EventArgs e)
@@ -44,7 +44,8 @@ public class Inventory : MonoSingleton<Inventory>
         UpdateSlotUI();
     }
 
-    public void UpdateSlotUI()
+   
+    public void UpdateSlotUI() 
     {
         ingredientStash.UpdateSlotUI();
         breadStash.UpdateSlotUI();

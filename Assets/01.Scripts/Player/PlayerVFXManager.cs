@@ -51,6 +51,7 @@ public class PlayerVFXManager : MonoBehaviour
             return;
         }
 
+        _cardByEffects[card].gameObject.SetActive(true);
         _cardByEffects[card].transform.position = pos;
         _cardByEffects[card].gameObject.SetActive(true);
 

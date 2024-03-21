@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TsumegoSystem : MonoBehaviour
 {
-    public TsumegoInfo CurTsumegoInfo;
+    public TsumegoInfo CurTsumegoInfo { get; set; }
 
     private void Update()
     {
@@ -20,13 +20,10 @@ public class TsumegoSystem : MonoBehaviour
         {
             if (!condition.CheckCondition())
             {
-                // 실패
                 Debug.Log("실패");
                 return;
             }
         }
-
-        // 조건 전부 통과함
         ClearStage();
     }
 
