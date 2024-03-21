@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class TsumegoSystem : MonoBehaviour
 {
-<<<<<<< HEAD
     public TsumegoInfo CurTsumegoInfo { get; set; }
-=======
-    public TsumegoInfo CurTsumegoInfo;
 
     private void Update()
     {
@@ -16,7 +13,6 @@ public class TsumegoSystem : MonoBehaviour
             CheckClear();
         }
     }
->>>>>>> parent of 8b20a26 (0321 ë¨¸ì§€ ì „ ì»¤ë°‹)
 
     public void CheckClear()
     {
@@ -24,19 +20,10 @@ public class TsumegoSystem : MonoBehaviour
         {
             if (!condition.CheckCondition())
             {
-<<<<<<< HEAD
-=======
-                // ½ÇÆÐ
->>>>>>> parent of 8b20a26 (0321 ë¨¸ì§€ ì „ ì»¤ë°‹)
                 Debug.Log("½ÇÆÐ");
                 return;
             }
         }
-<<<<<<< HEAD
-=======
-
-        // Á¶°Ç ÀüºÎ Åë°úÇÔ
->>>>>>> parent of 8b20a26 (0321 ë¨¸ì§€ ì „ ì»¤ë°‹)
         ClearStage();
     }
 
