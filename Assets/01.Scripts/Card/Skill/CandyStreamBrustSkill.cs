@@ -9,13 +9,13 @@ public class CandyStreamBrustSkill : CardBase, ISkillEffectAnim
         IsActivingAbillity = true;
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
-        Player.OnAnimationEnd += HandleEffectEnd;
+        Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
     }
 
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
-        //StartCoroutine(AttackCor());
+        StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
@@ -27,5 +27,18 @@ public class CandyStreamBrustSkill : CardBase, ISkillEffectAnim
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }
 
-    
+    private IEnumerator AttackCor()
+    {
+        yield return new WaitForSeconds(1f);
+
+        for(int i = 0; i < 5; ++i)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            foreach(var e in battleController.onFieldMonsterList)
+            {
+                e?.HealthCompo.ApplyDamage(2, Player);
+            }
+        }
+    }
 }

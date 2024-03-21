@@ -49,6 +49,9 @@ public class BattleController : MonoBehaviour
         TurnCounter.RoundEndEvent += HandleRoundEnd;
         TurnCounter.EnemyTurnStartEvent += HandleEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += HandleEnemyTurnEnd;
+
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
+
     }
     private void OnDestroy()
     {
