@@ -34,7 +34,7 @@ public abstract class Entity : PoolableMono
 
     [SerializeField]protected Vector3 lastMovePos;
     [SerializeField]protected float moveDuration = 0.1f;
-
+    public TurnStatus turnStatus;
 
     protected virtual void Awake()
     {
