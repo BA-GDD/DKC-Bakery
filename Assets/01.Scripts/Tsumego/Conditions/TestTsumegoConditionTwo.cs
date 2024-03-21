@@ -5,9 +5,9 @@ public class TestTsumegoConditionTwo : TsumegoCondition
 {
     public override bool CheckCondition()
     {
-        if (Time.deltaTime >= 200f)
+        if (Time.time >= 20f)
         {
-            Debug.Log("200초 지남");
+            Debug.Log("20초 지남");
             return true;
         }
         else

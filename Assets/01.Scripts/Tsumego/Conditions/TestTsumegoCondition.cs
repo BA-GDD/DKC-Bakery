@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "SO/Tsumego/Test")]
 public class TestTsumegoCondition : TsumegoCondition
 {
     public override bool CheckCondition()
     {
-        if(Time.time > 10000)
+        if(Time.time >= 10f)
         {
             Debug.Log("10ÃÊ Áö³²");
             return true;
