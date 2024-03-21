@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public enum TurnStatus
@@ -34,18 +35,18 @@ public static class TurnCounter
     {
         get
         {
-            if(_turnCounting != null)
+            if (_turnCounting != null)
             {
                 return _turnCounting;
             }
-            _turnCounting = GameObject  .FindObjectOfType<TurnCounting>();
+            _turnCounting = GameObject.FindObjectOfType<TurnCounting>();
             return _turnCounting;
         }
     }
 
     public static void ChangeRound()
     {
-        if(RoundCount != 0)
+        if (RoundCount != 0)
         {
             RoundEndEvent?.Invoke();
         }
@@ -56,11 +57,10 @@ public static class TurnCounter
 
     public static void ChangeTurn()
     {
-
         Debug.Log($"{TurnCount}{CurrentTurnType}");
         TurnCount++;
 
-        if(CurrentTurnType == TurnType.Player)
+        if (CurrentTurnType == TurnType.Player)
         {
             CurrentTurnType = TurnType.Enemy;
 
@@ -73,6 +73,7 @@ public static class TurnCounter
 
             EnemyTurnEndEvent?.Invoke();
             PlayerTurnStartEvent?.Invoke(false);
+            ChangeRound();
         }
         Debug.Log($"{TurnCount}{CurrentTurnType}");
     }

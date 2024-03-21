@@ -37,13 +37,13 @@ public class SimpleEnemy : Enemy
 
     public override void MoveToLastPos()
     {
-        Debug.Log("last");
         base.MoveToLastPos();
         transform.DOMove(lastMovePos, moveDuration).OnComplete(() => turnStatus = TurnStatus.End);
     }
 
     public override void Attack()
     {
+        turnStatus = TurnStatus.Running;
         AnimatorCompo.SetBool(attackAnimationHash, true);
         MoveToTargetForward();
         OnAnimationEnd += () =>
@@ -52,7 +52,6 @@ public class SimpleEnemy : Enemy
             AnimatorCompo.SetBool(attackAnimationHash, false);
             //CameraController.Instance.SetDefaultCam();
             OnAnimationEnd = null;
-
         };
     }
 
@@ -76,6 +75,7 @@ public class SimpleEnemy : Enemy
 
     public override void Spawn(Vector3 spawnPos)
     {
+        turnStatus = TurnStatus.Running;
         AnimatorCompo.SetBool(spawnAnimationHash, true);
 
         transform.position = spawnPos + new Vector3(-4f, 6f);

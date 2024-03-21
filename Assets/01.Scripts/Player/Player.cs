@@ -79,6 +79,7 @@ public class Player : Entity
 
     public override void MoveToTargetForward()
     {
+
     }
 
     public void UseAbility(CardBase card,bool isMove = false)

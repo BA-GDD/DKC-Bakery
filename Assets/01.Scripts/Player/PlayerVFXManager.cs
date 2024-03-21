@@ -43,13 +43,16 @@ public class PlayerVFXManager : MonoBehaviour
         _cardByEffects[cardInfo].Stop();
     }
 
-    public void PlayParticle(CardInfo card)
+    public void PlayParticle(CardInfo card, Vector3 pos)
     {
         if (!_cardByEffects.ContainsKey(card))
         {
             Debug.LogError("이펙트가 없어요");
             return;
         }
+
+        _cardByEffects[card].transform.position = pos;
+
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
