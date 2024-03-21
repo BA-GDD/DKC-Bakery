@@ -95,7 +95,6 @@ public abstract class Entity : PoolableMono
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 
-
     public abstract void SlowEntityBy(float percent); //���ο�� �ڽĵ��� ����.
 
     protected virtual void ReturnDefaultSpeed()
@@ -123,7 +122,10 @@ public abstract class Entity : PoolableMono
         transform.DOMove(lastMovePos, moveDuration);
     }
 
+    public void DeadSeq()
+    {
 
+    }
 
     public override void Init()
     {

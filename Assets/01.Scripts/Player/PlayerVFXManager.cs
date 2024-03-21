@@ -52,6 +52,7 @@ public class PlayerVFXManager : MonoBehaviour
         }
 
         _cardByEffects[card].transform.position = pos;
+        _cardByEffects[card].gameObject.SetActive(true);
 
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
