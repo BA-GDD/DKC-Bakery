@@ -16,7 +16,7 @@ public class BattleController : MonoBehaviour
     [SerializeField] private SEList<SEList<bool>> isStuck;
 
     public Enemy[] onFieldMonsterList;
-    public List<Enemy> DeathEnemyList { get; set; }  = new List<Enemy>();
+    public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
 
 
     //[HideInInspector]
@@ -25,7 +25,7 @@ public class BattleController : MonoBehaviour
     [Header("���� ��")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
-    [SerializeField]private EnemyGroupSO _enemyGroup;
+    [SerializeField] private EnemyGroupSO _enemyGroup;
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
@@ -44,6 +44,7 @@ public class BattleController : MonoBehaviour
     private void Awake()
     {
         //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
@@ -61,7 +62,7 @@ public class BattleController : MonoBehaviour
         {
             e.TurnStart();
         }
-        if (onFieldMonsterList.Count > 0) StartCoroutine(EnemySquence());
+        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
     }
     private void OnEnemyTurnEnd()
     {
@@ -76,7 +77,6 @@ public class BattleController : MonoBehaviour
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
-            Debug.Log($"��ΰ���?{onFieldMonsterList.Count}");
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
@@ -102,7 +102,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        
+
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
@@ -118,10 +118,7 @@ public class BattleController : MonoBehaviour
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 
-            if (idx >= onFieldMonsterList.Count)
-                onFieldMonsterList.Add(selectEnemy);
-            else
-                onFieldMonsterList[idx] = selectEnemy;
+            onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
     }

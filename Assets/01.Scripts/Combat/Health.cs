@@ -26,13 +26,14 @@ public class Health : MonoBehaviour, IDamageable
     public UnityEvent<AilmentEnum> OnAilmentChanged;
 
     private Entity _owner;
-    private bool _isDead = false;
+    [SerializeField]private bool _isDead = false;
     public bool IsDead
     {
         get => _isDead;
         set
         {
-            OnDeathEvent?.Invoke();
+            if(value)
+                OnDeathEvent?.Invoke();
             _isDead = value;
         }
     }
@@ -179,10 +180,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         print("asdf");
         TurnCounter.ChangeRound();
-    }
-    private void DeadProcess()
-    {
-
     }
 
     //상태이상 걸기.

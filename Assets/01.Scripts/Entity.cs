@@ -32,8 +32,8 @@ public abstract class Entity : PoolableMono
 
     public Entity target;
 
-    [SerializeField]protected Vector3 lastMovePos;
-    [SerializeField]protected float moveDuration = 0.1f;
+    [SerializeField] protected Vector3 lastMovePos;
+    [SerializeField] protected float moveDuration = 0.1f;
 
 
     protected virtual void Awake()
@@ -126,6 +126,18 @@ public abstract class Entity : PoolableMono
 
     public void DeadSeq()
     {
+        StartCoroutine(DissolveCo());
+    }
+    private IEnumerator DissolveCo()
+    {
+        float timer = 0;
+        while (timer < 1)
+        {
+            Debug.Log(timer);
+            timer += Time.deltaTime;
+            SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
+            yield return null;
+        }
 
     }
 
