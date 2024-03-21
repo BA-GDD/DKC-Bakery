@@ -7,6 +7,7 @@ public class LightningJangSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
+        Player.target = battleController.onFieldMonsterList[0];
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
@@ -14,7 +15,7 @@ public class LightningJangSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo);
+        Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -31,6 +32,6 @@ public class LightningJangSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.1f);
 
-        battleController.onFieldMonsterList[0].HealthCompo.ApplyDamage(10, Player);
+        Player.target.HealthCompo.ApplyDamage(10, Player);
     }
 }
