@@ -16,42 +16,18 @@ public class SimpleEnemy : Enemy
         target = BattleController?.Player;
     }
 
-    public override void MoveToTargetForward()
-    {
-        //CameraController.Instance.SetFollowCam(camTrack.targetTrm, transform);
-        //camTrack.StartMove();
-        lastMovePos = transform.position;
-        //camTrack.transform.SetParent(null);
-
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
-        //seq.Join(DOVirtual.DelayedCall(0.25f, () => CameraController.Instance.SetFollowCam(camTrack.targetTrm, target.transform)));
-        seq.OnComplete(() =>
-        {
-            MoveToLastPos();
-            target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
-            AnimatorCompo.SetTrigger(attackTriggerAnimationHash);
-        });
-    }
-
-    public override void MoveToLastPos()
-    {
-        base.MoveToLastPos();
-        transform.DOMove(lastMovePos, moveDuration).OnComplete(() => turnStatus = TurnStatus.End);
-    }
 
     public override void Attack()
     {
-        turnStatus = TurnStatus.Running;
         AnimatorCompo.SetBool(attackAnimationHash, true);
         MoveToTargetForward();
         OnAnimationEnd += () =>
         {
-            MoveToLastPos();
+            MoveToOriginPos();
             AnimatorCompo.SetBool(attackAnimationHash, false);
             //CameraController.Instance.SetDefaultCam();
             OnAnimationEnd = null;
+
         };
     }
 
@@ -75,7 +51,6 @@ public class SimpleEnemy : Enemy
 
     public override void Spawn(Vector3 spawnPos)
     {
-        turnStatus = TurnStatus.Running;
         AnimatorCompo.SetBool(spawnAnimationHash, true);
 
         transform.position = spawnPos + new Vector3(-4f, 6f);
@@ -85,5 +60,17 @@ public class SimpleEnemy : Enemy
             AnimatorCompo.SetBool(spawnAnimationHash, false);
             turnStatus = TurnStatus.Ready;
         });
+    }
+
+    protected override void HandleMoveToTarget()
+    {
+        MoveToOriginPos();
+        target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
+        AnimatorCompo.SetTrigger(attackTriggerAnimationHash);
+    }
+
+    protected override void HandleMoveToOriginPos()
+    {
+        turnStatus = TurnStatus.End;
     }
 }

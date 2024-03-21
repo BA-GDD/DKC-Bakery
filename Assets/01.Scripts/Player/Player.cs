@@ -77,11 +77,6 @@ public class Player : Entity
     {
     }
 
-    public override void MoveToTargetForward()
-    {
-
-    }
-
     public void UseAbility(CardBase card,bool isMove = false)
     {
         clipOverrides["UseAbility"] = card.CardInfo.abilityAnimation;
@@ -89,10 +84,22 @@ public class Player : Entity
 
         AnimatorCompo.SetBool(_abilityHash, true);
         AnimatorCompo.SetBool(_moveHash, isMove);
+
+        if (isMove) MoveToTargetForward();
     }
     public void EndAbility()
     {
         AnimatorCompo.SetBool(_abilityHash, false);
         AnimatorCompo.SetBool(_moveHash, false);
+    }
+
+    protected override void HandleMoveToTarget()
+    {
+        AnimatorCompo.SetBool(_moveHash, false);
+    }
+
+    protected override void HandleMoveToOriginPos()
+    {
+        // 일단 할거 없음
     }
 }
