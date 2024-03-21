@@ -24,10 +24,6 @@ public class UIManager : MonoSingleton<UIManager>
             Canvas findCanvas = FindObjectOfType<Canvas>();
             return findCanvas;
         }
-        set
-        {
-            _canvas = value;
-        }
     }
     public Transform CanvasTrm => Canvas.transform;
 
