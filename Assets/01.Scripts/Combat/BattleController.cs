@@ -13,7 +13,9 @@ public class SEList<T>
 
 public class BattleController : MonoBehaviour
 {
-    public List<Enemy> DeathEnemyList { get; set; }  = new List<Enemy>();
+    [Header("페이지에 따른 몬스터 출현 기믹")]
+    [SerializeField] private int _divineToken;
+    private int _divineCount;
     [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
 
     //[HideInInspector]
@@ -75,7 +77,7 @@ public class BattleController : MonoBehaviour
         {
             e.TurnAction();
             Debug.Log($"모두공격?{onFieldMonsterList.Count}");
-            yield return new WaitUntil(() => e.isTurnEnd);
+            yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
     }

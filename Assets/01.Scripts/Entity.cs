@@ -34,7 +34,7 @@ public abstract class Entity : PoolableMono
 
     [SerializeField]protected Vector3 lastMovePos;
     [SerializeField]protected float moveDuration = 0.1f;
-
+    public TurnStatus turnStatus;
 
     protected virtual void Awake()
     {
@@ -92,8 +92,6 @@ public abstract class Entity : PoolableMono
 
     protected virtual void HandleDie()
     {
-        EnemyStat es = CharStat as EnemyStat;
-        Inventory.Instance.GetIngredientInThisBattle.Add(es.DropItem);
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 
