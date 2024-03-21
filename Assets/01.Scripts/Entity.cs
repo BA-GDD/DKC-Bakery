@@ -97,7 +97,6 @@ public abstract class Entity : PoolableMono
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 
-
     public abstract void SlowEntityBy(float percent); //���ο�� �ڽĵ��� ����.
 
     protected virtual void ReturnDefaultSpeed()

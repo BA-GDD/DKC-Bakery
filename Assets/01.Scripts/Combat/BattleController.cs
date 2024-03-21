@@ -75,7 +75,7 @@ public class BattleController : MonoBehaviour
         {
             e.TurnAction();
             Debug.Log($"모두공격?{onFieldMonsterList.Count}");
-            yield return new WaitUntil(() => e.isTurnEnd);
+            yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
     }
