@@ -14,7 +14,7 @@ public struct CardUpgradeInfoStruct
 public class CardUpgradeTableSO : ScriptableObject
 {
     public List<CardUpgradeInfoStruct> cardUpgradeInfos = new List<CardUpgradeInfoStruct>();
-    private Dictionary<string, CardUpgradeInfo> findCardInfo = new Dictionary<string, CardUpgradeInfo>();
+    public Dictionary<string, CardUpgradeInfo> findCardInfo = new Dictionary<string, CardUpgradeInfo>();
 
     public void SetDic()
     {

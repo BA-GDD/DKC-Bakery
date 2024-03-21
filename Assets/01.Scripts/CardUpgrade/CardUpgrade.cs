@@ -11,6 +11,13 @@ public class CardUpgrade : MonoBehaviour
     public int debugToUpgradeMoney = 100;
     public int currentMoney;
 
+    [SerializeField] private CardUpgradeTableSO cardTable;
+
+    private void Awake()
+    {
+        //나중에~
+    }
+
     public bool IsAbleToUpgrade(CardInfo cardInfo)
     {
         if (cardInfo == null) return false;
@@ -25,6 +32,6 @@ public class CardUpgrade : MonoBehaviour
         //DataManager.Instance.SaveData();
 
         //시트에서 불러와서 넣기
-        cardInfo.CardAttackDamage += 50;
+        cardInfo.CardAttackDamage += float.Parse(cardTable.findCardInfo[cardInfo.CardName].genDatas[0].str[cardInfo.CardLevel]);
     }
 }

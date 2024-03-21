@@ -7,7 +7,11 @@ using UnityEditor;
 [CreateAssetMenu(menuName ="SO/CardUpgrade/info")]
 public class CardUpgradeInfo : LoadableData
 {
-    
+    public List<Data> genDatas = new List<Data>();
+    private void SetList()
+    {
+        genDatas = generateData;
+    }
 }
 
 [CustomEditor(typeof(CardUpgradeInfo))]
