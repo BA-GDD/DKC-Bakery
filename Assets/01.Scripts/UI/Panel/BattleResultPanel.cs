@@ -9,16 +9,15 @@ public class BattleResultPanel : PanelUI
     [SerializeField] private BattleController _battleController;
     [SerializeField] private GameObject _clearText;
     [SerializeField] private Transform _enemyProfileTrm;
-    [SerializeField] private BattleResultProfilePanel _elementProfile;
+    [SerializeField] private BattleResultProfilePanel _enemyProfile;
+    [SerializeField] private BattleResultProfilePanel _itemProfile;
     [SerializeField] private Transform _itemProfileTrm;
 
     public void SetClear()
     {
         _clearText.SetActive(true);
         _clearText.transform.localScale = Vector3.one * 1.5f;
-        Sequence seq = DOTween.Sequence();
-
-        seq.Append(_clearText.transform.DOScale(Vector3.one, 0.1f));
+        _clearText.transform.DOScale(Vector3.one, 0.1f);
 
         SetEnemyProfile();
     }
@@ -29,7 +28,7 @@ public class BattleResultPanel : PanelUI
         Enemy[] stageInEnemies = MapManager.Instanace.SelectStageData.enemyGroup.enemies.ToArray();
         foreach (Enemy e in stageInEnemies)
         {
-            BattleResultProfilePanel erp = Instantiate(_elementProfile, _enemyProfileTrm);
+            BattleResultProfilePanel erp = Instantiate(_enemyProfile, _enemyProfileTrm);
             erp.SetProfile(e.CharStat.characterVisual);
             battleResultEnemyProfiles.Add( erp );
         }
@@ -55,7 +54,7 @@ public class BattleResultPanel : PanelUI
         {
             foreach(ItemDataIngredientSO i in Inventory.Instance.GetIngredientInThisBattle)
             {
-                Instantiate(_elementProfile, _itemProfileTrm).SetProfile(i.itemIcon);
+                Instantiate(_itemProfile, _itemProfileTrm).SetProfile(i.itemIcon);
                 yield return new WaitForSeconds(0.2f);
             }
         }
