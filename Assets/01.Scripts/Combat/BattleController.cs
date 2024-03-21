@@ -137,6 +137,7 @@ public class BattleController : MonoBehaviour
     }
     private void DeadMonster(Enemy enemy)
     {
+
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
     }
     public bool IsStuck(int to, int who)

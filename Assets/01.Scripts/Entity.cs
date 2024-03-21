@@ -123,7 +123,10 @@ public abstract class Entity : PoolableMono
         transform.DOMove(lastMovePos, moveDuration);
     }
 
+    public void DeadSeq()
+    {
 
+    }
 
     public override void Init()
     {

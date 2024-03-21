@@ -26,7 +26,16 @@ public class Health : MonoBehaviour, IDamageable
     public UnityEvent<AilmentEnum> OnAilmentChanged;
 
     private Entity _owner;
-    public bool isDead = false;
+    private bool _isDead = false;
+    public bool IsDead
+    {
+        get => _isDead;
+        set
+        {
+            OnDeathEvent?.Invoke();
+            _isDead = value;
+        }
+    }
     private bool _isInvincible = false; //무적상태
     [SerializeField] private AilmentStat _ailmentStat; //질병 및 디버프 관리 스탯
     public AilmentStat AilmentStat => _ailmentStat;
@@ -39,7 +48,7 @@ public class Health : MonoBehaviour, IDamageable
         _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
         TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
 
-        isDead = false;
+        _isDead = false;
     }
     private void OnDestroy()
     {
@@ -91,12 +100,12 @@ public class Health : MonoBehaviour, IDamageable
 
     public void ApplyTrueDamage(int damage, Entity dealer)
     {
-        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
     }
     public void ApplyDamage(int damage, Entity dealer, Action action = null)
     {
-        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
         //완벽 회피 계산.
         if (_owner.CharStat.CanEvasion())
@@ -149,8 +158,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (_currentHealth == 0)
         {
-            isDead = true;
-            OnDeathEvent?.Invoke();
+            IsDead = true;
             return;
         }
         OnHitEvent?.Invoke();
@@ -172,7 +180,10 @@ public class Health : MonoBehaviour, IDamageable
         print("asdf");
         TurnCounter.ChangeRound();
     }
+    private void DeadProcess()
+    {
 
+    }
 
     //상태이상 걸기.
     public void SetAilment(AilmentEnum ailment, int duration)
