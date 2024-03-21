@@ -133,7 +133,6 @@ public abstract class Entity : PoolableMono
         float timer = 0;
         while (timer < 1)
         {
-            Debug.Log(timer);
             timer += Time.deltaTime;
             SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
             yield return null;
