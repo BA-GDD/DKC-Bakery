@@ -33,8 +33,8 @@ public class AilmentStat
         foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
         {
             if (ailment == AilmentEnum.None) continue;
-            
-            if(HasAilment(ailment))
+
+            if (HasAilment(ailment))
                 _ailmentDictionary[ailment].Update();
         }
     }
@@ -57,16 +57,7 @@ public class AilmentStat
     {
         if (HasAilment(ailment))
         {
-            switch (ailment)
-            {
-                case AilmentEnum.None:
-                    break;
-                case AilmentEnum.Chilled:
-
-                    break;
-                case AilmentEnum.Shocked:
-                    break;
-            }
+            _ailmentDictionary[ailment].UseAilment();
         }
     }
 
@@ -74,6 +65,7 @@ public class AilmentStat
     //특정 디버프가 존재하는지 체크
     public bool HasAilment(AilmentEnum ailment)
     {
+        bool temp = ((currentAilment & ailment) > 0);
         return (currentAilment & ailment) > 0;
     }
     public int GetStackAilment(AilmentEnum ailment)
@@ -100,6 +92,7 @@ public class AilmentStat
     //질병효과와 지속시간 셋팅
     private void SetAilment(AilmentEnum ailment, int turn)
     {
+        _ailmentDictionary[ailment].ActiveAilment(turn);
     }
 
 }

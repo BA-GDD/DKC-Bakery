@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class Ailment
 {
-    private AilmentStat _stat;
-    private Health _health;
-    private AilmentEnum _ailment;
+    protected AilmentStat _stat;
+    protected Health _health;
+    protected AilmentEnum _ailment;
 
     public Ailment(AilmentStat stat, Health health, AilmentEnum ailment)
     {
@@ -18,6 +18,7 @@ public abstract class Ailment
     public int stack;
 
     public int duration;
+    public abstract void UseAilment();
 
     public virtual void ActiveAilment(int duration)
     {
