@@ -19,7 +19,14 @@ public class TurnCounting : MonoBehaviour
 
     private void Start()
     {
-        CardReader.SetDeck(MapManager.Instanace.SelectDeck);
+        if(MapManager.Instanace.SelectStageData.stageType == StageType.Mission)
+        {
+            CardReader.SetDeck(MapManager.Instanace.SelectStageData.missionDeck);
+        }
+        else
+        {
+            CardReader.SetDeck(MapManager.Instanace.SelectDeck);
+        }
         //TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
     }
 

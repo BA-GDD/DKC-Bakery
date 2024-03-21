@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class BattleProduction : MonoBehaviour
 {
     [SerializeField] private Animator _productionAnimator;
+    [SerializeField] private UnityEvent<TsumegoInfo> _clearChekcerSetEvent;
     [SerializeField] private UnityEvent<EnemyGroupSO, string> _panelSetEvent;
     [SerializeField] private UnityEvent _battleStartEvent;
 
@@ -22,5 +23,6 @@ public class BattleProduction : MonoBehaviour
         _productionAnimator.SetBool("isOnProduction", false);
         yield return new WaitForSeconds(2f);
         _battleStartEvent?.Invoke();
+        _clearChekcerSetEvent?.Invoke(MapManager.Instanace.SelectStageData.clearCondition);
     }
 }

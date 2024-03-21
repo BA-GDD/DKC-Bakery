@@ -13,9 +13,7 @@ public class SEList<T>
 
 public class BattleController : MonoBehaviour
 {
-    [Header("페이지에 따른 몬스터 출현 기믹")]
-    [SerializeField] private int _divineToken;
-    private int _divineCount;
+    public List<Enemy> DeathEnemyList { get; set; }  = new List<Enemy>();
     [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
 
     //[HideInInspector]

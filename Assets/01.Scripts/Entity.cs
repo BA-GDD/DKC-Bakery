@@ -96,6 +96,8 @@ public abstract class Entity : PoolableMono
 
     protected virtual void HandleDie()
     {
+        EnemyStat es = CharStat as EnemyStat;
+        Inventory.Instance.GetIngredientInThisBattle.Add(es.DropItem);
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 
