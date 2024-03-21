@@ -26,14 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658211269050546155}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6401808604994324462}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!198 &7154836785486955595
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -1607,7 +1607,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3.43
+      scalar: -5.57
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4929,6 +4929,18 @@ PrefabInstance:
       propertyPath: startDelay.scalar
       value: 1.74
       objectReference: {fileID: 0}
+    - target: {fileID: 761403177561605412, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 8.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 761403177561605412, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: CustomDataModule.vector0_0.scalar
+      value: 5.8369575
+      objectReference: {fileID: 0}
+    - target: {fileID: 761403177561605412, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: CustomDataModule.vector0_1.scalar
+      value: 1.9175494
+      objectReference: {fileID: 0}
     - target: {fileID: 1870666024885953438, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: startDelay.scalar
       value: 1.74
@@ -4937,21 +4949,81 @@ PrefabInstance:
       propertyPath: startDelay.scalar
       value: 1.74
       objectReference: {fileID: 0}
+    - target: {fileID: 2305888935285989204, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: VelocityModule.z.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305888935285989204, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: -0.17000008
       objectReference: {fileID: 0}
     - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.27
+      value: -0.84000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99325955
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.115912154
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -13.312
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337903953088753629, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2375615004480474915, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: startDelay.scalar
       value: 1.74
       objectReference: {fileID: 0}
+    - target: {fileID: 2375615004480474915, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: VelocityModule.z.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375615004480474915, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2844062219918981023, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: startDelay.scalar
       value: 1.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844062219918981023, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 3446981684652092569, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4959,7 +5031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3446981684652092569, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.76
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 4344243021142263267, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4967,11 +5039,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344243021142263267, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.57
+      value: -9.77
       objectReference: {fileID: 0}
     - target: {fileID: 4344243021142263267, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4344243021142263267, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5007,11 +5079,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4580223006954429898, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.19
+      value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047801517128946535, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5047801517128946535, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5047801517128946535, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_RenderAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5955374660726832621, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: startDelay.scalar
       value: 1.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955374660726832621, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: VelocityModule.z.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955374660726832621, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 6698156892602363562, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: startDelay.scalar

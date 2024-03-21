@@ -29,6 +29,11 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
+        yield return new WaitForSeconds(1.7f);
 
+        for(int i = 0; i < 3; ++i)
+        {
+            battleController.onFieldMonsterList[i].HealthCompo.ApplyDamage(15, Player);
+        }
     }
 }
