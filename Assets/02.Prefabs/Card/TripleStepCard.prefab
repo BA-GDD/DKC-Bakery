@@ -44,9 +44,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9031892388848759628}
-  - component: {fileID: 3879230620371277876}
+  - component: {fileID: 1944393151896917642}
   m_Layer: 5
-  m_Name: CandyStreamBrust
+  m_Name: TripleStepCard
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3879230620371277876
+--- !u!114 &1944393151896917642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,11 +82,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2256691726456282519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf6be2f2c1d72b44beb780fdfa5ada0, type: 3}
+  m_Script: {fileID: 11500000, guid: 38f1ed4ccbb43b74dabf54a140920b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _toMovePosInSec: 0.5
-  _myCardInfo: {fileID: 11400000, guid: 51d4b5bd78a68de4494bfbb6ee8c7428, type: 2}
+  _myCardInfo: {fileID: 11400000, guid: d654f876d54335545af08316e702ce47, type: 2}
   _objArr:
   - {fileID: 3404619632539736702}
   - {fileID: 5129837475305104781}
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 666323871a227b44380b3ead5358d1a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1855e1bb50e9e8c4db3ab3175a44bb0d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

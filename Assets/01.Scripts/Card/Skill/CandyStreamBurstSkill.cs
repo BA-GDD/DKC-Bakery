@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CandyStreamBrustSkill : CardBase, ISkillEffectAnim
+public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
 {
     public override void Abillity()
     {

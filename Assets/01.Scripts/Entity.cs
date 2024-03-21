@@ -28,6 +28,9 @@ public abstract class Entity : PoolableMono
     public Action<int> OnStartAttack;
     public Action OnEndAttack;
 
+    public Action OnMoveTarget;
+    public Action OnMoveOriginPos;
+
     public Transform forwardTrm;
 
     public Entity target;
@@ -51,7 +54,10 @@ public abstract class Entity : PoolableMono
         OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
-    }
+
+        OnMoveTarget += HandleMoveToTarget;
+        OnMoveOriginPos += HandleMoveToOriginPos;
+    } 
 
     private void HandleCutInOnFieldMonsterList()
     {
@@ -117,11 +123,21 @@ public abstract class Entity : PoolableMono
         }
     }
 
-    public abstract void MoveToTargetForward();
-    public virtual void MoveToLastPos()
+    public void MoveToTargetForward()
     {
-        transform.DOMove(lastMovePos, moveDuration);
+        lastMovePos = transform.position;
+
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
+        seq.OnComplete(OnMoveTarget.Invoke);
     }
+    protected abstract void HandleMoveToTarget();
+    public void MoveToOriginPos()
+    {
+        transform.DOMove(lastMovePos, moveDuration).OnComplete(OnMoveOriginPos.Invoke);
+    }
+    protected abstract void HandleMoveToOriginPos();
 
 
 
