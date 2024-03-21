@@ -8,6 +8,13 @@ public enum TurnType
     Enemy
 }
 
+public enum TurnStatus
+{
+    Ready,
+    Running,
+    End
+}
+
 public static class TurnCounter
 {
     public static TurnType CurrentTurnType { get; private set; } = TurnType.Player;

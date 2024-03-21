@@ -10,6 +10,8 @@ public class CardInfo : ScriptableObject
     public string CardName;
     public CardType CardType;
     public Sprite CardVisual;
+    public float CardAttackDamage;
+    public int CardLevel;
 
     [Header("스킬 정보")]
     public AnimationClip abilityAnimation;
