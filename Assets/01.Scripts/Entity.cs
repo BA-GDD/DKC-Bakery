@@ -92,9 +92,12 @@ public abstract class Entity : PoolableMono
 
     protected virtual void HandleDie()
     {
+<<<<<<< HEAD
         EnemyStat es = CharStat as EnemyStat;
         Inventory.Instance.GetIngredinentsInThisBattle.Add(es.DropItem);
         Debug.Log(es.DropItem);
+=======
+>>>>>>> parent of 8b20a26 (0321 머지 전 커밋)
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 

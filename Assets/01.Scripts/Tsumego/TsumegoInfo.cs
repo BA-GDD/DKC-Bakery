@@ -11,4 +11,68 @@ public class TsumegoInfo : ScriptableObject
 
     public List<TsumegoCondition> Conditions;
 
+<<<<<<< HEAD
+=======
+#if UNITY_EDITOR
+    [ContextMenu("Add Condition")]
+    private void AddCondition()
+    {
+        TsumegoCondition condition = ScriptableObject.CreateInstance<TsumegoCondition>();
+        condition.name = "New Condition";
+        condition.Init(this);
+        Conditions.Add(condition);
+
+        AssetDatabase.AddObjectToAsset(condition, this);
+        AssetDatabase.SaveAssets();
+
+        EditorUtility.SetDirty(this);
+        EditorUtility.SetDirty(condition);
+    }
+
+    [ContextMenu("Test")]
+    private void Test()
+    {
+        TsumegoCondition condition = ScriptableObject.CreateInstance<TestTsumegoCondition>();
+        condition.name = "New Condition";
+        condition.Init(this);
+        Conditions.Add(condition);
+
+        AssetDatabase.AddObjectToAsset(condition, this);
+        AssetDatabase.SaveAssets();
+
+        EditorUtility.SetDirty(this);
+        EditorUtility.SetDirty(condition);
+    }
+
+    [ContextMenu("Test2")]
+    private void Test2()
+    {
+        TsumegoCondition condition = ScriptableObject.CreateInstance<TestTsumegoConditionTwo>();
+        condition.name = "New Condition";
+        condition.Init(this);
+        Conditions.Add(condition);
+
+        AssetDatabase.AddObjectToAsset(condition, this);
+        AssetDatabase.SaveAssets();
+
+        EditorUtility.SetDirty(this);
+        EditorUtility.SetDirty(condition);
+    }
+#endif
+
+#if UNITY_EDITOR
+    [ContextMenu("Delete all")]
+    private void DeleteAll()
+    {
+        for(int i = Conditions.Count; i-- > 0;)
+        {
+            TsumegoCondition temp = Conditions[i];
+
+            Conditions.Remove(temp);
+            Undo.DestroyObjectImmediate(temp);
+        }
+        AssetDatabase.SaveAssets();
+    }
+#endif
+>>>>>>> parent of 8b20a26 (0321 머지 전 커밋)
 }
