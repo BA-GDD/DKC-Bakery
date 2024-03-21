@@ -35,7 +35,6 @@ public class TornadoSkill : CardBase
         float x = (maxX - minX) * 0.5f + minX;
         float y = (maxY - minY) * 0.5f + minY;
         Vector2 dir = new Vector2(x, y);
-        Debug.Log(dir);
         return dir;
     }
 

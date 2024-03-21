@@ -94,6 +94,7 @@ public abstract class Entity : PoolableMono
     {
         EnemyStat es = CharStat as EnemyStat;
         Inventory.Instance.GetIngredinentsInThisBattle.Add(es.DropItem);
+        Debug.Log(es.DropItem);
         AnimatorCompo.SetTrigger(_deathAnimationHash);
     }
 

@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class TsumegoSystem : MonoBehaviour
 {
-    public TsumegoInfo CurTsumegoInfo;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            CheckClear();
-        }
-    }
+    public TsumegoInfo CurTsumegoInfo { get; set; }
 
     public void CheckClear()
     {
@@ -20,13 +12,10 @@ public class TsumegoSystem : MonoBehaviour
         {
             if (!condition.CheckCondition())
             {
-                // 실패
                 Debug.Log("실패");
                 return;
             }
         }
-
-        // 조건 전부 통과함
         ClearStage();
     }
 
