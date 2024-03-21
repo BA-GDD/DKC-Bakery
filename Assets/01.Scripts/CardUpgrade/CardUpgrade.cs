@@ -10,22 +10,21 @@ public class CardUpgrade : MonoBehaviour
 
     public int debugToUpgradeMoney = 100;
     public int currentMoney;
-    public CardInfo currentCardInfo;
 
-    public bool IsUpgradealbe()
+    public bool IsAbleToUpgrade(CardInfo cardInfo)
     {
-        if (currentCardInfo == null) return false;
-        return currentCardInfo.CardLevel < 5 && currentMoney >= debugToUpgradeMoney;
+        if (cardInfo == null) return false;
+        return cardInfo.CardLevel < 5 && currentMoney >= debugToUpgradeMoney;
     }
 
-    public void UpgradeCard()
+    public void UpgradeCard(CardInfo cardInfo)
     {
-        currentCardInfo.CardLevel++;
+        cardInfo.CardLevel++;
         currentMoney -= debugToUpgradeMoney;
 
         //DataManager.Instance.SaveData();
 
         //시트에서 불러와서 넣기
-        currentCardInfo.CardAttackDamage += 50;
+        cardInfo.CardAttackDamage += 50;
     }
 }
