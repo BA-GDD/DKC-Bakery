@@ -19,7 +19,6 @@ public class Inventory : MonoSingleton<Inventory>
     [Header("Events")]
     public UnityEvent<int> onRemoveBreadTrigger;
     public UnityEvent<int> onRemoveIngredientTrigger;
-    
 
     private void Awake()
     {
@@ -27,7 +26,7 @@ public class Inventory : MonoSingleton<Inventory>
         breadStash = new BreadStash(_breadParent);
 
         SceneManager.activeSceneChanged += HandleClearGetIngList;
-        GetIngredinentsInThisBattle.ListAdded += HandleGetItem;
+        GetIngredientInThisBattle.ListAdded += HandleGetItem;
     }
 
     private void HandleGetItem(object sender, EventArgs e)
