@@ -6,6 +6,6 @@ public class BackButton : MonoBehaviour
 {
     public void Goback()
     {
-        GameManager.Instance.ChangeScene(GameManager.Instance.beforeSceneName);
+        GameManager.Instance.ChangeScene(GameManager.Instance.BeforeSceneName);
     }
 }

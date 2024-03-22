@@ -6,7 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public string beforeSceneName;
+    public string BeforeSceneName { get; private set; }
+
+    public Action<int> LoadingProgressChanged { get; set; }
+    private int _loadingProgress;
+    private int LoadingProgress
+    {
+        get { return _loadingProgress;}
+        set 
+        { 
+            if(value != _loadingProgress)
+            {
+                LoadingProgressChanged?.Invoke(value);
+            }
+            _loadingProgress = value; 
+        }
+    }
 
     [Header("Pooling")]
     [SerializeField] private PoolListSO _poolingList;
@@ -23,7 +38,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void ChangeScene(string sceneName)
     {
-        beforeSceneName = SceneManager.GetActiveScene().name;
+        BeforeSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("LoadingScene");
         StartCoroutine(LoadingProcessCo(sceneName));
     }
@@ -42,8 +57,10 @@ public class GameManager : MonoSingleton<GameManager>
 
         while (!asyncOperation.isDone)
         {
+            LoadingProgress = Mathf.CeilToInt(asyncOperation.progress * 100);
             if (asyncOperation.progress >= 0.9f)
             {
+                yield return new WaitForSeconds(1);
                 asyncOperation.allowSceneActivation = true;
             }
             yield return null;

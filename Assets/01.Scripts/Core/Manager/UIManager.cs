@@ -15,16 +15,7 @@ public class UIManager : MonoSingleton<UIManager>
     public UIScreenType CurrentSceneUI => _currentSceneUIType;
     private SceneUI _currentSceneUIObject;
 
-    private Canvas _canvas;
-    public Canvas Canvas
-    {
-        get
-        {
-            if (_canvas != null) return _canvas;
-            Canvas findCanvas = FindObjectOfType<Canvas>();
-            return findCanvas;
-        }
-    }
+    public Canvas Canvas { get; private set; }
     public Transform CanvasTrm => Canvas.transform;
 
     private void Awake()
@@ -45,6 +36,8 @@ public class UIManager : MonoSingleton<UIManager>
     
     public void ChangeSceneUIOnChangeScene(Scene updateScene, LoadSceneMode mode)
     {
+        Canvas = FindObjectOfType<Canvas>();
+
         _currentSceneUIType = (UIScreenType)updateScene.buildIndex;
 
         if(_currentSceneUIObject != null)

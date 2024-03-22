@@ -8,7 +8,7 @@ namespace UIDefine
         battle,
         bakery,
         teaTime,
-        diary,
+        loading,
         deckBuild,
         Lobby,
         Mine,
