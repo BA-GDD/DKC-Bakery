@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HealingByTurnSkill : CardBase, ISkillEffectAnim
+{
+    public int healingAmount;
+
+    public override void Abillity()
+    {
+        IsActivingAbillity = true;
+        Player.UseAbility(this);
+        Player.OnAnimationCall += HandleAnimationCall;
+        Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+    }
+
+    public void HandleAnimationCall()
+    {
+        Player.VFXManager.PlayParticle(CardInfo);
+        StartCoroutine(HealCor());
+        Player.OnAnimationCall -= HandleAnimationCall;
+    }
+
+    public void HandleEffectEnd()
+    {
+        Player.EndAbility();
+        Player.VFXManager.EndParticle(CardInfo);
+        IsActivingAbillity = false;
+        Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+    }
+
+    private IEnumerator HealCor()
+    {
+        // 질병에 치유 상태 추가하고 거기서 효과 발동
+
+        yield return null;
+    }
+}
