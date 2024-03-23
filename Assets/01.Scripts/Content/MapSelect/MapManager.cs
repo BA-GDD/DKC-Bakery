@@ -53,7 +53,8 @@ public class MapManager : MonoBehaviour
         isOnLoadMap = isActive;
         if (isActive)
         {
-            _loadMapObject = Instantiate(SelectMapData.loadMap, UIManager.Instance.CanvasTrm);
+            _loadMapObject = Instantiate(SelectMapData.loadMap, 
+                             UIManager.Instance.GetSceneUI<SelectMapUI>().transform);
         }
         else
         {

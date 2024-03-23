@@ -11,13 +11,13 @@ public class UIManager : MonoSingleton<UIManager>
 
     private Dictionary<SceneType, SceneUI> _sceneUIDic = new Dictionary<SceneType, SceneUI>();
 
-    private SceneType CurrentSceneType => GameManager.Instance.CurrentSceneType;
+    private SceneType CurrentSceneType => SceneObserver.CurrentSceneType;
     private SceneUI _currentSceneUIObject;
 
     public Canvas Canvas { get; private set; }
     public Transform CanvasTrm => Canvas.transform;
 
-    private void Awake()
+    private void Start()
     {
         Canvas = GetComponentInChildren<Canvas>();
         foreach(SceneUI su in _screenElementGroup)
@@ -26,6 +26,12 @@ public class UIManager : MonoSingleton<UIManager>
         }
 
         SceneManager.sceneLoaded += ChangeSceneUIOnChangeScene;
+        ChangeSceneUIOnChangeScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= ChangeSceneUIOnChangeScene;
     }
 
     public T GetSceneUI<T>() where T : SceneUI
@@ -43,7 +49,6 @@ public class UIManager : MonoSingleton<UIManager>
 
         if (_sceneUIDic.ContainsKey(CurrentSceneType))
         {
-            Debug.Log(CurrentSceneType);
             SceneUI suObject = Instantiate(_sceneUIDic[CurrentSceneType], CanvasTrm);
             suObject.gameObject.name = _sceneUIDic[CurrentSceneType].gameObject.name + "_MAESTRO_[SceneUI]_";
             suObject.SceneUIStart();

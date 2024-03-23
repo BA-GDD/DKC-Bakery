@@ -112,7 +112,8 @@ public class BattleController : MonoBehaviour
             selectEnemy.BattleController = this;
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
-            selectEnemy.SpriteRendererCompo.sortingOrder = (idx + 2) % 2;
+            int posChecker = ((idx + 3) % 2) * 2;
+            selectEnemy.SpriteRendererCompo.sortingOrder = posChecker;
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 

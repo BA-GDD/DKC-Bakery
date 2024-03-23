@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public SceneType BeforeSceneType { get; private set; }
-
     public Action<int> LoadingProgressChanged { get; set; }
     private int _loadingProgress;
     private int LoadingProgress
@@ -27,14 +25,14 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("Contents")]
     [SerializeField] private List<Content> _contentList = new List<Content>();
     private Dictionary<SceneType, Content> _contentDic = new Dictionary<SceneType, Content>();
+    private SceneType CurrentSceneType => SceneObserver.CurrentSceneType;
     private Content _currentContent;
-    public SceneType CurrentSceneType { get; private set; }
 
     [Header("Pooling")]
     [SerializeField] private PoolListSO _poolingList;
     [SerializeField] private Transform _poolingTrm;
 
-    private void Awake()
+    private void Start()
     {
         foreach(Content content in _contentList)
         {
@@ -48,9 +46,15 @@ public class GameManager : MonoSingleton<GameManager>
         }
 
         SceneManager.sceneLoaded += ChangeSceneContentOnChangeScene;
-
+        ChangeSceneContentOnChangeScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         PoolSetUp();
     }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= ChangeSceneContentOnChangeScene;
+    }
+
     public T GetContent<T>() where T : Content
     {
         return (T)FindFirstObjectByType(typeof(T));
@@ -82,9 +86,9 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void ChangeScene(SceneType toChangingScene)
     {
-        BeforeSceneType = CurrentSceneType;
+        SceneObserver.BeforeSceneType = CurrentSceneType;
 
-        CurrentSceneType = SceneType.loading;
+        SceneObserver.CurrentSceneType = SceneType.loading;
         SceneManager.LoadScene("LoadingScene");
         StartCoroutine(LoadingProcessCo(toChangingScene));
     }
@@ -102,7 +106,7 @@ public class GameManager : MonoSingleton<GameManager>
             if (asyncOperation.progress >= 0.9f)
             {
                 yield return new WaitForSeconds(1);
-                CurrentSceneType = toChangingSceneType;
+                SceneObserver.CurrentSceneType = toChangingSceneType;
                 asyncOperation.allowSceneActivation = true;
             }
             yield return null;
