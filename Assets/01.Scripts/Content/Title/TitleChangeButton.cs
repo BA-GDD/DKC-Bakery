@@ -8,6 +8,6 @@ public class TitleChangeButton : TitleButton
 {
     public override void PressEvent()
     {
-        GameManager.Instance.ChangeScene("LobbyScene");
+        GameManager.Instance.ChangeScene(SceneType.Lobby);
     }
 }

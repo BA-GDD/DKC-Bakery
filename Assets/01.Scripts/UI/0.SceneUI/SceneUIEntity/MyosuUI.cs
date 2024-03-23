@@ -19,6 +19,6 @@ public class MyosuUI : SceneUI
 
     public void GoToBattleScene()
     {
-        GameManager.Instance.ChangeScene(SceneList.BattleScene);
+        GameManager.Instance.ChangeScene(SceneType.battle);
     }
 }
