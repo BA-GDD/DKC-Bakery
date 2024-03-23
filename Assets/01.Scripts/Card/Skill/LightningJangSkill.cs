@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
+public class LightningJangSkill : LightningCardBase, IUseEffectAnim
 {
     public override void Abillity()
     {

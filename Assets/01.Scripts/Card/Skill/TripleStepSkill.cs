@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TripleStepSkill : CardBase, ISkillEffectAnim
+public class TripleStepSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingByTurnSkill : CardBase, ISkillEffectAnim
+public class HealingByTurnSkill : CardBase, IUseEffectAnim
 {
     public int healingAmount;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JaggieLanternSkill : CardBase, ISkillEffectAnim
+public class JaggieLanternSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
