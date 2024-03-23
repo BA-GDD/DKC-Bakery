@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -61,24 +62,39 @@ public class CharacterStat : ScriptableObject
     protected Dictionary<StatType, FieldInfo> _fieldInfoDictionary
             = new Dictionary<StatType, FieldInfo>();
 
+    protected void OnEnable()
+    {
+        Type playerStatType = typeof(PlayerStat);
+
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
+        {
+            string statName = statType.ToString();
+            FieldInfo statField = playerStatType.GetField(statName);
+            if (statField == null)
+            {
+                Debug.LogError($"There are no stat! error : {statName}");
+            }
+            else
+            {
+                _fieldInfoDictionary.Add(statType, statField);
+            }
+        }
+    }
+
     public virtual void SetOwner(Entity owner)
     {
         _owner = owner;
     }
 
 
-    public virtual void IncreaseStatBy(int modifyValue, float duration, Stat statToModify)
-    {
-        _owner.StartCoroutine(StatModifyCoroutine(modifyValue, duration, statToModify));
-    }
-
-    protected IEnumerator StatModifyCoroutine(int modifyValue, float duration, Stat statToModify)
+    public virtual void IncreaseStatBy(int modifyValue, Stat statToModify)
     {
         statToModify.AddModifier(modifyValue);
-        yield return new WaitForSeconds(duration);
+    }
+    public virtual void DecreaseStatBy(int modifyValue, Stat statToModify)
+    {
         statToModify.RemoveModifier(modifyValue);
     }
-
 
     public int GetDamage()
     {
@@ -123,4 +139,8 @@ public class CharacterStat : ScriptableObject
         return 0;
     }
 
+    public Stat GetStatByType(StatType statType)
+    {
+        return _fieldInfoDictionary[statType].GetValue(this) as Stat;
+    }
 }

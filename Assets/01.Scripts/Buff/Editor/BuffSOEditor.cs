@@ -18,7 +18,7 @@ public class BuffSOEditor : Editor
         ownerSO = (BuffSO)target;
 
         normalBuffList = new ReorderableList(serializedObject,
-                serializedObject.FindProperty("statTypes"),
+                serializedObject.FindProperty("statBuffs"),
                 true, true, true, true);
         normalBuffList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
         {

@@ -47,6 +47,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         _ailmentStat = new AilmentStat(this);
         _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
+
         TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
 
         _isDead = false;

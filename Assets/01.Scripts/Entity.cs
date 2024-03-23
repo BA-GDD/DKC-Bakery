@@ -14,6 +14,7 @@ public abstract class Entity : PoolableMono
     public Health HealthCompo { get; private set; }
     public SpriteRenderer SpriteRendererCompo { get; private set; }
     public BattleController BattleController { get; set; }
+    public BuffStat BuffStatCompo { get; private set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
     #endregion
 
@@ -24,12 +25,10 @@ public abstract class Entity : PoolableMono
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
 
-    //예네 지울지 고민 좀만 해보자
-    public Action<int> OnStartAttack;
-    public Action OnEndAttack;
-
     public Action OnMoveTarget;
     public Action OnMoveOriginPos;
+
+    public Action OnAttack;
 
     public Transform forwardTrm;
 
@@ -46,6 +45,8 @@ public abstract class Entity : PoolableMono
         HealthCompo = GetComponent<Health>();
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
+
+        BuffStatCompo = new BuffStat(this);
 
         HealthCompo.OnHitEvent.AddListener(HandleHit);
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
@@ -75,7 +76,7 @@ public abstract class Entity : PoolableMono
         if ((ailment & AilmentEnum.Chilled) > 0) //������¸� ���ǵ� ������
         {
             //���� ���׿� ���� ����
-            float resistance = (100 - CharStat.magicResistance.GetValue()) * 0.01f;
+            float resistance = (100 - CharStat.armor.GetValue()) * 0.01f;
             SlowEntityBy(0.5f * resistance);
         }
         else
