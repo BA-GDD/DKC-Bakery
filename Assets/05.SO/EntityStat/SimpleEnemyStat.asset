@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3188bf866bca4a48b646ae953e1637a, type: 3}
   m_Name: SimpleEnemyStat
   m_EditorClassIdentifier: 
+  characterName: "\uCE94\uB514 \uD30C\uD2F0"
+  characterVisual: {fileID: 21300000, guid: 4e565dce49b9ddd408fdbdae664cae04, type: 3}
   strength:
     _baseValue: 0
     modifiers: 
@@ -25,7 +27,7 @@ MonoBehaviour:
     _baseValue: 0
     modifiers: 
   maxHealth:
-    _baseValue: 30
+    _baseValue: 2
     modifiers: 
   armor:
     _baseValue: 0
@@ -63,5 +65,6 @@ MonoBehaviour:
   shockPercent:
     _baseValue: 0
     modifiers: 
+  _dropItem: {fileID: 11400000, guid: 31e5be5266569f24f9a9beeb2421453c, type: 2}
   _level: 0
   _percentageModifier: 0

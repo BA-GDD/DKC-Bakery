@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
-using System.Threading.Tasks;
 
 [Serializable]
 public class SEList<T>
@@ -14,16 +13,16 @@ public class SEList<T>
 
 public class BattleController : MonoBehaviour
 {
-    [Header("ÆäÀÌÁö¿¡ µû¸¥ ¸ó½ºÅÍ ÃâÇö ±â¹Í")]
-    [SerializeField] private int _divineToken;
-    private int _divineCount;
-    [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
+    [SerializeField] private SEList<SEList<bool>> isStuck;
+
+    public Enemy[] onFieldMonsterList;
+    public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
+
 
     //[HideInInspector]
-    public Enemy[] onFieldMonsterList;
     private EnemyHpBarMaker _enemyHpBarMaker;
 
-    [Header("ÃâÇö ÅÒ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
     [SerializeField] private EnemyGroupSO _enemyGroup;
@@ -44,49 +43,39 @@ public class BattleController : MonoBehaviour
 
     private void Awake()
     {
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
-        TurnCounter.RoundEndEvent += HandleRoundEnd;
-        TurnCounter.EnemyTurnStartEvent += HandleEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent += HandleEnemyTurnEnd;
+        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
     }
     private void OnDestroy()
     {
-        TurnCounter.RoundEndEvent -= HandleRoundEnd;
-        TurnCounter.EnemyTurnStartEvent -= HandleEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent -= HandleEnemyTurnEnd;
+        TurnCounter.EnemyTurnStartEvent -= OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
     }
 
-    private void HandleRoundEnd()
-    {
-        StartCoroutine(RechargeEnemy());
-    }
-
-    private void HandleEnemyTurnStart()
+    private void OnEnemyTurnStart()
     {
         foreach (var e in onFieldMonsterList)
         {
-            if (e is null) continue;
             e.TurnStart();
         }
-        if (onFieldMonsterList.Length > 0)
-            StartCoroutine(EnemySquence());
+        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
     }
-    private void HandleEnemyTurnEnd()
+    private void OnEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
         {
-            if (e is null) continue;
             e.TurnEnd();
         }
     }
 
     private IEnumerator EnemySquence()
     {
-        Debug.Log(onFieldMonsterList.Length);
+
         foreach (var e in onFieldMonsterList)
         {
-            if (e is null) continue;
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
@@ -106,16 +95,15 @@ public class BattleController : MonoBehaviour
         {
             _enemyQue.Enqueue(e.poolingType);
         }
-        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
-        StartCoroutine(RechargeEnemy());
+        StartCoroutine(SpawnInitMonster());
     }
 
-    private IEnumerator RechargeEnemy()
+    private IEnumerator SpawnInitMonster()
     {
+        yield return null;
+
         for (int i = 0; i < _spawnDistanceByPoint.Count; i++)
         {
-            if (onFieldMonsterList[i] != null) continue;
-
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
@@ -139,8 +127,13 @@ public class BattleController : MonoBehaviour
             selectEnemy.Spawn(pos);
         }
     }
-    private void DeadMonster(Enemy enemy)
+
+    public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
+    }
+    public bool IsStuck(int to, int who)
+    {
+        return isStuck.list[to].list[who];
     }
 }

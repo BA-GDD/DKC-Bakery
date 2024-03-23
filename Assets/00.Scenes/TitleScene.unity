@@ -1360,6 +1360,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 261892893173424229, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _activeSyntexPanel.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 261892893173424229, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _activeSyntexPanel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1845907614}
+    - target: {fileID: 261892893173424229, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _activeSyntexPanel.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 261892893173424229, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _activeSyntexPanel.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: HidePnale
+      objectReference: {fileID: 0}
+    - target: {fileID: 261892893173424229, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _activeSyntexPanel.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SyntexPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 261892893173424229, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _activeSyntexPanel.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2574275895697526637, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
       propertyPath: m_Name
       value: ManagerGroup
@@ -1409,6 +1433,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+--- !u!114 &1845907614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3666276986812683419, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+  m_PrefabInstance: {fileID: 1845907613}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea17caf3aba11ca4d8a52809bffe54ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2067579006
 GameObject:
   m_ObjectHideFlags: 0
