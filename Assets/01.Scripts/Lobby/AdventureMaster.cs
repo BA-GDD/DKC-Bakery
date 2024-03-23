@@ -9,23 +9,21 @@ using UnityEngine.UI;
 public struct MissionPanel
 {
     public TextMeshProUGUI clearCountTxt;
-    public TextMeshProUGUI inMissionNameTxt;
+    
 }
 
 [Serializable]
 public struct MinePanel
 {
     public TextMeshProUGUI clearCountTxt;
-    public TextMeshProUGUI inMineNameTxt;
 }
 
 [Serializable]
 public struct StagePanel
 {
-    public TextMeshProUGUI inChapterName; 
-    public Image inChapterImg;
     public TextMeshProUGUI inStageCount;
-    public TextMeshProUGUI inStageName;
+    public List<Sprite> chapterVisualList;
+    public Image visual;
 }
 
 public class AdventureMaster : MonoBehaviour
@@ -45,14 +43,10 @@ public class AdventureMaster : MonoBehaviour
         }
 
         _missionPanel.clearCountTxt.text = _adventureData.ClearMissionCount;
-        _missionPanel.inMissionNameTxt.text = _adventureData.InChallingingMissionName;
-
         _minePanel.clearCountTxt.text = _adventureData.ClearMineFloor;
-        _minePanel.inMineNameTxt.text = _adventureData.InChallingingMineName;
-
-        _stagePanel.inChapterName.text = _adventureData.InChapterName;
-        _stagePanel.inChapterImg.sprite = _adventureData.InChapterImg;
         _stagePanel.inStageCount.text = _adventureData.InChallingingStageCount;
-        _stagePanel.inStageName.text = _adventureData.InChallingingStageName;
+
+        int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('_'));
+        _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx];
     }
 }
