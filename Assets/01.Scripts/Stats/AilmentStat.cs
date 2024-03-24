@@ -5,62 +5,70 @@ using UnityEngine;
 [Serializable]
 public class AilmentStat
 {
-    private Dictionary<AilmentEnum, Ailment> _ailmentDictionary;
+    private Health _health;
 
+    private Dictionary<AilmentEnum, int> _ailmentStack;
 
     public AilmentEnum currentAilment; //질병 및 디버프 상태
 
     public event Action<AilmentEnum> EndOFAilmentEvent; // 상태이상 종료시 발생
 
-    public AilmentStat(Health _health)
+    public AilmentStat(Health health)
     {
-        _ailmentDictionary = new Dictionary<AilmentEnum, Ailment>();
+        _ailmentStack = new Dictionary<AilmentEnum, int>();
+
+        _health = health;
 
         foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
         {
             if (ailment == AilmentEnum.None) continue;
-
-            Type t = Type.GetType($"{ailment}Ailment");
-
-            Ailment a = Activator.CreateInstance(t, this, _health, ailment) as Ailment;
-            _ailmentDictionary.Add(ailment, a);
+            _ailmentStack.Add(ailment, 0);
         }
     }
 
     public void UpdateAilment()
     {
         AilmentDamage();
-        foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
-        {
-            if (ailment == AilmentEnum.None) continue;
-
-            if (HasAilment(ailment))
-                _ailmentDictionary[ailment].Update();
-        }
     }
     public void CuredAilment(AilmentEnum ailment)
     {
         currentAilment ^= ailment; //XOR로 빼주고
         EndOFAilmentEvent?.Invoke(ailment); //종료 알림.
     }
+
     private void AilmentDamage()
     {
         foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
         {
-            if ((currentAilment & ailment) > 0)
+            if (HasAilment(ailment))
             {
-                Debug.Log(currentAilment);
+                switch (ailment)
+                {
+                    default:
+                        break;
+                }
             }
         }
     }
     public void UsedToAilment(AilmentEnum ailment)
     {
-        if (HasAilment(ailment))
+        if (!HasAilment(ailment))
+            return;
+
+
+        switch (ailment)
         {
-            _ailmentDictionary[ailment].UseAilment();
+            case AilmentEnum.None:
+                break;
+            case AilmentEnum.Chilled:
+                break;
+            case AilmentEnum.Shocked:
+                _ailmentStack[ailment] = 0;
+                CuredAilment(ailment);
+                _health.AilmentByDamage(ailment, Mathf.RoundToInt(_health.maxHealth * 0.07f));
+                break;
         }
     }
-
 
     //특정 디버프가 존재하는지 체크
     public bool HasAilment(AilmentEnum ailment)
@@ -68,31 +76,34 @@ public class AilmentStat
         bool temp = ((currentAilment & ailment) > 0);
         return (currentAilment & ailment) > 0;
     }
+
     public int GetStackAilment(AilmentEnum ailment)
     {
-        return _ailmentDictionary[ailment].stack;
+        return _ailmentStack[ailment];
     }
 
-    public void ApplyAilments(AilmentEnum value, int turn)
+    public void ApplyAilments(AilmentEnum value, int stack = 1)
     {
         Debug.Log(value);
         currentAilment |= value; //현재 상태이상에 추가 상태이상 덧씌우고
 
         //상태이상 새로 들어온 애들은 시간 갱신해주고. 
-        if ((value & AilmentEnum.Chilled) > 0)
+        SetAilment(value, stack);
+
+        if ((value & AilmentEnum.Chilled) > 0 && _ailmentStack[value] >= 5)
         {
-            SetAilment(AilmentEnum.Chilled, turn);
-        }
-        else if ((value & AilmentEnum.Shocked) > 0)
-        {
-            SetAilment(AilmentEnum.Shocked, turn);
+            _ailmentStack[value] -= 5;
+            if (_ailmentStack[value] <= 0)
+                CuredAilment(value);
+            _health.IsFreeze = true;
         }
     }
+
+
 
     //질병효과와 지속시간 셋팅
-    private void SetAilment(AilmentEnum ailment, int turn)
+    private void SetAilment(AilmentEnum ailment, int stack = 1)
     {
-        _ailmentDictionary[ailment].ActiveAilment(turn);
+        _ailmentStack[ailment] += stack;
     }
-
 }

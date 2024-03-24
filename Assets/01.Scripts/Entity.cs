@@ -2,6 +2,7 @@ using Cinemachine;
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -14,6 +15,7 @@ public abstract class Entity : PoolableMono
     public Health HealthCompo { get; private set; }
     public SpriteRenderer SpriteRendererCompo { get; private set; }
     public BattleController BattleController { get; set; }
+    public BuffStat BuffStatCompo { get; private set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
     #endregion
 
@@ -24,12 +26,10 @@ public abstract class Entity : PoolableMono
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
 
-    //예네 지울지 고민 좀만 해보자
-    public Action<int> OnStartAttack;
-    public Action OnEndAttack;
-
     public Action OnMoveTarget;
     public Action OnMoveOriginPos;
+
+    public List<IOnTakeDamage> OnAttack;
 
     public Transform forwardTrm;
 
@@ -38,6 +38,8 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected Vector3 lastMovePos;
     [SerializeField] protected float moveDuration = 0.1f;
 
+    private SkillCardManagement management;
+    public UnityEvent BeforeChainingEvent => management.beforeChainingEvent;
 
     protected virtual void Awake()
     {
@@ -47,6 +49,8 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
+        BuffStatCompo = new BuffStat(this);
+
         HealthCompo.OnHitEvent.AddListener(HandleHit);
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
@@ -54,6 +58,8 @@ public abstract class Entity : PoolableMono
         OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
+
+        management = FindObjectOfType<SkillCardManagement>();
 
         OnMoveTarget += HandleMoveToTarget;
         OnMoveOriginPos += HandleMoveToOriginPos;
@@ -75,7 +81,7 @@ public abstract class Entity : PoolableMono
         if ((ailment & AilmentEnum.Chilled) > 0) //������¸� ���ǵ� ������
         {
             //���� ���׿� ���� ����
-            float resistance = (100 - CharStat.magicResistance.GetValue()) * 0.01f;
+            float resistance = (100 - CharStat.armor.GetValue()) * 0.01f;
             SlowEntityBy(0.5f * resistance);
         }
         else
@@ -110,16 +116,14 @@ public abstract class Entity : PoolableMono
         AnimatorCompo.speed = 1; //���� ���ǵ�� �ǵ�����.
     }
 
-    public virtual void FreezeTime(bool isFreeze, bool isFrozenWithoutTimer = false)
+    public virtual void Freeze(bool isFreeze)
     {
         if (isFreeze)
         {
-            Debug.Log("Freezed");
             AnimatorCompo.speed = 0; //�ִϸ��̼� ����. �̵� ����.
         }
         else
         {
-            Debug.Log("UnFreezed");
             AnimatorCompo.speed = 1;
         }
     }
@@ -153,7 +157,7 @@ public abstract class Entity : PoolableMono
             SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
             yield return null;
         }
-
+        PoolManager.Instance.Push(this);
     }
 
     public override void Init()
