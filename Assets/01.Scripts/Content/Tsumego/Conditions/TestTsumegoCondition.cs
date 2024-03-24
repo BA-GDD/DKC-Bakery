@@ -9,7 +9,7 @@ public class TestTsumegoCondition : TsumegoCondition
 
         foreach(Enemy e in earr)
         {
-            if(!e.HealthCompo.isDead) return false;
+            if(!e.HealthCompo.IsDead) return false;
         }
         return true;
     }
