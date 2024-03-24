@@ -39,23 +39,22 @@ public class BuffSO : ScriptableObject
         {
             _stat.IncreaseStatBy(b.value, _stat.GetStatByType(b.type));
         }
-        foreach(var b in specialBuffs)
+        foreach (var b in specialBuffs)
         {
+            _owner.BuffStatCompo.specialBuffList.Add(b);
             if (b is IOnTakeDamage i)
             {
-                if (_owner.OnAttack.Contains(i))
+                if (!_owner.OnAttack.Contains(i))
                     _owner.OnAttack.Add(i);
             }
-            TurnCounter.RoundStartEvent += b.Active;
         }
     }
 
-    public void Update()
+    public void UpdateBuff()
     {
         foreach (var b in specialBuffs)
         {
-            if(!b.GetIsComplete())
-                b.Active();
+            b.Active();
         }
     }
 
@@ -67,7 +66,6 @@ public class BuffSO : ScriptableObject
         }
         foreach (var b in specialBuffs)
         {
-            TurnCounter.RoundStartEvent -= b.Active;
             //    if (b is IOnTakeDamage i)
             //        _owner.OnAttack += i.TakeDamage;
         }

@@ -11,5 +11,10 @@ public class HealingBuff : SpecialBuff
     {
         entity.HealthCompo.ApplyHeal(Mathf.RoundToInt(entity.HealthCompo.maxHealth * healingAmount * 0.01f));
         turnDuration--;
+
+        if(turnDuration <= 0)
+        {
+            isComplete = true;
+        }
     }
 }

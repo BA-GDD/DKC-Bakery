@@ -39,7 +39,15 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected float moveDuration = 0.1f;
 
     private SkillCardManagement management;
-    public UnityEvent BeforeChainingEvent => management.beforeChainingEvent;
+    public UnityEvent BeforeChainingEvent 
+    {
+        get
+        {
+            if (management == null)
+                management = FindObjectOfType<SkillCardManagement>();
+            return management.beforeChainingEvent;
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -49,8 +57,6 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
-        BuffStatCompo = new BuffStat(this);
-
         HealthCompo.OnHitEvent.AddListener(HandleHit);
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
@@ -59,11 +65,14 @@ public abstract class Entity : PoolableMono
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
-        management = FindObjectOfType<SkillCardManagement>();
-
         OnMoveTarget += HandleMoveToTarget;
         OnMoveOriginPos += HandleMoveToOriginPos;
-    } 
+    }
+
+    protected virtual void Start()
+    {
+        BuffStatCompo = new BuffStat(this);
+    }
 
     private void HandleCutInOnFieldMonsterList()
     {

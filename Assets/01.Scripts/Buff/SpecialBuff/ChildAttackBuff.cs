@@ -16,4 +16,9 @@ public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
         appliedEnemy.Add(health);
         health.AilmentStat.ApplyAilments(AilmentEnum.Chilled);
     }
+
+    public override bool GetIsComplete()
+    {
+        return appliedEnemy.Count > 0;
+    }
 }

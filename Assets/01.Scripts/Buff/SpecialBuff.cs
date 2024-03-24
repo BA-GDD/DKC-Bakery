@@ -12,5 +12,5 @@ public abstract class SpecialBuff : ScriptableObject
         this.entity = entity;
     }
     public abstract void Active();
-    public bool GetIsComplete() => isComplete;
+    public virtual bool GetIsComplete() => isComplete;
 }
