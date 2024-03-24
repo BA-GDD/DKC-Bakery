@@ -37,7 +37,7 @@ public class CandyStreamBurstSkill : CardBase, IUseEffectAnim
 
             foreach(var e in battleController.onFieldMonsterList)
             {
-                e?.HealthCompo.ApplyDamage(2, Player);
+                Player.Attack(e, 2);
             }
         }
     }

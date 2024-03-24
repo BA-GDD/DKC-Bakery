@@ -32,7 +32,7 @@ public class LightningJangSkill : LightningCardBase, IUseEffectAnim
     {
         yield return new WaitForSeconds(0.1f);
 
-        Player.target.HealthCompo.ApplyDamage(10, Player);
+        Player.Attack(Player.target, 10);
 
         ExtraAttack();
     }

@@ -30,5 +30,8 @@ public class RestSpell : CardBase, IUseEffectAnim
     private IEnumerator SpellCor()
     {
         yield return new WaitForSeconds(1f);
+
+        List<CardBase> handCards = new List<CardBase>();
+
     }
 }

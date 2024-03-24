@@ -55,7 +55,7 @@ public class JaggieLanternSkill : CardBase, IUseEffectAnim
 
         foreach(var e in battleController.onFieldMonsterList)
         {
-            e?.HealthCompo.ApplyDamage(15, Player);
+            Player.Attack(e, 7);
         }
     }
 }
