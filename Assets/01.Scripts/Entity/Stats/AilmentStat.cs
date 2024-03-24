@@ -7,7 +7,6 @@ public class AilmentStat
 {
     private Health _health;
 
-    private Dictionary<AilmentEnum, int> _ailmentTurn;
     private Dictionary<AilmentEnum, int> _ailmentStack;
 
     public AilmentEnum currentAilment; //질병 및 디버프 상태
@@ -16,7 +15,6 @@ public class AilmentStat
 
     public AilmentStat(Health health)
     {
-        _ailmentTurn = new Dictionary<AilmentEnum, int>();
         _ailmentStack = new Dictionary<AilmentEnum, int>();
 
         _health = health;
@@ -24,7 +22,6 @@ public class AilmentStat
         foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
         {
             if (ailment == AilmentEnum.None) continue;
-            _ailmentTurn.Add(ailment, 0);
             _ailmentStack.Add(ailment, 0);
         }
     }
@@ -32,18 +29,6 @@ public class AilmentStat
     public void UpdateAilment()
     {
         AilmentDamage();
-        foreach (AilmentEnum ailment in Enum.GetValues(typeof(AilmentEnum)))
-        {
-            if (ailment == AilmentEnum.None) continue;
-
-            if (HasAilment(ailment))
-                _ailmentTurn[ailment]--;
-
-            if (_ailmentTurn[ailment] <= 0)
-            {
-                CuredAilment(ailment);
-            }
-        }
     }
     public void CuredAilment(AilmentEnum ailment)
     {
@@ -79,11 +64,11 @@ public class AilmentStat
                 break;
             case AilmentEnum.Shocked:
                 _ailmentStack[ailment] = 0;
-                _health.AilementDamage(ailment, 2);
+                CuredAilment(ailment);
+                _health.AilmentByDamage(ailment, Mathf.RoundToInt(_health.maxHealth * 0.07f));
                 break;
         }
     }
-
 
     //특정 디버프가 존재하는지 체크
     public bool HasAilment(AilmentEnum ailment)
@@ -97,25 +82,28 @@ public class AilmentStat
         return _ailmentStack[ailment];
     }
 
-    public void ApplyAilments(AilmentEnum value, int turn)
+    public void ApplyAilments(AilmentEnum value, int stack = 1)
     {
         Debug.Log(value);
         currentAilment |= value; //현재 상태이상에 추가 상태이상 덧씌우고
 
         //상태이상 새로 들어온 애들은 시간 갱신해주고. 
-        if ((value & AilmentEnum.Chilled) > 0)
+        SetAilment(value, stack);
+
+        if ((value & AilmentEnum.Chilled) > 0 && _ailmentStack[value] >= 5)
         {
-            SetAilment(AilmentEnum.Chilled, turn);
-        }
-        else if ((value & AilmentEnum.Shocked) > 0)
-        {
-            SetAilment(AilmentEnum.Shocked, turn);
+            _ailmentStack[value] -= 5;
+            if (_ailmentStack[value] <= 0)
+                CuredAilment(value);
+            _health.IsFreeze = true;
         }
     }
 
+
+
     //질병효과와 지속시간 셋팅
-    private void SetAilment(AilmentEnum ailment, int turn)
+    private void SetAilment(AilmentEnum ailment, int stack = 1)
     {
-        _ailmentTurn[ailment] = turn;
+        _ailmentStack[ailment] += stack;
     }
 }

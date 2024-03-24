@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BuffStat
 {
-    public AilmentEnum currentAilment;
-
     private Entity _owner;
-    private Dictionary<BuffSO, int> _buffDic;
+    private Dictionary<BuffSO, int> _buffDic = new();
 
     public BuffStat(Entity entity)
     {
         _owner = entity;
+        _buffDic = new();
+        _owner.BeforeChainingEvent.AddListener(EndCardCheckDel);
     }
     public void AddBuff(BuffSO so, int durationTurn)
     {
@@ -27,7 +27,12 @@ public class BuffStat
             _buffDic.Add(so, durationTurn);
         }
     }
-
+    public void EndCardCheckDel()
+    {
+        foreach (var a in _owner.OnAttack)
+            if (((SpecialBuff)a).GetIsComplete())
+                _owner.OnAttack.Remove(a);
+    }
     public void UpdateBuff()
     {
         foreach (var d in _buffDic)

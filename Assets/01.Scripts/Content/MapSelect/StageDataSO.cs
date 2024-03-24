@@ -16,5 +16,4 @@ public class StageDataSO : ScriptableObject
     public StageType stageType;
     public EnemyGroupSO enemyGroup;
     public TsumegoInfo clearCondition;
-    public List<CardBase> missionDeck;
 }

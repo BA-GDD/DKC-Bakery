@@ -8,5 +8,8 @@ public class TsumegoInfo : ScriptableObject
 {
     public string Info;
     public bool IsClear;
+    public string Name;
+
     public List<TsumegoCondition> Conditions;
+
 }

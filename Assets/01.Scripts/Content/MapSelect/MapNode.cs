@@ -9,6 +9,7 @@ public class MapNode : MonoBehaviour, IPointerClickHandler
     [SerializeField] private StageDataSO _stageData;
 
     private int _stageNumber;
+
     public int StageNumber
     {
         get

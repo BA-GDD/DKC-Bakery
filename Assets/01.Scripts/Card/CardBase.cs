@@ -64,12 +64,20 @@ public abstract class CardBase : MonoBehaviour,
     }
     [SerializeField] private Material _cardMat;
 
+    [SerializeField]protected BuffSO buffSO;
+
     [HideInInspector]public BattleController battleController;
     protected Player Player => battleController.Player;
 
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
+        if (buffSO != null)
+        {
+            buffSO = Instantiate(buffSO);
+            buffSO.Clone();
+        }
+
     }
     public abstract void Abillity();
     public void ActiveInfo()

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IOnTakeDamage
 {
-    public void TakeDamage();
+    public void TakeDamage(Health health);
 }

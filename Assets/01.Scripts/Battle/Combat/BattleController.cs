@@ -19,6 +19,7 @@ public class BattleController : MonoBehaviour
     public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
 
 
+
     //[HideInInspector]
     private EnemyHpBarMaker _enemyHpBarMaker;
 
@@ -38,6 +39,19 @@ public class BattleController : MonoBehaviour
             if (_player != null) return _player;
             _player = FindObjectOfType<Player>();
             return _player;
+        }
+    }
+    private int FieldCnt
+    {
+        get
+        {
+            int cnt = 0;
+            foreach (var i in onFieldMonsterList)
+            {
+                if (i is null) continue;
+                cnt++;
+            }
+            return cnt;
         }
     }
 
@@ -61,7 +75,10 @@ public class BattleController : MonoBehaviour
         {
             e.TurnStart();
         }
-        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
+        Debug.Log(123);
+
+        if (FieldCnt > 0) StartCoroutine(EnemySquence());
+        else TurnCounter.ChangeTurn();
     }
     private void OnEnemyTurnEnd()
     {
@@ -73,10 +90,11 @@ public class BattleController : MonoBehaviour
 
     private IEnumerator EnemySquence()
     {
-
         foreach (var e in onFieldMonsterList)
         {
+            if (e.HealthCompo.IsFreeze) continue;
             e.TurnAction();
+
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.ChangeTurn();

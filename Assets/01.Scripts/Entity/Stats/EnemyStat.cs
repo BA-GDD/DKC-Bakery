@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Stat/Enemy")]
 public class EnemyStat : CharacterStat
 {
-    [Header("DropItem")]
-    [SerializeField] private ItemDataIngredientSO _dropItem;
-    public ItemDataIngredientSO DropItem => _dropItem;
+    [Header("드롭아이템")]
+    [SerializeField] private ItemDataIngredientSO _dropIngredientItem;
+    public ItemDataIngredientSO DropItem => _dropIngredientItem;
 
     [Header("Level detail")]
     [SerializeField] private int _level;

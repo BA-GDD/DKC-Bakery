@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
+public class CandyStreamBurstSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
@@ -37,7 +37,7 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
 
             foreach(var e in battleController.onFieldMonsterList)
             {
-                e?.HealthCompo.ApplyDamage(2, Player);
+                Player.Attack(e, 2);
             }
         }
     }

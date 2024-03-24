@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TripleStepSkill : CardBase, ISkillEffectAnim
+public class TripleStepSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
@@ -34,11 +34,11 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         for(int i = 0; i < 2; ++i)
         {
             yield return new WaitForSeconds(0.2f);
-            Player.target.HealthCompo.ApplyDamage(3, Player);
+            Player.Attack(Player.target, 3);
         }
 
         yield return new WaitForSeconds(2.6f);
 
-        Player.target.HealthCompo.ApplyDamage(5, Player);
+        Player.Attack(Player.target, 5);
     }
 }
