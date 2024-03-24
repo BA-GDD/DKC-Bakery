@@ -13,11 +13,13 @@ public class SelectCard : MonoBehaviour
     {
         _noneSelectText.SetActive(false);
         _cardVisual.sprite = info.CardVisual;
+        _cardVisual.color = Color.white;
     }
 
     public void UnSetCard()
     {
         _noneSelectText.SetActive(true);
         _cardVisual.sprite = _noneSelectVisual;
+        _cardVisual.color = new Color(1, 1, 1, 0.8f);
     }
 }
