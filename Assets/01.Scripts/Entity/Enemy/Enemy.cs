@@ -18,8 +18,6 @@ public abstract class Enemy : Entity
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
     protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
-    public TurnStatus turnStatus;
-
     protected override void Awake()
     {
         base.Awake();

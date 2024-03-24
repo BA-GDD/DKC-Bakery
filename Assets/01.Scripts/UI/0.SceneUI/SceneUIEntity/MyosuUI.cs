@@ -16,9 +16,4 @@ public class MyosuUI : SceneUI
         _myosuPanel.MyosuTestInfo = myosuInfo;
         _myosuPanel.SetUpPanel(isSetUp);
     }
-
-    public void GoToBattleScene()
-    {
-        GameManager.Instance.ChangeScene(SceneType.battle);
-    }
 }

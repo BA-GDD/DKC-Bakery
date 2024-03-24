@@ -19,6 +19,7 @@ public class BattleController : MonoBehaviour
     public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
 
 
+
     //[HideInInspector]
     private EnemyHpBarMaker _enemyHpBarMaker;
 
@@ -93,6 +94,7 @@ public class BattleController : MonoBehaviour
         {
             if (e.HealthCompo.IsFreeze) continue;
             e.TurnAction();
+
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
         TurnCounter.ChangeTurn();

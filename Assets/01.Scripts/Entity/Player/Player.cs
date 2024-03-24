@@ -32,7 +32,6 @@ public class Player : Entity
     private AnimatorOverrideController animatorOverrideController;
     private AnimationClipOverrides clipOverrides;
 
-
     protected override void Awake()
     {
         base.Awake();

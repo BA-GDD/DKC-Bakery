@@ -19,14 +19,7 @@ public class TurnCounting : MonoBehaviour
 
     private void Start()
     {
-        if (MapManager.Instanace.SelectStageData.stageType == StageType.Mission)
-        {
-            CardReader.SetDeck(MapManager.Instanace.SelectStageData.missionDeck);
-        }
-        else
-        {
-            CardReader.SetDeck(MapManager.Instanace.SelectDeck);
-        }
+        CardReader.SetDeck(MapManager.Instanace.SelectDeck);
         //TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
     }
 
@@ -57,11 +50,7 @@ public class TurnCounting : MonoBehaviour
         seq.Append(_selectTrm.DOLocalMove(_normalPos.localPosition, 0.5f).SetEase(Ease.OutCubic));
         seq.AppendInterval(0.5f);
         seq.Append(_selectTrm.DOLocalMove(_endPos.localPosition, 0.5f).SetEase(Ease.InCubic));
-        seq.AppendCallback(() =>
-        {
-            if (isTurnChange)
-                TurnCounter.ChangeTurn();
-        });
-
+        if(isTurnChange)
+            seq.AppendCallback(TurnCounter.ChangeTurn);
     }
 }

@@ -1,5 +1,7 @@
 using DG.Tweening;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,7 +26,6 @@ public class SkillCardManagement : CardManagement
     public UnityEvent beforeChainingEvent;
     [SerializeField] private UnityEvent _afterChanningEvent;
     [SerializeField] private UnityEvent<bool> _acceptBtnSwitchEvent;
-    [SerializeField] private UnityEvent _checkStageClearEvent;
 
     private void Start()
     {
@@ -70,8 +71,8 @@ public class SkillCardManagement : CardManagement
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
 
+            Debug.Log(9);
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
-            _checkStageClearEvent?.Invoke();
             return;
         }
 

@@ -14,29 +14,25 @@ public class Inventory : MonoSingleton<Inventory>
     [Header("ParentTrms")]
     [SerializeField] private Transform _ingredientParent; 
     [SerializeField] private Transform _breadParent;
-    public ExpansionList<ItemDataIngredientSO> GetIngredientInThisBattle { get; set; } = new ExpansionList<ItemDataIngredientSO>();
-
+    
     [Header("Events")]
     public UnityEvent<int> onRemoveBreadTrigger; 
     public UnityEvent<int> onRemoveIngredientTrigger; 
+
+    public ExpansionList<ItemDataIngredientSO> GetIngredinentsInThisBattle { get; set; } = new ExpansionList<ItemDataIngredientSO>();
 
     private void Awake()
     {
         ingredientStash = new IngredientStash(_ingredientParent);
         breadStash = new BreadStash(_breadParent);
 
-        SceneManager.activeSceneChanged += HandleClearGetIngList;
-        GetIngredientInThisBattle.ListAdded += HandleGetItem;
+        GetIngredinentsInThisBattle.ListAdded += HandleGetItem;
+        SceneManager.activeSceneChanged += (Scene a, Scene v) => GetIngredinentsInThisBattle.Clear();
     }
 
     private void HandleGetItem(object sender, EventArgs e)
     {
         Debug.Log(sender);
-    }
-
-    private void HandleClearGetIngList(Scene arg0, Scene arg1)
-    {
-        GetIngredientInThisBattle.Clear();
     }
 
     private void Start()
