@@ -41,7 +41,6 @@ public abstract class CardBase : MonoBehaviour,
             visualTrm = value;
         }
     }
-    [SerializeField] private Transform _cardInfoPanelTrm;
     private bool _isActivingAbillity;
     protected bool IsActivingAbillity
     {
@@ -63,7 +62,6 @@ public abstract class CardBase : MonoBehaviour,
             }
         }
     }
-    private CardInfoPanel _cardInfoPanel;
     [SerializeField] private Material _cardMat;
 
     [SerializeField]protected BuffSO buffSO;
@@ -106,7 +104,7 @@ public abstract class CardBase : MonoBehaviour,
     public void SetUpCard(float moveToXPos, bool generateCallback)
     {
         CanUseThisCard = false;
-        Vector2 movePos = new Vector2(moveToXPos, 0);
+        Vector2 movePos = new Vector2(moveToXPos, -180);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOLocalMove(movePos, _toMovePosInSec).SetEase(Ease.OutBack));

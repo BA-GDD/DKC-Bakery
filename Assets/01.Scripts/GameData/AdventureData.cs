@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class AdventureData : CanSaveData
 {
-    public string ClearMissionCount;
-    public string InChallingingMissionName;
-
+    public string InChallingingMissionName = "³×?";
     public string ClearMineFloor = "0";
-    public string InChallingingMineName;
-
-    public string InChapterName;
-    public Sprite InChapterImg;
-    public string InChallingingStageCount;
-    public string InChallingingStageName;
+    public string InChallingingStageCount = "5-4";
 
     public override void SetInitialValue()
     {

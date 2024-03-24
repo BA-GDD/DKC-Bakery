@@ -5,8 +5,9 @@ using UIDefine;
 
 public class SceneUI : MonoBehaviour
 {
-    [SerializeField] private UIScreenType _myType;
-    public UIScreenType ScreenType => _myType;
+    [SerializeField] private SceneType _myType;
+    public SceneType ScreenType => _myType;
+
 
     public virtual void SceneUIStart()
     {
