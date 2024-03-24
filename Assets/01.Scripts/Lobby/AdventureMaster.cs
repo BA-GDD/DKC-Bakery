@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public struct MissionPanel
 {
     public TextMeshProUGUI clearCountTxt;
-    
 }
 
 [Serializable]
@@ -37,16 +36,16 @@ public class AdventureMaster : MonoBehaviour
 
     private void Start()
     {
-        if(DataManager.Instance.IsHaveData(_adventureKey))
+        if (DataManager.Instance.IsHaveData(_adventureKey))
         {
             _adventureData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _missionPanel.clearCountTxt.text = _adventureData.ClearMissionCount;
-        _minePanel.clearCountTxt.text = _adventureData.ClearMineFloor;
-        _stagePanel.inStageCount.text = _adventureData.InChallingingStageCount;
+        _missionPanel.clearCountTxt.text = $"In Stage : {_adventureData.InChallingingMissionName}";
+        _minePanel.clearCountTxt.text = $"Conquered Floor : {_adventureData.ClearMineFloor}";
+        _stagePanel.inStageCount.text = $"Challinging Area : {_adventureData.InChallingingStageCount}";
 
-        int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('_'));
-        _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx];
+        int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
+        _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx - 1];
     }
 }

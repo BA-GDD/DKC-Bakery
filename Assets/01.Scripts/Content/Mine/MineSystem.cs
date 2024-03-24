@@ -59,7 +59,6 @@ public class MineSystem : MonoBehaviour
         mineUI.SetUpFloor();
         MapChange();
         _addData.ClearMineFloor = (uf - 1).ToString();
-        _addData.InChallingingMineName = _currentMineInfo.stageData.stageName;
         DataManager.Instance.SaveData(_addData, _adventureKey);
     }
 

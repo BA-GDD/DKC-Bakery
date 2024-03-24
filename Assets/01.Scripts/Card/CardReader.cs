@@ -86,6 +86,11 @@ public static class CardReader
         return _captureHandList == _inHandCardList;
     }
 
+    public static List<CardBase> GetHandCards()
+    {
+        return _inHandCardList;
+    }
+
     public static void AddCardInHand(CardBase addingCardInfo)
     {
         _inHandCardList.Add(addingCardInfo);

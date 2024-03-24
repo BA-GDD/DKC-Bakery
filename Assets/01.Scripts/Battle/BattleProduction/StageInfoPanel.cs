@@ -33,17 +33,27 @@ public class StageInfoPanel : PanelUI
         _clearConditionLabel.transform.localPosition -= new Vector3(0, _chaingValue, 0);
     }
 
-    public void PanelSetUp(bool value)
+    public void PanelSetUp()
     {
-        FadePanel(value, ()=> gameObject.SetActive(value));
-
-        int movingValue = MaestrOffice.BoolToInt(value);
+        FadePanel(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(
-        _stageIcon.transform.DOLocalMoveY(_stageIconNPos.y + _chaingValue * movingValue, 0.2f));
+        _stageIcon.transform.DOLocalMoveY(_stageIconNPos.y - _chaingValue, 0.2f));
         seq.Join(
-        _clearConditionLabel.transform.DOLocalMoveY(_cleatConditionLabelNPos.y - _chaingValue * movingValue, 0.2f));
+        _clearConditionLabel.transform.DOLocalMoveY(_cleatConditionLabelNPos.y + _chaingValue, 0.2f));
+    }
+
+    public void PanelInit()
+    {
+        FadePanel(false, ()=> gameObject.SetActive(false));
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(
+        _stageIcon.transform.DOLocalMoveY(_stageIconNPos.y + _chaingValue, 0.2f));
+        seq.Join(
+        _clearConditionLabel.transform.DOLocalMoveY(_cleatConditionLabelNPos.y - _chaingValue, 0.2f));
     }
 }
