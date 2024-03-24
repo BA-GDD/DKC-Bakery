@@ -86,6 +86,11 @@ public static class CardReader
         return _captureHandList == _inHandCardList;
     }
 
+    public static List<CardBase> GetHandCards()
+    {
+        return _inHandCardList;
+    }
+
     public static void AddCardInHand(CardBase addingCardInfo)
     {
         _inHandCardList.Add(addingCardInfo);
@@ -146,13 +151,13 @@ public static class CardReader
 
     public static int GetPosOnTopDrawCard()
     {
-        return 800 - ((CountOfCardInHand() -1) * 230);
+        return 930 - ((CountOfCardInHand() -1) * 170);
     }
 
     public static int GetHandPos(CardBase cardBase)
     {
         int idx = _inHandCardList.IndexOf(cardBase);
-        return 800 - (idx * 230);
+        return 930 - (idx * 170);
     }
 
     public static void LockHandCard(bool isLock)

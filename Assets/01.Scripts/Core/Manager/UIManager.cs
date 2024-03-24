@@ -9,30 +9,17 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private SceneUI[] _screenElementGroup;
 
-    private Dictionary<UIScreenType, SceneUI> _sceneUIDic = new Dictionary<UIScreenType, SceneUI>();
+    private Dictionary<SceneType, SceneUI> _sceneUIDic = new Dictionary<SceneType, SceneUI>();
 
-    private UIScreenType _currentSceneUIType;
-    public UIScreenType CurrentSceneUI => _currentSceneUIType;
+    private SceneType CurrentSceneType => SceneObserver.CurrentSceneType;
     private SceneUI _currentSceneUIObject;
 
-    private Canvas _canvas;
-    public Canvas Canvas
-    {
-        get
-        {
-            if (_canvas != null) return _canvas;
-            Canvas findCanvas = FindObjectOfType<Canvas>();
-            return findCanvas;
-        }
-        set
-        {
-            _canvas = value;
-        }
-    }
+    public Canvas Canvas { get; private set; }
     public Transform CanvasTrm => Canvas.transform;
 
-    private void Awake()
+    private void Start()
     {
+        Canvas = GetComponentInChildren<Canvas>();
         foreach(SceneUI su in _screenElementGroup)
         {
             _sceneUIDic.Add(su.ScreenType, su);
@@ -42,6 +29,11 @@ public class UIManager : MonoSingleton<UIManager>
         ChangeSceneUIOnChangeScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= ChangeSceneUIOnChangeScene;
+    }
+
     public T GetSceneUI<T>() where T : SceneUI
     {
         return (T)FindFirstObjectByType(typeof(T));
@@ -49,18 +41,16 @@ public class UIManager : MonoSingleton<UIManager>
     
     public void ChangeSceneUIOnChangeScene(Scene updateScene, LoadSceneMode mode)
     {
-        _currentSceneUIType = (UIScreenType)updateScene.buildIndex;
-
         if(_currentSceneUIObject != null)
         {
             _currentSceneUIObject.SceneUIEnd();
             Destroy(_currentSceneUIObject.gameObject);
         }
 
-        if (_sceneUIDic.ContainsKey(_currentSceneUIType))
+        if (_sceneUIDic.ContainsKey(CurrentSceneType))
         {
-            SceneUI suObject = Instantiate(_sceneUIDic[_currentSceneUIType], CanvasTrm);
-            suObject.gameObject.name = _sceneUIDic[_currentSceneUIType].gameObject.name + "_MAESTRO_[SceneUI]_";
+            SceneUI suObject = Instantiate(_sceneUIDic[CurrentSceneType], CanvasTrm);
+            suObject.gameObject.name = _sceneUIDic[CurrentSceneType].gameObject.name + "_MAESTRO_[SceneUI]_";
             suObject.SceneUIStart();
 
             _currentSceneUIObject = suObject;

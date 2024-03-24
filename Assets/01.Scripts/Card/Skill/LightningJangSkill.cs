@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
+public class LightningJangSkill : LightningCardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
@@ -32,7 +32,7 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.1f);
 
-        Player.target.HealthCompo.ApplyDamage(10, Player);
+        Player.Attack(Player.target, 10);
 
         ExtraAttack();
     }

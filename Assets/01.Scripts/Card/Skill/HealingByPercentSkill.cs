@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingByPercentSkill : CardBase, ISkillEffectAnim
+public class HealingByPercentSkill : CardBase, IUseEffectAnim
 {
     public int healingAmount;
 

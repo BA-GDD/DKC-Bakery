@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuriBumerangSkill : CardBase, ISkillEffectAnim
+public class BuriBumerangSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
         IsActivingAbillity = true;
+        Player.target = battleController.onFieldMonsterList[3];
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
@@ -29,8 +30,14 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
 
+        Player.Attack(Player.target, 4);
+        Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
 
+        yield return new WaitForSeconds(1.2f);
+
+        Player.Attack(Player.target, 4);
+        Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
     }
 }

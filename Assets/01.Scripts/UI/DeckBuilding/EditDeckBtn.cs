@@ -6,6 +6,6 @@ public class EditDeckBtn : MonoBehaviour
 {
     public void PressEditDeck()
     {
-        GameManager.Instance.ChangeScene(SceneList.DeckBuildScene);
+        GameManager.Instance.ChangeScene(SceneType.deckBuild);
     }
 }

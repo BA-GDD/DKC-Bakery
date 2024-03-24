@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class LobbyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private UIScreenType _toGoScreen;
+    [SerializeField] private SceneType _toGoScene;
     [SerializeField] private Transform _visualTrm;
     private Tween _hoverTween;
 
@@ -31,18 +31,7 @@ public class LobbyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void PressThisButton()
     {
-        switch (_toGoScreen)
-        {
-            case UIScreenType.bakery:
-                GameManager.Instance.ChangeScene(SceneList.BakeryScene);
-                break;
-            case UIScreenType.teaTime:
-                GameManager.Instance.ChangeScene(SceneList.TeaTimeScene);
-                break;
-            case UIScreenType.deckBuild:
-                GameManager.Instance.ChangeScene(SceneList.DeckBuildScene);
-                break;
-        }
+        GameManager.Instance.ChangeScene(_toGoScene);
     }
 }
                                              

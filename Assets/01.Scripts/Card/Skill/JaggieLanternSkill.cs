@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JaggieLanternSkill : CardBase, ISkillEffectAnim
+public class JaggieLanternSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
@@ -55,7 +55,7 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
 
         foreach(var e in battleController.onFieldMonsterList)
         {
-            e?.HealthCompo.ApplyDamage(15, Player);
+            Player.Attack(e, 7);
         }
     }
 }
