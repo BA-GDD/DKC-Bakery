@@ -44,16 +44,4 @@ public class StageInfoPanel : PanelUI
         seq.Join(
         _clearConditionLabel.transform.DOLocalMoveY(_cleatConditionLabelNPos.y + _chaingValue, 0.2f));
     }
-
-    public void PanelInit()
-    {
-        FadePanel(false, ()=> gameObject.SetActive(false));
-
-        Sequence seq = DOTween.Sequence();
-
-        seq.Append(
-        _stageIcon.transform.DOLocalMoveY(_stageIconNPos.y + _chaingValue, 0.2f));
-        seq.Join(
-        _clearConditionLabel.transform.DOLocalMoveY(_cleatConditionLabelNPos.y - _chaingValue, 0.2f));
-    }
 }
