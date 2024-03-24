@@ -6,6 +6,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "Tsumego Info", menuName = "SO/Tsumego/Info")]
 public class TsumegoInfo : ScriptableObject
 {
+    public string Info;
     public bool IsClear;
     public List<TsumegoCondition> Conditions;
 }

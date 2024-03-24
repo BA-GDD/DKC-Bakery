@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf97dbb705584d4eafcd5786653c152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _productionAnimator: {fileID: 0}
+  _stageInfoPanel: {fileID: 0}
   _clearChekcerSetEvent:
     m_PersistentCalls:
       m_Calls:
@@ -64,8 +64,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BattleEnemyPanel, Assembly-CSharp
-        m_MethodName: SetBattleEnemy
+        m_TargetAssemblyTypeName: StageInfoPanel, Assembly-CSharp
+        m_MethodName: SetInfo
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
