@@ -14,6 +14,7 @@ public abstract class Entity : PoolableMono
     public Health HealthCompo { get; private set; }
     public SpriteRenderer SpriteRendererCompo { get; private set; }
     public BattleController BattleController { get; set; }
+    public BuffStat BuffStatCompo { get; private set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
     #endregion
 
@@ -24,16 +25,17 @@ public abstract class Entity : PoolableMono
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
 
-    //예네 지울지 고민 좀만 해보자
-    public Action<int> OnStartAttack;
-    public Action OnEndAttack;
+    public Action OnMoveTarget;
+    public Action OnMoveOriginPos;
+
+    public Action OnAttack;
 
     public Transform forwardTrm;
 
     public Entity target;
 
-    [SerializeField]protected Vector3 lastMovePos;
-    [SerializeField]protected float moveDuration = 0.1f;
+    [SerializeField] protected Vector3 lastMovePos;
+    [SerializeField] protected float moveDuration = 0.1f;
 
 
     protected virtual void Awake()
@@ -44,6 +46,8 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
+        BuffStatCompo = new BuffStat(this);
+
         HealthCompo.OnHitEvent.AddListener(HandleHit);
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
@@ -51,7 +55,10 @@ public abstract class Entity : PoolableMono
         OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
-    }
+
+        OnMoveTarget += HandleMoveToTarget;
+        OnMoveOriginPos += HandleMoveToOriginPos;
+    } 
 
     private void HandleCutInOnFieldMonsterList()
     {
@@ -69,7 +76,7 @@ public abstract class Entity : PoolableMono
         if ((ailment & AilmentEnum.Chilled) > 0) //������¸� ���ǵ� ������
         {
             //���� ���׿� ���� ����
-            float resistance = (100 - CharStat.magicResistance.GetValue()) * 0.01f;
+            float resistance = (100 - CharStat.armor.GetValue()) * 0.01f;
             SlowEntityBy(0.5f * resistance);
         }
         else
@@ -118,13 +125,37 @@ public abstract class Entity : PoolableMono
         }
     }
 
-    public abstract void MoveToTargetForward();
-    public virtual void MoveToLastPos()
+    public void MoveToTargetForward()
     {
-        transform.DOMove(lastMovePos, moveDuration);
+        lastMovePos = transform.position;
+
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
+        seq.OnComplete(OnMoveTarget.Invoke);
     }
+    protected abstract void HandleMoveToTarget();
+    public void MoveToOriginPos()
+    {
+        transform.DOMove(lastMovePos, moveDuration).OnComplete(OnMoveOriginPos.Invoke);
+    }
+    protected abstract void HandleMoveToOriginPos();
 
+    public void DeadSeq()
+    {
+        StartCoroutine(DissolveCo());
+    }
+    private IEnumerator DissolveCo()
+    {
+        float timer = 0;
+        while (timer < 1)
+        {
+            timer += Time.deltaTime;
+            SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
+            yield return null;
+        }
 
+    }
 
     public override void Init()
     {

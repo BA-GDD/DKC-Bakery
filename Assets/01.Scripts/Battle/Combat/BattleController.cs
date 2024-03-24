@@ -13,17 +13,19 @@ public class SEList<T>
 
 public class BattleController : MonoBehaviour
 {
-    public List<Enemy> DeathEnemyList { get; set; }  = new List<Enemy>();
-    [SerializeField] private SEList<SEList<Enemy>> _monsterGimicList = new();
+    [SerializeField] private SEList<SEList<bool>> isStuck;
+
+    public Enemy[] onFieldMonsterList;
+    public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
+
 
     //[HideInInspector]
-    public ExpansionList<Enemy> onFieldMonsterList = new ExpansionList<Enemy>();
     private EnemyHpBarMaker _enemyHpBarMaker;
 
-    [Header("ÃâÇö ÅÒ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
-    [SerializeField]private EnemyGroupSO _enemyGroup;
+    [SerializeField] private EnemyGroupSO _enemyGroup;
 
     [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
@@ -41,7 +43,8 @@ public class BattleController : MonoBehaviour
 
     private void Awake()
     {
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
@@ -54,12 +57,11 @@ public class BattleController : MonoBehaviour
 
     private void OnEnemyTurnStart()
     {
-        Debug.Log("Enemy Turn Start");
         foreach (var e in onFieldMonsterList)
         {
             e.TurnStart();
         }
-        if (onFieldMonsterList.Count > 0) StartCoroutine(EnemySquence());
+        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
     }
     private void OnEnemyTurnEnd()
     {
@@ -71,18 +73,23 @@ public class BattleController : MonoBehaviour
 
     private IEnumerator EnemySquence()
     {
+
         foreach (var e in onFieldMonsterList)
         {
             e.TurnAction();
-            Debug.Log($"¸ðµÎ°ø°Ý?{onFieldMonsterList.Count}");
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }
-        TurnCounter.TurnCounting.ToPlayerTurnChanging(true);
+        TurnCounter.ChangeTurn();
     }
 
-    public void SetStage()
+    private void Start()
     {
-        _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
+        SetStage(MapManager.Instanace.SelectStageData.enemyGroup);
+    }
+
+    public void SetStage(EnemyGroupSO groupSO)
+    {
+        _enemyGroup = groupSO;
 
         foreach (var e in _enemyGroup.enemies)
         {
@@ -100,7 +107,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        
+
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
@@ -117,35 +124,17 @@ public class BattleController : MonoBehaviour
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 
-            if (idx >= onFieldMonsterList.Count)
-                onFieldMonsterList.Add(selectEnemy);
-            else
-                onFieldMonsterList[idx] = selectEnemy;
+            onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
         }
     }
 
-    private void HandleChangeMonsterCountOnField(object sender, EventArgs e)
-    {
-        //if (onFieldMonsterList.Count == 0)
-        //{
-        //    _divineCount++;
-
-        //    if ((_divineCount % _divineToken) == 0)
-        //    {
-        //        Debug.Log("Phase Clear");
-        //        _currentStage.CurPhaseCleared = true;
-        //        StartCoroutine(SpawnMonster());
-        //    }
-
-        //    StartCoroutine(SpawnMonster());
-        //}
-        StartCoroutine(SpawnInitMonster());
-    }
-
     public void DeadMonster(Enemy enemy)
     {
-        int idx = onFieldMonsterList.IndexOf(enemy);
-        SpawnMonster(idx);
+        onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
+    }
+    public bool IsStuck(int to, int who)
+    {
+        return isStuck.list[to].list[who];
     }
 }

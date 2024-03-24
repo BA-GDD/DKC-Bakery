@@ -26,7 +26,17 @@ public class Health : MonoBehaviour, IDamageable
     public UnityEvent<AilmentEnum> OnAilmentChanged;
 
     private Entity _owner;
-    public bool isDead = false;
+    [SerializeField]private bool _isDead = false;
+    public bool IsDead
+    {
+        get => _isDead;
+        set
+        {
+            if(value)
+                OnDeathEvent?.Invoke();
+            _isDead = value;
+        }
+    }
     private bool _isInvincible = false; //무적상태
     [SerializeField] private AilmentStat _ailmentStat; //질병 및 디버프 관리 스탯
     public AilmentStat AilmentStat => _ailmentStat;
@@ -37,9 +47,10 @@ public class Health : MonoBehaviour, IDamageable
     {
         _ailmentStat = new AilmentStat(this);
         _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
+
         TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
 
-        isDead = false;
+        _isDead = false;
     }
     private void OnDestroy()
     {
@@ -88,14 +99,14 @@ public class Health : MonoBehaviour, IDamageable
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
     }
 
-    public void ApplyTrueDamage(int damage, Entity dealer)
+    public void ApplyTrueDamage(int damage)
     {
-        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
     }
     public void ApplyDamage(int damage, Entity dealer, Action action = null)
     {
-        if (isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
         //완벽 회피 계산.
         if (_owner.CharStat.CanEvasion())
@@ -125,7 +136,7 @@ public class Health : MonoBehaviour, IDamageable
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
         //DamageTextManager.Instance.PopupReactionText(_owner.transform.position, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
-        //감전데미지 체크
+
         AfterHitFeedbacks();
 
         action?.Invoke();
@@ -148,8 +159,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (_currentHealth == 0)
         {
-            isDead = true;
-            OnDeathEvent?.Invoke();
+            IsDead = true;
             return;
         }
         OnHitEvent?.Invoke();
@@ -172,7 +182,6 @@ public class Health : MonoBehaviour, IDamageable
         TurnCounter.ChangeRound();
     }
 
-
     //상태이상 걸기.
     public void SetAilment(AilmentEnum ailment, int duration)
     {
@@ -181,18 +190,12 @@ public class Health : MonoBehaviour, IDamageable
     }
 
     //데미지를 받았을 때 질병 체크하는 함수(쇼크 데미지 같은 타격당 데미지에 적용.
-    private void CheckAilmentByDamage(AilmentEnum ailment)
+    public void AilmentByDamage(int damage)
     {
         //쇼크데미지 추가 부분.
-        if (_ailmentStat.HasAilment(ailment)) //쇼크 상태이상이 있다면 데미지의 10% 추뎀 
-        {
-            int shockDamage = 0;
-            _currentHealth = Mathf.Clamp(_currentHealth - shockDamage, 0, maxHealth);
-
             //디버프용 데미지 텍스트 추가
-            //DamageTextManager.Instance.PopupDamageText(_owner.transform.position, shockDamage, DamageCategory.Debuff);
+            DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
             //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
-        }
     }
 
 

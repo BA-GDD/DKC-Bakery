@@ -8,4 +8,8 @@ public class ChilledAilment : Ailment
     {
 
     }
+
+    public override void UseAilment()
+    {
+    }
 }

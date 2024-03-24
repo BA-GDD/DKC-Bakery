@@ -17,7 +17,7 @@ public enum TurnStatus
 
 public static class TurnCounter
 {
-    public static TurnType CurrentTurnType { get; private set; } = TurnType.Player;
+    public static TurnType CurrentTurnType { get; private set; } = TurnType.Enemy;
     public static int TurnCount { get; private set; }
     public static int RoundCount { get; private set; }
 
@@ -73,5 +73,6 @@ public static class TurnCounter
             EnemyTurnEndEvent?.Invoke();
             PlayerTurnStartEvent?.Invoke(false);
         }
+        Debug.Log($"{TurnCount}{CurrentTurnType}");
     }
 }

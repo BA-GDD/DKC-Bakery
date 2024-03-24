@@ -58,6 +58,20 @@ public class PlayerVFXManager : MonoBehaviour
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
     }
+
+    public void PlayParticle(CardInfo card)
+    {
+        if (!_cardByEffects.ContainsKey(card))
+        {
+            Debug.LogError("이펙트가 없어요");
+            return;
+        }
+
+        ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
+        StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
+        _cardByEffects[card].Play();
+    }
+
     private IEnumerator EndEffectCo(float f)
     {
         yield return new WaitForSeconds(f);
