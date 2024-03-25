@@ -62,14 +62,7 @@ public class Player : Entity
         if (_hpUI != null)
             HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
-    public void Attack(Entity target, int damage)
-    {
-        foreach (var i in OnAttack)
-        {
-            i.TakeDamage(target.HealthCompo);
-        }
-        target.HealthCompo.ApplyDamage(damage, this);
-    }
+
 
 
     public void AnimationEndTrigger()
@@ -84,7 +77,7 @@ public class Player : Entity
     {
     }
 
-    public void UseAbility(CardBase card, bool isMove = false)
+    public void UseAbility(CardBase card,bool isMove = false)
     {
         clipOverrides["UseAbility"] = card.CardInfo.abilityAnimation;
         animatorOverrideController.ApplyOverrides(clipOverrides);

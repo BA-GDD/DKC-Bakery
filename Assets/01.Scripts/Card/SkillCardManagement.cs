@@ -21,7 +21,7 @@ public class SkillCardManagement : CardManagement
 
     [Header("¿Ã∫•∆Æ")]
     private bool _isInChaining;
-    public UnityEvent beforeChainingEvent;
+    [SerializeField] private UnityEvent _beforeChainingEvent;
     [SerializeField] private UnityEvent _afterChanningEvent;
     [SerializeField] private UnityEvent<bool> _acceptBtnSwitchEvent;
     [SerializeField] private UnityEvent _checkStageClearEvent;
@@ -62,7 +62,7 @@ public class SkillCardManagement : CardManagement
     {
         if(!_isInChaining && InCardZoneCatalogue.Count != 0)
         {
-            beforeChainingEvent?.Invoke();
+            _beforeChainingEvent?.Invoke();
             _isInChaining = true;
         }
         else if(_isInChaining && InCardZoneCatalogue.Count == 0)

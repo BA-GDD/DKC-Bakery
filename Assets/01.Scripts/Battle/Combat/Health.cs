@@ -9,7 +9,7 @@ public enum AilmentEnum : int
 {
     None = 0,
     Chilled = 1,
-    Shocked = 2,
+    Shocked = 2
 }
 public class Health : MonoBehaviour, IDamageable
 {
@@ -26,23 +26,15 @@ public class Health : MonoBehaviour, IDamageable
     public UnityEvent<AilmentEnum> OnAilmentChanged;
 
     private Entity _owner;
-
-    [SerializeField] private bool _isFreeze = false;
-    public bool IsFreeze
-    {
-        get => _isFreeze;
-        set => _isFreeze = value;
-    }
-
-    [SerializeField] private bool _isDead = false;
+    [SerializeField]private bool _isDead = false;
     public bool IsDead
     {
         get => _isDead;
         set
         {
-            _isDead = value;
-            if (_isDead)
+            if(value)
                 OnDeathEvent?.Invoke();
+            _isDead = value;
         }
     }
     private bool _isInvincible = false; //무적상태
@@ -74,6 +66,15 @@ public class Health : MonoBehaviour, IDamageable
 
     }
 
+    public void AilementDamage(AilmentEnum ailment, int damage)
+    {
+        //종류에 맞춰 글자가 뜨도록 해야한다.
+        Debug.Log($"{ailment.ToString()} dot damaged : {damage}");
+        OnHitEvent?.Invoke();
+        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        AfterHitFeedbacks();
+    }
+
     protected void UpdateAilment()
     {
         _ailmentStat.UpdateAilment(); //질병 업데이트
@@ -103,7 +104,7 @@ public class Health : MonoBehaviour, IDamageable
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
     }
-    public void ApplyDamage(int damage, Entity dealer)
+    public void ApplyDamage(int damage, Entity dealer, Action action = null)
     {
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
@@ -125,7 +126,7 @@ public class Health : MonoBehaviour, IDamageable
         }
 
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
-        damage = _owner.CharStat.ArmoredDamage(damage, _isFreeze);
+        damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(AilmentEnum.Chilled));
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
         OnDamageEvent?.Invoke(_currentHealth, maxHealth);
@@ -137,6 +138,8 @@ public class Health : MonoBehaviour, IDamageable
 
 
         AfterHitFeedbacks();
+
+        action?.Invoke();
     }
 
     public void ApplyMagicDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
@@ -165,12 +168,12 @@ public class Health : MonoBehaviour, IDamageable
     [ContextMenu("Chilled")]
     private void Test1()
     {
-        SetAilment(AilmentEnum.Chilled);
+        SetAilment(AilmentEnum.Chilled, 2);
     }
     [ContextMenu("Shocked")]
     private void Test2()
     {
-        SetAilment(AilmentEnum.Shocked);
+        SetAilment(AilmentEnum.Shocked, 2);
     }
     [ContextMenu("asdf")]
     private void Test3()
@@ -180,21 +183,19 @@ public class Health : MonoBehaviour, IDamageable
     }
 
     //상태이상 걸기.
-    public void SetAilment(AilmentEnum ailment,int stack = 1)
+    public void SetAilment(AilmentEnum ailment, int duration)
     {
-        _ailmentStat.ApplyAilments(ailment, stack);
+        _ailmentStat.ApplyAilments(ailment, duration);
         OnAilmentChanged?.Invoke(_ailmentStat.currentAilment);
     }
 
     //데미지를 받았을 때 질병 체크하는 함수(쇼크 데미지 같은 타격당 데미지에 적용.
-    public void AilmentByDamage(AilmentEnum ailment, int damage)
+    public void AilmentByDamage(int damage)
     {
         //쇼크데미지 추가 부분.
-        //디버프용 데미지 텍스트 추가
-        _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
-
-        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
-        //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
+            //디버프용 데미지 텍스트 추가
+            DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
+            //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
     }
 
 

@@ -77,7 +77,6 @@ public class CharacterStat : ScriptableObject
             else
             {
                 _fieldInfoDictionary.Add(statType, statField);
-
             }
         }
     }
