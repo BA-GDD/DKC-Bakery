@@ -61,8 +61,6 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
-        BuffStatCompo = new BuffStat(this);
-
         HealthCompo.OnHitEvent.AddListener(HandleHit);
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
@@ -73,7 +71,12 @@ public abstract class Entity : PoolableMono
 
         OnMoveTarget += HandleMoveToTarget;
         OnMoveOriginPos += HandleMoveToOriginPos;
-    } 
+    }
+
+    protected virtual void Start()
+    {
+        BuffStatCompo = new BuffStat(this);
+    }
 
     private void HandleCutInOnFieldMonsterList()
     {
