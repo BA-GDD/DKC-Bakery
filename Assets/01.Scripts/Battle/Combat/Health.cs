@@ -53,6 +53,8 @@ public class Health : MonoBehaviour, IDamageable
         TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
 
         _isDead = false;
+
+        OnHitEvent.AddListener(() => FeedbackManager.Instance.ShakeScreen(3));
     }
     private void OnDestroy()
     {
