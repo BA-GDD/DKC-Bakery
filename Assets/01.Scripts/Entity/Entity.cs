@@ -149,7 +149,8 @@ public abstract class Entity : PoolableMono
 
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
+        //seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
+        seq.Append(transform.DOJump(target.forwardTrm.position, 1,1,0.6f));
         seq.OnComplete(OnMoveTarget.Invoke);
     }
     protected abstract void HandleMoveToTarget();
