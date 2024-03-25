@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CardDefine;
 
-public class RestSpell : CardBase, IUseEffectAnim
+public class RestSpell : CardBase, ISkillEffectAnim
 {
     public override void Abillity()
     {
@@ -31,10 +31,11 @@ public class RestSpell : CardBase, IUseEffectAnim
     private IEnumerator SpellCor()
     {
         yield return new WaitForSeconds(1f);
+        // 다시 만들어야함
         List<CardBase> handCards = new List<CardBase>();
         handCards = CardReader.GetHandCards();
         Queue<CombineLevel> combineLvQueue = new Queue<CombineLevel>();
-        foreach(var card in handCards)
+        foreach (var card in handCards)
         {
             CardReader.CardDrawer.DrawCard(1);
             CardReader.GetCardinfoInHand(handCards.Count + 1).CombineLevel = handCards[0].CombineLevel;

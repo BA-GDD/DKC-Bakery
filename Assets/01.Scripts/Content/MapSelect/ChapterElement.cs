@@ -12,13 +12,12 @@ public class ChapterElement : MonoBehaviour
     [Header("ÂüÁ¶°ª")]
     [SerializeField] private TextMeshProUGUI _chapterNameTxt;
     [SerializeField] private TextMeshProUGUI _chapterInfoTxt;
-    [SerializeField] private Image _chapterImg;
+    [SerializeField] private GameObject _lockPanel;
 
     private void Start()
     {
         _chapterNameTxt.text = _chapterData.chapterName;
         _chapterInfoTxt.text = _chapterData.chapterInfo;
-        _chapterImg.sprite = _chapterData.chapterSprite;
     }
 
     public void SelectThisChapter()

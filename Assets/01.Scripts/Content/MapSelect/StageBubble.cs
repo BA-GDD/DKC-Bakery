@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StageBubble : MonoBehaviour
 {
+
     [SerializeField] private TextMeshProUGUI _stageNameText;
     [SerializeField] private Transform _infoBlockTrm;
 

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingByTurnSkill : CardBase, IUseEffectAnim
+public class HealingByTurnSkill : CardBase, ISkillEffectAnim
 {
+    public int healingAmount;
+
     public override void Abillity()
     {
         IsActivingAbillity = true;
@@ -15,7 +17,7 @@ public class HealingByTurnSkill : CardBase, IUseEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
-        Player.BuffStatCompo.AddBuff(buffSO,2);
+        StartCoroutine(HealCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
@@ -25,5 +27,12 @@ public class HealingByTurnSkill : CardBase, IUseEffectAnim
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+    }
+
+    private IEnumerator HealCor()
+    {
+        // 일단 치유 상태 만들어 놨고 민수가 적용시키는거 만들면 적용시켜주면 됨
+
+        yield return null;
     }
 }

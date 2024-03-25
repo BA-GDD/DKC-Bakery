@@ -55,7 +55,7 @@ public class TornadoSkill : CardBase
             yield return new WaitForSeconds(0.26f);
             foreach (var e in battleController.onFieldMonsterList)
             {
-                Player.Attack(e, 2);
+                e?.HealthCompo.ApplyDamage(2, Player);
             }
         }
     }

@@ -21,8 +21,6 @@ public class BattleProduction : MonoBehaviour
 
         _stageInfoPanel.PanelSetUp();
         yield return new WaitForSeconds(1.5f);
-        _stageInfoPanel.PanelInit();
-        yield return new WaitForSeconds(0.5f);
         _battleStartEvent?.Invoke();
         _clearChekcerSetEvent?.Invoke(MapManager.Instanace.SelectStageData.clearCondition);
     }

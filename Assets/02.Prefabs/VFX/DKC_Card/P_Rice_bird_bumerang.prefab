@@ -42,7 +42,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889760593628113060}
   serializedVersion: 8
-  lengthInSec: 1.5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -51,7 +51,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -117,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 2.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.08
+      scalar: 3.59
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -993,8 +993,8 @@ ParticleSystem:
             outSlope: 0
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
+            inWeight: 0
+            outWeight: 0
           - serializedVersion: 3
             time: 1
             value: 1
@@ -1002,8 +1002,8 @@ ParticleSystem:
             outSlope: 0
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
+            inWeight: 0
+            outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
@@ -1017,8 +1017,8 @@ ParticleSystem:
             outSlope: 0
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
+            inWeight: 0
+            outWeight: 0
           - serializedVersion: 3
             time: 1
             value: 1
@@ -1026,8 +1026,8 @@ ParticleSystem:
             outSlope: 0
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
+            inWeight: 0
+            outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
@@ -1307,7 +1307,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 17.453293
+      scalar: 12.56637
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -1554,38 +1554,38 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 35
+      scalar: 20
       minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0.009195401
-          value: -0.91616464
-          inSlope: 0.112318836
-          outSlope: 0.112318836
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.7483998
-        - serializedVersion: 3
-          time: 0.5474539
-          value: 0.18684542
-          inSlope: 0.8844451
-          outSlope: 0.8844451
+          time: 0
+          value: -1
+          inSlope: -0.100014135
+          outSlope: -0.100014135
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.2542832
+          outWeight: 0.26769692
         - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1.7968435
-          outSlope: 1.7968435
-          tangentMode: 34
+          time: 0.51517373
+          value: 0.10084154
+          inSlope: 1.0418416
+          outSlope: 1.0418416
+          tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
+          inWeight: 0.30352443
+          outWeight: 0.26079613
+        - serializedVersion: 3
+          time: 0.9880597
+          value: 0.8965516
+          inSlope: -0.3006026
+          outSlope: -0.3006026
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.28860065
+          outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -4873,9 +4873,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1779282389
+  m_SortingLayer: 4
+  m_SortingOrder: 1
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4914,13 +4914,61 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3610422583597391662}
     m_Modifications:
+    - target: {fileID: 130026039907321517, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 130026039907321517, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 130026039907321517, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1779282389
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335627625542502619, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335627625542502619, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335627625542502619, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1779282389
+      objectReference: {fileID: 0}
     - target: {fileID: 5599877407713418543, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: m_Name
       value: P_Rice_bird
       objectReference: {fileID: 0}
+    - target: {fileID: 5624168916302750294, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624168916302750294, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105294104623472291, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105294104623472291, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 1.5723909
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427028827015011718, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6427028827015011718, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: EmissionModule.m_BurstCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427028827015011718, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 0.9162121
       objectReference: {fileID: 0}
     - target: {fileID: 6427028827015011718, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.size
@@ -5040,7 +5088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6464125271550900824, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5.1600003
       objectReference: {fileID: 0}
     - target: {fileID: 6464125271550900824, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5073,6 +5121,18 @@ PrefabInstance:
     - target: {fileID: 6464125271550900824, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193462547697864267, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193462547697864267, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193462547697864267, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1779282389
       objectReference: {fileID: 0}
     - target: {fileID: 7193462547697864267, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: m_Materials.Array.data[0]
