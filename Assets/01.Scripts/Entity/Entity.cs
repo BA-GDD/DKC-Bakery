@@ -2,6 +2,7 @@ using Cinemachine;
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -32,7 +33,6 @@ public abstract class Entity : PoolableMono
     public Action OnAttackEnd;
 
     public List<IOnTakeDamage> OnAttack;
-    public Action OnAttack;
 
     public Transform forwardTrm;
 
