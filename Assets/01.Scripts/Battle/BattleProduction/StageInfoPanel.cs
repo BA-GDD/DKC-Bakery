@@ -43,5 +43,7 @@ public class StageInfoPanel : PanelUI
         _stageIcon.transform.DOLocalMoveY(_stageIconNPos.y - _chaingValue, 0.2f));
         seq.Join(
         _clearConditionLabel.transform.DOLocalMoveY(_cleatConditionLabelNPos.y + _chaingValue, 0.2f));
+        seq.AppendInterval(1);
+        seq.AppendCallback(() => gameObject.SetActive(false));
     }
 }
