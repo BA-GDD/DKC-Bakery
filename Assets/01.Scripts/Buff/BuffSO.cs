@@ -18,6 +18,14 @@ public class BuffSO : ScriptableObject
     public List<NormalBuff> statBuffs = new();
     public List<SpecialBuff> specialBuffs = new();
 
+    public void Clone()
+    {
+        for (int i = 0; i < specialBuffs.Count; i++)
+        {
+            specialBuffs[i] = Instantiate(specialBuffs[i]);
+        }
+    }
+
     public void SetOwner(Entity owner)
     {
         _owner = owner;
@@ -31,14 +39,18 @@ public class BuffSO : ScriptableObject
         {
             _stat.IncreaseStatBy(b.value, _stat.GetStatByType(b.type));
         }
-        foreach(var b in specialBuffs)
+        foreach (var b in specialBuffs)
         {
+            _owner.BuffStatCompo.specialBuffList.Add(b);
             if (b is IOnTakeDamage i)
-                _owner.OnAttack += i.TakeDamage;
+            {
+                if (!_owner.OnAttack.Contains(i))
+                    _owner.OnAttack.Add(i);
+            }
         }
     }
 
-    public void Update()
+    public void UpdateBuff()
     {
         foreach (var b in specialBuffs)
         {
@@ -52,10 +64,10 @@ public class BuffSO : ScriptableObject
         {
             _stat.DecreaseStatBy(b.value, _stat.GetStatByType(b.type));
         }
-        //foreach (var b in specialBuffs)
-        //{
-        //    if (b is IOnTakeDamage i)
-        //        _owner.OnAttack += i.TakeDamage;
-        //}
+        foreach (var b in specialBuffs)
+        {
+            //    if (b is IOnTakeDamage i)
+            //        _owner.OnAttack += i.TakeDamage;
+        }
     }
 }

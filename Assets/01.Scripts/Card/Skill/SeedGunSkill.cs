@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeedGunSkill : CardBase, ISkillEffectAnim
+public class SeedGunSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
@@ -35,7 +35,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         for(int i = 0; i < 3; ++i)
         {
             yield return new WaitForSeconds(0.15f);
-            Player.target.HealthCompo.ApplyDamage(3, Player);
+            Player.Attack(Player.target, 3);
         }
     }
 }

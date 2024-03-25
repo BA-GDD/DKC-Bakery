@@ -6,9 +6,11 @@ using UnityEngine;
 public abstract class SpecialBuff : ScriptableObject
 {
     protected Entity entity;
+    protected bool isComplete = false;
     public void SetOwner(Entity entity)
     {
         this.entity = entity;
     }
     public abstract void Active();
+    public virtual bool GetIsComplete() => isComplete;
 }

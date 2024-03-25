@@ -94,7 +94,6 @@ public class BuffSOEditor : Editor
     private void HandlerSpecialBuffAdd(object target)
     {
         Type type = (Type)target;
-        Debug.Log(type.Name);
         var index = specialBuffList.serializedProperty.arraySize;
         specialBuffList.serializedProperty.arraySize++;
         specialBuffList.index = index;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DotanSkill : CardBase, ISkillEffectAnim
+public class DotanSkill : CardBase, IUseEffectAnim
 {
     public override void Abillity()
     {
