@@ -20,6 +20,7 @@ public abstract class Enemy : Entity
 
     public TurnStatus turnStatus;
 
+
     protected override void Awake()
     {
         base.Awake();

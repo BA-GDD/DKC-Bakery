@@ -40,6 +40,19 @@ public class BattleController : MonoBehaviour
             return _player;
         }
     }
+    private int FieldCnt
+    {
+        get
+        {
+            int cnt = 0;
+            foreach (var i in onFieldMonsterList)
+            {
+                if (i is null) continue;
+                cnt++;
+            }
+            return cnt;
+        }
+    }
 
     private void Awake()
     {
@@ -61,7 +74,10 @@ public class BattleController : MonoBehaviour
         {
             e.TurnStart();
         }
-        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
+        Debug.Log(123);
+
+        if (FieldCnt > 0) StartCoroutine(EnemySquence());
+        else TurnCounter.ChangeTurn();
     }
     private void OnEnemyTurnEnd()
     {
@@ -73,9 +89,9 @@ public class BattleController : MonoBehaviour
 
     private IEnumerator EnemySquence()
     {
-
         foreach (var e in onFieldMonsterList)
         {
+            if (e.HealthCompo.IsFreeze) continue;
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }

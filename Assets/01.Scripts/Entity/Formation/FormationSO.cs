@@ -9,7 +9,7 @@ public class FormationSO : ScriptableObject
     public bool[,] isStuck;
     public int enemyCnt;
 #if UNITY_EDITOR
-    [CustomEditor(typeof(ScriptableObject), true)]
+    [CustomEditor(typeof(FormationSO), true)]
     public class FormationSOEditor : Editor
     {
         public bool[,] isStuck;
