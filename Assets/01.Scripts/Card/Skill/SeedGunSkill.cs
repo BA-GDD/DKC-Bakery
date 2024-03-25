@@ -7,7 +7,8 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.target = battleController.onFieldMonsterList[0];
+        Debug.Log($"OnFieldMonsterListLength{battleController.onFieldMonsterList.Length}");
+        Player.target = battleController.onFieldMonsterList[battleController.onFieldMonsterList.Length - 1];
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
@@ -35,7 +36,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         for(int i = 0; i < 3; ++i)
         {
             yield return new WaitForSeconds(0.15f);
-            Player.target.HealthCompo.ApplyDamage(3, Player);
+            Player.target?.HealthCompo.ApplyDamage(3, Player);
         }
     }
 }
