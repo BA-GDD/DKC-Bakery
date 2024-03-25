@@ -11,14 +11,16 @@ public class SimpleEnemy : Enemy
         OnAnimationCall += () => target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         target = BattleController?.Player;
     }
 
 
     public override void Attack()
     {
+        OnAttackStart?.Invoke();
         AnimatorCompo.SetBool(attackAnimationHash, true);
         MoveToTargetForward();
         OnAnimationEnd += () =>
@@ -27,8 +29,8 @@ public class SimpleEnemy : Enemy
             AnimatorCompo.SetBool(attackAnimationHash, false);
             //CameraController.Instance.SetDefaultCam();
             OnAnimationEnd = null;
-
         };
+        OnAttackEnd?.Invoke();
     }
 
     public override void SlowEntityBy(float percent)

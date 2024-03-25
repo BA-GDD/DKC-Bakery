@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IOnTakeDamage
+public interface IOnRoundStart
 {
-    public void TakeDamage(Health health);
+    public void RoundStart();
 }

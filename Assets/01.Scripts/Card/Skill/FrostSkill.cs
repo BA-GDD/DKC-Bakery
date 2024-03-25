@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JaggieLanternSkill : CardBase, ISkillEffectAnim
+public class FrostSkill : ChilledCardBase ,ISkillEffectAnim
 {
     public override void Abillity()
     {
@@ -15,25 +15,23 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
-        StartCoroutine(AttackCor());
+        StartCoroutine(ChiledCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
+    private IEnumerator ChiledCor()
+    {
+        yield return new WaitForSeconds(0.3f);
 
+        foreach (var i in battleController.onFieldMonsterList)
+        {
+            i?.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Chilled);
+        }
+    }
     public void HandleEffectEnd()
     {
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
-    }
-
-    private IEnumerator AttackCor()
-    {
-        yield return new WaitForSeconds(1.7f);
-
-        foreach(var e in battleController.onFieldMonsterList)
-        {
-            e?.HealthCompo.ApplyDamage(15, Player);
-        }
     }
 }

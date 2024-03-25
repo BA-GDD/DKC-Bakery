@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IOnTakeDamage
+public class OsloSpell : CardBase
 {
-    public void TakeDamage(Health health);
+    public override void Abillity()
+    {
+
+    }
 }

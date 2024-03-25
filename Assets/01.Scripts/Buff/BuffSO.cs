@@ -33,8 +33,7 @@ public class BuffSO : ScriptableObject
         }
         foreach(var b in specialBuffs)
         {
-            if (b is IOnTakeDamage i)
-                _owner.OnAttack += i.TakeDamage;
+            _owner.BuffStatCompo.ActivateSpecialBuff(b);
         }
     }
 
@@ -52,10 +51,5 @@ public class BuffSO : ScriptableObject
         {
             _stat.DecreaseStatBy(b.value, _stat.GetStatByType(b.type));
         }
-        //foreach (var b in specialBuffs)
-        //{
-        //    if (b is IOnTakeDamage i)
-        //        _owner.OnAttack += i.TakeDamage;
-        //}
     }
 }

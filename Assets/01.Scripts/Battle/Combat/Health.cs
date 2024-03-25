@@ -43,6 +43,8 @@ public class Health : MonoBehaviour, IDamageable
 
     public bool isLastHitCritical = false; //마지막 공격이 크리티컬로 적중했냐?
 
+    public bool IsFreeze;
+
     protected void Awake()
     {
         _ailmentStat = new AilmentStat(this);
@@ -106,6 +108,7 @@ public class Health : MonoBehaviour, IDamageable
     }
     public void ApplyDamage(int damage, Entity dealer, Action action = null)
     {
+        _owner.BuffStatCompo.OnHitDamageEvent?.Invoke(dealer, ref damage);
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
         //완벽 회피 계산.
@@ -190,7 +193,7 @@ public class Health : MonoBehaviour, IDamageable
     }
 
     //데미지를 받았을 때 질병 체크하는 함수(쇼크 데미지 같은 타격당 데미지에 적용.
-    public void AilmentByDamage(int damage)
+    public void AilmentByDamage(AilmentEnum ailment,int damage)
     {
         //쇼크데미지 추가 부분.
             //디버프용 데미지 텍스트 추가
