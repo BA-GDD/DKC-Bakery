@@ -36,7 +36,7 @@ public class TeaTimeCakeObject : MonoBehaviour, IEndDragHandler, IDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
+        transform.position = MaestrOffice.GetScreenPosToWorldPos(Input.mousePosition);
         _eatRange.IsHoldingCake = true;
     }
 }

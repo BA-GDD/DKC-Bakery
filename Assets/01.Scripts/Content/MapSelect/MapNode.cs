@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class MapNode : MonoBehaviour, IPointerClickHandler
 {
@@ -20,6 +21,12 @@ public class MapNode : MonoBehaviour, IPointerClickHandler
             _stageNumber = value;
             MapManager.Instanace.SelectStageNumber = value;
         }
+    }
+
+    private void Start()
+    {
+        float upperY = transform.localPosition.y + 10;
+        transform.DOLocalMoveY(upperY, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void ClickThisNode()

@@ -80,6 +80,7 @@ public class EatRange : MonoBehaviour
     {
         DialogueEffect de = PoolManager.Instance.Pop(PoolingType.DialogueEffect) as DialogueEffect;
         de.transform.SetParent(_heartEntity.heartTrm);
+        de.transform.localScale = Vector3.one;
         de.transform.localPosition = Vector3.zero;
         de.StartEffect(_heartEntity.heartSprite, _heartEntity.clip, EpisodeDialogueDefine.MoveType.GoCenter);
     }
