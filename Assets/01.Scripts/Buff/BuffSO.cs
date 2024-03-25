@@ -41,19 +41,7 @@ public class BuffSO : ScriptableObject
         }
         foreach (var b in specialBuffs)
         {
-            _owner.BuffStatCompo.specialBuffList.Add(b);
-            if (b is IOnTakeDamage)
-            {
-                IOnTakeDamage i = b as IOnTakeDamage;
-                if (!_owner.OnAttack.Contains(i))
-                    _owner.OnAttack.Add(i);
-            }
-            
-            if(b is IOnRoundStart)
-            {
-                IOnRoundStart i = b as IOnRoundStart;
-                TurnCounter.RoundStartEvent += i.RoundStart;
-            }
+            _owner.BuffStatCompo.ActivateSpecialBuff(b);
         }
     }
 
@@ -70,11 +58,6 @@ public class BuffSO : ScriptableObject
         foreach (var b in statBuffs)
         {
             _stat.DecreaseStatBy(b.value, _stat.GetStatByType(b.type));
-        }
-        foreach (var b in specialBuffs)
-        {
-            //    if (b is IOnTakeDamage i)
-            //        _owner.OnAttack += i.TakeDamage;
         }
     }
 }

@@ -105,6 +105,7 @@ public class Health : MonoBehaviour, IDamageable
     }
     public void ApplyDamage(int damage, Entity dealer)
     {
+        _owner.BuffStatCompo.OnHitDamageEvent?.Invoke(dealer, ref damage);
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
         //완벽 회피 계산.

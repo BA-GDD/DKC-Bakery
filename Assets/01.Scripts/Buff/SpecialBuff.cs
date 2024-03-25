@@ -11,12 +11,15 @@ public abstract class SpecialBuff : ScriptableObject
     {
         this.entity = entity;
     }
+    public virtual void StartBuff() { }
     public abstract void Active();
+    public virtual void EndBuff() { }
     public virtual void SetIsComplete(bool value)
     {
         isComplete = value;
         if(isComplete == true)
         {
+            EndBuff();
             entity.BuffStatCompo.CompleteBuff(this);
         }
     }

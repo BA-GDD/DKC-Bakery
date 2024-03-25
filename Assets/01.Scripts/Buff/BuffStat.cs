@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void OnHitDamage<T1, T2>(T1 arg1, ref T2 arg2);
 public class BuffStat
 {
     private Entity _owner;
     private Dictionary<BuffSO, int> _buffDic = new();
+
+    public OnHitDamage<Entity,int> OnHitDamageEvent;
 
     public List<SpecialBuff> specialBuffList = new();
 
@@ -31,6 +35,28 @@ public class BuffStat
             _buffDic.Add(so, durationTurn);
         }
     }
+    public void ActivateSpecialBuff(SpecialBuff buff)
+    {
+        _owner.BuffStatCompo.specialBuffList.Add(buff);
+        if (buff is IOnTakeDamage)
+        {
+            IOnTakeDamage i = buff as IOnTakeDamage;
+            if (!_owner.OnAttack.Contains(i))
+                _owner.OnAttack.Add(i);
+        }
+
+        if (buff is IOnRoundStart)
+        {
+            IOnRoundStart i = buff as IOnRoundStart;
+            TurnCounter.RoundStartEvent += i.RoundStart;
+        }
+
+        if (buff is IOnHItDamage)
+        {
+            IOnHItDamage i = buff as IOnHItDamage;
+            _owner.BuffStatCompo.OnHitDamageEvent += i.HitDamage;
+        }
+    }
     public void CompleteBuff(SpecialBuff special)
     {
         if (special is IOnTakeDamage)
@@ -43,6 +69,12 @@ public class BuffStat
         {
             IOnRoundStart i = special as IOnRoundStart;
             TurnCounter.RoundStartEvent -= i.RoundStart;
+        }
+        if (special is IOnHItDamage)
+        {
+            IOnHItDamage i = special as IOnHItDamage;
+            OnHitDamageEvent -= i.HitDamage;
+            //_owner.HealthCompo.OnHitEvent.RemoveListener(i.HitDamage);
         }
         specialBuffList.Remove(special);
     }

@@ -29,6 +29,9 @@ public abstract class Entity : PoolableMono
     public Action OnMoveTarget;
     public Action OnMoveOriginPos;
 
+    public Action OnAttackStart;
+    public Action OnAttackEnd;
+
     public List<IOnTakeDamage> OnAttack;
 
     public Transform forwardTrm;

@@ -40,8 +40,9 @@ public class Player : Entity
         PlayerStat = CharStat as PlayerStat;
         VFXManager = FindObjectOfType<PlayerVFXManager>();
     }
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         //Skill = SkillManager.Instance;
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
