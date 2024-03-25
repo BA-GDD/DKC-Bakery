@@ -42,10 +42,17 @@ public class BuffSO : ScriptableObject
         foreach (var b in specialBuffs)
         {
             _owner.BuffStatCompo.specialBuffList.Add(b);
-            if (b is IOnTakeDamage i)
+            if (b is IOnTakeDamage)
             {
+                IOnTakeDamage i = b as IOnTakeDamage;
                 if (!_owner.OnAttack.Contains(i))
                     _owner.OnAttack.Add(i);
+            }
+            
+            if(b is IOnRoundStart)
+            {
+                IOnRoundStart i = b as IOnRoundStart;
+                TurnCounter.RoundStartEvent += i.RoundStart;
             }
         }
     }

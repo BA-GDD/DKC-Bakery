@@ -6,11 +6,18 @@ using UnityEngine;
 public abstract class SpecialBuff : ScriptableObject
 {
     protected Entity entity;
-    protected bool isComplete = false;
+    private bool isComplete = false;
     public void SetOwner(Entity entity)
     {
         this.entity = entity;
     }
     public abstract void Active();
-    public virtual bool GetIsComplete() => isComplete;
+    public virtual void SetIsComplete(bool value)
+    {
+        isComplete = value;
+        if(isComplete == true)
+        {
+            entity.BuffStatCompo.CompleteBuff(this);
+        }
+    }
 }

@@ -14,7 +14,7 @@ public class HealingBuff : SpecialBuff
 
         if(turnDuration <= 0)
         {
-            isComplete = true;
+            SetIsComplete(true);
         }
     }
 }

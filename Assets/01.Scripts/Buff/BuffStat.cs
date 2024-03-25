@@ -13,8 +13,8 @@ public class BuffStat
     {
         _owner = entity;
         _buffDic = new();
-        TurnCounter.RoundStartEvent += UpdateBuff;
-        _owner.BeforeChainingEvent.AddListener(UpdateBuff);
+        TurnCounter.RoundEndEvent += UpdateBuff;
+        //_owner.BeforeChainingEvent.AddListener(UpdateBuff);
     }
 
     public void AddBuff(BuffSO so, int durationTurn)
@@ -31,19 +31,20 @@ public class BuffStat
             _buffDic.Add(so, durationTurn);
         }
     }
-    public void EndCardCheckDel()
+    public void CompleteBuff(SpecialBuff special)
     {
-        foreach (var special in specialBuffList)
+        if (special is IOnTakeDamage)
         {
-            if (special.GetIsComplete())
-            {
-                if (special is IOnTakeDamage i)
-                {
-                    if (_owner.OnAttack.Contains(i))
-                        _owner.OnAttack.Remove(i);
-                }
-            }
+            IOnTakeDamage i = special as IOnTakeDamage;
+            if (_owner.OnAttack.Contains(i))
+                _owner.OnAttack.Remove(i);
         }
+        if (special is IOnRoundStart)
+        {
+            IOnRoundStart i = special as IOnRoundStart;
+            TurnCounter.RoundStartEvent -= i.RoundStart;
+        }
+        specialBuffList.Remove(special);
     }
     public void UpdateBuff()
     {

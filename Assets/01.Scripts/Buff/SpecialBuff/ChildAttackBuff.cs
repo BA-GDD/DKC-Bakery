@@ -13,12 +13,20 @@ public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
     {
         if (appliedEnemy.Contains(health)) return;
 
+        if (appliedEnemy.Count <= 0) entity.BeforeChainingEvent.AddListener(EndAttack);
+
         appliedEnemy.Add(health);
         health.AilmentStat.ApplyAilments(AilmentEnum.Chilled);
     }
 
-    public override bool GetIsComplete()
+    private void EndAttack()
     {
-        return appliedEnemy.Count > 0;
+        SetIsComplete(true);
+    }
+
+    public override void SetIsComplete(bool value)
+    {
+        base.SetIsComplete(value);
+        entity.BeforeChainingEvent.RemoveListener(EndAttack);
     }
 }
