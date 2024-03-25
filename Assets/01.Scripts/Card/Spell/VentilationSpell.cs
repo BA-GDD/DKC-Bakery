@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuriBumerangSkill : CardBase, ISkillEffectAnim
+public class VentilationSpell : CardBase, ISkillEffectAnim
 {
     public override void Abillity()
     {
@@ -15,7 +15,7 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
-        StartCoroutine(AttackCor());
+        StartCoroutine(SpellCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
@@ -27,16 +27,10 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }
 
-    private IEnumerator AttackCor()
+    private IEnumerator SpellCor()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.7f);
 
-        //Player.Attack(Player.target, 4);
-        Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
-
-        yield return new WaitForSeconds(1.2f);
-
-        //Player.Attack(Player.target, 4);
-        Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
+        CardReader.CardDrawer.DrawCard(2);
     }
 }

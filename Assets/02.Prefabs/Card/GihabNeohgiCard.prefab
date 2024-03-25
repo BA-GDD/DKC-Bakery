@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9031892388848759628}
-  - component: {fileID: 3007661017682430650}
   m_Layer: 5
-  m_Name: JaggieLanternCard
+  m_Name: GihabNeohgiCard
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -37,28 +36,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3007661017682430650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256691726456282519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc99440f8f6a4b24abc725d5c65496f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toMovePosInSec: 0.5
-  _myCardInfo: {fileID: 11400000, guid: 21b33521ed902ff47a5eb6682b29140d, type: 2}
-  _objArr:
-  - {fileID: 3404619632539736702}
-  - {fileID: 5129837475305104781}
-  - {fileID: 3192851710385597527}
-  _combineLevel: 0
-  visualTrm: {fileID: 4765647492564359230}
-  _cardMat: {fileID: 2100000, guid: 7215dc6c25e09bd4da589c4bef8f3be2, type: 2}
-  battleController: {fileID: 0}
 --- !u!1 &3192851710385597527
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9430e4ac3a291624296a2e7aa6d270d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14412b8fc5569fb49b04903c55769967, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -15,7 +15,7 @@ public class MapManager : MonoBehaviour
             _instance = FindObjectOfType<MapManager>();
             if (_instance == null)
             {
-                Debug.LogError("Not Exist GameManager");
+                Debug.LogError("Not Exist MapManager");
             }
             return _instance;
         }
@@ -35,7 +35,7 @@ public class MapManager : MonoBehaviour
 
     public void CreateStageInfoBubble(string stageName, Vector2 pos, bool isReverse)
     {
-        if(_stageBubbleObject != null)
+        if (_stageBubbleObject != null)
         {
             Destroy(_stageBubbleObject.gameObject);
         }
@@ -53,7 +53,7 @@ public class MapManager : MonoBehaviour
         isOnLoadMap = isActive;
         if (isActive)
         {
-            _loadMapObject = Instantiate(SelectMapData.loadMap, 
+            _loadMapObject = Instantiate(SelectMapData.loadMap,
                              UIManager.Instance.GetSceneUI<SelectMapUI>().transform);
         }
         else
