@@ -42,6 +42,17 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected float moveDuration = 0.1f;
 
 
+    private SkillCardManagement management;
+    public UnityEvent BeforeChainingEvent
+    {
+        get
+        {
+            if (management == null)
+                management = FindObjectOfType<SkillCardManagement>();
+            return management.beforeChainingEvent;
+        }
+    }
+
     protected virtual void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
