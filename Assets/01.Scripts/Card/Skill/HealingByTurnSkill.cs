@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HealingByTurnSkill : CardBase, ISkillEffectAnim
 {
-    public int healingAmount;
-
     public override void Abillity()
     {
         IsActivingAbillity = true;
@@ -31,8 +29,7 @@ public class HealingByTurnSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator HealCor()
     {
-        // 일단 치유 상태 만들어 놨고 민수가 적용시키는거 만들면 적용시켜주면 됨
-
+        Player.BuffStatCompo.AddBuff(buffSO, 0);
         yield return null;
     }
 }

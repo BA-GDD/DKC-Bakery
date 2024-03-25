@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RiceCakeFrogSkill : MonoBehaviour
+public class RiceCakeFrogSkill : CardBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Abillity()
     {
-        
+        IsActivingAbillity = true;
+        Player.VFXManager.PlayParticle(CardInfo);
+        Player.UseAbility(this);
+        StartCoroutine(WaitSpawnCor());
     }
-
-    // Update is called once per frame
-    void Update()
+    private IEnumerator WaitSpawnCor()
     {
-        
+        yield return new WaitForSeconds(0.1f);
+        Player.EndAbility();
+        Player.BuffStatCompo.AddBuff(buffSO, 0);
+        Player.VFXManager.EndParticle(CardInfo);
+        IsActivingAbillity = false;
     }
 }
