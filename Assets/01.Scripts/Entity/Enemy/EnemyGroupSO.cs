@@ -6,4 +6,5 @@ using UnityEngine;
 public class EnemyGroupSO : ScriptableObject
 {
     public List<Enemy> enemies = new List<Enemy>();
+
 }

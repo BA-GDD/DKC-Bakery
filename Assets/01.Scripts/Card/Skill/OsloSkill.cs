@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OsloSkill : CardBase, ISkillEffectAnim
+public class OsloSkill : CardBase,ISkillEffectAnim
 {
     public override void Abillity()
     {
-        throw new System.NotImplementedException();
+        IsActivingAbillity = true;
+        Player.UseAbility(this);
+        Player.VFXManager.PlayParticle(CardInfo);
+        Player.BuffStatCompo.AddBuff(buffSO, 0);
+        Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
     }
 
     public void HandleAnimationCall()
     {
-        throw new System.NotImplementedException();
     }
 
     public void HandleEffectEnd()
     {
-        throw new System.NotImplementedException();
+        Player.EndAbility();
+        Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+        Player.VFXManager.EndParticle(CardInfo);
+        IsActivingAbillity = true;
     }
 }

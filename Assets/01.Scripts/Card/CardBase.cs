@@ -67,6 +67,9 @@ public abstract class CardBase : MonoBehaviour,
     [HideInInspector]public BattleController battleController;
     protected Player Player => battleController.Player;
 
+    [SerializeField]protected BuffSO buffSO;
+
+
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
