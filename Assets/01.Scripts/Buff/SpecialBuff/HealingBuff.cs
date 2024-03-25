@@ -5,7 +5,6 @@ using UnityEngine;
 public class HealingBuff : SpecialBuff
 {
     public int healingAmount;
-    public int turnDuration;
 
     public override void Active()
     {

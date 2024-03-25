@@ -6,12 +6,13 @@ using UnityEngine;
 public delegate void OnHitDamage<T1, T2>(T1 arg1, ref T2 arg2);
 public class BuffStat
 {
-    private Entity _owner;
-    private Dictionary<BuffSO, int> _buffDic = new();
+    public AilmentEnum currentAilment;
 
     public OnHitDamage<Entity,int> OnHitDamageEvent;
 
     public List<SpecialBuff> specialBuffList = new();
+    private Entity _owner;
+    private Dictionary<BuffSO, int> _buffDic;
 
     public BuffStat(Entity entity)
     {
@@ -20,13 +21,12 @@ public class BuffStat
         TurnCounter.RoundEndEvent += UpdateBuff;
         //_owner.BeforeChainingEvent.AddListener(UpdateBuff);
     }
-
     public void AddBuff(BuffSO so, int durationTurn)
     {
         so.SetOwner(_owner);
         if (_buffDic.ContainsKey(so))
         {
-            if (_buffDic[so] < durationTurn)
+            if(_buffDic[so] < durationTurn)
                 _buffDic[so] = durationTurn;
         }
         else
@@ -82,9 +82,10 @@ public class BuffStat
     {
         foreach (var d in _buffDic)
         {
-            d.Key.UpdateBuff();
+            d.Key.Update();
+
             _buffDic[d.Key]--;
-            if (_buffDic[d.Key] <= 0)
+            if(_buffDic[d.Key] <= 0)
             {
                 d.Key.PrependBuff();
                 _buffDic.Remove(d.Key);

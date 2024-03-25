@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VentilationSpell : CardBase, IUseEffectAnim
+public class VentilationSpell : CardBase, ISkillEffectAnim
 {
     public override void Abillity()
     {
