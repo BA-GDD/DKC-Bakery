@@ -33,7 +33,7 @@ public class DeckGenerator : MonoBehaviour
             _saveDeckData = DataManager.Instance.LoadData<SaveDeckData>(_saveDeckDataKey);
         }
 
-        DeckElement de = new DeckElement("sdsdsd", _sampleDeck);
+        DeckElement de = new DeckElement("¹«·á µ¦ >.<", _sampleDeck);
         _saveDeckData.SaveDeckList.Add(de);
         for(int i = 0; i < _saveDeckData.SaveDeckList.Count; i++)
         {
