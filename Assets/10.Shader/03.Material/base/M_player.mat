@@ -58,6 +58,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
+    - _alpha: 1
     - _blink_amount: 0
     - _dissolve_amount: 0
     - _dissolve_edge: 0.0368
@@ -73,7 +74,7 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _blink_color: {r: 1, g: 1, b: 1, a: 0}
     - _dissolve_color: {r: 1.0578554, g: 1.8443033, b: 0.7821391, a: 0}
-    - _outline_color: {r: 0, g: 0, b: 0, a: 0}
+    - _outline_color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8458588442279574301
 MonoBehaviour:
