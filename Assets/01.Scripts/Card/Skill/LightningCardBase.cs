@@ -12,7 +12,7 @@ public abstract class LightningCardBase : CardBase
             Debug.Log("ddd");
             try
             {
-                e.HealthCompo.AilmentStat.UsedToAilment(AilmentEnum.Shocked);
+                e?.HealthCompo.AilmentStat.UsedToAilment(AilmentEnum.Shocked);
             }
             catch (Exception ex)
             {
