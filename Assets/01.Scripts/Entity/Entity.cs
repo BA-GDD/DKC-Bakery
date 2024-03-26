@@ -69,8 +69,8 @@ public abstract class Entity : PoolableMono
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
-        OnMoveTarget += HandleMoveToTarget;
-        OnMoveOriginPos += HandleMoveToOriginPos;
+        OnMoveTarget += HandleEndMoveToTarget;
+        OnMoveOriginPos += HandleEndMoveToOriginPos;
     }
 
     protected virtual void Start()
@@ -150,15 +150,16 @@ public abstract class Entity : PoolableMono
 
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
+        //seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
+        seq.Append(transform.DOJump(target.forwardTrm.position, 1,1,0.6f));
         seq.OnComplete(OnMoveTarget.Invoke);
     }
-    protected abstract void HandleMoveToTarget();
+    protected abstract void HandleEndMoveToTarget();
     public void MoveToOriginPos()
     {
         transform.DOMove(lastMovePos, moveDuration).OnComplete(OnMoveOriginPos.Invoke);
     }
-    protected abstract void HandleMoveToOriginPos();
+    protected abstract void HandleEndMoveToOriginPos();
 
     public void DeadSeq()
     {

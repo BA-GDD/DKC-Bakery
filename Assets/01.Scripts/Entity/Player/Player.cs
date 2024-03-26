@@ -97,12 +97,12 @@ public class Player : Entity
         AnimatorCompo.SetBool(_moveHash, false);
     }
 
-    protected override void HandleMoveToTarget()
+    protected override void HandleEndMoveToTarget()
     {
         AnimatorCompo.SetBool(_moveHash, false);
     }
 
-    protected override void HandleMoveToOriginPos()
+    protected override void HandleEndMoveToOriginPos()
     {
         // 일단 할거 없음
     }

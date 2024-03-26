@@ -7,7 +7,15 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.target = battleController.onFieldMonsterList[0];
+        int targetIdx = -1;
+        foreach(var e in battleController.onFieldMonsterList)
+        {
+            if(e != null)
+            {
+                targetIdx++;
+            }
+        }
+        Player.target = battleController.onFieldMonsterList[targetIdx];
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
@@ -33,7 +41,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1f);
 
         for(int i = 0; i < 3; ++i)
         {
@@ -46,6 +54,9 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
             float randNumX = UnityEngine.Random.Range(-.5f, .5f);
             float randNumY = UnityEngine.Random.Range(-.5f, .5f);
             FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
+            Debug.Log(i);
+            yield return new WaitForSeconds(0.2f);
+            Player.target?.HealthCompo.ApplyDamage(5, Player);
         }
     }
 }

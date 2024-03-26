@@ -3,27 +3,40 @@ using System;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Sequence = DG.Tweening.Sequence;
+
+[Serializable]
+public struct EnemyParticle
+{
+    public ParticleSystem particle;
+    public float duration;
+}
 
 public abstract class Enemy : Entity
 {
     [Header("셋팅값들")]
     public Transform hpBarPos;
+    [SerializeField] protected EnemyParticle attackParticle; 
 
-    [SerializeField] protected LayerMask _whatIsPlayer;
     [SerializeField] protected CameraMoveTrack camTrack;
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
     protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
-    public TurnStatus turnStatus;
+    protected EnemyVFXPlayer VFXPlayer { get; private set; }
 
+    protected Collider Collider;
+
+    public TurnStatus turnStatus;
 
     protected override void Awake()
     {
         base.Awake();
+
+        VFXPlayer = GetComponent<EnemyVFXPlayer>();
+        Collider = GetComponent<Collider>();
+        HealthCompo.OnDeathEvent.AddListener(() => Collider.enabled = false);
     }
 
     public void AnimationFinishTrigger()
@@ -34,11 +47,28 @@ public abstract class Enemy : Entity
 
     public abstract void Attack();
 
-    public abstract void TurnStart();
+    public virtual void TurnStart()
+    {
+        Collider.enabled = false;
+    }
     public abstract void TurnAction();
-    public abstract void TurnEnd();
+    public virtual void TurnEnd()
+    {
+        Collider.enabled = true;
+    }
 
-    public abstract void Spawn(Vector3 spawnPos);
+    public virtual void Spawn(Vector3 spawnPos)
+    {
+        AnimatorCompo.SetBool(spawnAnimationHash, true);
+
+        transform.position = spawnPos + new Vector3(-4f, 6f);
+        transform.DOMoveX(spawnPos.x, 1f);
+        transform.DOMoveY(spawnPos.y, 1f).SetEase(Ease.InCubic).OnComplete(() =>
+        {
+            AnimatorCompo.SetBool(spawnAnimationHash, false);
+            turnStatus = TurnStatus.Ready;
+        });
+    }
     public void MoveFormation(Vector3 pos)
     {
         transform.DOMove(pos, 1f);

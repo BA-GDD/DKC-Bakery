@@ -10,6 +10,7 @@ public class TurnCounting : MonoBehaviour
     [Header("ÂüÁ¶")]
     [SerializeField] private Transform _toPTChangingText;
     [SerializeField] private Transform _toETChangingText;
+    [SerializeField] private Transform _turnChaingLabel;
     private Transform _selectTrm;
 
     [Header("º¤ÅÍ")]
@@ -32,6 +33,8 @@ public class TurnCounting : MonoBehaviour
 
     public void BattleStart()
     {
+        TurnCounter.Init();
+
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => ToPlayerTurnChanging(false));
         seq.AppendCallback(() => CardReader.CardDrawer.DrawCard(5));
@@ -55,9 +58,11 @@ public class TurnCounting : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
         seq.Append(_selectTrm.DOLocalMove(_normalPos.localPosition, 0.5f).SetEase(Ease.OutCubic));
+        seq.Join(_turnChaingLabel.DOScaleY(1, 0.4f));
         seq.AppendInterval(0.5f);
         seq.Append(_selectTrm.DOLocalMove(_endPos.localPosition, 0.5f).SetEase(Ease.InCubic));
-        if(isTurnChange)
+        seq.Join(_turnChaingLabel.DOScaleY(0, 0.4f));
+        if (isTurnChange)
             seq.AppendCallback(TurnCounter.ChangeTurn);
     }
 }

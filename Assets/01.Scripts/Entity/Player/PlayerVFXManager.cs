@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 [System.Serializable]
 public struct CardAndEffect
@@ -13,7 +12,6 @@ public struct CardAndEffect
 
 public class PlayerVFXManager : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer background;
     [SerializeField] private List<CardAndEffect> cardAndEffects = new();
     private Dictionary<CardInfo, ParticleSystem> _cardByEffects = new();
     //공격시 이펙트 나오게 설정
@@ -56,8 +54,6 @@ public class PlayerVFXManager : MonoBehaviour
         _cardByEffects[card].transform.position = pos;
         _cardByEffects[card].gameObject.SetActive(true);
 
-        background.DOColor(Color.gray, .5f);
-
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
@@ -71,7 +67,7 @@ public class PlayerVFXManager : MonoBehaviour
             return;
         }
 
-        background.DOColor(Color.gray, .5f);
+        _cardByEffects[card].gameObject.SetActive(true);
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
@@ -80,7 +76,6 @@ public class PlayerVFXManager : MonoBehaviour
     private IEnumerator EndEffectCo(float f)
     {
         yield return new WaitForSeconds(f);
-        background.DOColor(Color.white, .5f);
         OnEndEffectEvent?.Invoke();
     }
 

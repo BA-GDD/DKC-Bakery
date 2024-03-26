@@ -11,7 +11,15 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.target = battleController.onFieldMonsterList[0];
+        int targetIdx = -1;
+        foreach (var e in battleController.onFieldMonsterList)
+        {
+            if (e != null)
+            {
+                targetIdx++;
+            }
+        }
+        Player.target = battleController.onFieldMonsterList[targetIdx];
         Player.UseAbility(this, true);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
@@ -28,7 +36,7 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(1.5f, 0f, 0f)); ;
+        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(2.5f, 1.8f, 0f)); ;
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }

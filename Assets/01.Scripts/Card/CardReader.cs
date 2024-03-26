@@ -151,13 +151,13 @@ public static class CardReader
 
     public static int GetPosOnTopDrawCard()
     {
-        return 930 - ((CountOfCardInHand() -1) * 170);
+        return 860 - ((CountOfCardInHand() -1) * 170);
     }
 
     public static int GetHandPos(CardBase cardBase)
     {
         int idx = _inHandCardList.IndexOf(cardBase);
-        return 930 - (idx * 170);
+        return 860 - (idx * 170);
     }
 
     public static void LockHandCard(bool isLock)

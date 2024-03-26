@@ -13,9 +13,12 @@ public enum PoolingType
     ItemElement,
     HitEffect,
     CardInfoPanel,
-    SimpleEnemy,
+    CandyParty,
     ErrorText,
     TestElement,
+    Mr_Muddy,
+    MonStrowBerry,
+    PumpkinBat
 }
 
 public class PoolManager

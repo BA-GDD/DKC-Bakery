@@ -26,6 +26,10 @@ public class CookingBox : MonoBehaviour
             _getBoxInstanceDic.Add(box.IngredientType, box);
         }
         _blurObjectArr = _blurParent.GetComponentsInChildren<BlurObject>();
+        foreach(BlurObject blur in _blurObjectArr)
+        {
+            blur.gameObject.SetActive(blur.CombinationType == BakeryCombinationType.none);
+        }
     }
 
     public void AddSelectIngredientInfo(ItemDataIngredientSO ingInfo)
@@ -39,7 +43,7 @@ public class CookingBox : MonoBehaviour
 
         _selectIngredientType |= ingInfo.ingredientType;
 
-        if(MaestrOffice.SelectedNumberOfFlagEnums((int)_selectIngredientType) == 5)
+        if(MaestrOffice.SelectedNumberOfFlagEnums((int)_selectIngredientType) == 3)
         {
             ChangeBlurObject(BakeryCombinationType.cake);
         }
@@ -78,6 +82,7 @@ public class CookingBox : MonoBehaviour
     {
         foreach(BlurObject blurObj in _blurObjectArr)
         {
+            Debug.Log($"{blurObj.CombinationType} =? {type}");
             blurObj.gameObject.SetActive(blurObj.CombinationType == type);
         }
     }
