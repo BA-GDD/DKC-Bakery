@@ -115,17 +115,24 @@ public class CharacterStat : ScriptableObject
 
     public bool IsCritical(ref int incomingDamage)
     {
+<<<<<<< HEAD
         if (UnityEngine.Random.value * 100 <= criticalChance.GetValue())
         {
             incomingDamage = CalculateCriticalDamage(incomingDamage);
             return true;
         }
+=======
+>>>>>>> parent of c088f6a3 (asdf)
         return false;
     }
 
     protected int CalculateCriticalDamage(int incomingDamage)
     {
+<<<<<<< HEAD
         return incomingDamage + Mathf.RoundToInt(incomingDamage * criticalDamage.GetValue() * 0.01f);
+=======
+        return 0;
+>>>>>>> parent of c088f6a3 (asdf)
     }
 
     public virtual int GetMagicDamage()
