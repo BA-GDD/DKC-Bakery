@@ -26,7 +26,7 @@ public abstract class Enemy : Entity
 
     protected EnemyVFXPlayer VFXPlayer { get; private set; }
 
-    private Collider Collider;
+    protected Collider Collider;
 
     public TurnStatus turnStatus;
 
@@ -47,9 +47,15 @@ public abstract class Enemy : Entity
 
     public abstract void Attack();
 
-    public abstract void TurnStart();
+    public virtual void TurnStart()
+    {
+        Collider.enabled = false;
+    }
     public abstract void TurnAction();
-    public abstract void TurnEnd();
+    public virtual void TurnEnd()
+    {
+        Collider.enabled = true;
+    }
 
     public virtual void Spawn(Vector3 spawnPos)
     {
