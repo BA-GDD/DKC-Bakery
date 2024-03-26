@@ -185,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 4077902195520186471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.51, y: 0, z: 0}
+  m_LocalPosition: {x: 2.69, y: -0.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,7 +232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4508950780577878303}
-  - component: {fileID: 4235084186470015927}
   m_Layer: 0
   m_Name: LookTrack
   m_TagString: Untagged
@@ -256,27 +255,6 @@ Transform:
   - {fileID: 5350092431801117843}
   m_Father: {fileID: 4367754113468494226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4235084186470015927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7027079383467606327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df20e0aa27f349743bcf120ac957cfd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillType: 0
-  camMoves:
-  - pos: {x: -2, y: 0, z: 0.66}
-    duration: 0.2
-  - pos: {x: 4.2, y: 0, z: 0}
-    duration: 0.4
-  - pos: {x: 0, y: 0, z: 0}
-    duration: 30
-  targetTrm: {fileID: 5350092431801117843}
 --- !u!1 &7453510409853100450
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +401,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 430162
+  m_InstanceId: 124378
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -469,7 +447,6 @@ GameObject:
   - component: {fileID: 4367754113468494226}
   - component: {fileID: 5981215042608826096}
   - component: {fileID: 7992703496826039512}
-  - component: {fileID: 8384329864336017100}
   m_Layer: 0
   m_Name: SimpleEntity
   m_TagString: Untagged
@@ -536,6 +513,7 @@ MonoBehaviour:
   _ailmentStat:
     currentAilment: 0
   isLastHitCritical: 0
+  IsFreeze: 0
 --- !u!114 &7992703496826039512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,26 +539,5 @@ MonoBehaviour:
   _whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  camTrack: {fileID: 4235084186470015927}
+  camTrack: {fileID: 0}
   turnStatus: 0
---- !u!65 &8384329864336017100
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7779656348775410286}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.43217087, y: 1.4415953, z: 2}
-  m_Center: {x: 0.07517004, y: -0.08590829, z: 0}

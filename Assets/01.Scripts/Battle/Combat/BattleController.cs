@@ -79,6 +79,7 @@ public class BattleController : MonoBehaviour
 
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
+            yield return new WaitForSeconds(1.5f);
         }
         TurnCounter.ChangeTurn();
     }
@@ -111,7 +112,9 @@ public class BattleController : MonoBehaviour
         if (_enemyQue.Count > 0)
         {
             Vector3 pos = _spawnDistanceByPoint[idx].position;
-            Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
+            PoolingType y = _enemyQue.Dequeue();
+            Enemy selectEnemy = PoolManager.Instance.Pop(y) as Enemy;
+            print(y);
             selectEnemy.BattleController = this;
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
@@ -128,6 +131,7 @@ public class BattleController : MonoBehaviour
     public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
+        DeathEnemyList.Add(enemy);
     }
     public bool IsStuck(int to, int who)
     {

@@ -44,6 +44,11 @@ public static class TurnCounter
         }
     }
 
+    public static void Init()
+    {
+        CurrentTurnType = TurnType.Player;
+    }
+
     public static void ChangeRound()
     {
         if(RoundCount != 0)

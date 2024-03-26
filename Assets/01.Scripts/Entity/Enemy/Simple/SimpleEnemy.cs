@@ -51,27 +51,14 @@ public class SimpleEnemy : Enemy
         turnStatus = TurnStatus.Ready;
     }
 
-    public override void Spawn(Vector3 spawnPos)
-    {
-        AnimatorCompo.SetBool(spawnAnimationHash, true);
-
-        transform.position = spawnPos + new Vector3(-4f, 6f);
-        transform.DOMoveX(spawnPos.x, 1f);
-        transform.DOMoveY(spawnPos.y, 1f).SetEase(Ease.InCubic).OnComplete(() =>
-        {
-            AnimatorCompo.SetBool(spawnAnimationHash, false);
-            turnStatus = TurnStatus.Ready;
-        });
-    }
-
-    protected override void HandleMoveToTarget()
+    protected override void HandleEndMoveToTarget()
     {
         MoveToOriginPos();
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         AnimatorCompo.SetTrigger(attackTriggerAnimationHash);
     }
 
-    protected override void HandleMoveToOriginPos()
+    protected override void HandleEndMoveToOriginPos()
     {
         turnStatus = TurnStatus.End;
     }
