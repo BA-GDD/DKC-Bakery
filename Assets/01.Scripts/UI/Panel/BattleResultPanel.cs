@@ -43,6 +43,7 @@ public class BattleResultPanel : PanelUI
             {
                 if (sieArr[i] == _battleController.DeathEnemyList[j])
                 {
+                    Debug.Log("test");
                     brelist[i].DeathMarking();
                 }
             }
