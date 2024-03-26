@@ -15,6 +15,8 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
+        FeedbackManager.Instance.EndSpeed = 1.5f;
+        FeedbackManager.Instance.ShakeScreen(2.0f);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -42,6 +44,13 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
             foreach (var e in battleController.onFieldMonsterList)
             {
                 e?.HealthCompo.ApplyDamage(2, Player);
+
+                if(e != null)
+                {
+                    GameObject obj = Instantiate(CardInfo.hitEffect.gameObject);
+                    obj.transform.position = e.transform.position;
+                    Destroy(obj, 1.0f);
+                }
             }
         }
     }

@@ -57,6 +57,12 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
         foreach (var e in battleController.onFieldMonsterList)
         {
             e?.HealthCompo.ApplyDamage(15, Player);
+            //우선 임시로 짜둡니다. 나중에 고칠 수 있으면 고칠게요
+            if(e != null)
+            {
+                GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, e.transform.position, Quaternion.identity);
+                Destroy(obj, 1.0f);
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ public class TornadoSkill : CardBase
     {
         Player.VFXManager.PlayParticle(CardInfo,centerPos());
         StartCoroutine(AttackCor());
+        FeedbackManager.Instance.EndSpeed = 1.0f;
         FeedbackManager.Instance.ShakeScreen(3);
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -25,12 +26,15 @@ public class TornadoSkill : CardBase
 
         foreach (var e in battleController.onFieldMonsterList)
         {
-            Vector3 pos = e.transform.position;
-            minX = Mathf.Min(minX, pos.x);
-            maxX = Mathf.Max(maxX, pos.x);
+            if(e != null)
+            {
+                Vector3 pos = e.transform.position;
+                minX = Mathf.Min(minX, pos.x);
+                maxX = Mathf.Max(maxX, pos.x);
 
-            minY = Mathf.Min(minY, pos.y);
-            maxY = Mathf.Min(maxY, pos.y);
+                minY = Mathf.Min(minY, pos.y);
+                maxY = Mathf.Min(maxY, pos.y);
+            }
         }
 
         float x = (maxX - minX) * 0.5f + minX;

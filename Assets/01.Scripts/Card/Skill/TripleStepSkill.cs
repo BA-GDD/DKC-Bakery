@@ -35,10 +35,23 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         {
             yield return new WaitForSeconds(0.2f);
             Player.target.HealthCompo.ApplyDamage(3, Player);
+            
+            if(Player.target != null)
+            {
+                GameObject fx = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+                Destroy(fx, 1.0f);
+
+                FeedbackManager.Instance.ShakeScreen(new Vector3(-.25f, .25f, 0));
+            }
         }
 
         yield return new WaitForSeconds(2.6f);
 
         Player.target.HealthCompo.ApplyDamage(5, Player);
+
+        GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+        Destroy(obj, 1.0f);
+        FeedbackManager.Instance.ShakeScreen(2);
+        FeedbackManager.Instance.EndSpeed = 2.0f;
     }
 }
