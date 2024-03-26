@@ -52,6 +52,8 @@ public class Health : MonoBehaviour, IDamageable
 
         TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
 
+        OnDeathEvent.AddListener(() => UIManager.Instance.GetComponentInChildren<BattleResultPanel>().SetClear());
+
         _isDead = false;
 
     }
