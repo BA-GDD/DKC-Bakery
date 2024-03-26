@@ -16,7 +16,8 @@ public class BattleController : MonoBehaviour
     [SerializeField] private SEList<SEList<bool>> isStuck;
 
     public Enemy[] onFieldMonsterList;
-    public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
+    public List<Enemy> DeathEnemyList { get; private set; } = new List<Enemy>();
+    public List<Enemy> SpawnEnemyList { get; private set; } = new List<Enemy>();
 
 
     //[HideInInspector]
@@ -125,6 +126,8 @@ public class BattleController : MonoBehaviour
 
             onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
+
+            SpawnEnemyList.Add(selectEnemy);
         }
     }
 

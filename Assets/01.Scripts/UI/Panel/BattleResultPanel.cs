@@ -16,11 +16,14 @@ public class BattleResultPanel : PanelUI
 
     public void SetClear()
     {
-        if (!MapManager.Instanace.SelectStageData.clearCondition.IsClear) _clearText.text = "Defeat";
-
         _clearText.gameObject.SetActive(true);
         _clearText.transform.localScale = Vector3.one * 1.5f;
         _clearText.transform.DOScale(Vector3.one, 0.1f);
+
+        if (!MapManager.Instanace.SelectStageData.clearCondition.IsClear)
+        {
+            _clearText.text = "Defeat";
+        }
 
         SetEnemyProfile();
     }
@@ -35,18 +38,18 @@ public class BattleResultPanel : PanelUI
             erp.SetProfile(e.CharStat.characterVisual);
             battleResultEnemyProfiles.Add(erp);
         }
-        StartCoroutine(KillEnemyMarking(battleResultEnemyProfiles, stageInEnemies));
+        StartCoroutine(KillEnemyMarking(battleResultEnemyProfiles));
     }
 
-    private IEnumerator KillEnemyMarking(List<BattleResultProfilePanel> brelist, Enemy[] sieArr)
+    private IEnumerator KillEnemyMarking(List<BattleResultProfilePanel> brelist)
     {
         yield return new WaitForSeconds(1f);
 
-        for (int i = 0; i < sieArr.Length; i++)
+        for (int i = 0; i < _battleController.SpawnEnemyList.Count; i++)
         {
             for (int j = 0; j < _battleController.DeathEnemyList.Count; j++)
             {
-                if (sieArr[i].CharStat.characterName == _battleController.DeathEnemyList[j].CharStat.characterName)
+                if (_battleController.SpawnEnemyList[i] == _battleController.DeathEnemyList[j])
                 {
                     brelist[i].DeathMarking();
                 }
