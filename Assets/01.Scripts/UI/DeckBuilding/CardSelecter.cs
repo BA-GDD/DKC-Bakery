@@ -7,6 +7,7 @@ public class CardSelecter : MonoBehaviour
     [SerializeField] private CardSelectElement _cardSelectPrefab;
     [SerializeField] private DeckBuilder _deckBuilder;
     [SerializeField] private RectTransform _hasCardListTrm;
+    [SerializeField] private List<CardBase> sample;
 
     private CanUseCardData _canUseCardData = new CanUseCardData();
     private const string _canUseCardDataKey = "CanUseCardsDataKey";
@@ -18,7 +19,9 @@ public class CardSelecter : MonoBehaviour
             _canUseCardData = DataManager.Instance.LoadData<CanUseCardData>(_canUseCardDataKey);
         }
 
-        //_canUseCardData.CanUseCardsList.Add(CardBase);
+        foreach(CardBase c in sample)
+            _canUseCardData.CanUseCardsList.Add(c);
+
         for(int i = 0; i < _canUseCardData.CanUseCardsList.Count; i++)
         {
             if(i % 6 == 0)

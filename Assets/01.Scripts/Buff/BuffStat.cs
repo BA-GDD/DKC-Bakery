@@ -1,9 +1,9 @@
-using System;
+using AmplifyShaderEditor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void OnHitDamage<T1, T2>(T1 arg1, ref T2 arg2);
+public delegate void OnHitDamage<T1, T2>(T1 t1, ref T2 t2);
 public class BuffStat
 {
     public AilmentEnum currentAilment;

@@ -14,6 +14,9 @@ public class CardInfo : ScriptableObject
     [Header("스킬 정보")]
     public AnimationClip abilityAnimation;
 
+    [Header("개별 타격 이펙트")]
+    public ParticleSystem hitEffect;
+
     public int AbillityCost;
     [TextArea]
     public string AbillityInfo;
