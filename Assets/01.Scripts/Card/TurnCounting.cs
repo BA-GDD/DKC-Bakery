@@ -32,6 +32,8 @@ public class TurnCounting : MonoBehaviour
 
     public void BattleStart()
     {
+        TurnCounter.Init();
+
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => ToPlayerTurnChanging(false));
         seq.AppendCallback(() => CardReader.CardDrawer.DrawCard(5));
