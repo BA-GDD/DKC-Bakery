@@ -34,7 +34,6 @@ public class AdventureMaster : MonoBehaviour
     [SerializeField] private MissionPanel _missionPanel = new MissionPanel();
     [SerializeField] private MinePanel _minePanel = new MinePanel();
     [SerializeField] private StagePanel _stagePanel = new StagePanel();
-    private GameObject _currentChapterVFX;
 
     private void Start()
     {
@@ -50,9 +49,5 @@ public class AdventureMaster : MonoBehaviour
         int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
         _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx - 1];
 
-        _currentChapterVFX?.SetActive(false);
-        _currentChapterVFX = _stagePanel.chapterVisualVFXList[idx - 1];
-        _currentChapterVFX.transform.localScale = Vector3.one;
-        _currentChapterVFX.SetActive(true);
     }
 }
