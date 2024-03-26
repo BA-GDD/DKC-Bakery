@@ -2,26 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaesalhariSkill : ChilledCardBase, ISkillEffectAnim
+public class RiceCakeFrogSkill : CardBase
 {
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.UseAbility(this);
         Player.VFXManager.PlayParticle(CardInfo);
-        Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+        Player.UseAbility(this);
+        StartCoroutine(WaitSpawnCor());
     }
-
-    public void HandleAnimationCall()
+    private IEnumerator WaitSpawnCor()
     {
-
-    }
-
-    public void HandleEffectEnd()
-    {
-        Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+        yield return new WaitForSeconds(0.1f);
         Player.EndAbility();
+        Player.BuffStatCompo.AddBuff(buffSO, 0);
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
     }
-}   
+}

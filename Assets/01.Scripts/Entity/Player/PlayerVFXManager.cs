@@ -67,6 +67,7 @@ public class PlayerVFXManager : MonoBehaviour
             return;
         }
 
+        _cardByEffects[card].gameObject.SetActive(true);
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();

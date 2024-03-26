@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CardDefine;
 
-public class RestSpell : CardBase, ISkillEffectAnim
+public class FrostSkill : ChilledCardBase ,ISkillEffectAnim
 {
     public override void Abillity()
     {
@@ -16,22 +15,23 @@ public class RestSpell : CardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
-        StartCoroutine(SpellCor());
+        StartCoroutine(ChiledCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
+    private IEnumerator ChiledCor()
+    {
+        yield return new WaitForSeconds(0.3f);
 
+        foreach (var i in battleController.onFieldMonsterList)
+        {
+            i?.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Chilled);
+        }
+    }
     public void HandleEffectEnd()
     {
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
-    }
-
-    private IEnumerator SpellCor()
-    {
-        yield return new WaitForSeconds(1f);
-
-        // 다시 만들어야함
     }
 }

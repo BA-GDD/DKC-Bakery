@@ -59,23 +59,24 @@ public class BattleController : MonoBehaviour
     {
         foreach (var e in onFieldMonsterList)
         {
-            e.TurnStart();
+            e?.TurnStart();
         }
-        if (onFieldMonsterList.Length > 0) StartCoroutine(EnemySquence());
+        StartCoroutine(EnemySquence());
     }
     private void OnEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
         {
-            e.TurnEnd();
+            e?.TurnEnd();
         }
     }
 
     private IEnumerator EnemySquence()
     {
-
         foreach (var e in onFieldMonsterList)
         {
+            if (e is null) continue;
+
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
         }

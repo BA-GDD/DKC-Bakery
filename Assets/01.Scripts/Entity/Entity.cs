@@ -2,6 +2,7 @@ using Cinemachine;
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -28,7 +29,10 @@ public abstract class Entity : PoolableMono
     public Action OnMoveTarget;
     public Action OnMoveOriginPos;
 
-    public Action OnAttack;
+    public Action OnAttackStart;
+    public Action OnAttackEnd;
+
+    public List<IOnTakeDamage> OnAttack;
 
     public Transform forwardTrm;
 
@@ -38,6 +42,17 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected float moveDuration = 0.1f;
 
 
+    private SkillCardManagement management;
+    public UnityEvent BeforeChainingEvent
+    {
+        get
+        {
+            if (management == null)
+                management = FindObjectOfType<SkillCardManagement>();
+            return management.beforeChainingEvent;
+        }
+    }
+
     protected virtual void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
@@ -45,8 +60,6 @@ public abstract class Entity : PoolableMono
         HealthCompo = GetComponent<Health>();
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
-
-        BuffStatCompo = new BuffStat(this);
 
         HealthCompo.OnHitEvent.AddListener(HandleHit);
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
@@ -58,7 +71,12 @@ public abstract class Entity : PoolableMono
 
         OnMoveTarget += HandleMoveToTarget;
         OnMoveOriginPos += HandleMoveToOriginPos;
-    } 
+    }
+
+    protected virtual void Start()
+    {
+        BuffStatCompo = new BuffStat(this);
+    }
 
     private void HandleCutInOnFieldMonsterList()
     {

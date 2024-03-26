@@ -19,11 +19,15 @@ public class TornadoSkill : CardBase
     }
     private Vector3 centerPos()
     {
+        bool canGetPos = false;
+
         float minX = float.MaxValue, maxX = 0;
         float minY = float.MaxValue, maxY = 0;
 
         foreach (var e in battleController.onFieldMonsterList)
         {
+            if (e is null) continue;
+            canGetPos = true;
             Vector3 pos = e.transform.position;
             minX = Mathf.Min(minX, pos.x);
             maxX = Mathf.Max(maxX, pos.x);
@@ -36,7 +40,7 @@ public class TornadoSkill : CardBase
         float y = (maxY - minY) * 0.5f + minY;
         Vector2 dir = new Vector2(x, y);
         Debug.Log(dir);
-        return dir;
+        return canGetPos ? dir : Vector2.zero;
     }
 
     private void HandleEffectEnd()
