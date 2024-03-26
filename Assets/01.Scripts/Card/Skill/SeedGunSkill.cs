@@ -11,6 +11,9 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+
+        GameObject obj = Instantiate(CardInfo.targetEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+        Destroy(obj, 1.0f);
     }
 
     public void HandleAnimationCall()
@@ -36,6 +39,9 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         {
             yield return new WaitForSeconds(0.15f);
             Player.target.HealthCompo.ApplyDamage(3, Player);
+
+            GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+            Destroy(obj, 1.0f);
 
             float randNumX = UnityEngine.Random.Range(-.5f, .5f);
             float randNumY = UnityEngine.Random.Range(-.5f, .5f);
