@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712cfd61dbb8ffb428d32ead4af6db05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 4348801131272848453}
   cardAndEffects:
   - info: {fileID: 11400000, guid: fb45bd2fae2551544b6f23b1e0c0ad04, type: 2}
     particle: {fileID: 3648649153309336147}
@@ -172,6 +171,7 @@ MonoBehaviour:
     particle: {fileID: 6966177977658905786}
   - info: {fileID: 11400000, guid: a72f67651b96de24ab0da29f8de1734c, type: 2}
     particle: {fileID: 4860052591927646363}
+  background: {fileID: 4348801131272848453}
 --- !u!1 &5035717694439038551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,11 +1670,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6126098992985769008, guid: 34c128d0f5d5f434a9916918e1525765, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.49999994
       objectReference: {fileID: 0}
     - target: {fileID: 6126098992985769008, guid: 34c128d0f5d5f434a9916918e1525765, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.86602545
       objectReference: {fileID: 0}
     - target: {fileID: 6126098992985769008, guid: 34c128d0f5d5f434a9916918e1525765, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1686,7 +1686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6126098992985769008, guid: 34c128d0f5d5f434a9916918e1525765, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 6126098992985769008, guid: 34c128d0f5d5f434a9916918e1525765, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

@@ -1,9 +1,13 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedGunSkill : CardBase, ISkillEffectAnim
 {
+    private Color minimumColor = new Color(255, 255, 255, .1f);
+    private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
+
     public override void Abillity()
     {
         IsActivingAbillity = true;
@@ -19,8 +23,14 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+        
+        foreach (var e in battleController.onFieldMonsterList)
+        {
+            if (e == Player.target) continue;
+            e.SpriteRendererCompo.DOColor(minimumColor, 0.5f);
+        }
 
-        GameObject obj = Instantiate(CardInfo.targetEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(CardInfo.targetEffect.gameObject, Player.target.transform.position, Quaternion.identity);
         Destroy(obj, 1.0f);
     }
 
@@ -37,6 +47,12 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+
+        foreach (var e in battleController.onFieldMonsterList)
+        {
+            if (e == null) continue;
+            e.SpriteRendererCompo.DOColor(maxtimumColor, 0.5f);
+        }
     }
 
     private IEnumerator AttackCor()
@@ -54,7 +70,9 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
             float randNumX = UnityEngine.Random.Range(-.5f, .5f);
             float randNumY = UnityEngine.Random.Range(-.5f, .5f);
             FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
+
             Debug.Log(i);
+            
             yield return new WaitForSeconds(0.2f);
             Player.target?.HealthCompo.ApplyDamage(5, Player);
         }

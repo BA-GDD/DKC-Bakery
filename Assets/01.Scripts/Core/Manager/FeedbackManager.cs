@@ -78,20 +78,6 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
         Time.timeScale = 1;
     }
 
-    private void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            ShakeScreen(5);
-        }
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            float randNumX = UnityEngine.Random.Range(-1, 1);
-            float randNumY = UnityEngine.Random.Range(-1, 1);
-            ShakeScreen(new Vector3(randNumX, randNumY, 0));
-        }
-    }
-
     private void FixedUpdate()
     {
         if (_multiChannelPerlin != null && !(_multiChannelPerlin.m_AmplitudeGain <= 0.0f || _multiChannelPerlin.m_FrequencyGain <= 0.0f))
