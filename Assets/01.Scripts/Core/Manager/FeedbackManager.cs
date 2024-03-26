@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
 public class FeedbackManager : MonoSingleton<FeedbackManager>
 {
     [SerializeField] private CinemachineImpulseSource _impulseSource;
-    
     [SerializeField] private CinemachineVirtualCamera _cinemachineCam;
     [SerializeField] private float _endSpeed = 1.0f;
     public float EndSpeed
@@ -18,7 +17,8 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
         get => _endSpeed;
         set => _endSpeed = value;
     }
-
+    [SerializeField] private AudioClip debugHit;
+    [SerializeField] private AudioClip debugBgm;
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
     private bool _shakingInDuration = false;
