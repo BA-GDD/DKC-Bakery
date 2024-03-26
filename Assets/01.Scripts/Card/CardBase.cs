@@ -5,7 +5,9 @@ using DG.Tweening;
 using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
+[Serializable]
 public abstract class CardBase : MonoBehaviour, 
                                  IPointerEnterHandler, 
                                  IPointerExitHandler
@@ -99,7 +101,7 @@ public abstract class CardBase : MonoBehaviour,
     public void SetUpCard(float moveToXPos, bool generateCallback)
     {
         CanUseThisCard = false;
-        Vector2 movePos = new Vector2(moveToXPos, -180);
+        Vector2 movePos = new Vector2(moveToXPos, -60);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOLocalMove(movePos, _toMovePosInSec).SetEase(Ease.OutBack));

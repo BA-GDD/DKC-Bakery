@@ -33,6 +33,7 @@ public class BuffSO : ScriptableObject
         }
         foreach(var b in specialBuffs)
         {
+
             _owner.BuffStatCompo.ActivateSpecialBuff(b);
         }
     }

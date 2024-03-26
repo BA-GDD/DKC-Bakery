@@ -1,9 +1,13 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TripleStepSkill : CardBase, ISkillEffectAnim
 {
+    private Color minimumAlphaColor = new Color(255, 255, 255, 0.1f);
+    private Color maximumAlphaColor = new Color(255, 255, 255, 1);
+
     public override void Abillity()
     {
         IsActivingAbillity = true;
@@ -19,6 +23,15 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         Player.UseAbility(this, true);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+
+        if(Player.target != null)
+        {
+            foreach(var m in battleController.onFieldMonsterList)
+            {
+                if (m == Player.target) continue;
+                m.SpriteRendererCompo.DOColor(minimumAlphaColor, 0.5f);
+            }
+        }
     }
 
     public void HandleAnimationCall()
@@ -35,6 +48,13 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+
+        foreach(var m in battleController.onFieldMonsterList)
+        {
+            if (m == null) continue;
+
+            m.SpriteRendererCompo.DOColor(maximumAlphaColor, 0.5f);
+        }
     }
 
     private IEnumerator AttackCor()
@@ -43,10 +63,23 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         {
             yield return new WaitForSeconds(0.2f);
             Player.target.HealthCompo.ApplyDamage(3, Player);
+            
+            if(Player.target != null)
+            {
+                GameObject fx = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+                Destroy(fx, 1.0f);
+
+                FeedbackManager.Instance.ShakeScreen(new Vector3(-.25f, .25f, 0));
+            }
         }
 
         yield return new WaitForSeconds(2.6f);
 
         Player.target.HealthCompo.ApplyDamage(5, Player);
+
+        GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+        Destroy(obj, 1.0f);
+        FeedbackManager.Instance.ShakeScreen(2);
+        FeedbackManager.Instance.EndSpeed = 2.0f;
     }
 }

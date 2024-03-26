@@ -672,6 +672,12 @@ MonoBehaviour:
   _cardSelectPrefab: {fileID: 1365093038690443968, guid: a9831ef88f08def42bfe980948d9c3bd, type: 3}
   _deckBuilder: {fileID: 5907553512740231791}
   _hasCardListTrm: {fileID: 486226128332985404}
+  sample:
+  - {fileID: 3123359521960886650, guid: 5bd875a749669ac469354b4c6e5c9214, type: 3}
+  - {fileID: 3007661017682430650, guid: 682ebfb0eae6bec49a1b98ea3feb4773, type: 3}
+  - {fileID: 8498255046003907940, guid: 42fbc8c3032416c47820f81a2971125b, type: 3}
+  - {fileID: -5554570068127067684, guid: 3ddb4841e5a194a468d5b062e03880af, type: 3}
+  - {fileID: 6394540229310288568, guid: 1e62801c2d3e6614eb70b8e90c8b32c4, type: 3}
 --- !u!1 &2068533505351905411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,7 +2507,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3903014157270261434}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 914163648866296751}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5885076554680059059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,8 +2662,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uBCF4\uC720\uC911\uC778 \uC544\uB974\uCE74\uB098"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 50427eaa1e5316c4da681c006c4ef761, type: 2}
+  m_sharedMaterial: {fileID: 4200492301925612666, guid: 50427eaa1e5316c4da681c006c4ef761, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3242,7 +3260,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "* \uC800\uC7A5 \uC548\uB428"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ffca4b79d707dbd4f9ebdcbe5706a46e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 50427eaa1e5316c4da681c006c4ef761, type: 2}
   m_sharedMaterial: {fileID: -2449640208252287627, guid: ffca4b79d707dbd4f9ebdcbe5706a46e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3306,7 +3324,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7448189074086134927

@@ -54,6 +54,7 @@ public class Health : MonoBehaviour, IDamageable
         TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
 
         _isDead = false;
+
     }
     private void OnDestroy()
     {
