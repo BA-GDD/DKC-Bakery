@@ -5,8 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Tsumego/PlayerDie")]
 public class PlayerDieCondition : TsumegoCondition
 {
+    private Player _player;
+
     public override bool CheckCondition()
     {
-        return true;
+        if(_player == null)
+        {
+            _player = FindAnyObjectByType<Player>();
+        }
+
+        return !_player.HealthCompo.IsDead;
     }
 }

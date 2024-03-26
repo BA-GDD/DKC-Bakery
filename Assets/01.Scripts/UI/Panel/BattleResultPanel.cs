@@ -1,13 +1,14 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BattleResultPanel : PanelUI
 {
     [Header("배틀 리절트 패널")]
     [SerializeField] private BattleController _battleController;
-    [SerializeField] private GameObject _clearText;
+    [SerializeField] private TextMeshProUGUI _clearText;
     [SerializeField] private Transform _enemyProfileTrm;
     [SerializeField] private BattleResultProfilePanel _enemyProfile;
     [SerializeField] private BattleResultProfilePanel _itemProfile;
@@ -15,9 +16,14 @@ public class BattleResultPanel : PanelUI
 
     public void SetClear()
     {
-        _clearText.SetActive(true);
+        _clearText.gameObject.SetActive(true);
         _clearText.transform.localScale = Vector3.one * 1.5f;
         _clearText.transform.DOScale(Vector3.one, 0.1f);
+
+        if (!MapManager.Instanace.SelectStageData.clearCondition.IsClear)
+        {
+            _clearText.text = "Defeat";
+        }
 
         SetEnemyProfile();
     }
@@ -30,18 +36,20 @@ public class BattleResultPanel : PanelUI
         {
             BattleResultProfilePanel erp = Instantiate(_enemyProfile, _enemyProfileTrm);
             erp.SetProfile(e.CharStat.characterVisual);
-            battleResultEnemyProfiles.Add( erp );
+            battleResultEnemyProfiles.Add(erp);
         }
-        StartCoroutine(KillEnemyMarking(battleResultEnemyProfiles, stageInEnemies));
+        StartCoroutine(KillEnemyMarking(battleResultEnemyProfiles));
     }
 
-    private IEnumerator KillEnemyMarking(List<BattleResultProfilePanel> brelist, Enemy[] sieArr)
+    private IEnumerator KillEnemyMarking(List<BattleResultProfilePanel> brelist)
     {
-        for(int i = 0; i < sieArr.Length; i++)
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < _battleController.SpawnEnemyList.Count; i++)
         {
             for (int j = 0; j < _battleController.DeathEnemyList.Count; j++)
             {
-                if (sieArr[i] == _battleController.DeathEnemyList[j])
+                if (_battleController.SpawnEnemyList[i] == _battleController.DeathEnemyList[j])
                 {
                     brelist[i].DeathMarking();
                 }
@@ -50,9 +58,9 @@ public class BattleResultPanel : PanelUI
 
         yield return new WaitForSeconds(1f);
 
-        if(MapManager.Instanace.SelectStageData.clearCondition.IsClear)
+        if (MapManager.Instanace.SelectStageData.clearCondition.IsClear)
         {
-            foreach(ItemDataIngredientSO i in Inventory.Instance.GetIngredientInThisBattle)
+            foreach (ItemDataIngredientSO i in Inventory.Instance.GetIngredientInThisBattle)
             {
                 Instantiate(_itemProfile, _itemProfileTrm).SetProfile(i.itemIcon);
                 yield return new WaitForSeconds(0.2f);
