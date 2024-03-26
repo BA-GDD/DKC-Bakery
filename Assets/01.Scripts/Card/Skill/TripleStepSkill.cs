@@ -1,9 +1,13 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TripleStepSkill : CardBase, ISkillEffectAnim
 {
+    private Color minimumAlphaColor = new Color(255, 255, 255, 0.1f);
+    private Color maximumAlphaColor = new Color(255, 255, 255, 1);
+
     public override void Abillity()
     {
         IsActivingAbillity = true;
@@ -11,6 +15,15 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         Player.UseAbility(this, true);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+
+        if(Player.target != null)
+        {
+            foreach(var m in battleController.onFieldMonsterList)
+            {
+                if (m == Player.target) continue;
+                m.SpriteRendererCompo.DOColor(minimumAlphaColor, 0.5f);
+            }
+        }
     }
 
     public void HandleAnimationCall()
@@ -27,6 +40,13 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+
+        foreach(var m in battleController.onFieldMonsterList)
+        {
+            if (m == null) continue;
+
+            m.SpriteRendererCompo.DOColor(maximumAlphaColor, 0.5f);
+        }
     }
 
     private IEnumerator AttackCor()
