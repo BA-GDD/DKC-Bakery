@@ -7,15 +7,6 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        int targetIdx = -1;
-        foreach (var e in battleController.onFieldMonsterList)
-        {
-            if (e != null)
-            {
-                targetIdx++;
-            }
-        }
-        Player.target = battleController.onFieldMonsterList[targetIdx];
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
@@ -40,12 +31,12 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.3f);
 
-        Player.target.HealthCompo.ApplyDamage(4, Player);
+        //Player.Attack(Player.target, 4);
         Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
 
         yield return new WaitForSeconds(1.2f);
 
-        Player.target.HealthCompo.ApplyDamage(4, Player);
+        //Player.Attack(Player.target, 4);
         Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
     }
 }

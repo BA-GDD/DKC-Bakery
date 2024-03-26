@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChapterDefine;
 using DG.Tweening;
-using System.Linq;
-using System;
 
 public class MapManager : MonoBehaviour
 {
@@ -34,13 +32,6 @@ public class MapManager : MonoBehaviour
 
     public int SelectStageNumber { get; set; }
     private NodeLaodMap _loadMapObject;
-
-    [SerializeField] private Sprite[] _mapSpriteArr;
-
-    public Sprite GetMapSprite()
-    {
-        return _mapSpriteArr[(int)SelectStageData.stageBackGround];
-    }
 
     public void CreateStageInfoBubble(string stageName, Vector2 pos, bool isReverse)
     {

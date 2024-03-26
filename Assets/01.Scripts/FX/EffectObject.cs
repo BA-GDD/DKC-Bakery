@@ -10,15 +10,6 @@ public class EffectObject : PoolableMono
     [SerializeField]
     private float pushTime = 1.0f;
 
-    [SerializeField]
-    private AudioClip hitSound;
-
-    private void OnEnable()
-    {
-        if (SoundManager.Instance == null) return;
-        SoundManager.Instance.PlaySFX(hitSound);
-    }
-
     public override void Init()
     {
         mainParticleSystem.Stop();

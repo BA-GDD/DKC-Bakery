@@ -15,8 +15,6 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo);
-        FeedbackManager.Instance.EndSpeed = 1.5f;
-        FeedbackManager.Instance.ShakeScreen(2.0f);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -37,20 +35,9 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
         {
             yield return new WaitForSeconds(0.3f);
 
-            float randNumX = UnityEngine.Random.Range(-.5f, .5f);
-            float randNumY = UnityEngine.Random.Range(-.5f, .5f);
-            FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
-            
-            foreach (var e in battleController.onFieldMonsterList)
+            foreach(var e in battleController.onFieldMonsterList)
             {
                 e?.HealthCompo.ApplyDamage(2, Player);
-
-                if(e != null)
-                {
-                    GameObject obj = Instantiate(CardInfo.hitEffect.gameObject);
-                    obj.transform.position = e.transform.position;
-                    Destroy(obj, 1.0f);
-                }
             }
         }
     }

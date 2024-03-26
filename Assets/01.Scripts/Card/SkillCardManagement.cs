@@ -25,7 +25,6 @@ public class SkillCardManagement : CardManagement
     [SerializeField] private UnityEvent _afterChanningEvent;
     [SerializeField] private UnityEvent<bool> _acceptBtnSwitchEvent;
     [SerializeField] private UnityEvent _checkStageClearEvent;
-    [SerializeField] private UnityEvent<bool> _setupHandCardEvent;
 
     private void Start()
     {
@@ -37,7 +36,6 @@ public class SkillCardManagement : CardManagement
     }
     public void SetupCardsInActivationZone()
     {
-        _setupHandCardEvent?.Invoke(false);
         _acceptBtnSwitchEvent?.Invoke(false);
         int maxCount = InCardZoneCatalogue.Count;
 
@@ -73,7 +71,6 @@ public class SkillCardManagement : CardManagement
             _isInChaining = false;
 
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
-            _setupHandCardEvent?.Invoke(true);
             _checkStageClearEvent?.Invoke();
             return;
         }

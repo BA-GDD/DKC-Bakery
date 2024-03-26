@@ -9,12 +9,9 @@ public class BattleProduction : MonoBehaviour
     [SerializeField] private UnityEvent<TsumegoInfo> _clearChekcerSetEvent;
     [SerializeField] private UnityEvent<StageDataSO> _panelSetEvent;
     [SerializeField] private UnityEvent _battleStartEvent;
-    private PlayerAppear _playerAppear;
 
     private void Start()
     {
-        _playerAppear = FindObjectOfType<PlayerAppear>();
-        FindObjectOfType<BattleBackground>().SetBG(MapManager.Instanace.GetMapSprite());
         StartCoroutine(ProductionCo());
     }
 
@@ -26,6 +23,5 @@ public class BattleProduction : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         _battleStartEvent?.Invoke();
         _clearChekcerSetEvent?.Invoke(MapManager.Instanace.SelectStageData.clearCondition);
-        _playerAppear.Action();
     }
 }

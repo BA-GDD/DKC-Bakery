@@ -7,6 +7,7 @@ public class DeckGenerator : MonoBehaviour
     [SerializeField] private RectTransform _deckElemetTrm;
     [SerializeField] private CanUseDeckElement _canUseDeckPrefab;
     [SerializeField] private SelectedDeck _selectDeckObj;
+    [SerializeField] private List<CardBase> _sampleDeck;
 
     private DeckElement _selectDeck;
     public DeckElement SelectDeck
@@ -32,6 +33,8 @@ public class DeckGenerator : MonoBehaviour
             _saveDeckData = DataManager.Instance.LoadData<SaveDeckData>(_saveDeckDataKey);
         }
 
+        DeckElement de = new DeckElement("¹«·á µ¦ >.<", _sampleDeck);
+        _saveDeckData.SaveDeckList.Add(de);
         for(int i = 0; i < _saveDeckData.SaveDeckList.Count; i++)
         {
             if(i % 3 == 0)

@@ -12,7 +12,6 @@ public class MineBattleProduction : BattleProduction
 
     public void StartBattle()
     {
-        UIManager.Instance.GetSceneUI<MineUI>().PanelActive(false);
         _turnSystem.SetActive(true);
         StartCoroutine(ProductionCo());
     }

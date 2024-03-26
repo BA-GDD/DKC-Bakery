@@ -22,7 +22,6 @@ public struct StagePanel
 {
     public TextMeshProUGUI inStageCount;
     public List<Sprite> chapterVisualList;
-    public List<GameObject> chapterVisualVFXList;
     public Image visual;
 }
 
@@ -48,6 +47,5 @@ public class AdventureMaster : MonoBehaviour
 
         int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
         _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx - 1];
-
     }
 }
