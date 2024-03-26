@@ -18,6 +18,5 @@ public class BattleResultProfilePanel : MonoBehaviour
 
     public void DeathMarking()
     {
-        _animator.speed = 1f;
     }
 }
