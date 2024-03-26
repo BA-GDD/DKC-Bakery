@@ -13,7 +13,7 @@ public class EnemyHpBarMaker : MonoBehaviour
 
     }
 
-    public void SetupEnemyHpBar()
+    public void SetupEnemysHpBar()
     {
         Enemy[] fieldInEnemys = FindObjectsOfType<Enemy>();
 
@@ -21,10 +21,19 @@ public class EnemyHpBarMaker : MonoBehaviour
         {
             EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
             e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
-            e.HealthCompo.OnDeathEvent.AddListener(() => Destroy(enemyHpBar));
+            e.HealthCompo.OnDeathEvent.AddListener(() => Destroy(enemyHpBar.gameObject));
             e.HealthCompo.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
 
             enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;
         }
+    }
+    public void SetupEnemyHpBar(Enemy e)
+    {
+        EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
+        e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
+        e.HealthCompo.OnDeathEvent.AddListener(() => Destroy(enemyHpBar.gameObject));
+        e.HealthCompo.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
+
+        enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;
     }
 }

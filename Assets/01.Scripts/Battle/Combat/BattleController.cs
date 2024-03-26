@@ -19,7 +19,7 @@ public class BattleController : MonoBehaviour
     public List<Enemy> DeathEnemyList { get; set; } = new List<Enemy>();
 
 
-    //[HideInInspector]
+    [HideInInspector]
     private EnemyHpBarMaker _enemyHpBarMaker;
 
     [Header("���� ��")]
@@ -41,10 +41,14 @@ public class BattleController : MonoBehaviour
         }
     }
 
+    [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
+
     private void Awake()
     {
         //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
         onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
+
+        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
@@ -55,7 +59,7 @@ public class BattleController : MonoBehaviour
         TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
     }
 
-    private void OnEnemyTurnStart()
+    private void OnEnemyTurnStart(bool b)
     {
         foreach (var e in onFieldMonsterList)
         {
@@ -104,6 +108,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
+        ChangeTarget(onFieldMonsterList[0]);
 
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
@@ -112,9 +117,8 @@ public class BattleController : MonoBehaviour
         if (_enemyQue.Count > 0)
         {
             Vector3 pos = _spawnDistanceByPoint[idx].position;
-            PoolingType y = _enemyQue.Dequeue();
-            Enemy selectEnemy = PoolManager.Instance.Pop(y) as Enemy;
-            print(y);
+            Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
+            _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
             selectEnemy.BattleController = this;
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
@@ -125,16 +129,41 @@ public class BattleController : MonoBehaviour
 
             onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
+
+            if (Player.target != null)
+                SetPlayerCloseTarget();
         }
     }
 
     public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
+        if (Player.target != null && enemy == Player.target)
+            SetPlayerCloseTarget();
         DeathEnemyList.Add(enemy);
+    }
+    private void SetPlayerCloseTarget()
+    {
+        for (int i = onFieldMonsterList.Length - 1; i >= 0; i--)
+        {
+            Enemy e = onFieldMonsterList[i];
+
+            if (e != null && e.HealthCompo.IsDead)
+            {
+                ChangeTarget(e);
+                return;
+            }
+        }
+        ChangeTarget(null);
     }
     public bool IsStuck(int to, int who)
     {
         return isStuck.list[to].list[who];
+    }
+
+    public void ChangeTarget(Entity entity)
+    {
+        Player.target = entity;
+        OnChangePlayerTarget?.Invoke(entity);
     }
 }

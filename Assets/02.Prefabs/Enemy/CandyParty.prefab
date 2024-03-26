@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 3374196801977967140}
   - component: {fileID: 510890420117777525}
   - component: {fileID: 9118622168797041699}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CandyParty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Entity, Assembly-CSharp
         m_MethodName: DeadSeq
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9118622168797041699}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -202,8 +214,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4825821, y: 2.1032398, z: 1.8057245}
-  m_Center: {x: 0.11063194, y: -0.076501966, z: -0.016747773}
+  m_Size: {x: 1.5312724, y: 2.1032398, z: 1.8057245}
+  m_Center: {x: 0.13160586, y: -0.076501966, z: -0.016747773}
 --- !u!1 &4735587779671641435
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +522,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 97302
+  m_InstanceId: 186340
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -571,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 8451250816034524113}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.842, y: 2.259, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

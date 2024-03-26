@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2961298951289442118}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.842, y: 2.259, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -177,7 +177,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 98126
+  m_InstanceId: 186544
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 4378479087390547817}
   - component: {fileID: 7445431910729709249}
   - component: {fileID: 8988862208147241114}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mr.Muddy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,6 +504,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8988862208147241114}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnHitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -532,11 +544,11 @@ MonoBehaviour:
   OnHealthBarChanged:
     m_PersistentCalls:
       m_Calls: []
-  forwardTrm: {fileID: 0}
+  forwardTrm: {fileID: 5191950455765185330}
   target: {fileID: 0}
   lastMovePos: {x: 0, y: 0, z: 0}
   moveDuration: 0.1
-  hpBarPos: {fileID: 0}
+  hpBarPos: {fileID: 2310652181499430033}
   attackParticle:
     particle: {fileID: 0}
     duration: 0
@@ -561,5 +573,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5714264, y: 1.1768088, z: 1.4262105}
-  m_Center: {x: 0.079221964, y: -0.08840442, z: 0.09386915}
+  m_Size: {x: 1.4310117, y: 1.1768088, z: 1.4262105}
+  m_Center: {x: 0.03752446, y: -0.08840442, z: 0.09386915}
