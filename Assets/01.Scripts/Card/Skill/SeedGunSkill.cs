@@ -44,7 +44,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         {
             Debug.Log(i);
             yield return new WaitForSeconds(0.2f);
-            Player.target?.HealthCompo.ApplyDamage(3, Player);
+            Player.target?.HealthCompo.ApplyDamage(5, Player);
         }
     }
 }
