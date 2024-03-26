@@ -13,7 +13,7 @@ public class Handling : MonoBehaviour
 
     public void MoveHand(bool isDown)
     {
-        float targetYPos = isDown ? _downHandYPos : _normalHandYPos;
+        float targetYPos = !isDown ? _downHandYPos : _normalHandYPos;
         _handTrm.DOLocalMoveY(targetYPos, 0.2f);
     }
 }
