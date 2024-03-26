@@ -11,6 +11,7 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] private GameObject _doNotSaving;
     public ExpansionList<CardBase> selectCardList = new ExpansionList<CardBase>();
     [SerializeField] private SelectCard[] _selectCardElementArr = new SelectCard[5];
+
     private bool _isDeckSaving;
     public bool IsDeckSaving
     {

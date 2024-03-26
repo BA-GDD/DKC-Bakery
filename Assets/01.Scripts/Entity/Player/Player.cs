@@ -40,6 +40,7 @@ public class Player : Entity
         PlayerStat = CharStat as PlayerStat;
         VFXManager = FindObjectOfType<PlayerVFXManager>();
     }
+
     protected override void Start()
     {
         base.Start();
@@ -57,6 +58,8 @@ public class Player : Entity
 
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
+
+        HealthCompo.OnDeathEvent.AddListener(() => UIManager.Instance.GetSceneUI<BattleUI>().SetClear());
     }
 
     protected void OnDisable()

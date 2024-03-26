@@ -111,6 +111,7 @@ public abstract class Entity : PoolableMono
         {
             AnimatorCompo.SetTrigger(_hitAnimationHash);
         }
+
         OnHealthBarChanged?.Invoke(currentHealth);
     }
 
