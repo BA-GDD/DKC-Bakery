@@ -56,6 +56,9 @@ public class Player : Entity
 
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
+
+
+        
     }
 
     protected void OnDisable()

@@ -3,25 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
+using UnityEngine.InputSystem;
+
+using Random = UnityEngine.Random;
 
 public class FeedbackManager : MonoSingleton<FeedbackManager>
 {
     [SerializeField] private CinemachineImpulseSource _impulseSource;
+    
+    [SerializeField] private CinemachineVirtualCamera _cinemachineCam;
+    [SerializeField] private float _endSpeed = 1.0f;
+    public float EndSpeed
+    {
+        get => _endSpeed;
+        set => _endSpeed = value;
+    }
+
+    private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
+
     private bool _shakingInDuration = false;
 
     // 시간 관련
     private float _limitTime;
     private float _currentTime;
 
+    private void Start()
+    {
+        _multiChannelPerlin = _cinemachineCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        if(_multiChannelPerlin == null)
+        {
+            _multiChannelPerlin.m_AmplitudeGain = 0.0f;
+            _multiChannelPerlin.m_FrequencyGain = 0.0f;
+        }
+    }
+
+    public void ShakeScreen(Vector3 dir)
+    {
+        _impulseSource.m_DefaultVelocity = dir;
+        _impulseSource.GenerateImpulse();
+    }
+
     public void ShakeScreen(float shakeValue)
     {
-        _impulseSource.m_DefaultVelocity = Vector3.one * MaestrOffice.GetPlusOrMinus() * shakeValue;
-        _impulseSource.GenerateImpulse();
+        /*Vector3 randomVector = new Vector3(Random.Range(-shakeValue, shakeValue), Random.Range(-shakeValue, shakeValue), Random.Range(-shakeValue, shakeValue));
+        //_impulseSource.m_DefaultVelocity = Vector3.one * MaestrOffice.GetPlusOrMinus() * shakeValue;
+        _impulseSource.m_DefaultVelocity = randomVector;
+        _impulseSource.GenerateImpulse();*/
+
+        _multiChannelPerlin.m_FrequencyGain = shakeValue;
+        _multiChannelPerlin.m_AmplitudeGain = shakeValue;
+
+        _shakingInDuration = true;
     }
 
     public void ShakeScreen(float shakeValue, float shakeTime)
     {
-        _impulseSource.m_DefaultVelocity = Vector3.one * MaestrOffice.GetPlusOrMinus() * shakeValue;
+        //_impulseSource.m_DefaultVelocity = Vector3.one * MaestrOffice.GetPlusOrMinus() * shakeValue;
 
         _currentTime = 0;
         _limitTime = shakeTime;
@@ -40,9 +78,50 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
         Time.timeScale = 1;
     }
 
+    private void Update()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            ShakeScreen(5);
+        }
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            float randNumX = UnityEngine.Random.Range(-1, 1);
+            float randNumY = UnityEngine.Random.Range(-1, 1);
+            ShakeScreen(new Vector3(randNumX, randNumY, 0));
+        }
+    }
+
     private void FixedUpdate()
     {
-        if(_shakingInDuration)
+        if (_multiChannelPerlin != null && !(_multiChannelPerlin.m_AmplitudeGain <= 0.0f || _multiChannelPerlin.m_FrequencyGain <= 0.0f))
+        {
+            if (_multiChannelPerlin.m_AmplitudeGain >= 0.1f)
+            {
+                _multiChannelPerlin.m_AmplitudeGain -= Time.deltaTime * _endSpeed;;
+            }
+            else
+            {
+                _multiChannelPerlin.m_AmplitudeGain = 0.0f;
+            }
+
+            if (_multiChannelPerlin.m_FrequencyGain >= 0.1f)
+            {
+                _multiChannelPerlin.m_FrequencyGain -= Time.deltaTime * _endSpeed;;
+            }
+            else
+            {
+                _multiChannelPerlin.m_FrequencyGain = 0.0f;
+            }
+        }
+
+/*        if(_multiChannelPerlin.m_AmplitudeGain <= 0.0f || _multiChannelPerlin.m_FrequencyGain <= 0.0f)
+        {
+            _shakingInDuration = false;
+        }
+*/
+
+        /*if (_shakingInDuration)
         {
             _currentTime += Time.fixedDeltaTime;
             _impulseSource.GenerateImpulse();
@@ -50,6 +129,6 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
             {
                 _shakingInDuration = false;
             }
-        }
+        }*/
     }
 }
