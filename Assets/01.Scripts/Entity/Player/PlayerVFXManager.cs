@@ -56,7 +56,7 @@ public class PlayerVFXManager : MonoBehaviour
         _cardByEffects[card].transform.position = pos;
         _cardByEffects[card].gameObject.SetActive(true);
 
-        background.DOColor(Color.gray, 1f);
+        background.DOColor(Color.gray, .5f);
 
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
@@ -71,7 +71,7 @@ public class PlayerVFXManager : MonoBehaviour
             return;
         }
 
-        background.DOColor(Color.gray, 1f);
+        background.DOColor(Color.gray, .5f);
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
@@ -80,7 +80,7 @@ public class PlayerVFXManager : MonoBehaviour
     private IEnumerator EndEffectCo(float f)
     {
         yield return new WaitForSeconds(f);
-        background.DOColor(new Color(255, 255, 255, 255), 0.1f);
+        background.DOColor(Color.white, .5f);
         OnEndEffectEvent?.Invoke();
     }
 
