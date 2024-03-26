@@ -37,10 +37,10 @@ public class CharacterStat : ScriptableObject
 
 
     [Header("Defensive stats")]
-    public Stat maxHealth; //Ã¼·Â
-    public Stat armor; //¹æ¾îµµ
-    public Stat evasion; //È¸ÇÇµµ
-    public Stat magicResistance; //¸¶¹ý¹æ¾î
+    public Stat maxHealth; //Ã¼ï¿½ï¿½
+    public Stat armor; //ï¿½ï¿½îµµ
+    public Stat evasion; //È¸ï¿½Çµï¿½
+    public Stat magicResistance; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     [Header("Offensive stats")]
     public Stat damage;
@@ -115,31 +115,17 @@ public class CharacterStat : ScriptableObject
 
     public bool IsCritical(ref int incomingDamage)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         if (UnityEngine.Random.value * 100 <= criticalChance.GetValue())
         {
             incomingDamage = CalculateCriticalDamage(incomingDamage);
             return true;
         }
-=======
->>>>>>> parent of c088f6a3 (asdf)
-=======
->>>>>>> parent of c088f6a3 (asdf)
         return false;
     }
 
     protected int CalculateCriticalDamage(int incomingDamage)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         return incomingDamage + Mathf.RoundToInt(incomingDamage * criticalDamage.GetValue() * 0.01f);
-=======
-        return 0;
->>>>>>> parent of c088f6a3 (asdf)
-=======
-        return 0;
->>>>>>> parent of c088f6a3 (asdf)
     }
 
     public virtual int GetMagicDamage()
