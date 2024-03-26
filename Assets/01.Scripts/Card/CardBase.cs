@@ -5,7 +5,9 @@ using DG.Tweening;
 using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
+[Serializable]
 public abstract class CardBase : MonoBehaviour, 
                                  IPointerEnterHandler, 
                                  IPointerExitHandler
