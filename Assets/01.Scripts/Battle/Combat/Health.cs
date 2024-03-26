@@ -54,7 +54,6 @@ public class Health : MonoBehaviour, IDamageable
 
         _isDead = false;
 
-        OnHitEvent.AddListener(() => FeedbackManager.Instance.ShakeScreen(3));
     }
     private void OnDestroy()
     {

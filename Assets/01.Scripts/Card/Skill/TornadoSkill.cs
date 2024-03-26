@@ -14,7 +14,8 @@ public class TornadoSkill : CardBase
     private void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo,centerPos());
-        StartCoroutine(AttackCor());    
+        StartCoroutine(AttackCor());
+        FeedbackManager.Instance.ShakeScreen(3);
         Player.OnAnimationCall -= HandleAnimationCall;
     }
     private Vector3 centerPos()
@@ -53,9 +54,23 @@ public class TornadoSkill : CardBase
         for (int i = 0; i < 5; i++)
         {
             yield return new WaitForSeconds(0.26f);
+
+            
+            
             foreach (var e in battleController.onFieldMonsterList)
             {
                 e?.HealthCompo.ApplyDamage(2, Player);
+                
+                if(e != null)
+                {
+                    Vector3 pos = e.transform.position;
+                    GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, pos, Quaternion.identity);
+                    Destroy(obj, 1.0f);
+                   
+                    float randNumX = UnityEngine.Random.Range(-.5f, .5f);
+                    float randNumY = UnityEngine.Random.Range(-.5f, .5f);
+                    FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
+                }
             }
         }
     }

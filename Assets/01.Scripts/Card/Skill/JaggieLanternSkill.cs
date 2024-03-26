@@ -53,7 +53,8 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(1.7f);
 
-        foreach(var e in battleController.onFieldMonsterList)
+        FeedbackManager.Instance.ShakeScreen(3);
+        foreach (var e in battleController.onFieldMonsterList)
         {
             e?.HealthCompo.ApplyDamage(15, Player);
         }

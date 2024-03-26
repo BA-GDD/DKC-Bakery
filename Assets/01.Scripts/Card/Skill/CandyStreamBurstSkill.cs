@@ -35,7 +35,11 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
         {
             yield return new WaitForSeconds(0.3f);
 
-            foreach(var e in battleController.onFieldMonsterList)
+            float randNumX = UnityEngine.Random.Range(-.5f, .5f);
+            float randNumY = UnityEngine.Random.Range(-.5f, .5f);
+            FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
+            
+            foreach (var e in battleController.onFieldMonsterList)
             {
                 e?.HealthCompo.ApplyDamage(2, Player);
             }

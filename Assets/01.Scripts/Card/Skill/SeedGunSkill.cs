@@ -36,6 +36,10 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         {
             yield return new WaitForSeconds(0.15f);
             Player.target.HealthCompo.ApplyDamage(3, Player);
+
+            float randNumX = UnityEngine.Random.Range(-.5f, .5f);
+            float randNumY = UnityEngine.Random.Range(-.5f, .5f);
+            FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
         }
     }
 }
