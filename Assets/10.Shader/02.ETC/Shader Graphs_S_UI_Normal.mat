@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_player
-  m_Shader: {fileID: -6465566751694194690, guid: 0a19c057867fdba4cab081c5949d152d, type: 3}
+  m_Name: Shader Graphs_S_UI_Normal
+  m_Shader: {fileID: -6465566751694194690, guid: 0bd661bb52cad0d418fececae7aa3d8e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,24 +23,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2e91301af465d9d48b8e65efb63bfa45, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_466373834edf4349bdbbff499d06964c_Out_0_Texture2D:
-        m_Texture: {fileID: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: 0c9e585b001cd8048afcd07b5676b774, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -57,26 +45,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EnableExternalAlpha: 0
-    - _alpha: 1
-    - _blink_amount: 0
-    - _dissolve_amount: 0
-    - _dissolve_edge: 0.0556
-    - _dissolve_pixelize_scale: 22.87
-    - _is_outline: 1
-    - _noise_scale: 29
-    - _noise_step: 0.429
-    - _outline_thickness: 1
-    - _pixel: 500
+    - _normal_str: 0.18
+    - _speed: -1
+    - _step: 0.43
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _blink_color: {r: 1, g: 1, b: 1, a: 0}
-    - _dissolve_color: {r: 2.4622898, g: 0.7317182, b: 2.0943062, a: 0}
-    - _outline_color: {r: 1, g: 1, b: 1, a: 0}
+    - _MainColor: {r: 1.7411011, g: 1.1335701, b: 0.49843296, a: 0}
+    - _Vector2: {r: 3.74, g: 1.22, b: 0, a: 0}
+    - _main_tiling: {r: 2.77, g: 1.69, b: 0, a: 0}
+    - _normal_tiling: {r: 3.03, g: 1.62, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &8458588442279574301
+--- !u!114 &1744281571477906470
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
