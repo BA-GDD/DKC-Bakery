@@ -41,6 +41,24 @@ public class BattleController : MonoBehaviour
             return _player;
         }
     }
+    private bool _isGameEnd;
+    public bool IsGameEnd
+    {
+        get => _isGameEnd;
+        set
+        {
+            _isGameEnd = value;
+            if (_isGameEnd)
+            {
+                foreach (var e in onFieldMonsterList)
+                {
+                    if (e == null) continue;
+                    e.turnStatus = TurnStatus.End;
+                }
+                _enemyHpBarMaker.DeleteAllHPBar();
+            }
+        }
+    }
 
     [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
 
@@ -53,6 +71,11 @@ public class BattleController : MonoBehaviour
 
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+    }
+    private void Start()
+    {
+        Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
+
     }
     private void OnDestroy()
     {
@@ -84,9 +107,14 @@ public class BattleController : MonoBehaviour
 
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
+
+            if (_isGameEnd)
+                break;
+
             yield return new WaitForSeconds(1.5f);
         }
-        TurnCounter.ChangeTurn();
+        if(!_isGameEnd)
+            TurnCounter.ChangeTurn();
     }
 
     public void SetStage()
@@ -120,7 +148,6 @@ public class BattleController : MonoBehaviour
             Vector3 pos = _spawnDistanceByPoint[idx].position;
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
             _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
-            selectEnemy.BattleController = this;
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
@@ -132,7 +159,7 @@ public class BattleController : MonoBehaviour
             selectEnemy.Spawn(pos);
 
             SpawnEnemyList.Add(selectEnemy);
-            
+
             if (Player.target != null)
                 SetPlayerCloseTarget();
         }
