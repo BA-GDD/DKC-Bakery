@@ -18,7 +18,8 @@ public enum PoolingType
     TestElement,
     Mr_Muddy,
     MonStrowBerry,
-    PumpkinBat
+    PumpkinBat,
+    Sound
 }
 
 public class PoolManager

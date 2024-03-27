@@ -1,7 +1,8 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
 [CustomEditor(typeof(PanelUI), true)]
 public class PanelUIEditor : Editor
 {
@@ -42,3 +43,4 @@ public class PanelUIEditor : Editor
         }
     }
 }
+#endif

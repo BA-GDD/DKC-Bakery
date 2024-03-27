@@ -3,8 +3,11 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
+#endif
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -174,7 +177,7 @@ public abstract class Entity : PoolableMono
             SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
             yield return null;
         }
-
+        PoolManager.Instance.Push(this);
     }
 
     public override void Init()

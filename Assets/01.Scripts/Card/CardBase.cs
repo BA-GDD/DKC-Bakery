@@ -70,6 +70,7 @@ public abstract class CardBase : MonoBehaviour,
     protected Player Player => battleController.Player;
 
     [SerializeField]protected BuffSO buffSO;
+    [SerializeField]protected int[] damageArr;
 
 
     private void Awake()
@@ -142,6 +143,8 @@ public abstract class CardBase : MonoBehaviour,
     {
         if (CardReader.OnBinding || !CanUseThisCard) return;
 
+        RectTransform rt = transform as RectTransform;
+        rt.SetAsLastSibling();
         CardReader.OnPointerCard = this;
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -176,5 +179,10 @@ public abstract class CardBase : MonoBehaviour,
                 Shuffling();
             }
         }
+    }
+
+    public int GetDamage(CombineLevel level)
+    {
+        return damageArr[(int)level];
     }
 }

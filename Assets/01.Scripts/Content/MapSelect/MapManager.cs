@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChapterDefine;
 using DG.Tweening;
+using System.Linq;
+using System;
 
 public class MapManager : MonoBehaviour
 {

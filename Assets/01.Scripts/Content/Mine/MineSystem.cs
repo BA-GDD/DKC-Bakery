@@ -13,7 +13,7 @@ public class MineSystem : MonoBehaviour
 
     [SerializeField] private MineInfoContainer _mineContainer;
     private const string _adventureKey = "AdventureKEY";
-    private MineInfo _currentMineInfo;
+    public MineInfo CurrentMineInfo { get; private set; }
     private AdventureData _addData = new AdventureData();
 
     private void Start()
@@ -23,20 +23,22 @@ public class MineSystem : MonoBehaviour
             _addData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _currentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor)+1);
-
-        MapManager.Instanace.SelectStageData = _currentMineInfo.stageData;
+        CurrentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ChallingingMineFloor));
+        Debug.Log(CurrentMineInfo);
+        MapManager.Instanace.SelectStageData = CurrentMineInfo.stageData;
         MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
-        mineUI.SetFloor(_currentMineInfo.Floor.ToString(),
-                        _currentMineInfo.stageData.stageName,
-                        _currentMineInfo.ClearGem,
-                        _currentMineInfo.IsClearThisStage);
-        mineUI.SetUpFloor();
-    }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(!CurrentMineInfo.IsClearThisStage)
+        {
+            mineUI.SetFloor(CurrentMineInfo.Floor.ToString(),
+                        CurrentMineInfo.stageData.stageName,
+                        CurrentMineInfo.ClearGem,
+                        CurrentMineInfo.IsClearThisStage);
+            mineUI.SetUpFloor();
+
+            mineUI.StagePanelAnimator.enabled = true;
+        }
+        else
         {
             ClearStage();
         }
@@ -44,22 +46,24 @@ public class MineSystem : MonoBehaviour
 
     public void ClearStage()
     {
-        _currentMineInfo.IsClearThisStage = true;
-        int uf = _currentMineInfo.Floor + 1;
-        Debug.Log(uf);
+        CurrentMineInfo.IsClearThisStage = true;
+        int uf = CurrentMineInfo.Floor + 1;
+        
+        CurrentMineInfo = _mineContainer.GetInfoByFloor(uf);
 
-        _currentMineInfo = _mineContainer.GetInfoByFloor(uf);
+        _addData.ChallingingMineFloor = CurrentMineInfo.Floor.ToString();
+        DataManager.Instance.SaveData(_addData, _adventureKey);
+
         MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
+        Debug.Log(CurrentMineInfo);
 
-        mineUI.PanelActive(false);
-        mineUI.SetFloor(_currentMineInfo.Floor.ToString(), 
-                        _currentMineInfo.stageData.stageName, 
-                        _currentMineInfo.ClearGem, 
-                        _currentMineInfo.IsClearThisStage);
+        mineUI.SetFloor(CurrentMineInfo.Floor.ToString(), 
+                        CurrentMineInfo.stageData.stageName, 
+                        CurrentMineInfo.ClearGem, 
+                        CurrentMineInfo.IsClearThisStage);
+
         mineUI.SetUpFloor();
         MapChange();
-        _addData.ClearMineFloor = (uf - 1).ToString();
-        DataManager.Instance.SaveData(_addData, _adventureKey);
     }
 
     private void MapChange()
@@ -87,6 +91,7 @@ public class MineSystem : MonoBehaviour
             upTrm.GetComponentInChildren<MineTape>().LockTape(false);
             downTrm.GetComponentInChildren<MineTape>().LockTape(true);
             downTrm.gameObject.SetActive(false);
+            UIManager.Instance.GetSceneUI<MineUI>().StagePanelAnimator.enabled = true;
             UIManager.Instance.GetSceneUI<MineUI>().PanelActive(true);
         });
     }

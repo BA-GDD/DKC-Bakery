@@ -42,9 +42,9 @@ public class AdventureMaster : MonoBehaviour
             _adventureData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _missionPanel.clearCountTxt.text = $"In Stage : {_adventureData.InChallingingMissionName}";
-        _minePanel.clearCountTxt.text = $"Conquered Floor : {_adventureData.ClearMineFloor}";
-        _stagePanel.inStageCount.text = $"Challinging Area : {_adventureData.InChallingingStageCount}";
+        _missionPanel.clearCountTxt.text = $"현재 위치 : {_adventureData.InChallingingMissionName}";
+        _minePanel.clearCountTxt.text = $"정복 중인 층 : {_adventureData.ChallingingMineFloor}";
+        _stagePanel.inStageCount.text = $"도전 중인 지역 : {_adventureData.InChallingingStageCount}";
 
         int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
         _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx - 1];

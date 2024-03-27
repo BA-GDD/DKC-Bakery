@@ -33,14 +33,27 @@ public class CardDrawer : MonoBehaviour
     }
     int idx;
 
-    public void DrawCard(int count)
+    public void DrawCard(int count, bool isRandom = true)
     {
         CanDraw = false;
-        for (int i = 0; i < count; i++)
-        {
-            CardBase selectInfo = CardReader.GetRandomCardInDeck();
 
-            _toDrawCatalog.Enqueue(selectInfo);
+        if(isRandom)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                CardBase selectInfo = CardReader.GetRandomCardInDeck();
+
+                _toDrawCatalog.Enqueue(selectInfo);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
+            {
+                CardBase selectInfo = CardReader.GetCardInDeck();
+
+                _toDrawCatalog.Enqueue(selectInfo);
+            }
         }
 
         DrawCardLogic(_toDrawCatalog.Dequeue());
@@ -57,7 +70,7 @@ public class CardDrawer : MonoBehaviour
         CardReader.AddCardInHand(spawnCard);
         
         spawnCard.transform.position = _cardSpawnTrm.position;
-        
+
         spawnCard.SetUpCard(CardReader.GetPosOnTopDrawCard(), true);
     }
 }

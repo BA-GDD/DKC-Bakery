@@ -40,10 +40,10 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.3f);
 
-        Player.target.HealthCompo.ApplyDamage(13, Player);
+        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
 
         yield return new WaitForSeconds(1.2f);
 
-        Player.target.HealthCompo.ApplyDamage(13, Player);
+        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
     }
 }

@@ -26,7 +26,7 @@ public class EnemyHPBar : MonoBehaviour
     {
         if (!_canStartFollowOwner) return;
 
-        transform.position = MaestrOffice.GetScreenPosToWorldPos(_ownerOfThisHpBar.position);
+        transform.position = _ownerOfThisHpBar.position;
         
     }
 

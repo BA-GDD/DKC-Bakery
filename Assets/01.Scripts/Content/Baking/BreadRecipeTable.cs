@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CreateAssetMenu(menuName = "SO/BreadRecipeTable")]
+#endif
+
 public class BreadRecipeTable : LoadableData
 {
     private bool _isMatch = false;
@@ -42,6 +45,7 @@ public class BreadRecipeTable : LoadableData
         return returnBread;
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(BreadRecipeTable))]
     public class EpisodeLoader : Editor
     {
@@ -59,4 +63,5 @@ public class BreadRecipeTable : LoadableData
             }
         }
     }
+#endif
 }

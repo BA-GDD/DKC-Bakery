@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myType: 7
+  _audioClip: {fileID: 8300000, guid: 18280488c1b2afe4d9fdbd3a387ba9e6, type: 3}
 --- !u!1 &1529266912289358067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1117,7 @@ RectTransform:
   - {fileID: 5436823390651015834}
   - {fileID: 8325681360595488469}
   - {fileID: 6422869526194148944}
+  - {fileID: 7011410891684581791}
   m_Father: {fileID: 7874725996815672695}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1208,6 +1210,38 @@ MonoBehaviour:
         - m_Target: {fileID: 5873678861527966335}
           m_TargetAssemblyTypeName: AdventurePanel, Assembly-CSharp
           m_MethodName: GoAdventure
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3921092897816172291}
+          m_TargetAssemblyTypeName: DungeonFireUIFX, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3921092897816172291}
+          m_TargetAssemblyTypeName: DungeonFireUIFX, Assembly-CSharp
+          m_MethodName: Stop
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1384,7 +1418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &686513918975854769
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2079,7 +2113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7874725996815672695
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2186,6 +2220,7 @@ GameObject:
   - component: {fileID: 3626074168178455407}
   - component: {fileID: 6888342878764843142}
   - component: {fileID: 762297271752234786}
+  - component: {fileID: 5648133715088882972}
   m_Layer: 5
   m_Name: CreamStand
   m_TagString: Untagged
@@ -2250,6 +2285,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5648133715088882972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026930935346921113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae2c67041f602d43a82873c1acff5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movingTurm: 1.3
+  _characterStandImg: {fileID: 762297271752234786}
+  _characterEmoList: []
 --- !u!1 &5162130433365311151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,7 +3016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4238196367975685626}
   m_Layer: 5
-  m_Name: ButtonGroup
+  m_Name: ContentButtonGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3133,6 +3183,94 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1 &6874722367555140438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7011410891684581791}
+  - component: {fileID: 3850951274863385339}
+  - component: {fileID: 907798849932388571}
+  - component: {fileID: 3921092897816172291}
+  m_Layer: 5
+  m_Name: FireImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7011410891684581791
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874722367555140438}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5805173311067215752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 380}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!222 &3850951274863385339
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874722367555140438}
+  m_CullTransparentMesh: 1
+--- !u!114 &907798849932388571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874722367555140438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: b39fb599fd4fecb4ca9572b4480d65c9, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2e91301af465d9d48b8e65efb63bfa45, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3921092897816172291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874722367555140438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca6f13da1424584b8240503115fad95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6924712610063857459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3772,6 +3910,7 @@ GameObject:
   - component: {fileID: 1983575041921529128}
   - component: {fileID: 9007380641331639109}
   - component: {fileID: 8718566645346943337}
+  - component: {fileID: 872634290106252531}
   m_Layer: 5
   m_Name: TartStand
   m_TagString: Untagged
@@ -3836,6 +3975,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &872634290106252531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7887461999715734334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae2c67041f602d43a82873c1acff5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movingTurm: 1
+  _characterStandImg: {fileID: 8718566645346943337}
+  _characterEmoList: []
 --- !u!1 &8127196260357449715
 GameObject:
   m_ObjectHideFlags: 0

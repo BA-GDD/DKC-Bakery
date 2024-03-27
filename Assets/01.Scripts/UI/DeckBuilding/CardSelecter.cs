@@ -20,7 +20,7 @@ public class CardSelecter : MonoBehaviour
         }
 
         foreach(CardBase c in sample)
-            _canUseCardData.CanUseCardsList.Add(c);
+            _canUseCardData.CanUseCardsList.Add(c.CardInfo.CardName);
 
         for(int i = 0; i < _canUseCardData.CanUseCardsList.Count; i++)
         {
@@ -30,7 +30,7 @@ public class CardSelecter : MonoBehaviour
             }
 
             CardSelectElement cse = Instantiate(_cardSelectPrefab, _hasCardListTrm);
-            cse.SetInfo(_canUseCardData.CanUseCardsList[i], _deckBuilder);
+            cse.SetInfo(DeckManager.Instance.GetCard(_canUseCardData.CanUseCardsList[i]), _deckBuilder);
         }
     }
 }

@@ -9,11 +9,12 @@ public class BattleProduction : MonoBehaviour
     [SerializeField] private UnityEvent<TsumegoInfo> _clearChekcerSetEvent;
     [SerializeField] private UnityEvent<StageDataSO> _panelSetEvent;
     [SerializeField] private UnityEvent _battleStartEvent;
-    private PlayerAppear _playerAppear;
+    protected PlayerAppear _playerAppear;
 
     private void Start()
     {
         _playerAppear = FindObjectOfType<PlayerAppear>();
+        FindObjectOfType<BattleBackground>()?.SetBG();
         StartCoroutine(ProductionCo());
     }
 

@@ -7,7 +7,7 @@ public class MineBattleProduction : BattleProduction
     [SerializeField] private GameObject _turnSystem;
     private void Start()
     {
-        
+        _playerAppear = FindObjectOfType<PlayerAppear>();
     }
 
     public void StartBattle()

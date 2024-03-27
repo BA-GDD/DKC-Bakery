@@ -7,24 +7,51 @@ public class EnemyHpBarMaker : MonoBehaviour
     private Transform _enemyHealthBarParent;
     [SerializeField] private EnemyHPBar _enemyHpBarPrefab;
 
+    private List<EnemyHPBar> enemyHPBars = new();
+
     private void Awake()
     {
         _enemyHealthBarParent = UIManager.Instance.CanvasTrm;
-
+        enemyHPBars = new();
     }
 
-    public void SetupEnemyHpBar()
+    public void SetupEnemysHpBar()
     {
         Enemy[] fieldInEnemys = FindObjectsOfType<Enemy>();
 
-        foreach(Enemy e in fieldInEnemys)
+        foreach (Enemy e in fieldInEnemys)
         {
-            EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
-            e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
-            e.HealthCompo.OnDeathEvent.AddListener(() => Destroy(enemyHpBar));
-            e.HealthCompo.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
-
-            enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;
+            SpawnHPBar(e);
         }
+    }
+    public void SetupEnemyHpBar(Enemy e)
+    {
+        SpawnHPBar(e);
+    }
+
+    public void DeleteAllHPBar()
+    {
+        foreach (var b in enemyHPBars)
+        {
+            if(b != null)
+                Destroy(b.gameObject);
+        }
+        enemyHPBars.Clear();
+    }
+    public void DeleteHPBar(EnemyHPBar e)
+    {
+        enemyHPBars.Remove(e);
+        Destroy(e.gameObject);
+    }
+    private void SpawnHPBar(Enemy e)
+    {
+        EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
+        e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
+        e.HealthCompo.OnDeathEvent.AddListener(() => DeleteHPBar(enemyHpBar));
+        e.HealthCompo.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
+
+        enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;
+
+        enemyHPBars.Add(enemyHpBar);
     }
 }

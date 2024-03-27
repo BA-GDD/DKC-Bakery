@@ -1,7 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public struct CardAndEffect
@@ -18,6 +21,9 @@ public class PlayerVFXManager : MonoBehaviour
     public Action OnEndEffectEvent;
     //public Action OnEffectEvent;
 
+    [SerializeField] private SpriteRenderer[] backgrounds;
+    private SpriteRenderer currentBackground;
+
     private void Awake()
     {
         foreach (var c in cardAndEffects)
@@ -29,6 +35,18 @@ public class PlayerVFXManager : MonoBehaviour
             else
             {
                 Debug.LogError("중복이 있어요");
+            }
+        }
+
+    }
+
+    private void Start()
+    {
+        foreach (var b in backgrounds)
+        {
+            if (b.gameObject.activeSelf == true)
+            {
+                currentBackground = b;
             }
         }
     }
@@ -53,7 +71,7 @@ public class PlayerVFXManager : MonoBehaviour
 
         _cardByEffects[card].transform.position = pos;
         _cardByEffects[card].gameObject.SetActive(true);
-
+        currentBackground.DOColor(Color.gray, 1.0f);
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
@@ -68,6 +86,7 @@ public class PlayerVFXManager : MonoBehaviour
         }
 
         _cardByEffects[card].gameObject.SetActive(true);
+        currentBackground.DOColor(Color.gray, 1.0f);
         ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card].Play();
@@ -76,7 +95,12 @@ public class PlayerVFXManager : MonoBehaviour
     private IEnumerator EndEffectCo(float f)
     {
         yield return new WaitForSeconds(f);
+        currentBackground.DOColor(Color.white, 1.0f);
         OnEndEffectEvent?.Invoke();
     }
 
+    public void BackgroundColor(Color color)
+    {
+        currentBackground.DOColor(color, 1.0f);
+    }
 }
