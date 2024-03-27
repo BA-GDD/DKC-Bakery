@@ -3086,11 +3086,66 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7715378955133546317}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5475502757102764715}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GotoPoolAllEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Goback
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleResultPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BackButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193484118071607152, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+--- !u!114 &5475502757102764715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1622744465570605798, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
+  m_PrefabInstance: {fileID: 6735627752991975501}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be2e14e8e30b48418bc2a26a5a4522b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6725363875383586235 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 12537794662680054, guid: 757d355be62adc141a6b27ad922bf713, type: 3}
