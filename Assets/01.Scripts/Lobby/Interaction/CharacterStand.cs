@@ -18,6 +18,11 @@ public class CharacterStand : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        transform.DOLocalMoveY(transform.localPosition.y + 10, 1.6f).SetLoops(-1, LoopType.Yoyo);
+    }
+
     public void JumpAction()
     {
         Vector2 normalValue = transform.localPosition;

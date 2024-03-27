@@ -2220,6 +2220,7 @@ GameObject:
   - component: {fileID: 3626074168178455407}
   - component: {fileID: 6888342878764843142}
   - component: {fileID: 762297271752234786}
+  - component: {fileID: 5648133715088882972}
   m_Layer: 5
   m_Name: CreamStand
   m_TagString: Untagged
@@ -2284,6 +2285,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5648133715088882972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026930935346921113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae2c67041f602d43a82873c1acff5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterStandImg: {fileID: 762297271752234786}
+  _characterEmoList: []
 --- !u!1 &5162130433365311151
 GameObject:
   m_ObjectHideFlags: 0
@@ -3894,6 +3909,7 @@ GameObject:
   - component: {fileID: 1983575041921529128}
   - component: {fileID: 9007380641331639109}
   - component: {fileID: 8718566645346943337}
+  - component: {fileID: 872634290106252531}
   m_Layer: 5
   m_Name: TartStand
   m_TagString: Untagged
@@ -3958,6 +3974,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &872634290106252531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7887461999715734334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae2c67041f602d43a82873c1acff5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterStandImg: {fileID: 8718566645346943337}
+  _characterEmoList: []
 --- !u!1 &8127196260357449715
 GameObject:
   m_ObjectHideFlags: 0
