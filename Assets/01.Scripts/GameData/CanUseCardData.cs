@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanUseCardData : CanSaveData
 {
-    public List<CardBase> CanUseCardsList = new List<CardBase>();
+    public List<string> CanUseCardsList = new List<string>();
 
     public override void SetInitialValue()
     {
