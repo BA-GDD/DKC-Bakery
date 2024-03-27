@@ -86,7 +86,9 @@ public struct DialogueElement
     }
 }
 
+#if UNITY_EDITOR
 [CreateAssetMenu(menuName = "SO/Episode/Dialogue")]
+#endif
 public class EpisodeData : LoadableData
 {
     public List<DialogueElement> dialogueElement = new List<DialogueElement>();
@@ -147,6 +149,7 @@ public class EpisodeData : LoadableData
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(EpisodeData))]
 public class EpisodeLoader : Editor
 {
@@ -168,3 +171,4 @@ public class EpisodeLoader : Editor
         }
     }
 }
+#endif

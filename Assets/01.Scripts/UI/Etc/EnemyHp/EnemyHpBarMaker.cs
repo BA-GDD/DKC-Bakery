@@ -37,11 +37,16 @@ public class EnemyHpBarMaker : MonoBehaviour
         }
         enemyHPBars.Clear();
     }
+    public void DeleteHPBar(EnemyHPBar e)
+    {
+        enemyHPBars.Remove(e);
+        Destroy(e.gameObject);
+    }
     private void SpawnHPBar(Enemy e)
     {
         EnemyHPBar enemyHpBar = Instantiate(_enemyHpBarPrefab, _enemyHealthBarParent);
         e.OnHealthBarChanged.AddListener(enemyHpBar.HandleHealthChanged);
-        e.HealthCompo.OnDeathEvent.AddListener(() => Destroy(enemyHpBar.gameObject));
+        e.HealthCompo.OnDeathEvent.AddListener(() => DeleteHPBar(enemyHpBar));
         e.HealthCompo.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
 
         enemyHpBar.OwnerOfThisHpBar = e.hpBarPos;

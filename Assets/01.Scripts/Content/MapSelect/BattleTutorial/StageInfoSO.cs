@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CreateAssetMenu(menuName ="SO/Stage")]
+
+#endif
 public class StageInfoSO : LoadableData
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(StageInfoSO))]
     public class StageInfoLoader : Editor
     {
@@ -27,6 +31,7 @@ public class StageInfoSO : LoadableData
             }
         }
     }
+#endif
 
     public List<Data> datas = new List<Data>();
 

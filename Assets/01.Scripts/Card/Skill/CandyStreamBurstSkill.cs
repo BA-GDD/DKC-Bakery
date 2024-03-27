@@ -43,7 +43,7 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
             
             foreach (var e in battleController.onFieldMonsterList)
             {
-                e?.HealthCompo.ApplyDamage(2, Player);
+                e?.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
 
                 if(e != null)
                 {
