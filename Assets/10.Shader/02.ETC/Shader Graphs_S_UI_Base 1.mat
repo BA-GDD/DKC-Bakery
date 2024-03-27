@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_S_UI_Base
+  m_Name: Shader Graphs_S_UI_Base 1
   m_Shader: {fileID: -6465566751694194690, guid: 0d78450060215884cafa723ff98312bd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,7 +42,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9ee62f709a1af92438fb5612983e197f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _dissolve_tex:
@@ -80,20 +80,20 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _dissolve_amount: 0.1
-    - _edge_width: 0.272
+    - _dissolve_amount: 1
+    - _edge_width: 0.172
     - _is_up_direction: 1
     - _line_amount: 1
     - _line_opacity: 0.14
     - _multiplier: 100
-    - _noise_size: 64.8
-    - _noise_str: 1.5
-    - _outline_thick: 288.47
-    - _rot: 28.31
+    - _noise_size: 26.9
+    - _noise_str: 2.5
+    - _outline_thick: 319.95
+    - _rot: 27
     m_Colors:
     - _dissolve_color: {r: 0, g: 0, b: 0, a: 0}
     - _line_color: {r: 3.4415905, g: 2.6461287, b: 2.6461287, a: 0}
     - _main_color: {r: 1, g: 1, b: 1, a: 1}
-    - _outline_color: {r: 1, g: 0, b: 0, a: 1}
+    - _outline_color: {r: 0, g: 0, b: 0, a: 1}
     - _sub_color: {r: 2.9683478, g: 2.996079, b: 1.5969664, a: 0}
   m_BuildTextureStacks: []
