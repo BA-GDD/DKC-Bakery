@@ -35,13 +35,6 @@ public class MapManager : MonoBehaviour
     public int SelectStageNumber { get; set; }
     private NodeLaodMap _loadMapObject;
 
-    [SerializeField] private Sprite[] _mapSpriteArr;
-
-    public Sprite GetMapSprite()
-    {
-        return _mapSpriteArr[(int)SelectStageData.stageBackGround];
-    }
-
     public void CreateStageInfoBubble(string stageName, Vector2 pos, bool isReverse)
     {
         if (_stageBubbleObject != null)

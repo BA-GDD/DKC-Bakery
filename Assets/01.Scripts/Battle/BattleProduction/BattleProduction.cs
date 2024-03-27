@@ -14,7 +14,7 @@ public class BattleProduction : MonoBehaviour
     private void Start()
     {
         _playerAppear = FindObjectOfType<PlayerAppear>();
-        FindObjectOfType<BattleBackground>().SetBG(MapManager.Instanace.GetMapSprite());
+        FindObjectOfType<BattleBackground>()?.SetBG();
         StartCoroutine(ProductionCo());
     }
 

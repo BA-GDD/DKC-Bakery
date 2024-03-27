@@ -70,6 +70,7 @@ public static class CardReader
     public static bool OnBinding { get; set; }
 
     public static CardBase ShufflingCard { get; set; }
+    private static int _deckIdx;
 
     public static void CaptureHand()
     {
@@ -78,6 +79,7 @@ public static class CardReader
 
     public static void SetDeck(List<CardBase> deck)
     {
+        _deckIdx = 0;
         _inHandCardList.Clear();
         _inDeckCardList = deck;
     }
@@ -127,6 +129,18 @@ public static class CardReader
     public static int CountOfCardInDeck()
     {
         return _inDeckCardList.Count;
+    }
+
+    
+    public static CardBase GetCardInDeck()
+    {
+        if(_deckIdx == _inDeckCardList.Count)
+        {
+            _deckIdx = 0;
+        }
+
+        _deckIdx++;
+        return _inDeckCardList[_deckIdx - 1];
     }
 
     public static CardBase GetRandomCardInDeck()
