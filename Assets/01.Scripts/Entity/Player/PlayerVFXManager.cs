@@ -51,18 +51,6 @@ public class PlayerVFXManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        foreach(var c in backgrounds)
-        {
-            if(c.gameObject.activeSelf == true)
-            {
-                currentBackground = c;
-                break;
-            }
-        }
-    }
-
     internal void EndParticle(CardInfo cardInfo)
     {
         if (!_cardByEffects.ContainsKey(cardInfo))
