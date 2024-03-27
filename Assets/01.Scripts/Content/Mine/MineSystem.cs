@@ -23,8 +23,8 @@ public class MineSystem : MonoBehaviour
             _addData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        CurrentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ClearMineFloor));
-
+        CurrentMineInfo = _mineContainer.GetInfoByFloor(Convert.ToInt16(_addData.ChallingingMineFloor));
+        Debug.Log(CurrentMineInfo);
         MapManager.Instanace.SelectStageData = CurrentMineInfo.stageData;
         MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
 
@@ -35,6 +35,8 @@ public class MineSystem : MonoBehaviour
                         CurrentMineInfo.ClearGem,
                         CurrentMineInfo.IsClearThisStage);
             mineUI.SetUpFloor();
+
+            mineUI.StagePanelAnimator.enabled = true;
         }
         else
         {
@@ -46,20 +48,22 @@ public class MineSystem : MonoBehaviour
     {
         CurrentMineInfo.IsClearThisStage = true;
         int uf = CurrentMineInfo.Floor + 1;
-        Debug.Log(uf);
-
+        
         CurrentMineInfo = _mineContainer.GetInfoByFloor(uf);
-        MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
 
-        mineUI.PanelActive(false);
+        _addData.ChallingingMineFloor = CurrentMineInfo.Floor.ToString();
+        DataManager.Instance.SaveData(_addData, _adventureKey);
+
+        MineUI mineUI = UIManager.Instance.GetSceneUI<MineUI>();
+        Debug.Log(CurrentMineInfo);
+
         mineUI.SetFloor(CurrentMineInfo.Floor.ToString(), 
                         CurrentMineInfo.stageData.stageName, 
                         CurrentMineInfo.ClearGem, 
                         CurrentMineInfo.IsClearThisStage);
+
         mineUI.SetUpFloor();
         MapChange();
-        _addData.ClearMineFloor = (uf - 1).ToString();
-        DataManager.Instance.SaveData(_addData, _adventureKey);
     }
 
     private void MapChange()
@@ -82,11 +86,13 @@ public class MineSystem : MonoBehaviour
         upTrm.gameObject.SetActive(true);
 
         _firstMap.DOMoveY(_firstMap.position.y + 14, 2f);
+        FeedbackManager.Instance.ShakeScreen(2f, 2f);
         _secondMap.DOMoveY(_secondMap.position.y + 14, 2f).OnComplete(()=> 
         {
             upTrm.GetComponentInChildren<MineTape>().LockTape(false);
             downTrm.GetComponentInChildren<MineTape>().LockTape(true);
             downTrm.gameObject.SetActive(false);
+            UIManager.Instance.GetSceneUI<MineUI>().StagePanelAnimator.enabled = true;
             UIManager.Instance.GetSceneUI<MineUI>().PanelActive(true);
         });
     }

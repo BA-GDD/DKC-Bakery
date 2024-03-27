@@ -78,6 +78,7 @@ public static class CardReader
 
     public static void SetDeck(List<CardBase> deck)
     {
+        _inHandCardList.Clear();
         _inDeckCardList = deck;
     }
 

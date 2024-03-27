@@ -57,7 +57,8 @@ public class CardDrawer : MonoBehaviour
         CardReader.AddCardInHand(spawnCard);
         
         spawnCard.transform.position = _cardSpawnTrm.position;
-        
+
+        Debug.Log(CardReader.GetPosOnTopDrawCard());
         spawnCard.SetUpCard(CardReader.GetPosOnTopDrawCard(), true);
     }
 }

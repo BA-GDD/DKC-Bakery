@@ -6,6 +6,7 @@ using UnityEngine;
 public class MineUI : SceneUI
 {
     [SerializeField] private Animator _animator;
+    public Animator StagePanelAnimator => _animator;
     private readonly int _setUpHash = Animator.StringToHash("isSetUp");
 
     [SerializeField] private TextMeshProUGUI _stageFloor;
