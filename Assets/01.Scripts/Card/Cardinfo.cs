@@ -16,6 +16,7 @@ public class CardInfo : ScriptableObject
 
     [Header("개별 타격 이펙트")]
     public ParticleSystem hitEffect;
+    public ParticleSystem targetEffect;
 
     public int AbillityCost;
     [TextArea]

@@ -71,6 +71,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _normal_tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _tex4coord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -124,10 +128,20 @@ Material:
     - _UVSec: 0
     - _Use_Customdata: 0
     - _Use_Customdata1: 0
+    - _Use_lerp: 0
     - _ZWrite: 1
     - __dirty: 0
+    - _main_upanner: 0
+    - _main_vpanner: 0
+    - _normal_radial: 0
+    - _normal_str: 0
+    - _normal_upanner: 1
+    - _normal_vpanner: 1
+    - _use_polar: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color: {r: 9.712712, g: 3.3562253, b: 7.0413237, a: 0}
+    - _main_color_a: {r: 5.2686133, g: 5.278032, b: 1.2697151, a: 0}
+    - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

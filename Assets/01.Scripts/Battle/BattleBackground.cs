@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BattleBackground : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private GameObject[] _backGroundArr;
 
-    public void SetBG(Sprite bgSprite)
+    public void SetBG()
     {
-        _spriteRenderer.sprite = bgSprite;
+        for(int i = 0; i < _backGroundArr.Length; i++)
+        {
+            _backGroundArr[i].SetActive((int)MapManager.Instanace.SelectStageData.stageBackGround == i);
+        }
     }
 }

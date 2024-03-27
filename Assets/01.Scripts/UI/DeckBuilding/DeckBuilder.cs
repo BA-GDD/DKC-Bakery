@@ -81,7 +81,13 @@ public class DeckBuilder : MonoBehaviour
 
         IsDeckSaving = true;
 
-        DeckElement de = new DeckElement(deckName, selectCardList);
+        List<string> convertDataDeck = new List<string>();
+        foreach (CardBase card in selectCardList)
+        {
+            convertDataDeck.Add(card.CardInfo.CardName);
+        }
+
+        DeckElement de = new DeckElement(deckName, convertDataDeck);
         _saveDeckData.SaveDeckList.Add(de);
         DataManager.Instance.SaveData(_saveDeckData, _saveDeckDataKey);
     }

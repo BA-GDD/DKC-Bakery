@@ -41,7 +41,7 @@ public class SkillCardManagement : CardManagement
         _acceptBtnSwitchEvent?.Invoke(false);
         int maxCount = InCardZoneCatalogue.Count;
 
-        for (int i = 0; i < maxCount; i++)
+        for (int i = maxCount - 1; i >= 0; i--)
         {
             float x = _lastCardPos.x - (_activationTurmValue * i);
             Vector2 targetPos = new Vector2(x, _lastCardPos.y);
@@ -110,7 +110,7 @@ public class SkillCardManagement : CardManagement
         {
             selectCard.transform.
             DOLocalMove(new Vector2(InCardZoneCatalogue[maxIdx - 1].transform.localPosition.x 
-                                    + 85, 0), 0.3f);
+                                    - 70, 0), 0.3f);
         }
         else
         {
@@ -120,7 +120,7 @@ public class SkillCardManagement : CardManagement
         for(int i = 0; i < maxIdx; i++)
         {
             Transform selectTrm = InCardZoneCatalogue[i].transform;
-            selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 85f, 0), 0.3f);
+            selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x + 70f, 0), 0.3f);
         }
     }
     public void SetCardInfo(CardInfo info, bool isSet)
