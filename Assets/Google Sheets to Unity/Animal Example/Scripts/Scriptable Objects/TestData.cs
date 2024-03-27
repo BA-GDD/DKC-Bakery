@@ -48,6 +48,7 @@ public class TestData : ScriptableObject
 
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(TestData))]
 public class DataEditor : Editor
 {
@@ -83,3 +84,4 @@ public class DataEditor : Editor
     }
     
 }
+#endif

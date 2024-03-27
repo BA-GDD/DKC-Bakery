@@ -62,7 +62,7 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         for(int i = 0; i < 2; ++i)
         {
             yield return new WaitForSeconds(0.2f);
-            Player.target.HealthCompo.ApplyDamage(4, Player);
+            Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
             
             if(Player.target != null)
             {
@@ -75,7 +75,7 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
 
         yield return new WaitForSeconds(2.6f);
 
-        Player.target.HealthCompo.ApplyDamage(10, Player);
+        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel) * 2, Player);
 
         GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
         Destroy(obj, 1.0f);

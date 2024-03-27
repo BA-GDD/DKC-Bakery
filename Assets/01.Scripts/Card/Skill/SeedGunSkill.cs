@@ -62,7 +62,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         for(int i = 0; i < 3; ++i)
         {
             yield return new WaitForSeconds(0.15f);
-            Player.target.HealthCompo.ApplyDamage(3, Player);
+            Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
 
             GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
             Destroy(obj, 1.0f);
@@ -74,7 +74,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
             Debug.Log(i);
             
             yield return new WaitForSeconds(0.2f);
-            Player.target?.HealthCompo.ApplyDamage(5, Player);
+            Player.target?.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
         }
     }
 }
