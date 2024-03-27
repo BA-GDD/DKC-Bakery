@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CardDefine;
+using UnityEngine.EventSystems;
+using System;
 
 public class ActivationChecker : MonoBehaviour
 {

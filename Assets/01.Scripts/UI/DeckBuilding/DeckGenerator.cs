@@ -18,7 +18,7 @@ public class DeckGenerator : MonoBehaviour
         set
         {
             _selectDeck = value;
-            SetSelectDeck(value.deckName, value.deck);
+            SetSelectDeck(value.deckName, DeckManager.Instance.GetDeck(value.deck));
         }
     }
 

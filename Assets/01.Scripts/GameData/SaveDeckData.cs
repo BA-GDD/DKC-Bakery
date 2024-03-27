@@ -7,9 +7,9 @@ using UnityEngine;
 public struct DeckElement
 {
     public string deckName;
-    public List<CardBase> deck;
+    public List<string> deck;
 
-    public DeckElement(string _deckName, List<CardBase> _deck)
+    public DeckElement(string _deckName, List<string> _deck)
     {
         deckName = _deckName;
         deck = _deck;
