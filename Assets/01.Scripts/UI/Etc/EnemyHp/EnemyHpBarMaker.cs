@@ -33,7 +33,8 @@ public class EnemyHpBarMaker : MonoBehaviour
     {
         foreach (var b in enemyHPBars)
         {
-            Destroy(b.gameObject);
+            if(b != null)
+                Destroy(b.gameObject);
         }
         enemyHPBars.Clear();
     }

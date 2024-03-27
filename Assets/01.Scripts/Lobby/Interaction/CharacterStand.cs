@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class CharacterStand : MonoBehaviour
 {
+    [SerializeField] private float _movingTurm;
     [SerializeField] private Image _characterStandImg;
     [SerializeField] private List<Sprite> _characterEmoList = new List<Sprite>();
 
@@ -20,7 +21,7 @@ public class CharacterStand : MonoBehaviour
 
     private void Start()
     {
-        transform.DOLocalMoveY(transform.localPosition.y + 10, 1.6f).SetLoops(-1, LoopType.Yoyo);
+        transform.DOLocalMoveY(transform.localPosition.y + 10, _movingTurm).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void JumpAction()

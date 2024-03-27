@@ -11,6 +11,7 @@ public class TsumegoSystem : MonoBehaviour
 
     public void CheckClear()
     {
+        Debug.Log(1);
         foreach(var condition in CurTsumegoInfo.Conditions)
         {
             if (!condition.CheckCondition())
@@ -26,6 +27,7 @@ public class TsumegoSystem : MonoBehaviour
     public void ClearStage()
     {
         // SO에 클리어 처리
+        Debug.Log(1);
         CurTsumegoInfo.IsClear = true;
         _gameEndEvent?.Invoke(true);
         _stageClearEvent?.Invoke();
