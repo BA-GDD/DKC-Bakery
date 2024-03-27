@@ -7,6 +7,7 @@ public class PlayerAppear : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _crackFX;
 
+    private Player _player;
     private Vector2 _targetPos;
 
     private void Awake()
@@ -14,6 +15,8 @@ public class PlayerAppear : MonoBehaviour
         _targetPos = transform.position;
         transform.position += new Vector3(0, 20, 0);
         transform.localScale = new Vector3(0.5f, 1, 1);
+
+        _player = GetComponent<Player>();
     }
 
     public void Action()
@@ -23,5 +26,6 @@ public class PlayerAppear : MonoBehaviour
         seq.Join(transform.DOScale(Vector3.one, 0.5f));
         seq.AppendCallback(()=> _crackFX.gameObject.SetActive(true));
         seq.AppendCallback(()=> _crackFX.Play());
+        seq.AppendCallback(()=> _player.cream.transform.SetParent(transform.parent));
     }
 }

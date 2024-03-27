@@ -83,7 +83,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        BattleController.ChangeTarget(this);
+        BattleController.ChangePlayerTarget(this);
         print(123);
     }
 }

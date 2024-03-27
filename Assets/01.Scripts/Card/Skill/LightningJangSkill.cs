@@ -16,9 +16,9 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
             }
         }
         Player.target = battleController.onFieldMonsterList[targetIdx];
-        Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+        Player.UseAbility(this,false,true);
     }
 
     public void HandleAnimationCall()
