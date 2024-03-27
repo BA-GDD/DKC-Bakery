@@ -20,6 +20,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     }
     public void StopBGM()
     {
+        if (currentBgmObject == null) return;
         currentBgmObject.StopMusic();
     }
 }

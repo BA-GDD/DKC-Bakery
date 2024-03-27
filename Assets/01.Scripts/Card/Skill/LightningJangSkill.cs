@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 {
+    [SerializeField] private ParticleSystem _shockedEffect;
     private Color minimumColor = new Color(255,255,255,.1f);
     private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
 
@@ -65,10 +66,15 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         yield return new WaitForSeconds(0.1f);
 
         Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
+        GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+        Destroy(obj, 1.0f);
+
 
         if(Random.value * 100 >= 30f)
         {
             Player.target.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
+            GameObject shockedEffects = Instantiate(_shockedEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+            Destroy(shockedEffects, 1.0f);
         }
 
         FeedbackManager.Instance.EndSpeed = 3.0f;
