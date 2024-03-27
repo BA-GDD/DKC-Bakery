@@ -32,9 +32,10 @@ public class Health : MonoBehaviour, IDamageable
         get => _isDead;
         set
         {
-            if(value)
-                OnDeathEvent?.Invoke();
             _isDead = value;
+            if(_isDead)
+                OnDeathEvent?.Invoke();
+
         }
     }
     private bool _isInvincible = false; //무적상태
@@ -161,12 +162,12 @@ public class Health : MonoBehaviour, IDamageable
 
     private void AfterHitFeedbacks()
     {
+        OnHitEvent?.Invoke();
         if (_currentHealth == 0)
         {
             IsDead = true;
             return;
         }
-        OnHitEvent?.Invoke();
     }
 
     [ContextMenu("Chilled")]

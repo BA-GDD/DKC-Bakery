@@ -52,6 +52,7 @@ public class Player : Entity
             //HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
         }
 
+        HealthCompo.OnDeathEvent.AddListener(() => AnimatorCompo.SetTrigger(_deathAnimationHash));
         animatorOverrideController = new AnimatorOverrideController(AnimatorCompo.runtimeAnimatorController);
         AnimatorCompo.runtimeAnimatorController = animatorOverrideController;
 
@@ -96,7 +97,7 @@ public class Player : Entity
         AnimatorCompo.SetBool(_abilityHash, false);
         AnimatorCompo.SetBool(_moveHash, false);
     }
-
+    
     protected override void HandleEndMoveToTarget()
     {
         AnimatorCompo.SetBool(_moveHash, false);

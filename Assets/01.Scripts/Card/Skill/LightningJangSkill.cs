@@ -64,7 +64,12 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.1f);
 
-        Player.target.HealthCompo.ApplyDamage(10, Player);
+        Player.target.HealthCompo.ApplyDamage(13, Player);
+
+        if(Random.value * 100 >= 30f)
+        {
+            Player.target.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
+        }
 
         FeedbackManager.Instance.EndSpeed = 3.0f;
         FeedbackManager.Instance.ShakeScreen(2.0f);

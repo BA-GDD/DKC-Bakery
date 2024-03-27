@@ -40,12 +40,10 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.3f);
 
-        Player.target.HealthCompo.ApplyDamage(4, Player);
-        Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
+        Player.target.HealthCompo.ApplyDamage(13, Player);
 
         yield return new WaitForSeconds(1.2f);
 
-        Player.target.HealthCompo.ApplyDamage(4, Player);
-        Player.HealthCompo.ApplyHeal(Mathf.RoundToInt(Player.HealthCompo.maxHealth * 0.07f));
+        Player.target.HealthCompo.ApplyDamage(13, Player);
     }
 }
