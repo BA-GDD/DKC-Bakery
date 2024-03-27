@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Sequence = DG.Tweening.Sequence;
 
 [Serializable]
@@ -12,7 +13,7 @@ public struct EnemyParticle
     public float duration;
 }
 
-public abstract class Enemy : Entity
+public abstract class Enemy : Entity,IPointerDownHandler
 {
     [Header("셋팅값들")]
     public Transform hpBarPos;
@@ -33,7 +34,6 @@ public abstract class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-
         VFXPlayer = GetComponent<EnemyVFXPlayer>();
         Collider = GetComponent<Collider>();
         HealthCompo.OnDeathEvent.AddListener(() => Collider.enabled = false);
@@ -80,4 +80,10 @@ public abstract class Enemy : Entity
     private void TestTurnAction() => TurnAction();
     [ContextMenu("TurnEnd")]
     private void TestTurnEnd() => TurnEnd();
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        BattleController.ChangeTarget(this);
+        print(123);
+    }
 }

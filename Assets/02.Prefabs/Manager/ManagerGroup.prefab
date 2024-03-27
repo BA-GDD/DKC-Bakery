@@ -47,6 +47,8 @@ MonoBehaviour:
   _impulseSource: {fileID: 5117759325655729331}
   _cinemachineCam: {fileID: 2573655892217182241}
   _endSpeed: 1
+  debugHit: {fileID: 0}
+  debugBgm: {fileID: 0}
 --- !u!1 &2024468368029832557
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +209,7 @@ GameObject:
   - component: {fileID: 3156864037077790934}
   - component: {fileID: 8565971239755471712}
   - component: {fileID: 1244272728200294324}
+  - component: {fileID: 6766113512225201946}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -366,6 +369,22 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6766113512225201946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201791476358369452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 128
+  m_MaxRayIntersections: 0
 --- !u!1 &5270524049811458821
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eddb95fab4699943baeb30baaa46f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bgmListSO: {fileID: 11400000, guid: dc1368639f6473041b340fb5a83067ea, type: 2}
+  currentBgmObject: {fileID: 0}
 --- !u!82 &8558728232129742746
 AudioSource:
   m_ObjectHideFlags: 0
@@ -740,7 +759,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: -0.2311841, y: 0.2729855, z: 0}
+  m_DefaultVelocity: {x: -0.4881812, y: -0.006461918, z: 0}
 --- !u!114 &4880571573036392090
 MonoBehaviour:
   m_ObjectHideFlags: 0

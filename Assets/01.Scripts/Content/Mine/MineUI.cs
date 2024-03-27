@@ -6,6 +6,7 @@ using UnityEngine;
 public class MineUI : SceneUI
 {
     [SerializeField] private Animator _animator;
+    public Animator StagePanelAnimator => _animator;
     private readonly int _setUpHash = Animator.StringToHash("isSetUp");
 
     [SerializeField] private TextMeshProUGUI _stageFloor;
@@ -17,6 +18,17 @@ public class MineUI : SceneUI
     private string _currentStageName;
     private string _currentClearGem;
     private bool _isClearCurrentStage;
+
+    private MineSystem _mineSystem;
+    public MineSystem MineSystem
+    {
+        get
+        {
+            if (_mineSystem != null) return _mineSystem;
+            _mineSystem = FindObjectOfType<MineSystem>();
+            return _mineSystem;
+        }
+    }
 
     public void SetFloor(string floor, string stageName, string clearGem, bool isClear)
     {

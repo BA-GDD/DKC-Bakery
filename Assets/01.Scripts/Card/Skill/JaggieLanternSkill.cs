@@ -34,7 +34,7 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
         FeedbackManager.Instance.ShakeScreen(3);
         foreach (var e in battleController.onFieldMonsterList)
         {
-            e?.HealthCompo.ApplyDamage(15, Player);
+            e?.HealthCompo.ApplyDamage(12, Player);
             //우선 임시로 짜둡니다. 나중에 고칠 수 있으면 고칠게요
             if(e != null)
             {

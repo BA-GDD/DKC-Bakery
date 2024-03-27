@@ -28,7 +28,7 @@ public class TurnCounting : MonoBehaviour
         {
             CardReader.SetDeck(MapManager.Instanace.SelectDeck);
         }
-        //TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
+        TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
     }
 
     public void BattleStart()

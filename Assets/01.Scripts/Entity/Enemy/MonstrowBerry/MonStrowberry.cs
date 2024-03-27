@@ -50,10 +50,12 @@ public class MonStrowberry : Enemy
 
     public override void TurnEnd()
     {
+        base.TurnEnd();
     }
 
     public override void TurnStart()
     {
+        base.TurnStart();
         turnStatus = TurnStatus.Ready;
     }
 
