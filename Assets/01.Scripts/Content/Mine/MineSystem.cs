@@ -86,7 +86,6 @@ public class MineSystem : MonoBehaviour
         upTrm.gameObject.SetActive(true);
 
         _firstMap.DOMoveY(_firstMap.position.y + 14, 2f);
-        FeedbackManager.Instance.ShakeScreen(2f, 2f);
         _secondMap.DOMoveY(_secondMap.position.y + 14, 2f).OnComplete(()=> 
         {
             upTrm.GetComponentInChildren<MineTape>().LockTape(false);

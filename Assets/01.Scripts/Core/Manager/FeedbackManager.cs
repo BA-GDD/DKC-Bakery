@@ -57,15 +57,6 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
         _shakingInDuration = true;
     }
 
-    public void ShakeScreen(float shakeValue, float shakeTime)
-    {
-        //_impulseSource.m_DefaultVelocity = Vector3.one * MaestrOffice.GetPlusOrMinus() * shakeValue;
-
-        _currentTime = 0;
-        _limitTime = shakeTime;
-        _shakingInDuration = true;
-    }
-
     public void FreezeTime(float freezeValue, float freezeTime)
     {
         StartCoroutine(FreezeCo(freezeTime));
