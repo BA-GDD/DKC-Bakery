@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
 public class FeedbackManager : MonoSingleton<FeedbackManager>
 {
     [SerializeField] private CinemachineImpulseSource _impulseSource;
-    
     [SerializeField] private CinemachineVirtualCamera _cinemachineCam;
     [SerializeField] private float _endSpeed = 1.0f;
     public float EndSpeed
@@ -18,7 +17,8 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
         get => _endSpeed;
         set => _endSpeed = value;
     }
-
+    [SerializeField] private AudioClip debugHit;
+    [SerializeField] private AudioClip debugBgm;
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
     private bool _shakingInDuration = false;
@@ -76,20 +76,6 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
     {
         yield return new WaitForSeconds(time);
         Time.timeScale = 1;
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            ShakeScreen(5);
-        }
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            float randNumX = UnityEngine.Random.Range(-1, 1);
-            float randNumY = UnityEngine.Random.Range(-1, 1);
-            ShakeScreen(new Vector3(randNumX, randNumY, 0));
-        }
     }
 
     private void FixedUpdate()
