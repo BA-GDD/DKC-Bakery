@@ -49,6 +49,12 @@ public class AudioPoolObject : PoolableMono
             StartCoroutine(WaitForPush(source.clip.length * 1.05f));
         }
     }
+
+    public void StopMusic()
+    {
+        source.Stop();
+    }
+
     /*public void Update()
     {
         //source.pitch = stdPitch * (1 + (Time.timeScale - 1) * 0.5f);
