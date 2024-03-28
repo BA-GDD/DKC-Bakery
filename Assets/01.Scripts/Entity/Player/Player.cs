@@ -32,6 +32,8 @@ public class Player : Entity
     private AnimatorOverrideController animatorOverrideController;
     private AnimationClipOverrides clipOverrides;
 
+    public Cream cream;
+    private bool _isFront;
 
     protected override void Awake()
     {
@@ -40,7 +42,6 @@ public class Player : Entity
         PlayerStat = CharStat as PlayerStat;
         VFXManager = FindObjectOfType<PlayerVFXManager>();
     }
-
     protected override void Start()
     {
         base.Start();
@@ -60,10 +61,16 @@ public class Player : Entity
         animatorOverrideController.GetOverrides(clipOverrides);
 
         HealthCompo.OnDeathEvent.AddListener(() => UIManager.Instance.GetSceneUI<BattleUI>().SetClear());
+
+        cream.OnAnimationCall = () => OnAnimationCall?.Invoke();
+        cream.OnAnimationEnd = () => OnAnimationEnd?.Invoke();
+
+        TurnCounter.PlayerTurnEndEvent += MoveCreamFornt;
     }
 
     protected void OnDisable()
     {
+        TurnCounter.PlayerTurnEndEvent -= MoveCreamFornt;
         if (_hpUI != null)
             HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
@@ -82,22 +89,42 @@ public class Player : Entity
     {
     }
 
-    public void UseAbility(CardBase card,bool isMove = false)
+    public void UseAbility(CardBase card, bool isMove = false, bool isCream = false)
     {
         clipOverrides["UseAbility"] = card.CardInfo.abilityAnimation;
         animatorOverrideController.ApplyOverrides(clipOverrides);
+        if (!isCream)
+        {
+            AnimatorCompo.SetBool(_abilityHash, true);
+            AnimatorCompo.SetBool(_moveHash, isMove);
 
-        AnimatorCompo.SetBool(_abilityHash, true);
-        AnimatorCompo.SetBool(_moveHash, isMove);
+            if (isMove) MoveToTargetForward();
+            ChangePosWithCream(false);
+        }
+        else
+        {
+            //크림 애니메이션 실행
+            ChangePosWithCream(true,cream.InvokeAnimationCall);
+        }
+    }
 
-        if (isMove) MoveToTargetForward();
+    private void ChangePosWithCream(bool front,Action callback = null)
+    {
+        if (_isFront == front)
+        {
+            callback?.Invoke();
+            return;
+        }
+
+        _isFront = front;
+        BattleController.ChangePosition(transform, cream.transform, callback);
     }
     public void EndAbility()
     {
         AnimatorCompo.SetBool(_abilityHash, false);
         AnimatorCompo.SetBool(_moveHash, false);
     }
-    
+
     protected override void HandleEndMoveToTarget()
     {
         AnimatorCompo.SetBool(_moveHash, false);
@@ -106,5 +133,9 @@ public class Player : Entity
     protected override void HandleEndMoveToOriginPos()
     {
         // 일단 할거 없음
+    }
+    private void MoveCreamFornt()
+    {
+        ChangePosWithCream(false);
     }
 }

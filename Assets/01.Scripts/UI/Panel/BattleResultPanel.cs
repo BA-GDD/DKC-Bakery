@@ -67,4 +67,13 @@ public class BattleResultPanel : PanelUI
             }
         }
     }
+
+    public void GotoPoolAllEnemy()
+    {
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            if(e != null)
+                PoolManager.Instance.Push(e);
+        }
+    }
 }

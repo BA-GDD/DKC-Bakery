@@ -20,6 +20,8 @@ public abstract class Entity : PoolableMono
     public BattleController BattleController { get; set; }
     public BuffStat BuffStatCompo { get; private set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
+
+    public Collider ColliderCompo { get; private set; }
     #endregion
 
     protected int _hitAnimationHash = Animator.StringToHash("hit");
@@ -45,16 +47,7 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected float moveDuration = 0.1f;
 
 
-    private SkillCardManagement management;
-    public UnityEvent BeforeChainingEvent
-    {
-        get
-        {
-            if (management == null)
-                management = FindObjectOfType<SkillCardManagement>();
-            return management.beforeChainingEvent;
-        }
-    }
+    public UnityEvent BeforeChainingEvent => CardReader.SkillCardManagement.beforeChainingEvent;
 
     protected virtual void Awake()
     {
@@ -72,13 +65,25 @@ public abstract class Entity : PoolableMono
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
-        OnMoveTarget += HandleEndMoveToTarget;
-        OnMoveOriginPos += HandleEndMoveToOriginPos;
+        ColliderCompo = GetComponent<Collider>();
+
     }
 
     protected virtual void Start()
     {
         BuffStatCompo = new BuffStat(this);
+        HealthCompo.SetOwner(this);
+    }
+    private void OnEnable()
+    {
+        OnMoveTarget += HandleEndMoveToTarget;
+        OnMoveOriginPos += HandleEndMoveToOriginPos;
+        ColliderCompo.enabled = true;
+    }
+    private void OnDisable()
+    {
+        OnMoveTarget -= HandleEndMoveToTarget;
+        OnMoveOriginPos -= HandleEndMoveToOriginPos;
     }
 
     private void HandleCutInOnFieldMonsterList()
@@ -167,6 +172,7 @@ public abstract class Entity : PoolableMono
     public void DeadSeq()
     {
         StartCoroutine(DissolveCo());
+        CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSeq);
     }
     private IEnumerator DissolveCo()
     {
@@ -177,7 +183,9 @@ public abstract class Entity : PoolableMono
             SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
             yield return null;
         }
-        PoolManager.Instance.Push(this);
+        HealthCompo.OnDeathEvent?.Invoke();
+        if(this is not Player)
+            PoolManager.Instance.Push(this);
     }
 
     public override void Init()
