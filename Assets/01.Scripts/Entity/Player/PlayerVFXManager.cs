@@ -17,7 +17,7 @@ public class PlayerVFXManager : MonoBehaviour
 {
     [SerializeField] private List<CardAndEffect> cardAndEffects = new();
     private Dictionary<CardInfo, ParticleSystem[]> _cardByEffects = new();
-    //°ø°Ý½Ã ÀÌÆåÆ® ³ª¿À°Ô ¼³Á¤
+    //ï¿½ï¿½ï¿½Ý½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Action OnEndEffectEvent;
     //public Action OnEffectEvent;
 
@@ -34,7 +34,7 @@ public class PlayerVFXManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Áßº¹ÀÌ ÀÖ¾î¿ä");
+                Debug.LogError("ï¿½ßºï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½");
             }
         }
 
@@ -51,11 +51,23 @@ public class PlayerVFXManager : MonoBehaviour
         }
     }
 
-    internal void EndParticle(CardInfo cardInfo, int combineLevel)
+    private void Start()
+    {
+        foreach(var c in backgrounds)
+        {
+            if(c.gameObject.activeSelf == true)
+            {
+                currentBackground = c;
+                break;
+            }
+        }
+    }
+
+    internal void EndParticle(CardInfo cardInfo)
     {
         if (!_cardByEffects.ContainsKey(cardInfo))
         {
-            Debug.LogError("ÀÌÆåÆ®°¡ ¾ø¾î¿ä");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½");
             return;
         }
         _cardByEffects[cardInfo][combineLevel].Stop();
@@ -65,7 +77,7 @@ public class PlayerVFXManager : MonoBehaviour
     {
         if (!_cardByEffects.ContainsKey(card))
         {
-            Debug.LogError("ÀÌÆåÆ®°¡ ¾ø¾î¿ä");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
@@ -81,7 +93,7 @@ public class PlayerVFXManager : MonoBehaviour
     {
         if (!_cardByEffects.ContainsKey(card))
         {
-            Debug.LogError("ÀÌÆåÆ®°¡ ¾ø¾î¿ä");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
