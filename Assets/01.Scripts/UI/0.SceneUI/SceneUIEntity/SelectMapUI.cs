@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,19 +28,17 @@ public class SelectMapUI : SceneUI
             _adventureData = DataManager.Instance.LoadData<AdventureData>(_dataKey);
         }
 
-        for(int i = 0; i < _adventureData.canChallingeChapterArr.Length; i++)
+        int chapterIdx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
+        for (int i = 0; i < chapterIdx; i++)
         {
-            if (_adventureData.canChallingeChapterArr[i][0])
+            if (_adventureData.IsLookUnLockProductionArr[i])
             {
-                if (_adventureData.IsLookUnLockProductionArr[i])
-                {
-                    _panelLockArr[i].UnLockStageWithOutProduction();
-                }
-                else
-                {
-                    _panelLockArr[i].UnLockStageWithProduction();
-                    _adventureData.IsLookUnLockProductionArr[i] = true;
-                }
+                _panelLockArr[i].UnLockStageWithOutProduction();
+            }
+            else
+            {
+                _panelLockArr[i].UnLockStageWithProduction();
+                _adventureData.IsLookUnLockProductionArr[i] = true;
             }
         }
 

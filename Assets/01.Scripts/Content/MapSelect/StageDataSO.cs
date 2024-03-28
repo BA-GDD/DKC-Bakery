@@ -38,11 +38,12 @@ public class StageDataSO : ScriptableObject
         int stageidx = Convert.ToInt16(numArr[1]);
 
         AdventureData ad = DataManager.Instance.LoadData<AdventureData>(_dataKey);
-        ad.canChallingeChapterArr[chapteridx][stageidx] = true;
+        string challingingStageData = $"{chapteridx}-{stageidx + 1}";
         if(stageidx == 6)
         {
-            ad.canChallingeChapterArr[Mathf.Clamp(chapteridx + 1, 1, 6)][stageidx] = true;
+            challingingStageData = $"{chapteridx + 1}-{1}";
         }
+        ad.InChallingingStageCount = challingingStageData;
         DataManager.Instance.SaveData(ad, _dataKey);
     }
 }

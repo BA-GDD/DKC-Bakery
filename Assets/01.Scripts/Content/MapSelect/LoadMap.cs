@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +6,31 @@ using UnityEngine;
 public class LoadMap : MonoBehaviour
 {
     [SerializeField] private Transform _nodeMapParent;
-    private MapNode[] _mapNodeArr;
+    [SerializeField] private MapNode[] _mapNodeArr;
 
     private void Start()
     {
-        _mapNodeArr = _nodeMapParent.GetComponentsInChildren<MapNode>();
         AdventureData adData = UIManager.Instance.GetSceneUI<SelectMapUI>().GetAdventureData();
 
-        int chapterIdx = (int)MapManager.Instanace.SelectMapData.myChapterType;
-        bool[] canChallingingStageArr = adData.canChallingeChapterArr[chapterIdx];
+        int myChapterIdx = (int)MapManager.Instanace.SelectMapData.myChapterType;
 
-        for (int i = 0; i < canChallingingStageArr.Length; i++)
+        int chapterIdx = Convert.ToInt16(adData.InChallingingStageCount.Split('-')[0]) - 1;
+        
+        if(myChapterIdx < chapterIdx)
         {
-            _mapNodeArr[i].gameObject.SetActive(canChallingingStageArr[i]);
+            foreach(MapNode node in _mapNodeArr)
+            {
+                node.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            int stageIdx = Convert.ToInt16(adData.InChallingingStageCount.Split('-')[1]);
+
+            for(int i = 0; i < stageIdx; i++)
+            {
+                _mapNodeArr[i].gameObject.SetActive(true);
+            }
         }
     }
 }
