@@ -152,7 +152,7 @@ public abstract class Entity : PoolableMono
         }
     }
 
-    public void MoveToTargetForward()
+    public virtual void MoveToTargetForward()
     {
         lastMovePos = transform.position;
 
@@ -163,7 +163,7 @@ public abstract class Entity : PoolableMono
         seq.OnComplete(OnMoveTarget.Invoke);
     }
     protected abstract void HandleEndMoveToTarget();
-    public void MoveToOriginPos()
+    public virtual void MoveToOriginPos()
     {
         transform.DOMove(lastMovePos, moveDuration).OnComplete(OnMoveOriginPos.Invoke);
     }
