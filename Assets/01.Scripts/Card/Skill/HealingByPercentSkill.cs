@@ -16,7 +16,7 @@ public class HealingByPercentSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         StartCoroutine(HealCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -24,7 +24,7 @@ public class HealingByPercentSkill : CardBase, ISkillEffectAnim
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }

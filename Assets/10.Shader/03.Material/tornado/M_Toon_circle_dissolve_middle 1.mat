@@ -106,16 +106,20 @@ Material:
     - _Use_Customdata: 1
     - _Use_Customdata1: 0
     - _Use_Mask: 0
+    - _Use_lerp: 0
     - _VOffset: -1
     - _diss_upanner: 0
     - _diss_vpanner: 2.23
     - _dissolve: 1
     - _down_range: 0.91
+    - _main_upanner: 0
+    - _main_vpanner: 0
     - _noise_a_upanner: 0
     - _noise_a_vpanner: 0.83
     - _noise_b_upanner: 0
     - _noise_b_vpanner: 2.16
-    - _normal_str: 0.167
+    - _normal_radial: 0
+    - _normal_str: 0
     - _normal_upanner: 0
     - _normal_vpanner: 1
     - _shadow_off: -0.18
@@ -123,6 +127,7 @@ Material:
     - _step_a: 0.74
     - _step_b: 1
     - _threshold: 0.5
+    - _use_polar: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -131,4 +136,6 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _color_a: {r: 1, g: 1, b: 1, a: 0}
     - _color_b: {r: 0.18560876, g: 0.25442815, b: 0.9150943, a: 0}
+    - _main_color_a: {r: 1, g: 1, b: 1, a: 0}
+    - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

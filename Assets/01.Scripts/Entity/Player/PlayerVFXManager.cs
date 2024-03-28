@@ -10,13 +10,13 @@ using UnityEngine.UIElements;
 public struct CardAndEffect
 {
     public CardInfo info;
-    public ParticleSystem particle;
+    public ParticleSystem[] particle;
 }
 
 public class PlayerVFXManager : MonoBehaviour
 {
     [SerializeField] private List<CardAndEffect> cardAndEffects = new();
-    private Dictionary<CardInfo, ParticleSystem> _cardByEffects = new();
+    private Dictionary<CardInfo, ParticleSystem[]> _cardByEffects = new();
     //공격시 이펙트 나오게 설정
     public Action OnEndEffectEvent;
     //public Action OnEffectEvent;
@@ -51,17 +51,17 @@ public class PlayerVFXManager : MonoBehaviour
         }
     }
 
-    internal void EndParticle(CardInfo cardInfo)
+    internal void EndParticle(CardInfo cardInfo, int combineLevel)
     {
         if (!_cardByEffects.ContainsKey(cardInfo))
         {
             Debug.LogError("이펙트가 없어요");
             return;
         }
-        _cardByEffects[cardInfo].Stop();
+        _cardByEffects[cardInfo][combineLevel].Stop();
     }
 
-    public void PlayParticle(CardInfo card, Vector3 pos)
+    public void PlayParticle(CardInfo card, Vector3 pos, int combineLevel)
     {
         if (!_cardByEffects.ContainsKey(card))
         {
@@ -69,15 +69,15 @@ public class PlayerVFXManager : MonoBehaviour
             return;
         }
 
-        _cardByEffects[card].transform.position = pos;
-        _cardByEffects[card].gameObject.SetActive(true);
+        _cardByEffects[card][combineLevel].transform.position = pos;
+        _cardByEffects[card][combineLevel].gameObject.SetActive(true);
         currentBackground.DOColor(Color.gray, 1.0f);
-        ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
+        ParticleSystem.MainModule mainModule = _cardByEffects[card][combineLevel].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
-        _cardByEffects[card].Play();
+        _cardByEffects[card][combineLevel].Play();
     }
 
-    public void PlayParticle(CardInfo card)
+    public void PlayParticle(CardInfo card, int combineLevel)
     {
         if (!_cardByEffects.ContainsKey(card))
         {
@@ -85,11 +85,11 @@ public class PlayerVFXManager : MonoBehaviour
             return;
         }
 
-        _cardByEffects[card].gameObject.SetActive(true);
+        _cardByEffects[card][combineLevel].gameObject.SetActive(true);
         currentBackground.DOColor(Color.gray, 1.0f);
-        ParticleSystem.MainModule mainModule = _cardByEffects[card].main;
+        ParticleSystem.MainModule mainModule = _cardByEffects[card][combineLevel].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
-        _cardByEffects[card].Play();
+        _cardByEffects[card][combineLevel].Play();
     }
 
     private IEnumerator EndEffectCo(float f)
