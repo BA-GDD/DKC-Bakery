@@ -34,7 +34,8 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position);
-        StartCoroutine(AttackCor());
+        if (Player.target != null)
+            StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 

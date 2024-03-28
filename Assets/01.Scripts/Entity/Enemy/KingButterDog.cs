@@ -9,7 +9,6 @@ public class KingButterDog : Enemy
     protected override void Start()
     {
         base.Start();
-        target = BattleController.Player;
     }
     public override void Attack()
     {

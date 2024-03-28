@@ -72,10 +72,11 @@ public abstract class Entity : PoolableMono
     protected virtual void Start()
     {
         BuffStatCompo = new BuffStat(this);
-        HealthCompo.SetOwner(this);
     }
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
+        HealthCompo.SetOwner(this);
+
         OnMoveTarget += HandleEndMoveToTarget;
         OnMoveOriginPos += HandleEndMoveToOriginPos;
         ColliderCompo.enabled = true;
@@ -171,11 +172,12 @@ public abstract class Entity : PoolableMono
 
     public void DeadSeq()
     {
-        StartCoroutine(DissolveCo());
         CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSeq);
+        StartCoroutine(DissolveCo());
     }
     private IEnumerator DissolveCo()
     {
+        HealthCompo.OnDeathEvent?.Invoke();
         float timer = 0;
         while (timer < 1)
         {
@@ -183,7 +185,7 @@ public abstract class Entity : PoolableMono
             SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
             yield return null;
         }
-        HealthCompo.OnDeathEvent?.Invoke();
+        HealthCompo.OnDeathEvent.RemoveAllListeners();
         if(this is not Player)
             PoolManager.Instance.Push(this);
     }

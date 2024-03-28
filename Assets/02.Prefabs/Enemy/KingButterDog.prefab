@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6f3af1c98937f1343a6ef50a3c58eba9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingType: 16
-  <CharStat>k__BackingField: {fileID: 11400000, guid: 65ca55b2034a8e345a7e4502ba5a7d27, type: 2}
+  <CharStat>k__BackingField: {fileID: 11400000, guid: 58045535cdd3d0f4d977f29f438a0ed2, type: 2}
   OnHealthBarChanged:
     m_PersistentCalls:
       m_Calls:
@@ -241,7 +241,8 @@ MonoBehaviour:
   moveDuration: 0.1
   hpBarPos: {fileID: 7779297614088210920}
   attackParticle:
-    particle: {fileID: 0}
+    attack: {fileID: 0}
+    hitPrefab: {fileID: 0}
     duration: 0
   camTrack: {fileID: 0}
   turnStatus: 0
@@ -292,8 +293,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.253509, y: 1, z: 3.1732974}
-  m_Center: {x: -0.011523247, y: 0, z: -0.3934567}
+  m_Size: {x: 1.253509, y: 3.5978825, z: 4.811695}
+  m_Center: {x: -0.011523247, y: 0.29289448, z: 0.13994598}
 --- !u!114 &8826672199404272160
 MonoBehaviour:
   m_ObjectHideFlags: 0

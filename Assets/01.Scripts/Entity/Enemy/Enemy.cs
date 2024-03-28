@@ -39,6 +39,11 @@ public abstract class Enemy : Entity,IPointerDownHandler
         Collider = GetComponent<Collider>();
         
     }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        target = BattleController?.Player;
+    }
 
     public void AnimationFinishTrigger()
     {

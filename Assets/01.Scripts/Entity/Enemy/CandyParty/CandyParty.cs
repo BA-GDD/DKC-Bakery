@@ -6,7 +6,6 @@ public class CandyParty : Enemy
     protected override void Start()
     {
         base.Start();
-        target = BattleController.Player;
         VFXPlayer.OnEndEffect += () => turnStatus = TurnStatus.End;
     }
 

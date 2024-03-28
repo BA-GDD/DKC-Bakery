@@ -65,14 +65,16 @@ public class BattleController : MonoBehaviour
     private void Awake()
     {
         //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
-        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
 
     }
     private void Start()
     {
+        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
+
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
 
@@ -139,8 +141,8 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        ChangePlayerTarget(onFieldMonsterList[0]);
-
+        if (Player.target == null)
+            SetPlayerCloseTarget();
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
@@ -149,7 +151,7 @@ public class BattleController : MonoBehaviour
         {
             Vector3 pos = _spawnDistanceByPoint[idx].position;
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
-            //_enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
+            _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
@@ -159,18 +161,16 @@ public class BattleController : MonoBehaviour
 
             onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
+            selectEnemy.target = Player;
 
             SpawnEnemyList.Add(selectEnemy);
-
-            if (Player.target != null)
-                SetPlayerCloseTarget();
         }
     }
 
     public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
-        if (Player.target != null && enemy == Player.target)
+        if (enemy == Player.target)
             SetPlayerCloseTarget();
         DeathEnemyList.Add(enemy);
     }
@@ -180,7 +180,7 @@ public class BattleController : MonoBehaviour
         {
             Enemy e = onFieldMonsterList[i];
 
-            if (e != null && e.HealthCompo.IsDead)
+            if (e != null && !e.HealthCompo.IsDead)
             {
                 ChangePlayerTarget(e);
                 return;

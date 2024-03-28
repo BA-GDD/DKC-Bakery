@@ -47,18 +47,8 @@ public class PlayerVFXManager : MonoBehaviour
             if (b.gameObject.activeSelf == true)
             {
                 currentBackground = b;
-            }
-        }
-    }
-
-    private void Start()
-    {
-        foreach(var c in backgrounds)
-        {
-            if(c.gameObject.activeSelf == true)
-            {
-                currentBackground = c;
                 break;
+
             }
         }
     }
