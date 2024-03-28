@@ -57,10 +57,14 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         yield return new WaitForSeconds(0.1f);
 
         Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
+        GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+        Destroy(obj, 1.0f);
+
 
         if(Random.value * 100 >= 30f)
         {
             Player.target.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
+            
         }
 
         FeedbackManager.Instance.EndSpeed = 3.0f;

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedGunSkill : CardBase, ISkillEffectAnim
@@ -22,7 +21,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
             e.SpriteRendererCompo.DOColor(minimumColor, 0.5f);
         }
 
-            GameObject obj = Instantiate(CardInfo.targetEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+        GameObject obj = Instantiate(CardInfo.targetEffect.gameObject, Player.target.transform.position, Quaternion.identity);
         Destroy(obj, 1.0f);
     }
 
@@ -63,8 +62,6 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
             float randNumY = UnityEngine.Random.Range(-.5f, .5f);
             FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
 
-            Debug.Log(i);
-            
             yield return new WaitForSeconds(0.2f);
             Player.target?.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
         }
