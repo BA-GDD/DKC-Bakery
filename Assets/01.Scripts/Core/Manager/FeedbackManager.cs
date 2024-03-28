@@ -7,18 +7,20 @@ using UnityEngine.InputSystem;
 
 using Random = UnityEngine.Random;
 
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
 public class FeedbackManager : MonoSingleton<FeedbackManager>
 {
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     [SerializeField] private CinemachineVirtualCamera _cinemachineCam;
+    [SerializeField] private VolumeProfile _volumeProfile;
     [SerializeField] private float _endSpeed = 1.0f;
     public float EndSpeed
     {
         get => _endSpeed;
         set => _endSpeed = value;
     }
-    [SerializeField] private AudioClip debugHit;
-    [SerializeField] private AudioClip debugBgm;
     private CinemachineBasicMultiChannelPerlin _multiChannelPerlin;
 
     private bool _shakingInDuration = false;
@@ -26,6 +28,8 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
     // 시간 관련
     private float _limitTime;
     private float _currentTime;
+
+    private Bloom _bloom;
 
     private void Start()
     {
@@ -36,6 +40,19 @@ public class FeedbackManager : MonoSingleton<FeedbackManager>
             _multiChannelPerlin.m_AmplitudeGain = 0.0f;
             _multiChannelPerlin.m_FrequencyGain = 0.0f;
         }
+
+        GameObject volumeObj = new GameObject();
+        volumeObj.name = "Global Volume";
+        Volume volume = volumeObj.AddComponent<Volume>();
+        volume.profile = _volumeProfile;
+
+        if(volume.profile.TryGet<Bloom>(out _bloom))
+        {
+            _bloom.intensity.Override(1.0f);
+        }
+
+
+        DontDestroyOnLoad(volumeObj);
     }
 
     public void ShakeScreen(Vector3 dir)

@@ -9,6 +9,9 @@ public class TeaTimeUI : SceneUI
     [SerializeField]
     private PlayableDirector director;
 
+    [SerializeField]
+    private SpriteRenderer sprite;
+
     private void Update()
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
