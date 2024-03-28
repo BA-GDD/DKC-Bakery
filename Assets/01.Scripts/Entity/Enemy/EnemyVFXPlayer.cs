@@ -7,11 +7,15 @@ public class EnemyVFXPlayer : MonoBehaviour
 {
     public event Action OnEndEffect;
 
-    public void PlayParticle(ParticleSystem ps, float particleDuration)
+    public void PlayParticle(EnemyAttack enemyAttack, float particleDuration)
     {
-        ps.gameObject.SetActive(true);
-        ps.Play();
-        StartCoroutine(WaitParticleEndCor(ps,particleDuration));
+        enemyAttack.attack.gameObject.SetActive(true);
+        enemyAttack.attack.Play();
+        StartCoroutine(WaitParticleEndCor(enemyAttack.attack, particleDuration));
+    }
+    public void PlayHitEffect(EnemyAttack enemyAttack, Vector3 pos)
+    {
+        Destroy(Instantiate(enemyAttack.hitPrefab,pos,Quaternion.identity),1.0f);
     }
     private IEnumerator WaitParticleEndCor(ParticleSystem ps, float particleDuration)
     {

@@ -14,23 +14,24 @@ public class MonStrowberry : Enemy
     public override void Attack()
     {
         OnAttackStart?.Invoke();
-        VFXPlayer.PlayParticle(attackParticle.particle, attackParticle.duration);
+        VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
         StartCoroutine(AttackCor());
     }
     private IEnumerator AttackCor()
     {
         yield return new WaitForSeconds(1.4f);
-        Vector3 vfxPos = attackParticle.particle.transform.position;
-        Quaternion vfxQua = attackParticle.particle.transform.rotation;
+        Vector3 vfxPos = attackParticle.attack.transform.position;
+        Quaternion vfxQua = attackParticle.attack.transform.rotation;
         SetSeedVFXPos();
 
         for (int i = 0; i < 3; ++i)
         {
             yield return new WaitForSeconds(0.1f);
+            VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
             target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         }
-        attackParticle.particle.transform.position = vfxPos;
-        attackParticle.particle.transform.rotation = vfxQua;
+        attackParticle.attack.transform.position = vfxPos;
+        attackParticle.attack.transform.rotation = vfxQua;
 
         turnStatus = TurnStatus.End;
 
@@ -68,10 +69,10 @@ public class MonStrowberry : Enemy
     }
     private void SetSeedVFXPos()
     {
-        Vector2 pos = (Vector2)attackParticle.particle.transform.position - new Vector2(1.64f, 0);
+        Vector2 pos = (Vector2)attackParticle.attack.transform.position - new Vector2(1.64f, 0);
         Vector2 dir = (Vector2)target.transform.position - pos;
 
-        attackParticle.particle.transform.position = pos + dir.normalized;
-        attackParticle.particle.transform.right = dir.normalized * -1;
+        attackParticle.attack.transform.position = pos + dir.normalized;
+        attackParticle.attack.transform.right = dir.normalized * -1;
     }
 }

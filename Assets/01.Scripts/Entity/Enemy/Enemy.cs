@@ -7,9 +7,10 @@ using UnityEngine.EventSystems;
 using Sequence = DG.Tweening.Sequence;
 
 [Serializable]
-public struct EnemyParticle
+public struct EnemyAttack
 {
-    public ParticleSystem particle;
+    public ParticleSystem attack;
+    public ParticleSystem hitPrefab;
     public float duration;
 }
 
@@ -17,7 +18,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
 {
     [Header("셋팅값들")]
     public Transform hpBarPos;
-    [SerializeField] protected EnemyParticle attackParticle; 
+    [SerializeField] protected EnemyAttack attackParticle; 
 
     [SerializeField] protected CameraMoveTrack camTrack;
 
