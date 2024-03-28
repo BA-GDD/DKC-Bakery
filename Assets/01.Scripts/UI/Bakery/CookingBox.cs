@@ -78,6 +78,24 @@ public class CookingBox : MonoBehaviour
         }
     }
 
+    public void RemoveAllSelectIngredientInfo()
+    {
+        foreach(IngredientType igt in Enum.GetValues(typeof(IngredientType)))
+        {
+            if (igt == IngredientType.None || igt == IngredientType.Else) continue;
+
+            if (_getBoxInstanceDic[igt].IsSelected)
+            {
+                RemoveSelectIngredientInfo(igt);
+            }
+        }
+    }
+
+    public bool GetBoxEnable(IngredientType igt)
+    {
+        return _getBoxInstanceDic[igt].IsSelected;
+    }
+
     private void ChangeBlurObject(BakeryCombinationType type)
     {
         foreach(BlurObject blurObj in _blurObjectArr)

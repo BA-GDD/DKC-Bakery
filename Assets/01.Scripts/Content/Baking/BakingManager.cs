@@ -61,32 +61,28 @@ public class BakingManager : MonoSingleton<BakingManager>
 
     private void Awake()
     {
-        if(_usedIngredientParent == null)
+        if (_usedIngredientParent == null)
         {
             _usedIngredientParent = Inventory.Instance.IngredientParent;
         }
 
         usedIngredientStash = new UsedIngredientStash(_usedIngredientParent);
         breadDictionary = new Dictionary<string, ItemDataBreadSO>();
-        for(int i = 0; i < _breadList.Count; ++i)
+        for (int i = 0; i < _breadList.Count; ++i)
         {
             breadDictionary.Add(_breadList[i].itemName, _breadList[i]);
         }
-
-
     }
 
     private void Start()
     {
-        
-
         SetBakingUI(isOpen);
         UpdateSlotUI();
     }
 
     private void Update()
     {
-        if(Keyboard.current.hKey.wasPressedThisFrame)
+        if (Keyboard.current.hKey.wasPressedThisFrame)
         {
             isOpen = !isOpen;
             SetBakingUI(isOpen);
@@ -110,7 +106,7 @@ public class BakingManager : MonoSingleton<BakingManager>
     public void RemoveItem(ItemDataSO item)
     {
         ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
-        if(ingredientSO != null)
+        if (ingredientSO != null)
         {
             onRemoveUsedIngredientTrigger?.Invoke(ingredientSO.itemIndex);
         }
@@ -130,7 +126,7 @@ public class BakingManager : MonoSingleton<BakingManager>
 
     public ItemDataBreadSO BakeBread()
     {
-        if(!CanBake())
+        if (!CanBake())
         {
             Debug.LogError("Plz Check Can Bake");
             return null;

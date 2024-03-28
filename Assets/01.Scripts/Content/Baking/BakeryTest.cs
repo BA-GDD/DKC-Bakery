@@ -10,7 +10,7 @@ public class BakeryTest : MonoBehaviour
     {
         foreach (var item in id)
         {
-            Inventory.Instance.AddItem(item);
+            Inventory.Instance.AddItem(item, 3);
         }
     }
 }
