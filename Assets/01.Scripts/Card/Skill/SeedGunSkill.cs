@@ -11,15 +11,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        int targetIdx = -1;
-        foreach(var e in battleController.onFieldMonsterList)
-        {
-            if(e != null)
-            {
-                targetIdx++;
-            }
-        }
-        Player.target = battleController.onFieldMonsterList[targetIdx];
+
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;

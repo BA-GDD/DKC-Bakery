@@ -36,7 +36,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
         base.Awake();
         VFXPlayer = GetComponent<EnemyVFXPlayer>();
         Collider = GetComponent<Collider>();
-        HealthCompo.OnDeathEvent.AddListener(() => Collider.enabled = false);
+        
     }
 
     public void AnimationFinishTrigger()
@@ -59,6 +59,8 @@ public abstract class Enemy : Entity,IPointerDownHandler
 
     public virtual void Spawn(Vector3 spawnPos)
     {
+        SpriteRendererCompo.material.SetFloat("_dissolve_amount", 0);
+
         AnimatorCompo.SetBool(spawnAnimationHash, true);
 
         transform.position = spawnPos + new Vector3(-4f, 6f);

@@ -69,11 +69,13 @@ public class BattleController : MonoBehaviour
 
         _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
-        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+
     }
     private void Start()
     {
+        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+
         Player.BattleController = this;
         Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
@@ -147,7 +149,7 @@ public class BattleController : MonoBehaviour
         {
             Vector3 pos = _spawnDistanceByPoint[idx].position;
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
-            _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
+            //_enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;

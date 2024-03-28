@@ -9,8 +9,11 @@ public class Cream : MonoBehaviour
     public Action OnAnimationCall;
     public Action OnAnimationEnd;
 
+    [SerializeField] private ParticleSystem particle;
+
     public void InvokeAnimationCall()
     {
+        particle.Play();
         OnAnimationCall?.Invoke();
     }
     public void InvokeAnimationEnd()

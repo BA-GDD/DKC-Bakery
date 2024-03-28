@@ -26,16 +26,20 @@ public class Health : MonoBehaviour, IDamageable
     public UnityEvent<AilmentEnum> OnAilmentChanged;
 
     private Entity _owner;
-    [SerializeField]private bool _isDead = false;
+    [SerializeField] private bool _isDead = false;
     public bool IsDead
     {
         get => _isDead;
         set
         {
             _isDead = value;
-            if(_isDead)
-                OnDeathEvent?.Invoke();
-
+            if (_isDead)
+            {
+                if (_owner is Enemy)
+                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSeq);
+                else
+                    OnDeathEvent?.Invoke();
+            }
         }
     }
     private bool _isInvincible = false; //무적상태
@@ -49,14 +53,17 @@ public class Health : MonoBehaviour, IDamageable
     protected void Awake()
     {
         _ailmentStat = new AilmentStat(this);
-        _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
 
-        TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
-
-        _isDead = false;
 
     }
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
+        _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
+
+        _isDead = false;
+    }
+    private void OnDisable()
     {
         _ailmentStat.EndOFAilmentEvent -= HandleEndOfAilment;
         TurnCounter.RoundEndEvent -= _ailmentStat.UpdateAilment;
@@ -195,12 +202,12 @@ public class Health : MonoBehaviour, IDamageable
     }
 
     //데미지를 받았을 때 질병 체크하는 함수(쇼크 데미지 같은 타격당 데미지에 적용.
-    public void AilmentByDamage(AilmentEnum ailment,int damage)
+    public void AilmentByDamage(AilmentEnum ailment, int damage)
     {
         //쇼크데미지 추가 부분.
-            //디버프용 데미지 텍스트 추가
-            DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
-            //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
+        //디버프용 데미지 텍스트 추가
+        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
+        //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
     }
 
 

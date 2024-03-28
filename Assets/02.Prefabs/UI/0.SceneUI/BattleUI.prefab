@@ -614,7 +614,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7333736712169675274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7715378955133546317}
+        m_TargetAssemblyTypeName: BattleResultPanel, Assembly-CSharp
+        m_MethodName: GotoPoolAllEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5875587112154170718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1630,6 +1642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myType: 2
+  _audioClip: {fileID: 0}
   _battleResultPanel: {fileID: 7715378955133546317}
 --- !u!1 &4175445939966009704
 GameObject:
@@ -2157,6 +2170,9 @@ MonoBehaviour:
   _activationCardZone: {fileID: 3246555405114084305}
   _lastCardPos: {x: 860, y: -400}
   _activationTurmValue: 155
+  useCardEndEvnet:
+    m_PersistentCalls:
+      m_Calls: []
   beforeChainingEvent:
     m_PersistentCalls:
       m_Calls: []

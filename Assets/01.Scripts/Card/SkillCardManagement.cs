@@ -21,6 +21,7 @@ public class SkillCardManagement : CardManagement
 
     [Header("¿Ã∫•∆Æ")]
     private bool _isInChaining;
+    public UnityEvent useCardEndEvnet;
     public UnityEvent beforeChainingEvent;
     [SerializeField] private UnityEvent _afterChanningEvent;
     [SerializeField] private UnityEvent<bool> _acceptBtnSwitchEvent;
@@ -62,7 +63,10 @@ public class SkillCardManagement : CardManagement
     }
     public void ChainingSkill()
     {
-        if(!_isInChaining && InCardZoneCatalogue.Count != 0)
+        if (_isInChaining)
+            useCardEndEvnet?.Invoke();
+        
+        if (!_isInChaining && InCardZoneCatalogue.Count != 0)
         {
             beforeChainingEvent?.Invoke();
             _isInChaining = true;

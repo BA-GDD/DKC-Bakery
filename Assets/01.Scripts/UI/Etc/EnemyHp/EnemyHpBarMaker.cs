@@ -39,6 +39,7 @@ public class EnemyHpBarMaker : MonoBehaviour
     }
     public void DeleteHPBar(EnemyHPBar e)
     {
+        if (e == null) return;
         enemyHPBars.Remove(e);
         Destroy(e.gameObject);
     }
