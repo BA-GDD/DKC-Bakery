@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[System.Serializable]
+[Serializable]
 public struct CardAndEffect
 {
     public CardInfo info;

@@ -1,16 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NodeLaodMap : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI _chapterNameText;
+    [SerializeField] private Transform _loadMapParent;
     [SerializeField] private Transform _deckSelectParent;
 
-    [SerializeField] private Transform _bubbleTrm;
-    public Transform BubbleTrm => _bubbleTrm;
+    private GameObject _currentLoadMap;
+
+    public void ActiveLoadMap(MapDataSO mapData)
+    {
+        MapManager.Instanace.LoadMapObject = this.gameObject;
+        gameObject.SetActive(true);
+
+        if(_currentLoadMap != null)
+        {
+            Destroy(_currentLoadMap);
+        }
+
+        _currentLoadMap = Instantiate(mapData.loadMap, _loadMapParent);
+    }
 
     public void ExitLoadMap()
     {
-        MapManager.Instanace.ActiveLoadMap(false);
+        gameObject.SetActive(false);
     }
 }

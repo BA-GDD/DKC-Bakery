@@ -228,6 +228,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chapterData: {fileID: 11400000, guid: f9bd4ee8fd0127a4897fc36b40e73a82, type: 2}
+  _loadMapActiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910725384926165015}
+        m_TargetAssemblyTypeName: NodeLaodMap, Assembly-CSharp
+        m_MethodName: ActiveLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chapterNameTxt: {fileID: 2571938799255490108}
   _chapterInfoTxt: {fileID: 8115573380170336261}
   _lockPanel: {fileID: 0}
@@ -486,6 +501,7 @@ GameObject:
   - component: {fileID: 2871902447866710140}
   - component: {fileID: 6816037897110103898}
   - component: {fileID: 4584084127923009501}
+  - component: {fileID: 1107445851729787141}
   m_Layer: 5
   m_Name: PnaelLock
   m_TagString: Untagged
@@ -552,6 +568,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1107445851729787141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654324367056081472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256043951cc015843ba2df70805b9232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockPanel: {fileID: 0}
+  _lockIcon: {fileID: 0}
+  _doNotEnterTxt: {fileID: 0}
 --- !u!1 &769300355698093585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,6 +1427,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chapterData: {fileID: 11400000, guid: 49f68095d03cff149ba9171ade153ebe, type: 2}
+  _loadMapActiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910725384926165015}
+        m_TargetAssemblyTypeName: NodeLaodMap, Assembly-CSharp
+        m_MethodName: ActiveLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chapterNameTxt: {fileID: 1489305444707782809}
   _chapterInfoTxt: {fileID: 6438814267463229096}
   _lockPanel: {fileID: 0}
@@ -2162,6 +2208,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chapterData: {fileID: 11400000, guid: 07c96f7a2b3977b4580fa0fa6bc26ecd, type: 2}
+  _loadMapActiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910725384926165015}
+        m_TargetAssemblyTypeName: NodeLaodMap, Assembly-CSharp
+        m_MethodName: ActiveLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chapterNameTxt: {fileID: 4654337103052181137}
   _chapterInfoTxt: {fileID: 6828354784424979591}
   _lockPanel: {fileID: 0}
@@ -2534,13 +2595,14 @@ GameObject:
   - component: {fileID: 4655092928012252809}
   - component: {fileID: 3736761553297078710}
   - component: {fileID: 3684546311684437386}
+  - component: {fileID: 6076249117532530759}
   m_Layer: 5
   m_Name: PnaelLock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4655092928012252809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2600,6 +2662,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6076249117532530759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2856650553637800450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256043951cc015843ba2df70805b9232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockPanel: {fileID: 0}
+  _lockIcon: {fileID: 0}
+  _doNotEnterTxt: {fileID: 0}
 --- !u!1 &3062416995050493542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3112,6 +3189,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chapterData: {fileID: 11400000, guid: 4f0dad511ee8100419b6c3dbacd3c940, type: 2}
+  _loadMapActiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910725384926165015}
+        m_TargetAssemblyTypeName: NodeLaodMap, Assembly-CSharp
+        m_MethodName: ActiveLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chapterNameTxt: {fileID: 7293101287185642988}
   _chapterInfoTxt: {fileID: 5172157902062850264}
   _lockPanel: {fileID: 0}
@@ -3126,6 +3218,7 @@ GameObject:
   - component: {fileID: 897177811611179711}
   - component: {fileID: 6809202953837473259}
   - component: {fileID: 1491271120611838117}
+  - component: {fileID: 1758323833362951086}
   m_Layer: 5
   m_Name: PnaelLock
   m_TagString: Untagged
@@ -3192,6 +3285,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1758323833362951086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415151209204248385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256043951cc015843ba2df70805b9232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockPanel: {fileID: 0}
+  _lockIcon: {fileID: 0}
+  _doNotEnterTxt: {fileID: 0}
 --- !u!1 &4039295654019582813
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,6 +4414,7 @@ GameObject:
   - component: {fileID: 4776513268634192919}
   - component: {fileID: 2861846867788752215}
   - component: {fileID: 5365913418534166974}
+  - component: {fileID: 4245901481076176056}
   m_Layer: 5
   m_Name: PnaelLock
   m_TagString: Untagged
@@ -4372,6 +4481,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4245901481076176056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216690205518342986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256043951cc015843ba2df70805b9232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockPanel: {fileID: 0}
+  _lockIcon: {fileID: 0}
+  _doNotEnterTxt: {fileID: 0}
 --- !u!1 &6520532872487211128
 GameObject:
   m_ObjectHideFlags: 0
@@ -4833,6 +4957,7 @@ GameObject:
   - component: {fileID: 8412084292890406897}
   - component: {fileID: 2197026832073676292}
   - component: {fileID: 8553686571625773598}
+  - component: {fileID: 1477231995492505929}
   m_Layer: 5
   m_Name: PnaelLock
   m_TagString: Untagged
@@ -4899,6 +5024,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1477231995492505929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256154783940585833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256043951cc015843ba2df70805b9232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockPanel: {fileID: 0}
+  _lockIcon: {fileID: 0}
+  _doNotEnterTxt: {fileID: 0}
 --- !u!1 &7274194483029356649
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,6 +5273,7 @@ RectTransform:
   - {fileID: 116680093110759224}
   - {fileID: 5137011500118716901}
   - {fileID: 3833315870314939665}
+  - {fileID: 3480204440067973252}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5154,6 +5295,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _myType: 1
   _audioClip: {fileID: 8300000, guid: 9838060cfb963a343b1e7578e1eba0d9, type: 3}
+  _panelLockArr:
+  - {fileID: 6076249117532530759}
+  - {fileID: 1758323833362951086}
+  - {fileID: 4245901481076176056}
+  - {fileID: 1477231995492505929}
+  - {fileID: 1107445851729787141}
+  - {fileID: 7905451140243093315}
 --- !u!1 &7662561440708831340
 GameObject:
   m_ObjectHideFlags: 0
@@ -6253,6 +6401,7 @@ GameObject:
   - component: {fileID: 1375616581065769131}
   - component: {fileID: 7624860456783519549}
   - component: {fileID: 5108077669959556284}
+  - component: {fileID: 7905451140243093315}
   m_Layer: 5
   m_Name: PnaelLock
   m_TagString: Untagged
@@ -6319,6 +6468,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7905451140243093315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8564792124627014684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256043951cc015843ba2df70805b9232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockPanel: {fileID: 0}
+  _lockIcon: {fileID: 0}
+  _doNotEnterTxt: {fileID: 0}
 --- !u!1 &8662227940365351474
 GameObject:
   m_ObjectHideFlags: 0
@@ -6488,6 +6652,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chapterData: {fileID: 11400000, guid: e13240623877bc7418b7f2f62fc7abe7, type: 2}
+  _loadMapActiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910725384926165015}
+        m_TargetAssemblyTypeName: NodeLaodMap, Assembly-CSharp
+        m_MethodName: ActiveLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chapterNameTxt: {fileID: 2378524425412773761}
   _chapterInfoTxt: {fileID: 5322647781872470780}
   _lockPanel: {fileID: 0}
@@ -6719,9 +6898,141 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chapterData: {fileID: 11400000, guid: 97a43331a0a702b4288bcbcb89def9bc, type: 2}
+  _loadMapActiveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1910725384926165015}
+        m_TargetAssemblyTypeName: NodeLaodMap, Assembly-CSharp
+        m_MethodName: ActiveLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _chapterNameTxt: {fileID: 5075763543926931714}
   _chapterInfoTxt: {fileID: 6687518936706429137}
   _lockPanel: {fileID: 0}
+--- !u!1001 &325641537643218864
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7119686898746516453}
+    m_Modifications:
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763854081829930901, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_Name
+      value: Chapter_NodeMap_Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763854081829930901, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+--- !u!114 &1910725384926165015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2161916790984048551, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+  m_PrefabInstance: {fileID: 325641537643218864}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60780a189722ff41959cedc99c620ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &3480204440067973252 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3803503461634090804, guid: 37ca7e6a57e40e64ab54ef96a1cc779a, type: 3}
+  m_PrefabInstance: {fileID: 325641537643218864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3827540128132202727
 PrefabInstance:
   m_ObjectHideFlags: 0

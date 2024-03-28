@@ -33,7 +33,7 @@ public class MapManager : MonoBehaviour
     public bool isOnLoadMap;
 
     public int SelectStageNumber { get; set; }
-    private NodeLaodMap _loadMapObject;
+    public GameObject LoadMapObject { get; set; }
 
     public void CreateStageInfoBubble(string stageName, Vector2 pos, bool isReverse)
     {
@@ -42,7 +42,7 @@ public class MapManager : MonoBehaviour
             Destroy(_stageBubbleObject.gameObject);
         }
 
-        Transform parent = _loadMapObject.BubbleTrm;
+        Transform parent = LoadMapObject.transform.Find("BubbleParent");
         _stageBubbleObject = Instantiate(_stageBubblePrefab, parent);
         _stageBubbleObject.transform.localPosition = pos + new Vector2(0, 20);
         _stageBubbleObject.transform.DOLocalMove(pos, 0.3f);
@@ -50,17 +50,4 @@ public class MapManager : MonoBehaviour
         _stageBubbleObject.SetInfo(stageName, isReverse);
     }
 
-    public void ActiveLoadMap(bool isActive)
-    {
-        isOnLoadMap = isActive;
-        if (isActive)
-        {
-            _loadMapObject = Instantiate(SelectMapData.loadMap,
-                             UIManager.Instance.GetSceneUI<SelectMapUI>().transform);
-        }
-        else
-        {
-            Destroy(_loadMapObject.gameObject);
-        }
-    }
 }

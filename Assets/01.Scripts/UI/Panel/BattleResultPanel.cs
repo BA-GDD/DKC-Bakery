@@ -22,7 +22,11 @@ public class BattleResultPanel : PanelUI
 
         if (!MapManager.Instanace.SelectStageData.clearCondition.IsClear)
         {
-            _clearText.text = "Defeat";
+            _clearText.text = "Defeat";                 
+        }
+        else
+        {
+            MapManager.Instanace.SelectStageData.StageClear();
         }
 
         SetEnemyProfile();
