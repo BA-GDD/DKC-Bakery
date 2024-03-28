@@ -6,5 +6,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Items/Bread")]
 public class ItemDataBreadSO : ItemDataSO
 {
-    public int hogamdo;
+    public CardBase ToGetCardBase;
 }
