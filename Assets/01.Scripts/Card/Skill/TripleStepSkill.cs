@@ -28,7 +28,7 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(2.5f, 1.8f, 0f)); ;
+        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(2.5f, 1.8f, 0f), (int)CombineLevel); ;
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -37,7 +37,7 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
     {
         Player.EndAbility();
         Player.MoveToOriginPos();
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CardDefine;
+using System.Security.Cryptography;
 
 [CreateAssetMenu(menuName = "SO/Card/CardInfo")]
 public class CardInfo : ScriptableObject

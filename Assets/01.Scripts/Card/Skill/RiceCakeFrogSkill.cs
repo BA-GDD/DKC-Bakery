@@ -7,7 +7,7 @@ public class RiceCakeFrogSkill : CardBase
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.VFXManager.PlayParticle(CardInfo);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         Player.UseAbility(this);
         StartCoroutine(WaitSpawnCor());
     }
@@ -16,7 +16,7 @@ public class RiceCakeFrogSkill : CardBase
         yield return new WaitForSeconds(0.1f);
         Player.EndAbility();
         Player.BuffStatCompo.AddBuff(buffSO, 0);
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
     }
 }
