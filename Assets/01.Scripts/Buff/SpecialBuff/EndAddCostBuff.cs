@@ -6,10 +6,6 @@ public class EndAddCostBuff : SpecialBuff, IOnRoundStart
 {
     public int addCostValue = 3;
 
-    public override void Active()
-    {
-
-    }
 
     public void RoundStart()
     {

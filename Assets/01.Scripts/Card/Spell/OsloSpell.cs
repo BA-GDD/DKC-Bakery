@@ -9,7 +9,7 @@ public class OsloSpell : CardBase,ISkillEffectAnim
         IsActivingAbillity = true;
         Player.UseAbility(this);
         Player.VFXManager.PlayParticle(CardInfo);
-        Player.BuffStatCompo.AddBuff(buffSO, 0);
+        Player.BuffStatCompo.AddBuff(buffSO, 0, (int)CombineLevel);
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
     }
 

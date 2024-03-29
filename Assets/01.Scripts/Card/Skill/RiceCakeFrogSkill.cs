@@ -15,7 +15,7 @@ public class RiceCakeFrogSkill : CardBase
     {
         yield return new WaitForSeconds(0.1f);
         Player.EndAbility();
-        Player.BuffStatCompo.AddBuff(buffSO, 0);
+        Player.BuffStatCompo.AddBuff(buffSO, 0,(int)CombineLevel);
         Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
     }

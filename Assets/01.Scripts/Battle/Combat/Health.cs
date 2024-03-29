@@ -132,7 +132,7 @@ public class Health : MonoBehaviour, IDamageable
 
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
-        damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(AilmentEnum.Chilled));
+        damage = _owner.CharStat.ArmoredDamage(damage, IsFreeze);
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
         //완벽 회피 계산.
