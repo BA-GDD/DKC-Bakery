@@ -8,11 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_blood_frog_helix_out 1
-  m_Shader: {fileID: 4800000, guid: 257ea6d9fad27e04f959cf9d0e7d79c0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4b7c34181f4d74244be6861121c94efa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - USE_CUSTOM_ON
+  - _USE_CUSTOMDATA1_ON
+  - _USE_CUSTOMDATA_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -44,12 +45,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Dissolve_Texture:
+        m_Texture: {fileID: 2800000, guid: 145143eb93006454baed654b5669d0c3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Main_Texture:
+        m_Texture: {fileID: 2800000, guid: 0c7381dcc8f79bf4b8abb50ff68d4755, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -107,14 +116,19 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Dissolve: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _Fade_Ditance: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Main_Ins: 1
+    - _Main_Pow: 1.952941
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Opacity: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -126,12 +140,18 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UOffset: -1
+    - _Use_Customdata: 1
+    - _Use_Customdata1: 1
+    - _Use_lerp: 0
     - _VOffset: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _intencity: 1.8938943
     - _main_pow: 0.58
+    - _main_upanner: 0
+    - _main_vpanner: 0
     - _mask_pow: 1.4
+    - _normal_radial: 0
     - _normal_str: 0.034
     - _normal_upanner: 0.22
     - _normal_vpanner: 0
@@ -140,12 +160,16 @@ Material:
     - _sub_vpanner: 0
     - _subs_ins: 5.87
     - _subs_pow: 3.49
+    - _use_polar: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Main_Color: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _main_color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0}
+    - _main_color_a: {r: 1, g: 1, b: 1, a: 0}
+    - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
     - _subs_color: {r: 39.396626, g: 39.396626, b: 39.396626, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6611658189660046708
