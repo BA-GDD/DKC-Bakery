@@ -14,10 +14,10 @@ public class MazkeMark : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        _isSelectedThisStage = !_isSelectedThisStage;
+
         UIManager.Instance.GetSceneUI<MyosuUI>().
                            SetUpPanel(_isSelectedThisStage, _mazeInfo);
-
-        _isSelectedThisStage = !_isSelectedThisStage;
     }
 
     private void Start()

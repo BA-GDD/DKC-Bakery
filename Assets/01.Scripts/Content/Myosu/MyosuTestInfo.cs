@@ -6,6 +6,6 @@ using UnityEngine;
 public class MyosuTestInfo : ScriptableObject
 {
     public StageDataSO stageData;
-    [Header("스프라이트 크기 : (800, 450)")]
+    [Header("스프라이트 비율 : (1 : 1")]
     public Sprite MyosuImg;
 }
