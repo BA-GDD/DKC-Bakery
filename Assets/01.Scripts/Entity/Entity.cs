@@ -57,11 +57,8 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
-        HealthCompo.OnHitEvent.AddListener(HandleHit);
-        HealthCompo.OnDeathEvent.AddListener(HandleDie);
-        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
-        HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
+        
+
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
@@ -79,12 +76,23 @@ public abstract class Entity : PoolableMono
 
         OnMoveTarget += HandleEndMoveToTarget;
         OnMoveOriginPos += HandleEndMoveToOriginPos;
+        HealthCompo.OnHitEvent.AddListener(HandleHit);
+
+        HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
+
+        HealthCompo.OnDeathEvent.AddListener(HandleDie);
+        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
     private void OnDisable()
     {
         OnMoveTarget -= HandleEndMoveToTarget;
         OnMoveOriginPos -= HandleEndMoveToOriginPos;
+
+        HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
+
+        HealthCompo.OnHitEvent.RemoveListener(HandleHit);
     }
 
     private void HandleCutInOnFieldMonsterList()
