@@ -27,11 +27,15 @@ public class StageDataSO : ScriptableObject
     public EnemyGroupSO enemyGroup;
     public TsumegoInfo clearCondition;
     public List<CardBase> missionDeck;
+    public bool isClearThisStage;
 
     private const string _dataKey = "AdventureKEY";
 
     public void StageClear()
     {
+        if (isClearThisStage) return;
+
+        isClearThisStage = true;
         string[] numArr = stageNumber.Split('-');
 
         int chapteridx = Convert.ToInt16(numArr[0]);
