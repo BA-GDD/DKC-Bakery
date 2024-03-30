@@ -7,54 +7,39 @@ using UnityEngine;
 [System.Serializable]
 public enum StatType
 {
-    strength,
-    agility,
-    intelligence,
-    vitality,
+
     maxHealth,
     armor,
-    evasion,
-    magicResistance,
     damage,
     criticalChance,
     criticalDamage,
-    fireDamage,
-    ignitePercent,
-    iceDamage,
-    chillPercent,
-    lightingDamage,
-    shockPercent
+    //fireDamage,
+    //ignitePercent,
+    //iceDamage,
+    //chillPercent,
+    //lightingDamage,
+    //shockPercent
 }
 public class CharacterStat : ScriptableObject
 {
     public string characterName;
     public Sprite characterVisual;
-    [Header("Major stat")]
-    public Stat strength;
-    public Stat agility;
-    public Stat intelligence;
-    public Stat vitality;
-
-
     [Header("Defensive stats")]
-    public Stat maxHealth; //ü��
-    public Stat armor; //��
-    public Stat evasion; //ȸ�ǵ�
-    public Stat magicResistance; //�������
+    public Stat maxHealth;
+    public Stat armor;
 
     [Header("Offensive stats")]
     public Stat damage;
     public Stat criticalChance;
     public Stat criticalDamage;
 
-
-    [Header("Magic stats")]
-    public Stat fireDamage;
-    public Stat ignitePercent;
-    public Stat iceDamage;
-    public Stat chillPercent;
-    public Stat lightingDamage;
-    public Stat shockPercent;
+    //[Header("Magic stats")]
+    //public Stat fireDamage;
+    //public Stat ignitePercent;
+    //public Stat iceDamage;
+    //public Stat chillPercent;
+    //public Stat lightingDamage;
+    //public Stat shockPercent;
 
 
     protected Entity _owner;
@@ -98,7 +83,7 @@ public class CharacterStat : ScriptableObject
 
     public int GetDamage()
     {
-        return strength.GetValue();
+        return damage.GetValue();
     }
 
     public bool CanEvasion()

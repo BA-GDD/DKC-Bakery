@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HpBarMaker : MonoBehaviour
 {
-    private Transform _enemyHealthBarParent;
+    [SerializeField]private Transform _enemyHealthBarParent;
     [SerializeField] private HPBar _hpBarPrefab;
 
     private List<HPBar> enemyHPBars = new();
@@ -12,7 +12,6 @@ public class HpBarMaker : MonoBehaviour
 
     private void Awake()
     {
-        _enemyHealthBarParent = UIManager.Instance.CanvasTrm;
         enemyHPBars = new();
         friendHPBars = new();
     }

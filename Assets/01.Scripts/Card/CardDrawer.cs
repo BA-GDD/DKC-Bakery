@@ -33,18 +33,6 @@ public class CardDrawer : MonoBehaviour
     }
     int idx;
 
-    private void OnEnable()
-    {
-        TurnCounter.RoundStartEvent += DrowOneCard;
-    }
-    private void OnDisable()
-    {
-        TurnCounter.RoundStartEvent -= DrowOneCard;
-    }
-    private void DrowOneCard()
-    {
-        DrawCard(1);
-    }
     public void DrawCard(int count, bool isRandom = true)
     {
         CanDraw = false;
