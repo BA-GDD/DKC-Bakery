@@ -178,7 +178,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 186660
+  m_InstanceId: 84928
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -380,7 +380,8 @@ MonoBehaviour:
   moveDuration: 0.1
   hpBarPos: {fileID: 5436914434040636629}
   attackParticle:
-    particle: {fileID: 7613566372401997954}
+    attack: {fileID: 7613566372401997954}
+    hitPrefab: {fileID: 302704457449868439, guid: 49871310e2b6d4b4dab9e27c2c4822e9, type: 3}
     duration: 2.3
   camTrack: {fileID: 0}
   turnStatus: 0

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,10 @@ public class KingButterDog : Enemy
     protected override void Start()
     {
         base.Start();
-        target = BattleController.Player;
     }
     public override void Attack()
     {
+        target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
     }
 
     public override void SlowEntityBy(float percent)
@@ -20,26 +21,36 @@ public class KingButterDog : Enemy
 
     public override void TurnAction()
     {
+
         MoveToTargetForward();
     }
 
     public override void MoveToTargetForward()
     {
         lastMovePos = transform.position;
-
+        AnimatorCompo.SetBool(attackAnimationHash,true);
 
         //seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
-        Vector2 screenPos = MaestrOffice.GetWorldPosToScreenPos(transform.position);
-        Vector2 pos = MaestrOffice.GetScreenPosToWorldPos(new Vector2(Screen.width + 30, screenPos.y));
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 30, screenPos.y));
         pos.y = transform.position.y;
 
-        Vector3 jumpPos;
+        Vector3 jumpPos = Vector3.zero;
         jumpPos.y = target.transform.position.y;
-        
+        jumpPos.x = transform.position.x + 3;
+
+        StartCoroutine(AttackCor());
+
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOJump(transform.position , 3, 1, 1f));
-        seq.Append(transform.DOMove(pos, 4));
+        seq.Append(transform.DOJump(jumpPos, 1f, 1, 0.5f));
+        seq.Append(transform.DOMove(pos, 0.5f)).SetEase(Ease.Linear);
         seq.OnComplete(OnMoveTarget.Invoke);
+    }
+
+    private IEnumerator AttackCor()
+    {
+        yield return new WaitForSeconds(0.8f);
+        Attack();
     }
 
     public override void Spawn(Vector3 spawnPos)
@@ -48,7 +59,7 @@ public class KingButterDog : Enemy
 
         AnimatorCompo.SetBool(spawnAnimationHash, true);
 
-        transform.position = spawnPos + new Vector3(-6f, 0);
+        transform.position = spawnPos + new Vector3(-20f, 0);
         transform.DOMoveX(spawnPos.x, 1f).SetEase(Ease.InCubic).OnComplete(() =>
         {
             AnimatorCompo.SetBool(spawnAnimationHash, false);
@@ -57,19 +68,20 @@ public class KingButterDog : Enemy
     }
     public override void MoveToOriginPos()
     {
-        transform.DOMove(lastMovePos, 1).OnComplete(OnMoveOriginPos.Invoke);
+        transform.DOMove(lastMovePos, 0.5f).SetEase(Ease.Linear).OnComplete(OnMoveOriginPos.Invoke);
     }
 
 
     protected override void HandleEndMoveToOriginPos()
     {
+        AnimatorCompo.SetBool(attackAnimationHash, false);
         turnStatus = TurnStatus.End;
     }
 
     protected override void HandleEndMoveToTarget()
     {
-        Vector2 screenPos = MaestrOffice.GetWorldPosToScreenPos(transform.position);
-        transform.position = MaestrOffice.GetScreenPosToWorldPos(new Vector2(-30, screenPos.y));
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector2(-30, screenPos.y));
         MoveToOriginPos();
     }
 }

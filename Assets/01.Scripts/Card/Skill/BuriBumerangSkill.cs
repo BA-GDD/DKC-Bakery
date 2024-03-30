@@ -15,15 +15,16 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
-        StartCoroutine(AttackCor());
+        Player.VFXManager.PlayParticle(CardInfo);
+        if(Player.target != null) 
+            StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }

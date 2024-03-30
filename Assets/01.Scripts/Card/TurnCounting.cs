@@ -31,6 +31,10 @@ public class TurnCounting : MonoBehaviour
         TurnCounter.PlayerTurnStartEvent += ToPlayerTurnChanging;
     }
 
+    private void OnDestroy()
+    {
+        TurnCounter.PlayerTurnStartEvent -= ToPlayerTurnChanging;
+    }
     public void BattleStart()
     {
         TurnCounter.Init();

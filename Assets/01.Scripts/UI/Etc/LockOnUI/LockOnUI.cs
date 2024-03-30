@@ -25,6 +25,7 @@ public class LockOnUI : MonoBehaviour
             seq.Join(_lockOnUI.DOScale(Vector3.one * 2, 2)).SetLoops(-1, LoopType.Yoyo);
 
             target = e;
+            _lockOnUI.gameObject.SetActive(true); 
         }
         else
         {

@@ -6,14 +6,13 @@ public class CandyParty : Enemy
     protected override void Start()
     {
         base.Start();
-        target = BattleController.Player;
         VFXPlayer.OnEndEffect += () => turnStatus = TurnStatus.End;
     }
 
     public override void Attack()
     {
         OnAttackStart?.Invoke();
-        VFXPlayer.PlayParticle(attackParticle.particle, attackParticle.duration);
+        VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
         StartCoroutine(AttackCor());
     }
     private IEnumerator AttackCor()

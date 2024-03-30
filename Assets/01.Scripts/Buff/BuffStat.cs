@@ -13,6 +13,8 @@ public class BuffStat
     private Entity _owner;
     private Dictionary<BuffSO, int> _buffDic;
 
+
+
     public BuffStat(Entity entity)
     {
         _owner = entity;
@@ -20,7 +22,7 @@ public class BuffStat
         TurnCounter.RoundEndEvent += UpdateBuff;
         //_owner.BeforeChainingEvent.AddListener(UpdateBuff);
     }
-    public void AddBuff(BuffSO so, int durationTurn)
+    public void AddBuff(BuffSO so, int durationTurn, int combineLevel = 0)
     {
         so.SetOwner(_owner);
         if (_buffDic.ContainsKey(so))
@@ -30,7 +32,7 @@ public class BuffStat
         }
         else
         {
-            so.AppendBuff();
+            so.AppendBuff(combineLevel);
             _buffDic.Add(so, durationTurn);
         }
     }

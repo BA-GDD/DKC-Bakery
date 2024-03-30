@@ -6,7 +6,7 @@ using UnityEngine;
 public struct NormalBuff
 {
     public StatType type;
-    public int value;
+    public List<int> values;
 }
 
 [CreateAssetMenu(menuName = "SO/Buff")]
@@ -18,6 +18,8 @@ public class BuffSO : ScriptableObject
     public List<NormalBuff> statBuffs = new();
     public List<SpecialBuff> specialBuffs = new();
 
+    private int _combineLevel = 0;
+
     public void SetOwner(Entity owner)
     {
         _owner = owner;
@@ -25,13 +27,14 @@ public class BuffSO : ScriptableObject
         specialBuffs.ForEach(b => b.SetOwner(owner));
     }
 
-    public void AppendBuff()
+    public void AppendBuff(int combineLevel = 0)
     {
+        _combineLevel = combineLevel;
         foreach (var b in statBuffs)
         {
-            _stat.IncreaseStatBy(b.value, _stat.GetStatByType(b.type));
+            _stat.IncreaseStatBy(b.values[combineLevel], _stat.GetStatByType(b.type));
         }
-        foreach(var b in specialBuffs)
+        foreach (var b in specialBuffs)
         {
 
             _owner.BuffStatCompo.ActivateSpecialBuff(b);
@@ -42,7 +45,7 @@ public class BuffSO : ScriptableObject
     {
         foreach (var b in specialBuffs)
         {
-            b.Active();
+            b.Active(_combineLevel);
         }
     }
 
@@ -50,7 +53,7 @@ public class BuffSO : ScriptableObject
     {
         foreach (var b in statBuffs)
         {
-            _stat.DecreaseStatBy(b.value, _stat.GetStatByType(b.type));
+            _stat.DecreaseStatBy(b.values[_combineLevel], _stat.GetStatByType(b.type));
         }
     }
 }

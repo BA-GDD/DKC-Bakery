@@ -11,12 +11,12 @@ public class EnemyAnimationTrigger : MonoBehaviour
         _enemy = transform.parent.GetComponent<Enemy>();
     }
 
-    private void AnimationTrigger()
+    private void EndAnimationTrigger()
     {
         _enemy.AnimationFinishTrigger();
     }
 
-    private void CallAnimationEvent()
+    private void CallAnimationEvent(int n)
     {
         _enemy.OnAnimationCall?.Invoke();
     }

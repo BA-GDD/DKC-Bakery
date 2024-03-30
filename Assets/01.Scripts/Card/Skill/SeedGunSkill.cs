@@ -14,7 +14,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
-        
+
         foreach (var e in battleController.onFieldMonsterList)
         {
             if (e == Player.target) continue;
@@ -27,15 +27,16 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
-        StartCoroutine(AttackCor());
+        Player.VFXManager.PlayParticle(CardInfo);
+        if (Player.target != null)
+            StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 
@@ -50,7 +51,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(1f);
 
-        for(int i = 0; i < 3; ++i)
+        for (int i = 0; i < 3; ++i)
         {
             yield return new WaitForSeconds(0.15f);
             Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);

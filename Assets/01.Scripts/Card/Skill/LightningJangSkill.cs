@@ -33,15 +33,16 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position, (int)CombineLevel);
-        StartCoroutine(AttackCor());
+        Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position);
+        if (Player.target != null)
+            StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.EndParticle(CardInfo);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 

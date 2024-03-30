@@ -29,7 +29,7 @@ public class HealingByTurnSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator HealCor()
     {
-        Player.BuffStatCompo.AddBuff(buffSO, 0);
+        Player.BuffStatCompo.AddBuff(buffSO, 0, (int)CombineLevel);
         yield return null;
     }
 }

@@ -20,16 +20,31 @@ public class BuffSOEditor : Editor
         normalBuffList = new ReorderableList(serializedObject,
                 serializedObject.FindProperty("statBuffs"),
                 true, true, true, true);
+        normalBuffList.elementHeight *= 2;
         normalBuffList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
         {
             var element = normalBuffList.serializedProperty.GetArrayElementAtIndex(index);
             rect.y += 2;
-            EditorGUI.PropertyField(
-                new Rect(rect.x, rect.y, rect.width - rect.x - 50, EditorGUIUtility.singleLineHeight),
+            Rect fieldRect = new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight);
+            EditorGUI.PropertyField(fieldRect,
                 element.FindPropertyRelative("type"), GUIContent.none);
-            EditorGUI.PropertyField(
-                new Rect(rect.x + rect.width - 60, rect.y, 60, EditorGUIUtility.singleLineHeight),
-                element.FindPropertyRelative("value"), GUIContent.none);
+            fieldRect = new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width * 0.33f, fieldRect.height);
+            SerializedProperty sp = element.FindPropertyRelative("values").Copy();
+            if (sp.arraySize <= 0)
+            {
+                for (int i = 0; i < 3; i++)
+                    sp.InsertArrayElementAtIndex(i);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                EditorGUI.PropertyField(fieldRect,
+                    sp.GetArrayElementAtIndex(i), GUIContent.none);
+                fieldRect.x += fieldRect.width + 2;
+            }
+        };
+        normalBuffList.drawHeaderCallback = rect =>
+        {
+            EditorGUI.LabelField(rect, "Stat Buff");
         };
 
         specialBuffList = new ReorderableList(serializedObject,
@@ -75,12 +90,15 @@ public class BuffSOEditor : Editor
             }
             else
             {
-                Undo.DestroyObjectImmediate(ownerSO.specialBuffs[ownerSO.specialBuffs.Count-1]);
-                    ownerSO.specialBuffs.RemoveAt(ownerSO.specialBuffs.Count - 1);
+                Undo.DestroyObjectImmediate(ownerSO.specialBuffs[ownerSO.specialBuffs.Count - 1]);
+                ownerSO.specialBuffs.RemoveAt(ownerSO.specialBuffs.Count - 1);
                 AssetDatabase.SaveAssets();
             }
         };
-
+        specialBuffList.drawHeaderCallback = rect =>
+        {
+            EditorGUI.LabelField(rect, "Special Buff");
+        };
     }
 
     public override void OnInspectorGUI()
