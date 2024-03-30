@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ChapterElement : MonoBehaviour
 {
     [SerializeField] private MapDataSO _chapterData;
+    [SerializeField] private UnityEvent<MapDataSO> _loadMapActiveEvent;
 
     [Header("ÂüÁ¶°ª")]
     [SerializeField] private TextMeshProUGUI _chapterNameTxt;
@@ -23,6 +25,6 @@ public class ChapterElement : MonoBehaviour
     public void SelectThisChapter()
     {
         MapManager.Instanace.SelectMapData = _chapterData;
-        MapManager.Instanace.ActiveLoadMap(true);
+        _loadMapActiveEvent?.Invoke(_chapterData);
     }
 }

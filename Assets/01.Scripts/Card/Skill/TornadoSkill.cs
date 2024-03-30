@@ -7,10 +7,9 @@ public class TornadoSkill : CardBase
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
-
+        Player.UseAbility(this,false,true);
     }
     private void HandleAnimationCall()
     {

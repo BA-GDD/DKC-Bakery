@@ -69,13 +69,15 @@ public class BattleController : MonoBehaviour
 
         _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
-        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+
     }
     private void Start()
     {
-        Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
+        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
 
+        Player.BattleController = this;
+        Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
     private void OnDestroy()
     {
@@ -113,7 +115,7 @@ public class BattleController : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
         }
-        if(!_isGameEnd)
+        if (!_isGameEnd)
             TurnCounter.ChangeTurn();
     }
 
@@ -137,7 +139,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        ChangeTarget(onFieldMonsterList[0]);
+        ChangePlayerTarget(onFieldMonsterList[0]);
 
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
@@ -147,7 +149,7 @@ public class BattleController : MonoBehaviour
         {
             Vector3 pos = _spawnDistanceByPoint[idx].position;
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
-            _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
+            //_enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
@@ -180,18 +182,24 @@ public class BattleController : MonoBehaviour
 
             if (e != null && e.HealthCompo.IsDead)
             {
-                ChangeTarget(e);
+                ChangePlayerTarget(e);
                 return;
             }
         }
-        ChangeTarget(null);
+        ChangePlayerTarget(null);
     }
     public bool IsStuck(int to, int who)
     {
         return isStuck.list[to].list[who];
     }
 
-    public void ChangeTarget(Entity entity)
+    public void ChangePosition(Transform e1, Transform e2, Action callback = null)
+    {
+        e1.DOMove(e2.position, 0.5f);
+        e2.DOMove(e1.position, 0.5f).OnComplete(() => callback?.Invoke());
+    }
+
+    public void ChangePlayerTarget(Entity entity)
     {
         Player.target = entity;
         OnChangePlayerTarget?.Invoke(entity);

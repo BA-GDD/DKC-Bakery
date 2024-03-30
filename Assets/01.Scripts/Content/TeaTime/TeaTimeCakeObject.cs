@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-public class TeaTimeCakeObject : MonoBehaviour, IEndDragHandler, IDragHandler
+public class TeaTimeCakeObject : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     public bool CanCollocate { get; set; } = true;
     [SerializeField] private Image _cakeImg;
-    [SerializeField] private EatRange _eatRange;
+    [SerializeField] private RectTransform _rectTrm;
     private Vector2 _usuallyPos;
 
     private ItemDataBreadSO _cakeSO;
+    public ItemDataBreadSO CakeInfo => _cakeSO;
 
-    private void Awake()
+    private TeaTimeUI _teaTimeUI;
+    private bool _isInitThisCakeInEatRange;
+
+    private void Start()
     {
-        //_cakeImg.enabled = false;
+        _teaTimeUI = UIManager.Instance.GetSceneUI<TeaTimeUI>();
         _usuallyPos = transform.position;
     }
+
     public void SetCakeImage(ItemDataBreadSO info)
     {
         _cakeSO = info;
@@ -25,18 +31,26 @@ public class TeaTimeCakeObject : MonoBehaviour, IEndDragHandler, IDragHandler
         _cakeImg.enabled = true;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        transform.position = _usuallyPos;
-
-        _cakeImg.enabled = false;
-        _eatRange.IsHoldingCake = false;
-        _eatRange.OnPointerUp();
-    }
-
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
-        _eatRange.IsHoldingCake = true;
+        _isInitThisCakeInEatRange = _teaTimeUI.EatRange.CheckCanEat(_rectTrm);
+        _teaTimeUI.TeaTimeCreamStand.ChangeFace(_isInitThisCakeInEatRange);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if(_isInitThisCakeInEatRange)
+        {
+            _teaTimeUI.TeaTimeCreamStand.EatCake(CakeInfo);
+            _teaTimeUI.CakeCollocation.UnCollocateCake(CakeInfo);
+            _teaTimeUI.TeaTimeCreamStand.Reaction();
+            _cakeImg.enabled = false;
+        }
+        else
+        {
+            _cakeImg.enabled = true;
+        }
+        transform.position = _usuallyPos;
     }
 }
