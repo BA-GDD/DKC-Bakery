@@ -12,7 +12,8 @@ public class RiceBird : Enemy
     }
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.9f);
+        VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         OnAttackEnd?.Invoke();
     }

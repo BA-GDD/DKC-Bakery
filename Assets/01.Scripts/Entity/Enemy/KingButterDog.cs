@@ -13,6 +13,7 @@ public class KingButterDog : Enemy
     public override void Attack()
     {
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
+        VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
     }
 
     public override void SlowEntityBy(float percent)
@@ -21,7 +22,7 @@ public class KingButterDog : Enemy
 
     public override void TurnAction()
     {
-
+        OnAttackStart?.Invoke();
         MoveToTargetForward();
     }
 
@@ -51,6 +52,7 @@ public class KingButterDog : Enemy
     {
         yield return new WaitForSeconds(0.8f);
         Attack();
+        OnAttackEnd?.Invoke();
     }
 
     public override void Spawn(Vector3 spawnPos)

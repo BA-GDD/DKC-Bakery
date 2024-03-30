@@ -22,9 +22,10 @@ public class CandyParty : Enemy
         for (int i = 0; i < 5; ++i)
         {
             yield return new WaitForSeconds(0.3f);
-
+            VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
             target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         }
+        OnAttackEnd?.Invoke();
     }
 
     public override void SlowEntityBy(float percent)
