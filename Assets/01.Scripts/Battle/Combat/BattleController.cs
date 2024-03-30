@@ -68,6 +68,7 @@ public class BattleController : MonoBehaviour
 
         onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
+        TurnCounter.PlayerTurnStartEvent += HandleCardDraw;
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
 
@@ -75,10 +76,17 @@ public class BattleController : MonoBehaviour
         _hpBarMaker.SetupHpBar(Player);
         Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
+
+    private void HandleCardDraw(bool obj)
+    {
+        CardReader.CardDrawer.DrawCard(1, false);
+    }
+
     private void OnDestroy()
     {
         TurnCounter.EnemyTurnStartEvent -= OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
+        TurnCounter.PlayerTurnStartEvent -= HandleCardDraw;
     }
 
     private void OnEnemyTurnStart(bool b)
