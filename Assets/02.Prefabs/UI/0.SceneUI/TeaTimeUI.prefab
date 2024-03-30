@@ -1041,7 +1041,8 @@ MonoBehaviour:
   _myType: 4
   _audioClip: {fileID: 8300000, guid: d061cc8c766d62343912989f37f2c32b, type: 3}
   director: {fileID: 8973695357881045143}
-  sprite: {fileID: 0}
+  cardImage: {fileID: 4864683974392969658}
+  cardName: {fileID: 1638757462799591738}
 --- !u!320 &8973695357881045143
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -2278,7 +2279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 63.422, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18, y: -299}
+  m_AnchoredPosition: {x: 25, y: -299}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &4931568616755957137
@@ -2289,7 +2290,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5462703739828325693}
   serializedVersion: 8
-  lengthInSec: 10
+  lengthInSec: 9
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -6564,15 +6565,15 @@ ParticleSystem:
     colorLabel0: Color
     vector0_0:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
+      minMaxState: 1
+      scalar: 4.3183937
       minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 0.2402649
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -6580,8 +6581,17 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0
+          time: 0.7828947
+          value: 0.2402649
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.94573975
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -8094,7 +8104,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 2
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -8181,7 +8191,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 2.54
       mode: 0
       spread: 0
       speed:
@@ -12265,7 +12275,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b01d24ff9a82e04d999ad855e48f527, type: 2}
+  - {fileID: 2100000, guid: 2bc7f4fce5e258343b3c3bc665051ba8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12285,7 +12295,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1052655481
   m_SortingLayer: 6
-  m_SortingOrder: 11
+  m_SortingOrder: 28
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -12613,7 +12623,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1677721599
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -13045,8 +13055,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.99
-      minScalar: 2.32
+      scalar: 1.85
+      minScalar: 3.76
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13509,7 +13519,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 2.47
       mode: 0
       spread: 0
       speed:
@@ -13738,7 +13748,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 50
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -17763,10 +17773,10 @@ RectTransform:
   - {fileID: 1025648176303177782}
   m_Father: {fileID: 2780294545297784539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3941104669795749706
 Canvas:
