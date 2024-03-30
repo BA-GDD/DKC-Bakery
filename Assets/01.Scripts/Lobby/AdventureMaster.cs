@@ -48,6 +48,6 @@ public class AdventureMaster : MonoBehaviour
 
         int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
         _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx - 1];
-
+        _stagePanel.chapterVisualVFXList[idx - 1].SetActive(true);
     }
 }
