@@ -33,11 +33,11 @@ public class KingButterDog : Enemy
 
         //seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
         Vector2 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 30, screenPos.y));
+        Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 30, transform.position.y));
         pos.y = transform.position.y;
 
         Vector3 jumpPos = Vector3.zero;
-        jumpPos.y = target.transform.position.y;
+        jumpPos.y = transform.position.y;
         jumpPos.x = transform.position.x + 3;
 
         StartCoroutine(AttackCor());

@@ -134,13 +134,8 @@ public static class CardReader
     
     public static CardBase GetCardInDeck()
     {
-        if(_deckIdx == _inDeckCardList.Count)
-        {
-            _deckIdx = 0;
-        }
-
-        _deckIdx++;
-        return _inDeckCardList[_deckIdx - 1];
+        _deckIdx %= _inDeckCardList.Count;
+        return _inDeckCardList[_deckIdx++];
     }
 
     public static CardBase GetRandomCardInDeck()

@@ -428,7 +428,7 @@ MonoBehaviour:
   onFieldMonsterList: []
   _spawnTurm: 0.0597
   _enemyGroup: {fileID: 0}
-  _spawnDistanceByPoint:
+  spawnDistanceByPoint:
   - {fileID: 9034104704580529501}
   - {fileID: 1751131394602917211}
   - {fileID: 6264700976906485318}
@@ -1615,12 +1615,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 379168712995245674}
   - {fileID: 2160893068857893561}
   - {fileID: 7688915532552553653}
   - {fileID: 3420154087844498095}
   - {fileID: 8464104272742476555}
   - {fileID: 1081039783854170733}
-  - {fileID: 379168712995245674}
   - {fileID: 6009916202714694763}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

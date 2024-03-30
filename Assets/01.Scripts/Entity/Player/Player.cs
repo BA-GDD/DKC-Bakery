@@ -42,6 +42,17 @@ public class Player : Entity
         PlayerStat = CharStat as PlayerStat;
         VFXManager = FindObjectOfType<PlayerVFXManager>();
     }
+
+    private void TurnStart(bool b)
+    {
+        ColliderCompo.enabled = false;
+    }
+    private void TurnEnd()
+    {
+        ColliderCompo.enabled = true;
+        ChangePosWithCream(false);
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -65,12 +76,14 @@ public class Player : Entity
         cream.OnAnimationCall = () => OnAnimationCall?.Invoke();
         cream.OnAnimationEnd = () => OnAnimationEnd?.Invoke();
 
-        TurnCounter.PlayerTurnEndEvent += MoveCreamFornt;
+        TurnCounter.PlayerTurnStartEvent += TurnStart;
+        TurnCounter.PlayerTurnEndEvent += TurnEnd;
     }
 
     protected void OnDisable()
     {
-        TurnCounter.PlayerTurnEndEvent -= MoveCreamFornt;
+        TurnCounter.PlayerTurnStartEvent -= TurnStart;
+        TurnCounter.PlayerTurnEndEvent -= TurnEnd;
         if (_hpUI != null)
             HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
@@ -117,7 +130,7 @@ public class Player : Entity
         }
 
         _isFront = front;
-        BattleController.ChangePosition(transform, cream.transform, callback);
+        BattleController.ChangeXPosition(transform, cream.transform, callback);
     }
     public void EndAbility()
     {
@@ -133,9 +146,5 @@ public class Player : Entity
     protected override void HandleEndMoveToOriginPos()
     {
         // 일단 할거 없음
-    }
-    private void MoveCreamFornt()
-    {
-        ChangePosWithCream(false);
     }
 }

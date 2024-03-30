@@ -1253,6 +1253,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8016000174569214352}
   - {fileID: 756252719061408488}
   - {fileID: 4364407641357982261}
   - {fileID: 7919124119868484098}
@@ -1261,7 +1262,6 @@ RectTransform:
   - {fileID: 3603523018587930143}
   - {fileID: 1980166212997655625}
   - {fileID: 751046913271507590}
-  - {fileID: 8016000174569214352}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3663,7 +3663,7 @@ MonoBehaviour:
   onFieldMonsterList: []
   _spawnTurm: 0.0597
   _enemyGroup: {fileID: 0}
-  _spawnDistanceByPoint:
+  spawnDistanceByPoint:
   - {fileID: 4217581982166892772}
   - {fileID: 4889032474925146078}
   - {fileID: 3011862531436322315}

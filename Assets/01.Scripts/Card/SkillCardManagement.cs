@@ -42,9 +42,9 @@ public class SkillCardManagement : CardManagement
         _acceptBtnSwitchEvent?.Invoke(false);
         int maxCount = InCardZoneCatalogue.Count;
 
-        for (int i = maxCount - 1; i >= 0; i--)
+        for (int i = 0; i < maxCount; i++)
         {
-            float x = _lastCardPos.x - (_activationTurmValue * i);
+            float x = _lastCardPos.x - (_activationTurmValue * (maxCount - i - 1));
             Vector2 targetPos = new Vector2(x, _lastCardPos.y);
             Transform selectTrm = InCardZoneCatalogue[i].transform;
 
@@ -55,7 +55,7 @@ public class SkillCardManagement : CardManagement
             seq.Append(selectTrm.DOLocalMove(targetPos, 0.5f).SetEase(Ease.InOutBack));
             seq.Join(selectTrm.DOLocalRotate(Vector3.zero, 0.5f));
 
-            if(i == maxCount - 1)
+            if (i == maxCount - 1)
             {
                 seq.InsertCallback(1, () => ChainingSkill());
             }
@@ -65,13 +65,13 @@ public class SkillCardManagement : CardManagement
     {
         if (_isInChaining)
             useCardEndEvnet?.Invoke();
-        
+
         if (!_isInChaining && InCardZoneCatalogue.Count != 0)
         {
             beforeChainingEvent?.Invoke();
             _isInChaining = true;
         }
-        else if(_isInChaining && InCardZoneCatalogue.Count == 0)
+        else if (_isInChaining && InCardZoneCatalogue.Count == 0)
         {
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
@@ -82,7 +82,7 @@ public class SkillCardManagement : CardManagement
             return;
         }
 
-        CardBase selectCard = InCardZoneCatalogue[InCardZoneCatalogue.Count - 1];
+        CardBase selectCard = InCardZoneCatalogue[0];
         InCardZoneCatalogue.Remove(selectCard);
 
         selectCard.ActiveInfo();
@@ -113,23 +113,23 @@ public class SkillCardManagement : CardManagement
         if (maxIdx != 0)
         {
             selectCard.transform.
-            DOLocalMove(new Vector2(InCardZoneCatalogue[maxIdx - 1].transform.localPosition.x 
-                                    - 70, 0), 0.3f);
+            DOLocalMove(new Vector2(InCardZoneCatalogue[maxIdx - 1].transform.localPosition.x
+                                    + 70, 0), 0.3f);
         }
         else
         {
             selectCard.transform.DOLocalMove(Vector3.zero, 0.3f);
         }
 
-        for(int i = 0; i < maxIdx; i++)
+        for (int i = 0; i < maxIdx; i++)
         {
             Transform selectTrm = InCardZoneCatalogue[i].transform;
-            selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x + 70f, 0), 0.3f);
+            selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 0), 0.3f);
         }
     }
     public void SetCardInfo(CardInfo info, bool isSet)
     {
-        if(isSet)
+        if (isSet)
         {
             _cardInfoPanel = PoolManager.Instance.Pop(PoolingType.CardInfoPanel) as CardInfoPanel;
             _cardInfoPanel.SetInfo(info, _cardInfoTrm);

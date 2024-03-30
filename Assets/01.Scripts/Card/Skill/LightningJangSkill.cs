@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 {
-    private Color minimumColor = new Color(255,255,255,.1f);
+    private Color minimumColor = new Color(255, 255, 255, .1f);
     private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
 
     public override void Abillity()
@@ -14,11 +14,11 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
-        Player.UseAbility(this,false,true);
+        Player.UseAbility(this, false, true);
 
         Player.VFXManager.BackgroundColor(Color.gray);
 
-        if(Player.target != null)
+        if (Player.target != null)
         {
             GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
             Destroy(obj, 1.0f);
@@ -33,9 +33,12 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position, (int)CombineLevel);
+        Vector3 pos = Player.target != null ? Player.target.transform.position : Player.BattleController.spawnDistanceByPoint[0].position;
+        Player.VFXManager.PlayParticle(CardInfo, pos, (int)CombineLevel);
         if (Player.target != null)
+        {
             StartCoroutine(AttackCor());
+        }
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
@@ -62,10 +65,10 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         Destroy(obj, 1.0f);
 
 
-        if(Random.value * 100 >= 30f)
+        if (Random.value * 100 >= 30f)
         {
             Player.target.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
-            
+
         }
 
         FeedbackManager.Instance.EndSpeed = 3.0f;

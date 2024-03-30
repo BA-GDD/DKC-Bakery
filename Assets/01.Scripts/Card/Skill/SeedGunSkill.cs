@@ -7,11 +7,15 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     private Color minimumColor = new Color(255, 255, 255, .1f);
     private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
 
+    private float yPos;
+
     public override void Abillity()
     {
         IsActivingAbillity = true;
 
-        Player.UseAbility(this);
+        yPos = Player.transform.position.y;
+        if (Player.target == null) Player.UseAbility(this);
+        else Player.transform.DOMoveY(Player.target.transform.position.y, 0.1f).OnComplete(() => Player.UseAbility(this));
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
 
@@ -27,7 +31,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position, (int)CombineLevel); 
         if (Player.target != null)
             StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
@@ -37,7 +41,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     {
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
-        IsActivingAbillity = false;
+        Player.transform.DOMoveY(yPos, 0.1f).OnComplete(() => IsActivingAbillity = false);
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 
         foreach (var e in battleController.onFieldMonsterList)

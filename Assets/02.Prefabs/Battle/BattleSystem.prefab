@@ -50,13 +50,16 @@ MonoBehaviour:
   onFieldMonsterList: []
   _spawnTurm: 0.0597
   _enemyGroup: {fileID: 0}
-  _spawnDistanceByPoint:
-  - {fileID: 7414291030601164969}
+  spawnDistanceByPoint:
   - {fileID: 285425025555273903}
-  - {fileID: 586360366247708858}
+  - {fileID: 7414291030601164969}
   - {fileID: 2907406203049085876}
+  - {fileID: 586360366247708858}
   - {fileID: 2303621361603138008}
   _player: {fileID: 0}
+  OnChangePlayerTarget:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3821894952470706343
 PrefabInstance:
   m_ObjectHideFlags: 0
