@@ -45,6 +45,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _aura_normal_tex:
+        m_Texture: {fileID: 2800000, guid: 0c9e585b001cd8048afcd07b5676b774, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _aura_tex:
+        m_Texture: {fileID: 2800000, guid: 870ae2d60d57cd04fba95274a1472f67, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _dissolve_tex:
         m_Texture: {fileID: 2800000, guid: 97ebf45aa5fef4241a022d60daaa2214, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -80,6 +88,13 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
+    - _aura_ins: 0.12
+    - _aura_length: 0.18
+    - _aura_noraml_str: 0.096
+    - _aura_normal_upanner: 0
+    - _aura_normal_vpanner: -0.5
+    - _aura_upanner: 0
+    - _aura_vpanner: -0.64
     - _dissolve_amount: 0.1
     - _edge_width: 0.272
     - _is_up_direction: 1
@@ -91,6 +106,9 @@ Material:
     - _outline_thick: 288.47
     - _rot: 28.31
     m_Colors:
+    - _aura_color: {r: 3.0657248, g: 3.2450624, b: 0.59696907, a: 0}
+    - _aura_normal_tiling: {r: 1.33, g: 0.26, b: 0, a: 0}
+    - _aura_tex_tiling: {r: 1, g: 0.79, b: 0, a: 0}
     - _dissolve_color: {r: 0, g: 0, b: 0, a: 0}
     - _line_color: {r: 3.4415905, g: 2.6461287, b: 2.6461287, a: 0}
     - _main_color: {r: 1, g: 1, b: 1, a: 1}

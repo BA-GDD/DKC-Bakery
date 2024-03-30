@@ -74,10 +74,6 @@ public class Inventory : MonoSingleton<Inventory>
         if (item.itemType == ItemType.Bread)
         {
             ItemDataBreadSO breadSO = ((ItemDataBreadSO)item);
-            if(breadSO!= null)
-            {
-                onRemoveBreadTrigger.Invoke(breadSO.hogamdo);
-            }
             breadStash.RemoveItem(item, count);
         }
         else if (item.itemType == ItemType.Ingredient)

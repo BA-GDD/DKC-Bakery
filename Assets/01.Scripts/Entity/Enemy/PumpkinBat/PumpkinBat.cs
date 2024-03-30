@@ -7,13 +7,12 @@ public class PumpkinBat : Enemy
     protected override void Start()
     {
         base.Start();
-        target = BattleController.Player;
     }
 
     public override void Attack()
     {
         OnAttackStart?.Invoke();
-        VFXPlayer.PlayParticle(attackParticle.particle, attackParticle.duration);
+        VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
         StartCoroutine(AttackCor());
     }
 

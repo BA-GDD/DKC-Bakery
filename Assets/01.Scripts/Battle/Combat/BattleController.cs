@@ -65,17 +65,21 @@ public class BattleController : MonoBehaviour
     private void Awake()
     {
         //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
-        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
-        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
-        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+
     }
     private void Start()
     {
-        Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
+        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
 
+        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
+
+        TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
+        TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
+
+        Player.BattleController = this;
+        Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
     private void OnDestroy()
     {
@@ -113,7 +117,7 @@ public class BattleController : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
         }
-        if(!_isGameEnd)
+        if (!_isGameEnd)
             TurnCounter.ChangeTurn();
     }
 
@@ -137,8 +141,8 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        ChangeTarget(onFieldMonsterList[0]);
-
+        if (Player.target == null)
+            SetPlayerCloseTarget();
         //_enemyHpBarMaker.SetupEnemyHpBar();
     }
     private void SpawnMonster(int idx)
@@ -157,18 +161,16 @@ public class BattleController : MonoBehaviour
 
             onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.Spawn(pos);
+            selectEnemy.target = Player;
 
             SpawnEnemyList.Add(selectEnemy);
-
-            if (Player.target != null)
-                SetPlayerCloseTarget();
         }
     }
 
     public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
-        if (Player.target != null && enemy == Player.target)
+        if (enemy == Player.target)
             SetPlayerCloseTarget();
         DeathEnemyList.Add(enemy);
     }
@@ -178,20 +180,26 @@ public class BattleController : MonoBehaviour
         {
             Enemy e = onFieldMonsterList[i];
 
-            if (e != null && e.HealthCompo.IsDead)
+            if (e != null && !e.HealthCompo.IsDead)
             {
-                ChangeTarget(e);
+                ChangePlayerTarget(e);
                 return;
             }
         }
-        ChangeTarget(null);
+        ChangePlayerTarget(null);
     }
     public bool IsStuck(int to, int who)
     {
         return isStuck.list[to].list[who];
     }
 
-    public void ChangeTarget(Entity entity)
+    public void ChangePosition(Transform e1, Transform e2, Action callback = null)
+    {
+        e1.DOMove(e2.position, 0.5f);
+        e2.DOMove(e1.position, 0.5f).OnComplete(() => callback?.Invoke());
+    }
+
+    public void ChangePlayerTarget(Entity entity)
     {
         Player.target = entity;
         OnChangePlayerTarget?.Invoke(entity);

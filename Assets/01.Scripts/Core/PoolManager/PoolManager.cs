@@ -19,7 +19,9 @@ public enum PoolingType
     Mr_Muddy,
     MonStrowBerry,
     PumpkinBat,
-    Sound
+    Sound,
+    KingBufferDog,
+    RiceBird
 }
 
 public class PoolManager

@@ -7,9 +7,10 @@ using UnityEngine.EventSystems;
 using Sequence = DG.Tweening.Sequence;
 
 [Serializable]
-public struct EnemyParticle
+public struct EnemyAttack
 {
-    public ParticleSystem particle;
+    public ParticleSystem attack;
+    public ParticleSystem hitPrefab;
     public float duration;
 }
 
@@ -17,7 +18,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
 {
     [Header("셋팅값들")]
     public Transform hpBarPos;
-    [SerializeField] protected EnemyParticle attackParticle; 
+    [SerializeField] protected EnemyAttack attackParticle; 
 
     [SerializeField] protected CameraMoveTrack camTrack;
 
@@ -36,7 +37,12 @@ public abstract class Enemy : Entity,IPointerDownHandler
         base.Awake();
         VFXPlayer = GetComponent<EnemyVFXPlayer>();
         Collider = GetComponent<Collider>();
-        HealthCompo.OnDeathEvent.AddListener(() => Collider.enabled = false);
+        
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        target = BattleController?.Player;
     }
 
     public void AnimationFinishTrigger()
@@ -59,6 +65,8 @@ public abstract class Enemy : Entity,IPointerDownHandler
 
     public virtual void Spawn(Vector3 spawnPos)
     {
+        SpriteRendererCompo.material.SetFloat("_dissolve_amount", 0);
+
         AnimatorCompo.SetBool(spawnAnimationHash, true);
 
         transform.position = spawnPos + new Vector3(-4f, 6f);
@@ -83,7 +91,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        BattleController.ChangeTarget(this);
+        BattleController.ChangePlayerTarget(this);
         print(123);
     }
 }

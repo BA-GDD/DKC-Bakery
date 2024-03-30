@@ -7,14 +7,13 @@ public class TornadoSkill : CardBase
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
-
+        Player.UseAbility(this,false,true);
     }
     private void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo,centerPos());
+        Player.VFXManager.PlayParticle(CardInfo,centerPos(), (int)CombineLevel);
         StartCoroutine(AttackCor());    
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -47,7 +46,7 @@ public class TornadoSkill : CardBase
     private void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }

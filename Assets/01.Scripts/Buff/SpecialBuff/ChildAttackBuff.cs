@@ -5,9 +5,6 @@ using UnityEngine;
 public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
 {
     private List<Health> appliedEnemy = new();
-    public override void Active()
-    {
-    }
 
     public void TakeDamage(Health health)
     {
@@ -27,6 +24,7 @@ public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
     public override void SetIsComplete(bool value)
     {
         base.SetIsComplete(value);
-        entity.BeforeChainingEvent.RemoveListener(EndAttack);
+        if(value)
+            entity.BeforeChainingEvent.RemoveListener(EndAttack);
     }
 }

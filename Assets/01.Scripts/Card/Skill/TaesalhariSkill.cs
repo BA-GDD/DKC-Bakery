@@ -8,7 +8,7 @@ public class TaesalhariSkill : ChilledCardBase, ISkillEffectAnim
     {
         IsActivingAbillity = true;
         Player.UseAbility(this);
-        Player.VFXManager.PlayParticle(CardInfo);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
     }
 
@@ -21,7 +21,7 @@ public class TaesalhariSkill : ChilledCardBase, ISkillEffectAnim
     {
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
     }
 }   

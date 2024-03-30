@@ -20,6 +20,8 @@ public abstract class Entity : PoolableMono
     public BattleController BattleController { get; set; }
     public BuffStat BuffStatCompo { get; private set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
+
+    public Collider ColliderCompo { get; private set; }
     #endregion
 
     protected int _hitAnimationHash = Animator.StringToHash("hit");
@@ -45,16 +47,7 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected float moveDuration = 0.1f;
 
 
-    private SkillCardManagement management;
-    public UnityEvent BeforeChainingEvent
-    {
-        get
-        {
-            if (management == null)
-                management = FindObjectOfType<SkillCardManagement>();
-            return management.beforeChainingEvent;
-        }
-    }
+    public UnityEvent BeforeChainingEvent => CardReader.SkillCardManagement.beforeChainingEvent;
 
     protected virtual void Awake()
     {
@@ -72,13 +65,26 @@ public abstract class Entity : PoolableMono
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
-        OnMoveTarget += HandleEndMoveToTarget;
-        OnMoveOriginPos += HandleEndMoveToOriginPos;
+        ColliderCompo = GetComponent<Collider>();
+
     }
 
     protected virtual void Start()
     {
         BuffStatCompo = new BuffStat(this);
+    }
+    protected virtual void OnEnable()
+    {
+        HealthCompo.SetOwner(this);
+
+        OnMoveTarget += HandleEndMoveToTarget;
+        OnMoveOriginPos += HandleEndMoveToOriginPos;
+        ColliderCompo.enabled = true;
+    }
+    private void OnDisable()
+    {
+        OnMoveTarget -= HandleEndMoveToTarget;
+        OnMoveOriginPos -= HandleEndMoveToOriginPos;
     }
 
     private void HandleCutInOnFieldMonsterList()
@@ -147,7 +153,7 @@ public abstract class Entity : PoolableMono
         }
     }
 
-    public void MoveToTargetForward()
+    public virtual void MoveToTargetForward()
     {
         lastMovePos = transform.position;
 
@@ -158,7 +164,7 @@ public abstract class Entity : PoolableMono
         seq.OnComplete(OnMoveTarget.Invoke);
     }
     protected abstract void HandleEndMoveToTarget();
-    public void MoveToOriginPos()
+    public virtual void MoveToOriginPos()
     {
         transform.DOMove(lastMovePos, moveDuration).OnComplete(OnMoveOriginPos.Invoke);
     }
@@ -166,10 +172,12 @@ public abstract class Entity : PoolableMono
 
     public void DeadSeq()
     {
+        CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSeq);
         StartCoroutine(DissolveCo());
     }
     private IEnumerator DissolveCo()
     {
+        HealthCompo.OnDeathEvent?.Invoke();
         float timer = 0;
         while (timer < 1)
         {
@@ -177,7 +185,9 @@ public abstract class Entity : PoolableMono
             SpriteRendererCompo.material.SetFloat("_dissolve_amount",Mathf.Lerp(0,1,timer));
             yield return null;
         }
-        PoolManager.Instance.Push(this);
+        HealthCompo.OnDeathEvent.RemoveAllListeners();
+        if(this is not Player)
+            PoolManager.Instance.Push(this);
     }
 
     public override void Init()

@@ -22,7 +22,11 @@ public class BattleResultPanel : PanelUI
 
         if (!MapManager.Instanace.SelectStageData.clearCondition.IsClear)
         {
-            _clearText.text = "Defeat";
+            _clearText.text = "Defeat";                 
+        }
+        else
+        {
+            MapManager.Instanace.SelectStageData.StageClear();
         }
 
         SetEnemyProfile();
@@ -65,6 +69,15 @@ public class BattleResultPanel : PanelUI
                 Instantiate(_itemProfile, _itemProfileTrm).SetProfile(i.itemIcon);
                 yield return new WaitForSeconds(0.2f);
             }
+        }
+    }
+
+    public void GotoPoolAllEnemy()
+    {
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            if(e != null)
+                PoolManager.Instance.Push(e);
         }
     }
 }

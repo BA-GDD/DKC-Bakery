@@ -46,9 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _impulseSource: {fileID: 5117759325655729331}
   _cinemachineCam: {fileID: 2573655892217182241}
+  _volumeProfile: {fileID: 0}
   _endSpeed: 1
-  debugHit: {fileID: 0}
-  debugBgm: {fileID: 0}
 --- !u!1 &2024468368029832557
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1342911640801572548}
   - component: {fileID: 5546566525019732448}
+  - component: {fileID: 3875728221463417774}
   m_Layer: 0
   m_Name: DeckManager
   m_TagString: Untagged
@@ -257,6 +257,18 @@ MonoBehaviour:
   - {fileID: -5554570068127067684, guid: 3ddb4841e5a194a468d5b062e03880af, type: 3}
   - {fileID: 7410737955866284700, guid: fab459b1f189cd946ba47b6bceff3c5e, type: 3}
   - {fileID: 3269717528665730095, guid: a8b0492e6ef6ac847bcf2d8ebd53f842, type: 3}
+--- !u!114 &3875728221463417774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781822974561163313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be68439064032bb4594843bc3c6b570f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4201791476358369452
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,8 +314,8 @@ Camera:
   m_GameObject: {fileID: 4201791476358369452}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -820,7 +832,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: -0.3802383, y: 0.4947766, z: 0}
+  m_DefaultVelocity: {x: 0.0156005, y: -0.4739816, z: 0}
 --- !u!114 &4880571573036392090
 MonoBehaviour:
   m_ObjectHideFlags: 0

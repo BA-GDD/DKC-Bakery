@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +20,30 @@ public enum StageBackGround
 [CreateAssetMenu(menuName ="SO/StageData")]
 public class StageDataSO : ScriptableObject
 {
+    public string stageNumber;
     public string stageName;
     public StageType stageType;
     public StageBackGround stageBackGround;
     public EnemyGroupSO enemyGroup;
     public TsumegoInfo clearCondition;
     public List<CardBase> missionDeck;
+
+    private const string _dataKey = "AdventureKEY";
+
+    public void StageClear()
+    {
+        string[] numArr = stageNumber.Split('-');
+
+        int chapteridx = Convert.ToInt16(numArr[0]);
+        int stageidx = Convert.ToInt16(numArr[1]);
+
+        AdventureData ad = DataManager.Instance.LoadData<AdventureData>(_dataKey);
+        string challingingStageData = $"{chapteridx}-{stageidx + 1}";
+        if(stageidx == 6)
+        {
+            challingingStageData = $"{chapteridx + 1}-{1}";
+        }
+        ad.InChallingingStageCount = challingingStageData;
+        DataManager.Instance.SaveData(ad, _dataKey);
+    }
 }

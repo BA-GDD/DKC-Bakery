@@ -11,18 +11,10 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        int targetIdx = -1;
-        foreach (var e in battleController.onFieldMonsterList)
-        {
-            if (e != null)
-            {
-                targetIdx++;
-            }
-        }
-        Player.target = battleController.onFieldMonsterList[targetIdx];
-        Player.UseAbility(this);
+
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+        Player.UseAbility(this,false,true);
 
         Player.VFXManager.BackgroundColor(Color.gray);
 
@@ -41,15 +33,16 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position);
-        StartCoroutine(AttackCor());
+        Player.VFXManager.PlayParticle(CardInfo, Player.target.transform.position, (int)CombineLevel);
+        if (Player.target != null)
+            StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 

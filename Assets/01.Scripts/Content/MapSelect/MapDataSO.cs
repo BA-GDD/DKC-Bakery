@@ -8,7 +8,7 @@ public class MapDataSO : ScriptableObject
 {
     public ChapterType myChapterType;
     public Sprite chapterSprite;
-    public NodeLaodMap loadMap;
+    public GameObject loadMap;
     public string chapterName;
     public string chapterInfo;
 }

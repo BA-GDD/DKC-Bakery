@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class HealingBuff : SpecialBuff
 {
-    public int healingAmount;
+    public List<int> healingAmounts;
     public int turnDuration;
 
-    public override void Active()
+    public override void Active(int level)
     {
-        entity.HealthCompo.ApplyHeal(Mathf.RoundToInt(entity.HealthCompo.maxHealth * healingAmount * 0.01f));
+        base.Active(level);
+        entity.HealthCompo.ApplyHeal(Mathf.RoundToInt(entity.HealthCompo.maxHealth * healingAmounts[combineLevel] * 0.01f));
         turnDuration--;
 
         if(turnDuration <= 0)

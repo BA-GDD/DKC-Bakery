@@ -26,16 +26,20 @@ public class Health : MonoBehaviour, IDamageable
     public UnityEvent<AilmentEnum> OnAilmentChanged;
 
     private Entity _owner;
-    [SerializeField]private bool _isDead = false;
+    [SerializeField] private bool _isDead = false;
     public bool IsDead
     {
         get => _isDead;
         set
         {
             _isDead = value;
-            if(_isDead)
-                OnDeathEvent?.Invoke();
-
+            if (_isDead)
+            {
+                if (_owner is Enemy)
+                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSeq);
+                else
+                    OnDeathEvent?.Invoke();
+            }
         }
     }
     private bool _isInvincible = false; //무적상태
@@ -49,14 +53,17 @@ public class Health : MonoBehaviour, IDamageable
     protected void Awake()
     {
         _ailmentStat = new AilmentStat(this);
-        _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
 
-        TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
-
-        _isDead = false;
 
     }
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
+        _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
+
+        _isDead = false;
+    }
+    private void OnDisable()
     {
         _ailmentStat.EndOFAilmentEvent -= HandleEndOfAilment;
         TurnCounter.RoundEndEvent -= _ailmentStat.UpdateAilment;
@@ -88,6 +95,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         _owner = owner;
         _currentHealth = maxHealth = _owner.CharStat.GetMaxHealthValue();
+        Debug.Log($"{_currentHealth}/{maxHealth}");
     }
 
     public float GetNormalizedHealth()
@@ -111,15 +119,7 @@ public class Health : MonoBehaviour, IDamageable
     public void ApplyDamage(int damage, Entity dealer, Action action = null)
     {
         _owner.BuffStatCompo.OnHitDamageEvent?.Invoke(dealer, ref damage);
-        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
-        //완벽 회피 계산.
-        if (_owner.CharStat.CanEvasion())
-        {
-            Debug.Log($"{_owner.gameObject.name} is evasion attack!");
-            return;
-        }
-        //크리티컬확률에 따라 크리티컬인지 확인하고 데미지 증뎀
         if (dealer.CharStat.IsCritical(ref damage))
         {
             Debug.Log($"Critical! : {damage}"); //데미지 증뎀되었음.
@@ -130,15 +130,25 @@ public class Health : MonoBehaviour, IDamageable
             isLastHitCritical = false;
         }
 
+        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
-        damage = _owner.CharStat.ArmoredDamage(damage, _ailmentStat.HasAilment(AilmentEnum.Chilled));
+        damage = _owner.CharStat.ArmoredDamage(damage, IsFreeze);
+        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+
+        //완벽 회피 계산.
+        if (_owner.CharStat.CanEvasion())
+        {
+            Debug.Log($"{_owner.gameObject.name} is evasion attack!");
+            return;
+        }
+        //크리티컬확률에 따라 크리티컬인지 확인하고 데미지 증뎀
+        
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
         OnDamageEvent?.Invoke(_currentHealth, maxHealth);
 
 
         //여기서 데미지 띄워주기
-        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
         //DamageTextManager.Instance.PopupReactionText(_owner.transform.position, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
 
 
@@ -191,16 +201,17 @@ public class Health : MonoBehaviour, IDamageable
     public void SetAilment(AilmentEnum ailment, int duration)
     {
         _ailmentStat.ApplyAilments(ailment, duration);
+
         OnAilmentChanged?.Invoke(_ailmentStat.currentAilment);
     }
 
-    //데미지를 받았을 때 질병 체크하는 함수(쇼크 데미지 같은 타격당 데미지에 적용.
-    public void AilmentByDamage(AilmentEnum ailment,int damage)
+    public void AilmentByDamage(AilmentEnum ailment, int damage)
     {
         //쇼크데미지 추가 부분.
-            //디버프용 데미지 텍스트 추가
-            DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
-            //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
+        //디버프용 데미지 텍스트 추가
+        DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, DamageCategory.Debuff);
+        OnDamageEvent?.Invoke(_currentHealth, maxHealth);
+        //Debug.Log($"{gameObject.name} : shocked damage added = {shockDamage}");
     }
 
 

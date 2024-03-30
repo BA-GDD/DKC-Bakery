@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class LoadingElement
 {
     public string loadingName;
-    public string characterLine;
     public Sprite characterImg;
 }
 
@@ -22,18 +21,16 @@ public class LoadingUI : SceneUI
     [SerializeField] private TextMeshProUGUI _loadingValue;
 
     [SerializeField] private TextMeshProUGUI _loadingNameTxt;
-    [SerializeField] private TextMeshProUGUI _characterLineTxt;
     [SerializeField] private Image _characterImg;
     [SerializeField] private Image _speachBubble;
 
     public override void SceneUIStart()
     {
-        //LoadingElement selectLoadingElement = 
-        //               _loadingElementArr[Random.Range(0, _loadingElementArr.Length)];
+        LoadingElement selectLoadingElement =
+                       _loadingElementArr[Random.Range(0, _loadingElementArr.Length)];
 
-        //_loadingNameTxt.text = selectLoadingElement.loadingName;
-        //_characterLineTxt.text = selectLoadingElement.characterLine;
-        //_characterImg.sprite = selectLoadingElement.characterImg;
+        _loadingNameTxt.text = selectLoadingElement.loadingName;
+        _characterImg.sprite = selectLoadingElement.characterImg;
 
         GameManager.Instance.LoadingProgressChanged += HandleUpdateLoadingBar;
     }

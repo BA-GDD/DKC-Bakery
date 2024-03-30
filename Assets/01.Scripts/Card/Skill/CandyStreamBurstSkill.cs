@@ -7,14 +7,14 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        Player.UseAbility(this);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+        Player.UseAbility(this,false,true);
     }
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         FeedbackManager.Instance.EndSpeed = 1.5f;
         FeedbackManager.Instance.ShakeScreen(2.0f);
         StartCoroutine(AttackCor());
@@ -24,7 +24,7 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }

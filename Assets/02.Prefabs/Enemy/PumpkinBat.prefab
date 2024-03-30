@@ -271,7 +271,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 91452
+  m_InstanceId: 85132
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -365,18 +365,6 @@ MonoBehaviour:
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 159784293569747907}
-        m_TargetAssemblyTypeName: Entity, Assembly-CSharp
-        m_MethodName: DeadSeq
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 5796735011288673092}
         m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
         m_MethodName: set_enabled
@@ -423,7 +411,8 @@ MonoBehaviour:
   moveDuration: 0.1
   hpBarPos: {fileID: 3056684742391867180}
   attackParticle:
-    particle: {fileID: 5927052303067497250}
+    attack: {fileID: 5927052303067497250}
+    hitPrefab: {fileID: 0}
     duration: 1.2
   camTrack: {fileID: 0}
   turnStatus: 0

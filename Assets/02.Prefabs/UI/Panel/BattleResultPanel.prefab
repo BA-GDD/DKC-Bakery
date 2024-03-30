@@ -315,7 +315,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2600120404722700703}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3732224182948252348}
+        m_TargetAssemblyTypeName: BattleResultPanel, Assembly-CSharp
+        m_MethodName: GotoPoolAllEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6810449909619297572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myButton: {fileID: 4395919927338208557}
+  _battleResultPanel: {fileID: 0}
 --- !u!1 &4256479273441948643
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,16 +6,11 @@ public class RiceCakeFrogBuff : SpecialBuff, IOnHItDamage
 {
     public int hitCount = 2;
     [Range(0, 100)]
-    public int healAmount;
+    public List<int> healAmounts;
 
     public Enemy hitEnemy;
 
     public bool isActive;
-
-    public override void Active()
-    {
-
-    }
 
     public override void EndBuff()
     {
@@ -32,7 +27,7 @@ public class RiceCakeFrogBuff : SpecialBuff, IOnHItDamage
         e.OnAttackEnd += HandleEndEnemyAttack;
 
         hitCount--;
-        int amount = Mathf.RoundToInt(entity.HealthCompo.maxHealth * healAmount * 0.01f);
+        int amount = Mathf.RoundToInt(entity.HealthCompo.maxHealth * healAmounts[combineLevel] * 0.01f);
         entity.HealthCompo.ApplyHeal(amount);
 
         isActive = true;
