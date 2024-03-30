@@ -28,16 +28,21 @@ public class FilterTabGroup : MonoBehaviour
 
     public void FilteringItem(FilterTab filterTab)
     {
-        _currentFilterType.ActiveTab(false);
-        filterTab.ActiveTab(true);
-
+        bool isOtherFilter = filterTab != _currentFilterType;
+        Stack<ItemDataIngredientSO> s = new();
         foreach (ItemElement item in _itemElementList)
         {
             PoolManager.Instance.Push(item);
+            s.Push(item.IngredientSO);
         }
         _itemElementList.Clear();
+        
+        _currentFilterType.ActiveTab(false);
+        filterTab.ActiveTab(true);
 
         int matchItemCount = 0;
+        Inventory.Instance.ingredientStash.stash.Sort();
+
         foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
         {
             ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
@@ -47,7 +52,7 @@ public class FilterTabGroup : MonoBehaviour
                 matchItemCount++;
 
                 ItemElement ie = PoolManager.Instance.Pop(PoolingType.IngredientItemElement) as ItemElement;
-                ie.IngredientSO = ingso;
+                ie.IngredientSO = isOtherFilter ? ingso : s.Pop();
                 ie.CountText = item.stackSize.ToString();
                 ie.PopUpPanelParent = _popUpParent;
                 ie.transform.SetParent(_contentTrm);

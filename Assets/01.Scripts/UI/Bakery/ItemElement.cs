@@ -53,6 +53,11 @@ public class ItemElement : PoolableMono,
     public void OnPointerClick(PointerEventData eventData)
     {
         if (IngredientSO.isUsed) return;
+        Debug.Log($"TestDebug: {IngredientSO}");
+        if (BakingManager.Instance.CookingBox.GetBoxEnable(IngredientSO.ingredientType))
+        {
+            BakingManager.Instance.CookingBox.RemoveSelectIngredientInfo(IngredientSO.ingredientType);
+        }
 
         BakingManager.Instance.AddItem(IngredientSO);
         BakingManager.Instance.CookingBox.AddSelectIngredientInfo(IngredientSO);

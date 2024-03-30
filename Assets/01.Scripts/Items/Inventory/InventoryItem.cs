@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class InventoryItem
+public class InventoryItem : IComparable<InventoryItem>
 {
     public ItemDataSO itemDataSO;
     public int stackSize;
@@ -18,6 +18,11 @@ public class InventoryItem
     public void AddStack(int count = 1)
     {
         stackSize += count;
+    }
+
+    public int CompareTo(InventoryItem other)
+    {
+        return this.itemDataSO.itemName.CompareTo(other.itemDataSO.itemName);
     }
 
     public void RemoveStack(int count)

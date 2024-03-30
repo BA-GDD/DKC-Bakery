@@ -10,6 +10,7 @@ public class SelectIngredientBox : MonoBehaviour, IPointerClickHandler
     public IngredientType IngredientType => _markIngredientType;
     private ItemDataIngredientSO _itemInfo;
     [SerializeField] private Image _iconImg;
+    public bool IsSelected => _iconImg.enabled;
 
     public void SelectIngredient(ItemDataIngredientSO itemInfo)
     {
@@ -29,7 +30,7 @@ public class SelectIngredientBox : MonoBehaviour, IPointerClickHandler
     {
         _iconImg.enabled = false;
         BakingManager.Instance.RemoveItem(_itemInfo);
-        Inventory.Instance.AddItem(_itemInfo);
+        //Inventory.Instance.AddItem(_itemInfo);
         _itemInfo.isUsed = false;
         BakingManager.Instance.FilterTabGroup.FilteringItem(BakingManager.Instance.FilterTabGroup.CurrentFilterTab);
         _itemInfo = null;
