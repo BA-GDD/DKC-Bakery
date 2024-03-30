@@ -66,7 +66,6 @@ public class CardDrawer : MonoBehaviour
         spawnCard.battleController = this.BattleController;
         idx++;
 
-        CardReader.RemoveCardInDeck(selectInfo);
         CardReader.AddCardInHand(spawnCard);
         
         spawnCard.transform.position = _cardSpawnTrm.position;
