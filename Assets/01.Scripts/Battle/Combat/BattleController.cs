@@ -21,7 +21,7 @@ public class BattleController : MonoBehaviour
 
 
     [HideInInspector]
-    private EnemyHpBarMaker _enemyHpBarMaker;
+    private HpBarMaker _hpBarMaker;
 
     [Header("���� ��")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
@@ -55,23 +55,16 @@ public class BattleController : MonoBehaviour
                     if (e == null) continue;
                     e.turnStatus = TurnStatus.End;
                 }
-                _enemyHpBarMaker.DeleteAllHPBar();
+                _hpBarMaker.DeleteAllHPBar();
             }
         }
     }
 
     [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
 
-    private void Awake()
-    {
-        //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
-
-
-
-    }
     private void Start()
     {
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        _hpBarMaker = FindObjectOfType<HpBarMaker>();
 
         onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
 
@@ -79,6 +72,7 @@ public class BattleController : MonoBehaviour
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
 
         Player.BattleController = this;
+        _hpBarMaker.SetupHpBar(Player);
         Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
     private void OnDestroy()
@@ -151,7 +145,7 @@ public class BattleController : MonoBehaviour
         {
             Vector3 pos = _spawnDistanceByPoint[idx].position;
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
-            _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
+            _hpBarMaker.SetupHpBar(selectEnemy);
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
