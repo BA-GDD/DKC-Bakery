@@ -13,6 +13,7 @@ public class MyosuUI : SceneUI
 
     public void SetUpPanel(bool isSetUp, MyosuTestInfo myosuInfo)
     {
+        MapManager.Instanace.SelectStageData = myosuInfo.stageData;
         _myosuPanel.MyosuTestInfo = myosuInfo;
         _myosuPanel.SetUpPanel(isSetUp);
     }
