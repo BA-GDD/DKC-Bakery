@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class KingButterDog : Enemy
 {
-    protected override void Start()
+    protected override void Start() 
     {
         base.Start();
     }
