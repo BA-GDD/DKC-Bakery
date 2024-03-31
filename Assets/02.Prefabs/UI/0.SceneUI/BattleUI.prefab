@@ -428,7 +428,7 @@ MonoBehaviour:
   onFieldMonsterList: []
   _spawnTurm: 0.0597
   _enemyGroup: {fileID: 0}
-  _spawnDistanceByPoint:
+  spawnDistanceByPoint:
   - {fileID: 9034104704580529501}
   - {fileID: 1751131394602917211}
   - {fileID: 6264700976906485318}
@@ -614,7 +614,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7333736712169675274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7715378955133546317}
+        m_TargetAssemblyTypeName: BattleResultPanel, Assembly-CSharp
+        m_MethodName: GotoPoolAllEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5875587112154170718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,12 +1615,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 379168712995245674}
   - {fileID: 2160893068857893561}
   - {fileID: 7688915532552553653}
   - {fileID: 3420154087844498095}
   - {fileID: 8464104272742476555}
   - {fileID: 1081039783854170733}
-  - {fileID: 379168712995245674}
   - {fileID: 6009916202714694763}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

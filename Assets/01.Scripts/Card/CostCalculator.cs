@@ -10,6 +10,14 @@ public static class CostCalculator
     public static Action<int> MoneyChangeEvent;
     public static Action<int> ExtraManaChangeEvent;
 
+    public static void Init()
+    {
+        CurrentMoney = 10;
+        CurrentExMana = 0;
+        MoneyChangeEvent?.Invoke(CurrentMoney);
+        ExtraManaChangeEvent?.Invoke(CurrentExMana);
+    }
+
     public static void GetCost(int toGetCost)
     {
         CurrentMoney += toGetCost;

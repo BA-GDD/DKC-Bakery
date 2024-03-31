@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1052655481
-  m_SortingLayer: 6
+  m_SortingLayerID: -1779282389
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1352204479, guid: 492ca8ef26d090345a09061d513dab17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 5540631362451432190}
   - component: {fileID: 4441867084597754810}
   - component: {fileID: 4237488455597836665}
+  - component: {fileID: 5295220763491429833}
   m_Layer: 0
   m_Name: RiceBird
   m_TagString: Untagged
@@ -169,18 +170,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingType: 17
-  <CharStat>k__BackingField: {fileID: 11400000, guid: 58045535cdd3d0f4d977f29f438a0ed2, type: 2}
+  <CharStat>k__BackingField: {fileID: 11400000, guid: 69f8ae33e5cbb034b9d27715e56eb224, type: 2}
   OnHealthBarChanged:
     m_PersistentCalls:
       m_Calls: []
+  hpBarPos: {fileID: 2301057748974288878}
   forwardTrm: {fileID: 4980443758013225063}
   target: {fileID: 0}
   lastMovePos: {x: 0, y: 0, z: 0}
   moveDuration: 0.1
-  hpBarPos: {fileID: 2301057748974288878}
   attackParticle:
     attack: {fileID: 0}
-    hitPrefab: {fileID: 0}
+    hitPrefab: {fileID: 5707751706223794990, guid: c0faa245bd7c2bc4087a5af8edcea92a, type: 3}
     duration: 0
   camTrack: {fileID: 0}
   turnStatus: 0
@@ -245,6 +246,18 @@ MonoBehaviour:
     currentAilment: 0
   isLastHitCritical: 0
   IsFreeze: 0
+--- !u!114 &5295220763491429833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105448646824021433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927d0c5dd4dff604eb1c458b753681b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6294954123268808074
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,6 +39,8 @@ public abstract class Entity : PoolableMono
 
     public List<IOnTakeDamage> OnAttack;
 
+    [Header("셋팅값들")]
+    public Transform hpBarPos;
     public Transform forwardTrm;
 
     public Entity target;
@@ -57,11 +59,8 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
-        HealthCompo.OnHitEvent.AddListener(HandleHit);
-        HealthCompo.OnDeathEvent.AddListener(HandleDie);
-        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
-        HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
-        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
+        
+
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
@@ -79,12 +78,26 @@ public abstract class Entity : PoolableMono
 
         OnMoveTarget += HandleEndMoveToTarget;
         OnMoveOriginPos += HandleEndMoveToOriginPos;
+        HealthCompo.OnHitEvent.AddListener(HandleHit);
+
+        HealthCompo.OnAilmentChanged.AddListener(HandleAilmentChanged);
+        OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
+
+        HealthCompo.OnDeathEvent.AddListener(HandleDie);
+        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
     private void OnDisable()
     {
         OnMoveTarget -= HandleEndMoveToTarget;
         OnMoveOriginPos -= HandleEndMoveToOriginPos;
+
+        HealthCompo.OnDeathEvent.RemoveListener(HandleDie);
+        HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
+
+        HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
+
+        HealthCompo.OnHitEvent.RemoveListener(HandleHit);
     }
 
     private void HandleCutInOnFieldMonsterList()
@@ -127,6 +140,8 @@ public abstract class Entity : PoolableMono
 
     protected virtual void HandleDie()
     {
+
+        Debug.Log(2);
         EnemyStat es = CharStat as EnemyStat;
         Inventory.Instance.GetIngredientInThisBattle.Add(es.DropItem);
         AnimatorCompo.SetTrigger(_deathAnimationHash);

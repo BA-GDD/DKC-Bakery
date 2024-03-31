@@ -177,7 +177,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 186544
+  m_InstanceId: 119324
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -448,6 +448,7 @@ GameObject:
   - component: {fileID: 4378479087390547817}
   - component: {fileID: 7445431910729709249}
   - component: {fileID: 8988862208147241114}
+  - component: {fileID: 935272695599999825}
   m_Layer: 7
   m_Name: Mr.Muddy
   m_TagString: Untagged
@@ -538,7 +539,8 @@ MonoBehaviour:
   moveDuration: 0.1
   hpBarPos: {fileID: 2310652181499430033}
   attackParticle:
-    particle: {fileID: 0}
+    attack: {fileID: 0}
+    hitPrefab: {fileID: 5707751706223794990, guid: c0faa245bd7c2bc4087a5af8edcea92a, type: 3}
     duration: 0
   camTrack: {fileID: 0}
   turnStatus: 0
@@ -563,3 +565,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4310117, y: 1.1768088, z: 1.4262105}
   m_Center: {x: 0.03752446, y: -0.08840442, z: 0.09386915}
+--- !u!114 &935272695599999825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8015018037757811698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927d0c5dd4dff604eb1c458b753681b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

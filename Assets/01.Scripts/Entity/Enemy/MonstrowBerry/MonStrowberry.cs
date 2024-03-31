@@ -13,6 +13,7 @@ public class MonStrowberry : Enemy
     public override void Attack()
     {
         OnAttackStart?.Invoke();
+
         VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
         StartCoroutine(AttackCor());
     }

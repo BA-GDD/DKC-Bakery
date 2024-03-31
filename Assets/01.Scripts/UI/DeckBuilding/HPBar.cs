@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHPBar : MonoBehaviour
+public class HPBar : MonoBehaviour
 {
     private bool _canStartFollowOwner;
     private Transform _ownerOfThisHpBar;
@@ -22,12 +22,22 @@ public class EnemyHPBar : MonoBehaviour
     [SerializeField] private Slider _hpBarTurm;
     [SerializeField] private float _easingTime;
 
+    [SerializeField] private Image _fillImg;
+    [SerializeField] private Color enemyColor;
+    [SerializeField] private Color friendColor;
+
+    public void Init(bool isEnemy)
+    {
+        if (!_canStartFollowOwner) return;
+        transform.position = _ownerOfThisHpBar.position;
+
+        _fillImg.color = isEnemy ? enemyColor : friendColor;
+    }
     private void Update()
     {
         if (!_canStartFollowOwner) return;
 
         transform.position = _ownerOfThisHpBar.position;
-        
     }
 
     public void HandleHealthChanged(float generatedHealth)

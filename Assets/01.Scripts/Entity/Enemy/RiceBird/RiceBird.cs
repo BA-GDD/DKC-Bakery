@@ -12,7 +12,8 @@ public class RiceBird : Enemy
     }
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.9f);
+        VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         OnAttackEnd?.Invoke();
     }
@@ -48,10 +49,13 @@ public class RiceBird : Enemy
     }
     protected override void HandleEndMoveToOriginPos()
     {
-        MoveToOriginPos();
+        turnStatus = TurnStatus.End;
+
     }
     public override void MoveToTargetForward()
     {
+
+
         lastMovePos = transform.position;
 
         Attack();
@@ -61,11 +65,11 @@ public class RiceBird : Enemy
         seq.Append(transform.DOMoveX(transform.position.x - 3, 0.4f));
         seq.Append(transform.DOMoveX(target.transform.position.x + 5, 1f));
         seq.Insert(1f, transform.DOMoveY(target.transform.position.y, 0.5f));
-        seq.OnComplete(HandleEndMoveToOriginPos);
+        seq.OnComplete(HandleEndMoveToTarget);
     }
     
     protected override void HandleEndMoveToTarget()
     {
-        turnStatus = TurnStatus.End;
+        MoveToOriginPos();
     }
 }

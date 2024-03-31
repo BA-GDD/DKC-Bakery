@@ -21,14 +21,14 @@ public class BattleController : MonoBehaviour
 
 
     [HideInInspector]
-    private EnemyHpBarMaker _enemyHpBarMaker;
+    private HpBarMaker _hpBarMaker;
 
     [Header("���� ��")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
 
     [SerializeField] private EnemyGroupSO _enemyGroup;
 
-    [SerializeField] private List<Transform> _spawnDistanceByPoint = new();
+    public List<Transform> spawnDistanceByPoint = new();
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
 
     [SerializeField] private Player _player;
@@ -56,37 +56,31 @@ public class BattleController : MonoBehaviour
                     e.turnStatus = TurnStatus.End;
                 }
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
-                _enemyHpBarMaker.DeleteAllHPBar();
+                _hpBarMaker.DeleteAllHPBar();
             }
         }
     }
 
     [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
 
-    private void Awake()
-    {
-        //_enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
-
-
-
-    }
     private void Start()
     {
-        _enemyHpBarMaker = FindObjectOfType<EnemyHpBarMaker>();
+        _hpBarMaker = FindObjectOfType<HpBarMaker>();
 
-        onFieldMonsterList = new Enemy[_spawnDistanceByPoint.Count];
+        onFieldMonsterList = new Enemy[spawnDistanceByPoint.Count];
 
         TurnCounter.PlayerTurnStartEvent += HandleCardDraw;
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
 
         Player.BattleController = this;
+        _hpBarMaker.SetupHpBar(Player);
         Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
 
     private void HandleCardDraw(bool obj)
     {
-        CardReader.CardDrawer.DrawCard(1, false);
+        CardReader.CardDrawer.DrawCard(3, false);
     }
 
     private void OnDestroy()
@@ -117,10 +111,12 @@ public class BattleController : MonoBehaviour
         foreach (var e in onFieldMonsterList)
         {
             if (e is null) continue;
+            Player.VFXManager.BackgroundColor(Color.gray);
 
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
 
+            Player.VFXManager.BackgroundColor(Color.white);
             if (_isGameEnd)
                 break;
 
@@ -145,7 +141,7 @@ public class BattleController : MonoBehaviour
     {
         yield return null;
 
-        for (int i = 0; i < _spawnDistanceByPoint.Count; i++)
+        for (int i = 0; i < spawnDistanceByPoint.Count; i++)
         {
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
@@ -158,21 +154,21 @@ public class BattleController : MonoBehaviour
     {
         if (_enemyQue.Count > 0)
         {
-            Vector3 pos = _spawnDistanceByPoint[idx].position;
+            Vector3 pos = spawnDistanceByPoint[idx].position;
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
-            _enemyHpBarMaker.SetupEnemyHpBar(selectEnemy);
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
+            selectEnemy.Spawn(pos);
             selectEnemy.SpriteRendererCompo.sortingOrder = posChecker;
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
 
             onFieldMonsterList[idx] = selectEnemy;
-            selectEnemy.Spawn(pos);
             selectEnemy.target = Player;
 
             SpawnEnemyList.Add(selectEnemy);
+            _hpBarMaker.SetupHpBar(selectEnemy);
         }
     }
 
@@ -206,6 +202,11 @@ public class BattleController : MonoBehaviour
     {
         e1.DOMove(e2.position, 0.5f);
         e2.DOMove(e1.position, 0.5f).OnComplete(() => callback?.Invoke());
+    }
+    public void ChangeXPosition(Transform e1, Transform e2, Action callback = null)
+    {
+        e1.DOMoveX(e2.position.x, 0.5f);
+        e2.DOMoveX(e1.position.x, 0.5f).OnComplete(() => callback?.Invoke());
     }
 
     public void ChangePlayerTarget(Entity entity)

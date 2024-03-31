@@ -31,6 +31,7 @@ public class TurnCounting : MonoBehaviour
     public void BattleStart()
     {
         TurnCounter.Init();
+        CostCalculator.Init();
 
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => ToPlayerTurnChanging(false));

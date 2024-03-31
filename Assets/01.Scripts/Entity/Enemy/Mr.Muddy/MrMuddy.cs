@@ -11,8 +11,8 @@ public class MrMuddy : Enemy
 
     public override void Attack()
     {
-        OnAttackStart?.Invoke();
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(),this);
+        VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         MoveToOriginPos();
         OnAttackEnd?.Invoke();
     }
@@ -35,6 +35,7 @@ public class MrMuddy : Enemy
     public override void TurnStart()
     {
         base.TurnStart();
+        OnAttackStart?.Invoke();
 
         turnStatus = TurnStatus.Ready;
     }

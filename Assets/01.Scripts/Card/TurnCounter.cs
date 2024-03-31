@@ -47,6 +47,8 @@ public static class TurnCounter
     public static void Init()
     {
         CurrentTurnType = TurnType.Player;
+        TurnCount = 0;
+        RoundCount = 0;
     }
 
     public static void ChangeRound()
@@ -77,6 +79,11 @@ public static class TurnCounter
 
             EnemyTurnEndEvent?.Invoke();
             PlayerTurnStartEvent?.Invoke(false);
+        }
+
+        if(TurnCount % 2 == 0)
+        {
+            ChangeRound();
         }
         Debug.Log($"{TurnCount}{CurrentTurnType}");
     }

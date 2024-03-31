@@ -16,8 +16,7 @@ public struct EnemyAttack
 
 public abstract class Enemy : Entity,IPointerDownHandler
 {
-    [Header("셋팅값들")]
-    public Transform hpBarPos;
+
     [SerializeField] protected EnemyAttack attackParticle; 
 
     [SerializeField] protected CameraMoveTrack camTrack;

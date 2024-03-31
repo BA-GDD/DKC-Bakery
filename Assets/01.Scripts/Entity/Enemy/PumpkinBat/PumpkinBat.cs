@@ -7,6 +7,8 @@ public class PumpkinBat : Enemy
     protected override void Start()
     {
         base.Start();
+        VFXPlayer.OnEndEffect += () => turnStatus = TurnStatus.End;
+        Debug.Log("Ãß°¡");
     }
 
     public override void Attack()
@@ -23,6 +25,7 @@ public class PumpkinBat : Enemy
         {
             yield return new WaitForSeconds(0.15f);
             target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
+            VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         }
         turnStatus = TurnStatus.End;
         OnAttackEnd?.Invoke();
@@ -51,7 +54,6 @@ public class PumpkinBat : Enemy
 
     protected override void HandleEndMoveToOriginPos()
     {
-        turnStatus = TurnStatus.End;
     }
 
     protected override void HandleEndMoveToTarget()
