@@ -45,6 +45,7 @@ public class TeaTimeCreamStand : MonoBehaviour
         seq.AppendCallback(() =>
         {
             _standIllust.sprite = _normalFace;
+            UIManager.Instance.GetSceneUI<TeaTimeUI>().DirectorStart();
         });
     }
 

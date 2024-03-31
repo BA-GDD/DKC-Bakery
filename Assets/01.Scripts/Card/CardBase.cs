@@ -96,6 +96,7 @@ public abstract class CardBase : MonoBehaviour,
             CardReader.SkillCardManagement.SetCardInfo(CardInfo, false);
             CardReader.SkillCardManagement.ChainingSkill();
             CardReader.LockHandCard(false);
+
             Destroy(gameObject);
         });
     }

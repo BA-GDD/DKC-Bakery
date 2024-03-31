@@ -5,19 +5,22 @@ using UnityEngine;
 public class GetCard : MonoBehaviour
 {
     private CanUseCardData _canUseCardData = new CanUseCardData();
-    private const string CardDataKey = "GetCardData";
-    private CardBase _toGetCard;
+    private const string CardDataKey = "CanUseCardsDataKey";
 
-    public void GetCakeInfo(ItemDataBreadSO cakeInfo)
+    public void GetCakeInfo(CardInfo cardInfo)
     {
-        _toGetCard = cakeInfo.ToGetCardBase;
-
         if(DataManager.Instance.IsHaveData(CardDataKey))
         {
             _canUseCardData = DataManager.Instance.LoadData<CanUseCardData>(CardDataKey);
         }
 
-        _canUseCardData.CanUseCardsList.Add(_toGetCard.CardInfo.CardName);
+        if(!_canUseCardData.CanUseCardsList.Contains(cardInfo.CardName))
+        {
+            _canUseCardData.CanUseCardsList.Add(cardInfo.CardName);
+            Debug.Log("CardAdd");
+        }
+        Debug.Log("CardAddComplete");
+        
         DataManager.Instance.SaveData(_canUseCardData, CardDataKey);
     }
 }

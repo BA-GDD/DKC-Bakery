@@ -11,10 +11,15 @@ public class TeaTimeUI : SceneUI
 {
     [SerializeField] private EatRange _eatRange;
     public EatRange EatRange => _eatRange;
+
     [SerializeField] private TeaTimeCreamStand _creamStand;
     public TeaTimeCreamStand TeaTimeCreamStand => _creamStand;
+
     [SerializeField] private CakeCollocation _cakeCollocation;
     public CakeCollocation CakeCollocation => _cakeCollocation;
+
+    [SerializeField] private GetCard _getCard;
+    public GetCard GetCard => _getCard;
 
     [SerializeField]
     private PlayableDirector director;
@@ -28,24 +33,13 @@ public class TeaTimeUI : SceneUI
     {
         cardImage.sprite = cardInfo.CardVisual;
         cardName.text = cardInfo.CardName;
+
+        GetCard.GetCakeInfo(cardInfo);
     }
 
     public void DirectorStart()
     {
-        //SetCard();
         director.Play();
     }
 
-    private void SaveCard()
-    {
-
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            DirectorStart();
-        }
-    }
 }
