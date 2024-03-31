@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 3420154087844498095}
   - component: {fileID: 2494791636583702813}
   m_Layer: 0
-  m_Name: BattleSystem
+  m_Name: BattleController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,9 +403,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621536981270683567}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9719.999}
-  m_LocalScale: {x: 108, y: 108, z: 108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4127159214858817726}
@@ -932,7 +932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2160893068857893561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1632,6 +1632,7 @@ MonoBehaviour:
   _myType: 2
   _audioClip: {fileID: 8300000, guid: 908fcec18fd43924999a7e7e0e3b7eea, type: 3}
   _battleResultPanel: {fileID: 7715378955133546317}
+  _battleSystem: {fileID: 2504084298911120319}
 --- !u!1 &4175445939966009704
 GameObject:
   m_ObjectHideFlags: 0
@@ -3200,6 +3201,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3420154087844498095}
     m_Modifications:
+    - target: {fileID: 2113093932309934867, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -290
+      objectReference: {fileID: 0}
+    - target: {fileID: 2113093932309934867, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -29.16003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094538477807905151, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -122.78003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962061261279420424, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962061261279420424, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407109307608330269, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -213
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407109307608330269, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -239.78003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047986154450915342, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -610
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047986154450915342, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -239.78003
+      objectReference: {fileID: 0}
     - target: {fileID: 7747735275270575817, guid: 0d218fa3901b2df4084b72254b8e0fd5, type: 3}
       propertyPath: m_Name
       value: EnemyPosGroup

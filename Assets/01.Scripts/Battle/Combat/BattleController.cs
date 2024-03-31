@@ -55,6 +55,7 @@ public class BattleController : MonoBehaviour
                     if (e == null) continue;
                     e.turnStatus = TurnStatus.End;
                 }
+                UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _enemyHpBarMaker.DeleteAllHPBar();
             }
         }

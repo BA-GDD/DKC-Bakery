@@ -46,6 +46,10 @@ public class StageInfoPanel : PanelUI
         seq.AppendInterval(1);
         seq.AppendCallback(() => FadePanel(false));
         seq.AppendInterval(0.4f);
-        seq.AppendCallback(() => gameObject.SetActive(false));
+        seq.AppendCallback(() => 
+        {
+            gameObject.SetActive(false);
+            UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
+        });
     }
 }

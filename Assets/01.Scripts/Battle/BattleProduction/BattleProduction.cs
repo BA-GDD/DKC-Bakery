@@ -23,7 +23,7 @@ public class BattleProduction : MonoBehaviour
         _panelSetEvent?.Invoke(MapManager.Instanace.SelectStageData);
 
         _stageInfoPanel.PanelSetUp();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.7f);
         _battleStartEvent?.Invoke();
         _clearChekcerSetEvent?.Invoke(MapManager.Instanace.SelectStageData.clearCondition);
         _playerAppear.Action();
