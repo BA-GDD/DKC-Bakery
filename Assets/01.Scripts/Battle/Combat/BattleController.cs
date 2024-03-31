@@ -213,4 +213,9 @@ public class BattleController : MonoBehaviour
         Player.target = entity;
         OnChangePlayerTarget?.Invoke(entity);
     }
+
+    public void BackgroundColor(Color color)
+    {
+        Player.VFXManager.BackgroundColor(color);
+    }
 }
