@@ -107,8 +107,8 @@ public class Health : MonoBehaviour, IDamageable
     public void ApplyHeal(int amount)
     {
         _currentHealth = Mathf.Min(_currentHealth + amount, maxHealth);
-        //체력증가에 따른 UI필요.
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
+        _owner.OnHealthBarChanged?.Invoke(GetNormalizedHealth());
     }
 
     public void ApplyTrueDamage(int damage)
