@@ -102,9 +102,9 @@ public class BuffStat
             d.PrependBuff();
             _buffDic.Remove(d);
         }
-        foreach (var b in specialBuffList)
+        while(specialBuffList.Count > 0)
         {
-            CompleteBuff(b);
+            CompleteBuff(specialBuffList[0]);
         }
         TurnCounter.RoundStartEvent -= UpdateBuff;
     }

@@ -5,14 +5,16 @@ using UnityEngine;
 public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
 {
     private List<Health> appliedEnemy = new();
+    private bool active = false;
 
     public void TakeDamage(Health health)
     {
+        active = true;
+
         if (appliedEnemy.Contains(health)) return;
-
-        if (appliedEnemy.Count <= 0) entity.BeforeChainingEvent.AddListener(EndAttack);
-
         appliedEnemy.Add(health);
+        if (!active) CardReader.SkillCardManagement.useCardEndEvnet.AddListener(EndAttack);
+
         health.AilmentStat.ApplyAilments(AilmentEnum.Chilled);
     }
 
@@ -25,6 +27,6 @@ public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
     {
         base.SetIsComplete(value);
         if(value)
-            entity.BeforeChainingEvent.RemoveListener(EndAttack);
+            CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(EndAttack);
     }
 }

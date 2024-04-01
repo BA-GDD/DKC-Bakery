@@ -37,7 +37,7 @@ public abstract class Entity : PoolableMono
     public Action OnAttackStart;
     public Action OnAttackEnd;
 
-    public List<IOnTakeDamage> OnAttack;
+    public List<IOnTakeDamage> OnAttack = new();
 
     [Header("셋팅값들")]
     public Transform hpBarPos;
