@@ -139,7 +139,6 @@ public abstract class Entity : PoolableMono
         OnHealthBarChanged?.Invoke(currentHealth);
     }
 
-
     protected virtual void HandleDie()
     {
         EnemyStat es = CharStat as EnemyStat;
