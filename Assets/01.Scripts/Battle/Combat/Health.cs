@@ -107,8 +107,8 @@ public class Health : MonoBehaviour, IDamageable
     public void ApplyHeal(int amount)
     {
         _currentHealth = Mathf.Min(_currentHealth + amount, maxHealth);
-        //체력증가에 따른 UI필요.
         Debug.Log($"{_owner.gameObject.name} is healed!! : {amount}");
+        _owner.OnHealthBarChanged?.Invoke(GetNormalizedHealth());
     }
 
     public void ApplyTrueDamage(int damage)
@@ -130,11 +130,14 @@ public class Health : MonoBehaviour, IDamageable
             isLastHitCritical = false;
         }
 
+        damage = _owner.CharStat.ArmoredDamage(damage, IsFreeze);
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
-        damage = _owner.CharStat.ArmoredDamage(damage, IsFreeze);
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
-
+        foreach(var b in dealer.OnAttack)
+        {
+            b?.TakeDamage(this);
+        }
         //완벽 회피 계산.
         if (_owner.CharStat.CanEvasion())
         {
