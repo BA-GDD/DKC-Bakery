@@ -21,7 +21,8 @@ public enum PoolingType
     PumpkinBat,
     Sound,
     KingBufferDog,
-    RiceBird
+    RiceBird,
+    TouchEffect,
 }
 
 public class PoolManager
