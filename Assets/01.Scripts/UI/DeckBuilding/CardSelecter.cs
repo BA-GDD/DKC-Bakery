@@ -11,6 +11,26 @@ public class CardSelecter : MonoBehaviour
     private CanUseCardData _canUseCardData = new CanUseCardData();
     private const string _canUseCardDataKey = "CanUseCardsDataKey";
 
+    private List<CardSelectElement> _cardArr = new List<CardSelectElement>();  
+
+    public void AutoSelectCard(CardBase cardBase)
+    {
+        if(_cardArr.Count < 0)
+        {
+            Debug.LogError("하야스기르");
+            return;
+        }
+
+        foreach(CardSelectElement element in _cardArr)
+        {
+            if(element.CardBase.CardInfo == cardBase.CardInfo) 
+            {
+                element.OnPointerClick(null);
+                return;
+            }
+        }
+    }
+
     private void Start()
     {
         if (DataManager.Instance.IsHaveData(_canUseCardDataKey))
@@ -26,6 +46,7 @@ public class CardSelecter : MonoBehaviour
             }
 
             CardSelectElement cse = Instantiate(_cardSelectPrefab, _hasCardListTrm);
+            _cardArr.Add(cse);
             cse.SetInfo(DeckManager.Instance.GetCard(_canUseCardData.CanUseCardsList[i]), _deckBuilder);
         }
     }
