@@ -18,55 +18,41 @@ public class DeckGenerator : MonoBehaviour
         set
         {
             _selectDeck = value;
-            SetSelectDeck(value);
+            SetSelectDeck(value.deckName, DeckManager.Instance.GetDeck(value.deck));
         }
     }
 
     private SaveDeckData _saveDeckData = new SaveDeckData();
     private const string _saveDeckDataKey = "SaveDeckDataKey";
 
-    protected List<CanUseDeckElement> _currentDeckList = new List<CanUseDeckElement>();
-
-    protected virtual void Start()
+    private void Start()
     {
-        ResetDeckList();
-    }
-
-    public void ResetDeckList()
-    {
-        if (DataManager.Instance.IsHaveData(_saveDeckDataKey))
+        if(DataManager.Instance.IsHaveData(_saveDeckDataKey))
         {
             _saveDeckData = DataManager.Instance.LoadData<SaveDeckData>(_saveDeckDataKey);
         }
 
-        foreach(Transform t in _deckElemetTrm)
+        for(int i = 0; i < _saveDeckData.SaveDeckList.Count; i++)
         {
-            Destroy(t.gameObject);
-        }
-
-        for (int i = 0; i < _saveDeckData.SaveDeckList.Count; i++)
-        {
-            if (i % 3 == 0)
+            if(i % 3 == 0)
             {
                 _deckElemetTrm.sizeDelta += new Vector2(0, 550);
             }
 
             CanUseDeckElement cude = Instantiate(_canUseDeckPrefab, _deckElemetTrm);
-            _currentDeckList.Add(cude);
             cude.SetDeckInfo(_saveDeckData.SaveDeckList[i], this);
         }
     }
 
-    protected virtual void SetSelectDeck(DeckElement deckElement)
+    public void SetSelectDeck(string deckName, List<CardBase> deck)
     {
-        if(deckElement.deck == null)
+        if(deck == null)
         {
             _selectDeckObj.gameObject.SetActive(false);
             return;
         }
 
         _selectDeckObj.gameObject.SetActive(true);
-        _selectDeckObj.SetDeckInfo(deckElement.deckName, 
-                                   DeckManager.Instance.GetDeck(deckElement.deck));
+        _selectDeckObj.SetDeckInfo(deckName, deck);
     }
 }
