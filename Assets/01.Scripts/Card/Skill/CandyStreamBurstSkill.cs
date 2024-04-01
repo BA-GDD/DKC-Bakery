@@ -31,11 +31,9 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(1f);
-
         for(int i = 0; i < 5; ++i)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
 
             float randNumX = UnityEngine.Random.Range(-.5f, .5f);
             float randNumY = UnityEngine.Random.Range(-.5f, .5f);
