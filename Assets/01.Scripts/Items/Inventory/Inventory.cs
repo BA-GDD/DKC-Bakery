@@ -26,12 +26,6 @@ public class Inventory : MonoSingleton<Inventory>
         breadStash = new BreadStash(_breadParent);
 
         SceneManager.activeSceneChanged += HandleClearGetIngList;
-        GetIngredientInThisBattle.ListAdded += HandleGetItem;
-    }
-
-    private void HandleGetItem(object sender, EventArgs e)
-    {
-        Debug.Log(sender);
     }
 
     private void HandleClearGetIngList(Scene arg0, Scene arg1)
