@@ -942,7 +942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3803503461634090804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -991,6 +991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 714745384166219698}
     m_Modifications:
+    - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
+      propertyPath: _canUseDeckPrefab
+      value: 
+      objectReference: {fileID: 6745882812432883610, guid: e8ede0a6b1f46564eb08709996aaf6b3, type: 3}
     - target: {fileID: 1351935828696617947, guid: ad9ecb8252a41a84fb29a8b6afcb2055, type: 3}
       propertyPath: _sampleDeck.Array.data[0]
       value: 
