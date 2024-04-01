@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public delegate void OnHitDamage<T1, T2>(T1 t1, ref T2 t2);
@@ -7,11 +8,11 @@ public class BuffStat
 {
     public AilmentEnum currentAilment;
 
-    public OnHitDamage<Entity,int> OnHitDamageEvent;
+    public OnHitDamage<Entity, int> OnHitDamageEvent;
 
     public List<SpecialBuff> specialBuffList = new();
     private Entity _owner;
-    private Dictionary<BuffSO, int> _buffDic;
+    private Dictionary<BuffSO, int> _buffDic = new();
 
 
 
@@ -19,7 +20,7 @@ public class BuffStat
     {
         _owner = entity;
         _buffDic = new();
-        TurnCounter.RoundEndEvent += UpdateBuff;
+        TurnCounter.RoundStartEvent += UpdateBuff;
         //_owner.BeforeChainingEvent.AddListener(UpdateBuff);
     }
     public void AddBuff(BuffSO so, int durationTurn, int combineLevel = 0)
@@ -27,7 +28,7 @@ public class BuffStat
         so.SetOwner(_owner);
         if (_buffDic.ContainsKey(so))
         {
-            if(_buffDic[so] < durationTurn)
+            if (_buffDic[so] < durationTurn)
                 _buffDic[so] = durationTurn;
         }
         else
@@ -81,15 +82,16 @@ public class BuffStat
     }
     public void UpdateBuff()
     {
-        foreach (var d in _buffDic)
+        foreach (var d in _buffDic.Keys.ToList())
         {
-            d.Key.Update();
+            Debug.Log(d.name);
+            d.Update();
 
-            _buffDic[d.Key]--;
-            if(_buffDic[d.Key] <= 0)
+            _buffDic[d]--;
+            if (_buffDic[d] <= 0)
             {
-                d.Key.PrependBuff();
-                _buffDic.Remove(d.Key);
+                d.PrependBuff();
+                _buffDic.Remove(d);
                 continue;
             }
 
