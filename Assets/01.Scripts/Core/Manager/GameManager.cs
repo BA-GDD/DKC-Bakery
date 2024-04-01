@@ -105,7 +105,7 @@ public class GameManager : MonoSingleton<GameManager>
             LoadingProgress = Mathf.CeilToInt(asyncOperation.progress * 100);
             if (asyncOperation.progress >= 0.9f)
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.5f);
                 SceneObserver.CurrentSceneType = toChangingSceneType;
                 asyncOperation.allowSceneActivation = true;
             }
