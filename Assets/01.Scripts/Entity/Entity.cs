@@ -66,11 +66,11 @@ public abstract class Entity : PoolableMono
 
         ColliderCompo = GetComponent<Collider>();
 
+        BuffStatCompo = new BuffStat(this);
     }
 
     protected virtual void Start()
     {
-        BuffStatCompo = new BuffStat(this);
     }
     protected virtual void OnEnable()
     {
@@ -84,6 +84,7 @@ public abstract class Entity : PoolableMono
         OnHealthBarChanged?.Invoke(HealthCompo.GetNormalizedHealth()); //�ִ�ġ�� UI����.
 
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
+        HealthCompo.OnDeathEvent.AddListener(BuffStatCompo.ClearStat);
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
@@ -94,6 +95,7 @@ public abstract class Entity : PoolableMono
 
         HealthCompo.OnDeathEvent.RemoveListener(HandleDie);
         HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
+        HealthCompo.OnDeathEvent.RemoveListener(BuffStatCompo.ClearStat);
 
         HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
 

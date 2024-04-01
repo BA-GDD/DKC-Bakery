@@ -84,7 +84,6 @@ public class BuffStat
     {
         foreach (var d in _buffDic.Keys.ToList())
         {
-            Debug.Log(d.name);
             d.Update();
 
             _buffDic[d]--;
@@ -94,7 +93,19 @@ public class BuffStat
                 _buffDic.Remove(d);
                 continue;
             }
-
         }
+    }
+    public void ClearStat()
+    {
+        foreach (var d in _buffDic.Keys.ToList())
+        {
+            d.PrependBuff();
+            _buffDic.Remove(d);
+        }
+        foreach (var b in specialBuffList)
+        {
+            CompleteBuff(b);
+        }
+        TurnCounter.RoundStartEvent -= UpdateBuff;
     }
 }
