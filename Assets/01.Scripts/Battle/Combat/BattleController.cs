@@ -178,6 +178,8 @@ public class BattleController : MonoBehaviour
 
             SpawnEnemyList.Add(selectEnemy);
             _hpBarMaker.SetupHpBar(selectEnemy);
+
+
         }
     }
 

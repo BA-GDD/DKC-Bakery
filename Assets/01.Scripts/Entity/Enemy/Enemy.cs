@@ -25,7 +25,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
     protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
-    protected EnemyVFXPlayer VFXPlayer { get; private set; }
+    public EnemyVFXPlayer VFXPlayer { get; private set; }
 
     protected Collider Collider;
 
@@ -42,6 +42,8 @@ public abstract class Enemy : Entity,IPointerDownHandler
     {
         base.OnEnable();
         target = BattleController?.Player;
+        if(attackParticle.attack != null)
+            VFXPlayer.EndParticle(attackParticle.attack);
     }
 
     public void AnimationFinishTrigger()
