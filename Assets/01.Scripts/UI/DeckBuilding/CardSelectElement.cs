@@ -24,8 +24,9 @@ public class CardSelectElement : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        _deckBuilder.AddDeck(CardBase);
-        IsSelect = true;
+        bool canSelect;
+        _deckBuilder.AddDeck(CardBase, out canSelect);
+        IsSelect = canSelect;
     }
 
     public void RemoveThisCardInDeck()

@@ -76,6 +76,11 @@ public class SkillCardManagement : CardManagement
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
 
+            foreach(Transform t in _activationCardZone)
+            {
+                Destroy(t.gameObject);
+            }
+
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             _setupHandCardEvent?.Invoke(true);
             _checkStageClearEvent?.Invoke();

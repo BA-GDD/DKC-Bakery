@@ -9,6 +9,7 @@ public class MyosuUI : SceneUI
     public override void SceneUIStart()
     {
         _myosuPanel = FindObjectOfType<MyosuPanel>();
+        SceneObserver.BeforeSceneType = SceneType.Lobby;
     }
 
     public void SetUpPanel(bool isSetUp, MyosuTestInfo myosuInfo)

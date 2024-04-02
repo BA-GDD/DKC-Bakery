@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class Stash
 {
     public List<InventoryItem> stash; //창고에 있는 아이템들의 리스트
