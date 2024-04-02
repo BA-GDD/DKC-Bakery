@@ -110,6 +110,7 @@ public class SkillCardManagement : CardManagement
         selectCard.transform.DOScale(0.7f, 0.3f);
         GenerateCardPosition(selectCard);
         CardReader.CombineMaster.CombineGenerate();
+        CardReader.CaptureHand();
     }
     private void GenerateCardPosition(CardBase selectCard)
     {

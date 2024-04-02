@@ -14,6 +14,7 @@ public static class CostCalculator
     {
         CurrentMoney = 10;
         CurrentExMana = 0;
+
         MoneyChangeEvent?.Invoke(CurrentMoney);
         ExtraManaChangeEvent?.Invoke(CurrentExMana);
     }

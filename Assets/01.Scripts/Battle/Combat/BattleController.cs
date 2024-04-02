@@ -50,20 +50,26 @@ public class BattleController : MonoBehaviour
             _isGameEnd = value;
             if (_isGameEnd)
             {
-                foreach (var e in onFieldMonsterList)
+                for (int i = 0; i < onFieldMonsterList.Length; i++)
                 {
+                    Enemy e = onFieldMonsterList[i];
                     if (e == null) continue;
+                    onFieldMonsterList[i] = null;
                     e.turnStatus = TurnStatus.End;
-                    PoolManager.Instance.Push(e);
+                    e.GotoPool();
+                    //PoolManager.Instance.Push(e);
                 }
-
-                //if(SceneObserver.CurrentSceneType == SceneType.battle)
+                OnGameEndEvent?.Invoke();
+                CostCalculator.Init();
+                ChangePlayerTarget(null);
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
+                StopAllCoroutines();
             }
         }
     }
 
+    [SerializeField] private UnityEvent OnGameEndEvent;
     [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
 
     private void Start()

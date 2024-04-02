@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 3414628159529952476}
   - component: {fileID: 858692058437614005}
   - component: {fileID: 2043345792264063423}
+  - component: {fileID: 6917932534364384229}
   m_Layer: 5
   m_Name: CakeObject
   m_TagString: Untagged
@@ -513,6 +514,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6917932534364384229
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251642843978361787}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1310977574812833474
 GameObject:
   m_ObjectHideFlags: 0
@@ -5580,6 +5602,7 @@ GameObject:
   - component: {fileID: 4081804965350493913}
   - component: {fileID: 249509222955416181}
   - component: {fileID: 7573097810048042281}
+  - component: {fileID: 2631279739061219199}
   m_Layer: 5
   m_Name: CakeObject
   m_TagString: Untagged
@@ -5658,6 +5681,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &2631279739061219199
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410113476516960737}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2418209456988996006
 GameObject:
   m_ObjectHideFlags: 0
@@ -6030,6 +6074,12 @@ PlayableDirector:
     value: {fileID: 8771667993764543569}
   - key: {fileID: 7265413234830525352, guid: c7d336668f4f3764895f1525a59b2264, type: 2}
     value: {fileID: 3659226592158437719}
+  - key: {fileID: 5172194448704351176, guid: c7d336668f4f3764895f1525a59b2264, type: 2}
+    value: {fileID: 2631279739061219199}
+  - key: {fileID: 218280200536593237, guid: c7d336668f4f3764895f1525a59b2264, type: 2}
+    value: {fileID: 6917932534364384229}
+  - key: {fileID: -1457852062117386599, guid: c7d336668f4f3764895f1525a59b2264, type: 2}
+    value: {fileID: 3068954000985305740}
   m_ExposedReferences:
     m_References:
     - 88014a6706bfe8747a92273e6770645d: {fileID: 7053895327641096114}
@@ -37035,6 +37085,7 @@ GameObject:
   - component: {fileID: 1218721357446495832}
   - component: {fileID: 7869499687714780117}
   - component: {fileID: 6402599930825067147}
+  - component: {fileID: 3068954000985305740}
   m_Layer: 5
   m_Name: CakeObject
   m_TagString: Untagged
@@ -37113,6 +37164,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &3068954000985305740
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7585452287052220555}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8099719027497136151
 GameObject:
   m_ObjectHideFlags: 0
