@@ -40,6 +40,8 @@ public class ActivationChecker : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
+            CardReader.CaptureHand();
+            Debug.Log(CardReader.IsSameCaptureHand());
             CardReader.OnBinding = true;
         }
 
@@ -47,6 +49,8 @@ public class ActivationChecker : MonoBehaviour
         {
             CardReader.OnBinding = false;
             Activation();
+            Debug.Log(CardReader.IsSameCaptureHand());
+            
             CardReader.OnPointerCard = null;
         }
     }
@@ -58,6 +62,12 @@ public class ActivationChecker : MonoBehaviour
             if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL))
             {
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
+
+                foreach(CardBase cb in CardReader._captureHandList)
+                {
+                    Debug.Log(cb.CardInfo.CardName);
+                }
+                CardReader.ResetByCaptureHand();
                 CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
                 return;
             }
