@@ -29,9 +29,6 @@ public class FilterTabGroup : MonoBehaviour
 
     public void FilteringItem(FilterTab filterTab)
     {
-        Debug.Log(_currentFilterType);
-        Debug.Log(filterTab);
-
         bool isOtherFilter = filterTab != _currentFilterType;
         Stack<ItemDataIngredientSO> s = new();
         foreach (ItemElement item in _itemElementList)
@@ -46,11 +43,9 @@ public class FilterTabGroup : MonoBehaviour
 
         int matchItemCount = 0;
         Inventory.Instance.ingredientStash.stash.Sort();
-
         foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
         {
             ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
-            Debug.Log(1);
             if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
             {
                 matchItemCount++;
@@ -61,7 +56,7 @@ public class FilterTabGroup : MonoBehaviour
                 ie.PopUpPanelParent = _popUpParent;
                 ie.transform.SetParent(_contentTrm);
                 ie.transform.localScale = Vector3.one;
-
+                ie.transform.SetAsFirstSibling();
                 _itemElementList.Add(ie);
             }
         }
