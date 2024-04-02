@@ -21,7 +21,7 @@ public class BattleUI : SceneUI
         SystemActive -= HandleBattleSystemActive;
     }
 
-    private void HandleBattleSystemActive(bool isActive)
+    protected void HandleBattleSystemActive(bool isActive)
     {
         _battleSystem.SetActive(isActive);
     }

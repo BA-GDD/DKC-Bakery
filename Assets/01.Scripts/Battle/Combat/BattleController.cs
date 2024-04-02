@@ -56,6 +56,8 @@ public class BattleController : MonoBehaviour
                     e.turnStatus = TurnStatus.End;
                     PoolManager.Instance.Push(e);
                 }
+
+                //if(SceneObserver.CurrentSceneType == SceneType.battle)
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
             }
