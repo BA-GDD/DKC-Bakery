@@ -54,10 +54,10 @@ public class Inventory : MonoSingleton<Inventory>
         }
         else if (item.itemType == ItemType.Ingredient)
         {
-            Debug.Log("itemType is Ingredient");
+            //Debug.Log("itemType is Ingredient");
             if (ingredientStash.CanAddItem(item))
             {
-                Debug.Log("Can Add Item");
+                //Debug.Log("Can Add Item");
                 ingredientStash.AddItem(item, count);
             }
         }
