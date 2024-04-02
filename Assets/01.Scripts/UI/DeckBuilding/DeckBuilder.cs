@@ -36,11 +36,12 @@ public class DeckBuilder : MonoBehaviour
         }
     }
 
-    public void AddDeck(CardBase cardBase)
+    public void AddDeck(CardBase cardBase, out bool canSelect)
     {
         if(selectCardList.Count >= 5)
         {
             _errorEvent?.Invoke(ErrorTextBase.deckCountError);
+            canSelect = false;
             return;
         }
 
@@ -49,10 +50,12 @@ public class DeckBuilder : MonoBehaviour
             if (selectCardList[i].CardInfo.CardName == cardBase.CardInfo.CardName)
             {
                 _errorEvent?.Invoke(ErrorTextBase.cardTypeError);
+                canSelect = false;
                 return;
             }
         }
 
+        canSelect = true;
         selectCardList.Add(cardBase);
         _selectCardElementArr[selectCardList.Count - 1].SetCard(cardBase.CardInfo);
     }
