@@ -20,9 +20,9 @@ public class ActivationChecker : MonoBehaviour
 
     private void Update()
     {
-        if (!IsPointerOnCard()) return;
-
         CheckActivation();
+
+        if (!IsPointerOnCard()) return;
         BindMouse();
     }
 
@@ -35,11 +35,40 @@ public class ActivationChecker : MonoBehaviour
         }
     }
 
+    private void SelectOnPointerCard()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        Debug.Log(pointerEventData.position);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+
+        foreach(RaycastResult result in results)
+        {
+            if(result.gameObject.transform.parent.TryGetComponent<CardBase>(out CardBase c))
+            {
+                if (!CardReader.OnBinding || c.CanUseThisCard)
+                {
+                    Debug.Log(c);
+                    RectTransform rt = c.transform as RectTransform;
+                    CardReader.OnPointerCard = c;
+                    rt.SetAsLastSibling();
+                }
+                break;
+            }
+        }
+    }
+
     private void CheckActivation()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            SelectOnPointerCard();
+            if (!CardReader.OnPointerCard) return;
+
             _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
+            CardReader.CaptureHand();
             CardReader.OnBinding = true;
         }
 
@@ -47,17 +76,27 @@ public class ActivationChecker : MonoBehaviour
         {
             CardReader.OnBinding = false;
             Activation();
+            Debug.Log(CardReader.IsSameCaptureHand());
+            
             CardReader.OnPointerCard = null;
         }
     }
 
     private void Activation()
     {
+        if (!IsPointerOnCard()) return;
+
         if (IsMouseInWaitZone())
         {
             if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL))
             {
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
+
+                foreach(CardBase cb in CardReader._captureHandList)
+                {
+                    Debug.Log(cb.CardInfo.CardName);
+                }
+                CardReader.ResetByCaptureHand();
                 CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
                 return;
             }

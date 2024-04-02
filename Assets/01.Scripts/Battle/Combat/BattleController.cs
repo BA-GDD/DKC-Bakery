@@ -56,12 +56,16 @@ public class BattleController : MonoBehaviour
                     e.turnStatus = TurnStatus.End;
                     PoolManager.Instance.Push(e);
                 }
+
+                OnGameEndEvent?.Invoke();
+                CostCalculator.Init();
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
             }
         }
     }
 
+    [SerializeField] private UnityEvent OnGameEndEvent;
     [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
 
     private void Start()
