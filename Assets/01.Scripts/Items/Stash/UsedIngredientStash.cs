@@ -67,7 +67,7 @@ public class UsedIngredientStash : Stash
             //stash.Remove(invenItem);
             //usedIngredientStash.Remove(invenItem);
             ((ItemDataIngredientSO)item).isUsed = false;
-            Debug.Log(((ItemDataIngredientSO)item).isUsed);
+            //Debug.Log(((ItemDataIngredientSO)item).isUsed);
             usedIngredientStash[(int)((ItemDataIngredientSO)item).ingredientType] = null;
             // Dictionary에서 지움
             usedIngredDictionary.Remove(((ItemDataIngredientSO)item).ingredientType);

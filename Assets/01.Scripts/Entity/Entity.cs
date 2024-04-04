@@ -188,11 +188,15 @@ public abstract class Entity : PoolableMono
     public void DeadSeq()
     {
         CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSeq);
+        HealthCompo.OnDeathEvent?.Invoke();
+        GotoPool();
+    }
+    public void GotoPool()
+    {
         StartCoroutine(DissolveCo());
     }
     private IEnumerator DissolveCo()
     {
-        HealthCompo.OnDeathEvent?.Invoke();
         float timer = 0;
         while (timer < 1)
         {

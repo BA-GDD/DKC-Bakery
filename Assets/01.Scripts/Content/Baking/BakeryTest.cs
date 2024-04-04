@@ -6,7 +6,7 @@ public class BakeryTest : MonoBehaviour
 {
     [SerializeField] private ItemDataIngredientSO[] id;
 
-    private void Start()
+    private void OnEnable()
     {
         foreach (var item in id)
         {

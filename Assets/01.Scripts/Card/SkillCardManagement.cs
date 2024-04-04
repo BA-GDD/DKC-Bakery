@@ -76,6 +76,11 @@ public class SkillCardManagement : CardManagement
             _afterChanningEvent?.Invoke();
             _isInChaining = false;
 
+            foreach(Transform t in _activationCardZone)
+            {
+                Destroy(t.gameObject);
+            }
+
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             _setupHandCardEvent?.Invoke(true);
             _checkStageClearEvent?.Invoke();
@@ -105,6 +110,7 @@ public class SkillCardManagement : CardManagement
         selectCard.transform.DOScale(0.7f, 0.3f);
         GenerateCardPosition(selectCard);
         CardReader.CombineMaster.CombineGenerate();
+        CardReader.CaptureHand();
     }
     private void GenerateCardPosition(CardBase selectCard)
     {

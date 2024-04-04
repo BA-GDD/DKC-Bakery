@@ -7,21 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public Action<int> LoadingProgressChanged { get; set; }
-    private int _loadingProgress;
-    private int LoadingProgress
-    {
-        get { return _loadingProgress;}
-        set 
-        { 
-            if(value != _loadingProgress)
-            {
-                LoadingProgressChanged?.Invoke(value);
-            }
-            _loadingProgress = value; 
-        }
-    }
-
     [Header("Contents")]
     [SerializeField] private List<Content> _contentList = new List<Content>();
     private Dictionary<SceneType, Content> _contentDic = new Dictionary<SceneType, Content>();
@@ -93,8 +78,6 @@ public class GameManager : MonoSingleton<GameManager>
 
         StartCoroutine(Fade(toChangingScene));
 
-
-
         //SceneObserver.CurrentSceneType = SceneType.loading;
         //SceneManager.LoadScene("LoadingScene");
         //StartCoroutine(LoadingProcessCo(toChangingScene));
@@ -121,6 +104,11 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+        SceneObserver.CurrentSceneType = SceneType.loading;
+        SceneObserver.CurrentSceneType = toChangingScene;
+        SceneManager.LoadScene("ActiveScene");
+    }
+    
     public Scene GetCurrentSceneInfo()
     {
         return SceneManager.GetActiveScene();

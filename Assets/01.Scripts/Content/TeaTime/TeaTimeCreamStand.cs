@@ -55,6 +55,6 @@ public class TeaTimeCreamStand : MonoBehaviour
         de.transform.SetParent(_heartEntity.heartTrm);
         de.transform.localScale = Vector3.one;
         de.transform.localPosition = Vector3.zero;
-        de.StartEffect(_heartEntity.heartSprite, _heartEntity.clip, EpisodeDialogueDefine.MoveType.GoCenter);
+        de.StartEffect(_heartEntity.heartSprite, _heartEntity.clip);
     }
 }

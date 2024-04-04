@@ -22,7 +22,7 @@ public class InventoryItem : IComparable<InventoryItem>
 
     public int CompareTo(InventoryItem other)
     {
-        return this.itemDataSO.itemName.CompareTo(other.itemDataSO.itemName);
+        return other.itemDataSO.itemName.CompareTo(this.itemDataSO.itemName);
     }
 
     public void RemoveStack(int count)

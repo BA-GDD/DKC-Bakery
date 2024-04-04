@@ -14,13 +14,10 @@ public class CharacterStandard : MonoBehaviour
     [Header("¼ÂÆÃ°ª")]
     [SerializeField] private Image _characterDraw;
     [SerializeField] private Sprite[] _faceGroup;
-    [SerializeField] private Vector2[] _movePointGroup;
-    [SerializeField] private Vector2[] _exitPointGroup;
 
     private FaceType _currentFaceType;
     private bool _currentActive;
-    private MoveType _alreadyInPos;
-    private ExitType _alreadyOutPos;
+    private Vector2 _alreadyInPos;
 
     public void SetFace(FaceType faceType)
     {
@@ -43,16 +40,10 @@ public class CharacterStandard : MonoBehaviour
         transform.DOShakePosition(0.4f, 15f, 20);
     }
 
-    public void MoveCharacter(MoveType moveType)
+    public void MoveCharacter(Vector2 pos)
     {
-        if (_alreadyInPos == moveType || moveType == MoveType.None) return;
+        if (_alreadyInPos == pos) return;
 
-        transform.DOLocalMove(_movePointGroup[(int)moveType - 1], _moveTime);
-    }
-
-    public void ExitCharacter(ExitType exitType)
-    {
-        if (_alreadyOutPos == exitType || exitType == ExitType.None) return;
-        transform.DOLocalMove(_exitPointGroup[(int)exitType - 1], _exitTime);
+        transform.DOLocalMove(pos, _moveTime);
     }
 }

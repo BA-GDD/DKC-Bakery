@@ -7,10 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
-[Serializable]
-public abstract class CardBase : MonoBehaviour, 
-                                 IPointerEnterHandler, 
-                                 IPointerExitHandler
+public abstract class CardBase : MonoBehaviour 
 {
     [SerializeField] private float _toMovePosInSec;
     public RectTransform VisualRectTrm { get; private set; }
@@ -97,6 +94,7 @@ public abstract class CardBase : MonoBehaviour,
             CardReader.SkillCardManagement.ChainingSkill();
             CardReader.LockHandCard(false);
 
+            Debug.Log(1);
             Destroy(gameObject);
         });
     }
@@ -140,20 +138,7 @@ public abstract class CardBase : MonoBehaviour,
             return false;
         }
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (CardReader.OnBinding || !CanUseThisCard) return;
-
-        RectTransform rt = transform as RectTransform;
-        rt.SetAsLastSibling();
-        CardReader.OnPointerCard = this;
-    }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (CardReader.OnBinding || !CanUseThisCard) return;
-
-        CardReader.OnPointerCard = null;
-    }
+    
     private void Shuffling()
     {
         CardReader.ShuffleInHandCard(CardReader.OnPointerCard, this);

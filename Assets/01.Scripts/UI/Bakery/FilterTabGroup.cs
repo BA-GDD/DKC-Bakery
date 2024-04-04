@@ -19,6 +19,7 @@ public class FilterTabGroup : MonoBehaviour
             ft.TapBtn.onClick.AddListener(() => FilteringItem(ft));
         }
         _currentFilterType = _filterTabArr[1];
+
     }
 
     private void Start()
@@ -42,11 +43,9 @@ public class FilterTabGroup : MonoBehaviour
 
         int matchItemCount = 0;
         Inventory.Instance.ingredientStash.stash.Sort();
-
         foreach (InventoryItem item in Inventory.Instance.ingredientStash.stash)
         {
             ItemDataIngredientSO ingso = item.itemDataSO as ItemDataIngredientSO;
-
             if ((filterTab.GetIngredientType & ingso.ingredientType) == ingso.ingredientType)
             {
                 matchItemCount++;
@@ -57,7 +56,7 @@ public class FilterTabGroup : MonoBehaviour
                 ie.PopUpPanelParent = _popUpParent;
                 ie.transform.SetParent(_contentTrm);
                 ie.transform.localScale = Vector3.one;
-
+                ie.transform.SetAsFirstSibling();
                 _itemElementList.Add(ie);
             }
         }

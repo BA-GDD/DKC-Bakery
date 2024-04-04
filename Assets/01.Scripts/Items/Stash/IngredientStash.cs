@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class IngredientStash : Stash
 {
     public IngredientStash(Transform slotParentTrm) : base(slotParentTrm)

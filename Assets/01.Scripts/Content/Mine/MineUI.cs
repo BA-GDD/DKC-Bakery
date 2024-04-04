@@ -30,6 +30,11 @@ public class MineUI : SceneUI
         }
     }
 
+    public override void SceneUIStart()
+    {
+        SceneObserver.BeforeSceneType = SceneType.Lobby;
+    }
+
     public void SetFloor(string floor, string stageName, string clearGem, bool isClear)
     {
         _currentFloor = floor;

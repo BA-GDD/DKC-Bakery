@@ -23,32 +23,15 @@ public struct DialogueStandardElement
 [Serializable]
 public struct DialogueCharacterElement
 {
-    public CharacterType characterType;
     public FaceType faceType;
-    public bool isActive;
     public bool isShake;
     public EmotionType emotionType;
 
-    public DialogueCharacterElement(CharacterType ct,FaceType ft, bool ac, bool sh, EmotionType et)
+    public DialogueCharacterElement(FaceType ft, bool sh, EmotionType et)
     {
-        characterType = ct;
         faceType = ft;
-        isActive = ac;
         isShake = sh;
         emotionType = et;
-    }
-}
-
-[System.Serializable]
-public struct DialogueMoveElement
-{
-    public MoveType moveType;
-    public ExitType exitTpe;
-
-    public DialogueMoveElement(MoveType mt, ExitType et)
-    {
-        moveType = mt;
-        exitTpe = et;
     }
 }
 
@@ -64,27 +47,43 @@ public struct DialogueProductElement
 }
 
 [Serializable]
+public struct CaptureElement
+{
+    public bool isActive;
+    public Vector2 movePosition;
+
+    public CaptureElement(bool _isActive, Vector2 _movePosition)
+    {
+        isActive = _isActive;
+        movePosition = _movePosition;
+    }
+}
+
+
+[Serializable]
 public struct DialogueElement
 {
     public DialogueStandardElement standardElement;
     public DialogueCharacterElement characterElement;
-    public DialogueMoveElement movementElement;
     public DialogueProductElement productElement;
+    public CaptureElement captureElement;
     public bool isLinker;
 
     public DialogueElement(DialogueStandardElement  _sElement,
                     DialogueCharacterElement _cElement,
-                    DialogueMoveElement _mElement,
                     DialogueProductElement   _pElement,
+                    CaptureElement _capElement,
                     bool _linker)
     {
         standardElement = _sElement;
         characterElement = _cElement;
-        movementElement = _mElement;
         productElement = _pElement;
+        captureElement = _capElement;
         isLinker = _linker;
     }
 }
+
+
 
 #if UNITY_EDITOR
 [CreateAssetMenu(menuName = "SO/Episode/Dialogue")]
@@ -103,16 +102,15 @@ public class EpisodeData : LoadableData
                 new DialogueElement
                 (
                     AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
-                    AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6], generateData[i].str[7], generateData[i].str[10]),
-                    AllocateME(generateData[i].str[8], generateData[i].str[9]),
+                    AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6]),
                     AllocatePE(generateData[i].str[3]),
+                    new CaptureElement(false, Vector2.zero),
                     generateData[i].str[1].Contains("link")
                 )
-            );
+            ); 
         }
         Debug.Log("Complete DataReading!!");
     }
-
     private DialogueStandardElement AllocateSE(string n, string s, string bt)
     {
         return new DialogueStandardElement
@@ -121,28 +119,15 @@ public class EpisodeData : LoadableData
                 (BackGroundType)Enum.Parse(typeof(BackGroundType), bt)
             );
     }
-
-    private DialogueCharacterElement AllocateCE(string ct, string ft, string ac, string sh, string et)
+    private DialogueCharacterElement AllocateCE(string ft, string sh, string et)
     {
         return new DialogueCharacterElement
             (
-                (CharacterType)Enum.Parse(typeof(CharacterType), ct),
                 (FaceType)Enum.Parse(typeof(FaceType), ft),
-                Convert.ToBoolean(ac),
                 Convert.ToBoolean(sh),
                 (EmotionType)Enum.Parse(typeof(EmotionType), et)
             ) ; 
     }
-
-    private DialogueMoveElement AllocateME(string mt, string et)
-    {
-        return new DialogueMoveElement
-            (
-                (MoveType)Enum.Parse(typeof(MoveType), mt),
-                (ExitType)Enum.Parse(typeof(ExitType), et)
-            );
-    }
-
     private DialogueProductElement AllocatePE(string ft)
     {
         return new DialogueProductElement((FadeOutType)Enum.Parse(typeof(FadeOutType), ft));
@@ -168,6 +153,10 @@ public class EpisodeLoader : Editor
         {
             Debug.Log("DataGenerate Start . . .");
             ld.Generate();
+        }
+        if(GUILayout.Button("CaptureCharacterPose"))
+        {
+            Debug.Log("Cheez :)");
         }
     }
 }
