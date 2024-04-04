@@ -7,21 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public Action<int> LoadingProgressChanged { get; set; }
-    private int _loadingProgress;
-    private int LoadingProgress
-    {
-        get { return _loadingProgress;}
-        set 
-        { 
-            if(value != _loadingProgress)
-            {
-                LoadingProgressChanged?.Invoke(value);
-            }
-            _loadingProgress = value; 
-        }
-    }
-
     [Header("Contents")]
     [SerializeField] private List<Content> _contentList = new List<Content>();
     private Dictionary<SceneType, Content> _contentDic = new Dictionary<SceneType, Content>();
@@ -89,30 +74,10 @@ public class GameManager : MonoSingleton<GameManager>
         SceneObserver.BeforeSceneType = CurrentSceneType;
 
         SceneObserver.CurrentSceneType = SceneType.loading;
-        SceneManager.LoadScene("LoadingScene");
-        StartCoroutine(LoadingProcessCo(toChangingScene));
+        SceneObserver.CurrentSceneType = toChangingScene;
+        SceneManager.LoadScene("ActiveScene");
     }
     
-    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
-    {
-        yield return null;
-
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("ActiveScene");
-        asyncOperation.allowSceneActivation = false;
-
-        while (!asyncOperation.isDone)
-        {
-            LoadingProgress = Mathf.CeilToInt(asyncOperation.progress * 100);
-            if (asyncOperation.progress >= 0.9f)
-            {
-                yield return new WaitForSeconds(0.5f);
-                SceneObserver.CurrentSceneType = toChangingSceneType;
-                asyncOperation.allowSceneActivation = true;
-            }
-            yield return null;
-        }
-    }
-
     public Scene GetCurrentSceneInfo()
     {
         return SceneManager.GetActiveScene();
