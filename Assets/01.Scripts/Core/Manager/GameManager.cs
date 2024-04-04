@@ -113,7 +113,7 @@ public class GameManager : MonoSingleton<GameManager>
             if (asyncOperation.progress >= 0.9f)
             {
                 yield return new WaitForSeconds(2.0f);
-                yield return _fadePanel.StartFade();
+                yield return _fadePanel.StartFade(Vector2.zero);
                 SceneObserver.CurrentSceneType = toChangingSceneType;
                 asyncOperation.allowSceneActivation = true;
             }
@@ -128,7 +128,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private IEnumerator Fade(SceneType toChangingScene)
     {
-        yield return _fadePanel.StartFade();
+        yield return _fadePanel.StartFade(MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition));
 
         SceneObserver.CurrentSceneType = SceneType.loading;
         SceneManager.LoadScene("LoadingScene");
