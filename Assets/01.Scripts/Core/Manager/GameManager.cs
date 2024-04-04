@@ -83,7 +83,7 @@ public class GameManager : MonoSingleton<GameManager>
         //StartCoroutine(LoadingProcessCo(toChangingScene));
     }
     
-    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
+/*    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
     {
         yield return null;
 
@@ -107,7 +107,7 @@ public class GameManager : MonoSingleton<GameManager>
         SceneObserver.CurrentSceneType = SceneType.loading;
         SceneObserver.CurrentSceneType = toChangingScene;
         SceneManager.LoadScene("ActiveScene");
-    }
+    }*/
     
     public Scene GetCurrentSceneInfo()
     {
@@ -119,7 +119,7 @@ public class GameManager : MonoSingleton<GameManager>
         yield return _fadePanel.StartFade(MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition));
 
         SceneObserver.CurrentSceneType = SceneType.loading;
-        SceneManager.LoadScene("LoadingScene");
-        StartCoroutine(LoadingProcessCo(toChangingScene));
+        SceneObserver.CurrentSceneType = toChangingScene;
+        SceneManager.LoadScene("ActiveScene");
     }
 }

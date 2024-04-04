@@ -13,7 +13,6 @@ public class TrailObject : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!self.isPlaying) return;
         transform.position = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
     }
 }
