@@ -16,7 +16,7 @@ namespace EpisodeDialogueDefine
         sad,
         cutesad,
         embrass,
-        cutesmile,
+        normal,
         curious
     }
 

@@ -95,7 +95,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         _owner = owner;
         _currentHealth = maxHealth = _owner.CharStat.GetMaxHealthValue();
-        Debug.Log($"{_currentHealth}/{maxHealth}");
     }
 
     public float GetNormalizedHealth()

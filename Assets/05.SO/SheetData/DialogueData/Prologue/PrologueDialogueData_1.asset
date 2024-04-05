@@ -12,7 +12,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a52b840cdb3be48988144854b13326, type: 3}
   m_Name: PrologueDialogueData_1
   m_EditorClassIdentifier: 
-  generateData: []
+  _filePath: C:\Users\user\Documents\GitHub\DKC-Bakery\Assets\05.SO\SheetData\DialogueData\Prologue/SampleCsv
+  generateData:
+  - str:
+    - 
+    - "\uC5B4\uB290 \uAE38\uB4DC \uB0B4\uBD80"
+    - Guild
+    - None
+    - normal
+    - FALSE
+    - None
+    - "None\r"
+  - str:
+    - "\uD0C0\uB974\uD2B8"
+    - "\uACE0\uBE14\uB9B0 \uD1F4\uCE58? \uCD08\uBCF4 \uBAA8\uD5D8\uAC00\uB4E4\uC774\uB098
+      \uD558\uB294 \uD018\uC2A4\uD2B8\uC796\uC544!"
+    - Guild
+    - None
+    - angry
+    - FALSE
+    - None
+    - "None\r"
+  - str:
+    - "\uD0C0\uB974\uD2B8"
+    - "\uC57D\uCD08 \uCCB4\uC9D1? \uC73C\uAC39! \uC774\uB807\uAC8C \uAE4A\uC740 \uACF3
+      \uAE4C\uC9C0 \uAC00\uC57C \uD55C\uB2E4\uACE0?"
+    - Guild
+    - None
+    - surprise
+    - TRUE
+    - None
+    - "None\r"
+  - str:
+    - "\uD0C0\uB974\uD2B8"
+    - "\uC800\uBC88\uC5D0\uB3C4 \uC2E4\uC218\uB85C \uAE38\uC744 \uC783\uC5B4\uC11C
+      3\uC77C\uB3D9\uC548 \uD480\uB9CC \uCE90\uBA39\uB2E4\uAC00 \uACA8\uC6B0\uACA8\uC6B0
+      \uAD6C\uC870\uB410\uB294\uB370.."
+    - Guild
+    - None
+    - sad
+    - FALSE
+    - Sad
+    - "None\r"
   toReadCsvFile: {fileID: 4900000, guid: 8abbf7880ae95074e893e4f7baa38933, type: 3}
-  cellRange: A1:D1
-  dialogueElement: []
+  cellRange: A1:H4
+  CurrentCaptureIdx: 4
+  dialogueElement:
+  - standardElement:
+      name: 
+      sentence: "\uC5B4\uB290 \uAE38\uB4DC \uB0B4\uBD80"
+      backGroundType: 2
+    characterElement:
+      faceType: 7
+      isShake: 0
+      emotionType: 0
+    productElement:
+      fadeType: 0
+    captureElement:
+      isActive: 0
+      movePosition: {x: 119, y: -230}
+    isLinker: 0
+  - standardElement:
+      name: "\uD0C0\uB974\uD2B8"
+      sentence: "\uACE0\uBE14\uB9B0 \uD1F4\uCE58? \uCD08\uBCF4 \uBAA8\uD5D8\uAC00\uB4E4\uC774\uB098
+        \uD558\uB294 \uD018\uC2A4\uD2B8\uC796\uC544!"
+      backGroundType: 2
+    characterElement:
+      faceType: 3
+      isShake: 0
+      emotionType: 0
+    productElement:
+      fadeType: 0
+    captureElement:
+      isActive: 1
+      movePosition: {x: 29, y: -230}
+    isLinker: 0
+  - standardElement:
+      name: "\uD0C0\uB974\uD2B8"
+      sentence: "\uC57D\uCD08 \uCCB4\uC9D1? \uC73C\uAC39! \uC774\uB807\uAC8C \uAE4A\uC740
+        \uACF3 \uAE4C\uC9C0 \uAC00\uC57C \uD55C\uB2E4\uACE0?"
+      backGroundType: 2
+    characterElement:
+      faceType: 2
+      isShake: 1
+      emotionType: 0
+    productElement:
+      fadeType: 0
+    captureElement:
+      isActive: 1
+      movePosition: {x: 29, y: -230}
+    isLinker: 0
+  - standardElement:
+      name: "\uD0C0\uB974\uD2B8"
+      sentence: "\uC800\uBC88\uC5D0\uB3C4 \uC2E4\uC218\uB85C \uAE38\uC744 \uC783\uC5B4\uC11C
+        3\uC77C\uB3D9\uC548 \uD480\uB9CC \uCE90\uBA39\uB2E4\uAC00 \uACA8\uC6B0\uACA8\uC6B0
+        \uAD6C\uC870\uB410\uB294\uB370.."
+      backGroundType: 2
+    characterElement:
+      faceType: 4
+      isShake: 0
+      emotionType: 2
+    productElement:
+      fadeType: 0
+    captureElement:
+      isActive: 1
+      movePosition: {x: 132, y: -230}
+    isLinker: 0

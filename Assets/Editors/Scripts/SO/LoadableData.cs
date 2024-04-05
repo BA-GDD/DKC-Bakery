@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.IO;
 
 [Serializable]
 public struct Data
@@ -16,6 +17,7 @@ public struct Data
 
 public class LoadableData : ScriptableObject
 {
+    [SerializeField] private string _filePath;
     [SerializeField] protected List<Data> generateData = new List<Data>();
     public TextAsset toReadCsvFile;
     public string cellRange;

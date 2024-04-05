@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using EpisodeDialogueDefine;
 using System;
+using Unity.VisualScripting;
+using UnityEditor.U2D.Animation;
 
 [Serializable]
 public struct DialogueStandardElement
@@ -90,6 +92,7 @@ public struct DialogueElement
 #endif
 public class EpisodeData : LoadableData
 {
+    public int CurrentCaptureIdx;
     public List<DialogueElement> dialogueElement = new List<DialogueElement>();
 
     public void GeneratDialogueData()
@@ -132,12 +135,34 @@ public class EpisodeData : LoadableData
     {
         return new DialogueProductElement((FadeOutType)Enum.Parse(typeof(FadeOutType), ft));
     }
+
+    public void CaptureCharacterElement(CharacterType characterType)
+    {
+        string cPath = "ManagerGroup/EpisodeManager/EpisodeGroup/UICANVAS/CharacterGroup";
+
+        if (characterType == CharacterType.tart)
+        {
+            cPath += "/Tart";
+        }
+        else
+        {
+            cPath += "/Mawang";
+        }
+        CharacterStandard selectCharacter = GameObject.Find(cPath).GetComponent<CharacterStandard>();
+        CaptureElement ce = new CaptureElement(selectCharacter.gameObject.activeSelf, selectCharacter.transform.localPosition);
+        DialogueElement de = dialogueElement[CurrentCaptureIdx];
+        de.captureElement = ce;
+        dialogueElement[CurrentCaptureIdx] = de;
+        CurrentCaptureIdx++;
+    }
 }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(EpisodeData))]
 public class EpisodeLoader : Editor
 {
+    public CharacterType CaptureCharacterType;
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -154,8 +179,18 @@ public class EpisodeLoader : Editor
             Debug.Log("DataGenerate Start . . .");
             ld.Generate();
         }
-        if(GUILayout.Button("CaptureCharacterPose"))
+
+        GUILayout.Label("캡쳐할 캐릭터 선택");
+        GUIContent[] enumOptions = new GUIContent[Enum.GetNames(typeof(CharacterType)).Length];
+        for (int i = 0; i < enumOptions.Length; i++)
         {
+            enumOptions[i] = new GUIContent(Enum.GetNames(typeof(CharacterType))[i]);
+        }
+        CaptureCharacterType = (CharacterType)GUILayout.SelectionGrid((int)CaptureCharacterType, enumOptions, 1);
+
+        if (GUILayout.Button("CaptureCharacterPose"))
+        {
+            episodeData.CaptureCharacterElement(CaptureCharacterType);
             Debug.Log("Cheez :)");
         }
     }

@@ -15,6 +15,7 @@ public class CharacterStandard : MonoBehaviour
     [SerializeField] private Image _characterDraw;
     [SerializeField] private Sprite[] _faceGroup;
 
+    private Tween _moveTween;
     private FaceType _currentFaceType;
     private bool _currentActive;
     private Vector2 _alreadyInPos;
@@ -30,7 +31,6 @@ public class CharacterStandard : MonoBehaviour
     public void SetActive(bool isActive)
     {
         if (_currentActive == isActive) return;
-
         _characterDraw.DOFade(Convert.ToInt32(isActive), _activeTime);
         _currentActive = isActive;
     }
@@ -42,8 +42,11 @@ public class CharacterStandard : MonoBehaviour
 
     public void MoveCharacter(Vector2 pos)
     {
+        Debug.Log(pos);
         if (_alreadyInPos == pos) return;
 
-        transform.DOLocalMove(pos, _moveTime);
+        _moveTween.Kill();
+        _moveTween = transform.DOLocalMove(pos, _moveTime);
+        _alreadyInPos = pos;
     }
 }
