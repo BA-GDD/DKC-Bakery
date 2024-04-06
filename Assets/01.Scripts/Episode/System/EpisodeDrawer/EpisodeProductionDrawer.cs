@@ -53,7 +53,7 @@ public class EpisodeProductionDrawer : MonoBehaviour
 
     public void HandleProductionDraw(FadeOutType fType)
     {
-        if (fType == FadeOutType.Maintain) return;
+        if (fType == FadeOutType.None) return;
 
         _fadeInOutAction = null;
 

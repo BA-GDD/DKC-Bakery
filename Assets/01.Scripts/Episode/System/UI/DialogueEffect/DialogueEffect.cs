@@ -22,7 +22,7 @@ public class DialogueEffect : PoolableMono
         _effectElement.sprite = img;
 
         _animator.SetBool(_starthash, true);
-
+        Debug.Log(currentPos);
         _effectElement.transform.localPosition = EpiswordMaster.GetEmotionReactionPos(currentPos);
         if(currentPos.x > 0)
         {

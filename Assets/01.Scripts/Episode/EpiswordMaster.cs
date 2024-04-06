@@ -24,13 +24,16 @@ public static class EpiswordMaster
 
     public static Vector2 GetEmotionReactionPos(Vector2 characterPos)
     {
+        Vector2 calPos = Vector2.zero;
         if(characterPos.x >= 0)
         {
-            return characterPos += new Vector2(-200, 442);
+            calPos = characterPos + new Vector2(-200, 442);
         }
         else
         {
-            return characterPos += new Vector2(200, 442);
+            calPos = characterPos += new Vector2(200, 442);
         }
+
+        return calPos;
     }
 }
