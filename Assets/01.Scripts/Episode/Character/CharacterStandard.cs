@@ -15,6 +15,9 @@ public class CharacterStandard : MonoBehaviour
     [SerializeField] private Image _characterDraw;
     [SerializeField] private Sprite[] _faceGroup;
 
+    [field:SerializeField] public Transform EmotionRightPos { get; private set; }
+    [field:SerializeField] public Transform EmotionLeftPos { get; private set; }
+
     private Tween _moveTween;
     private FaceType _currentFaceType;
     private bool _currentActive;

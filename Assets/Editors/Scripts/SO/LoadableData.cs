@@ -17,7 +17,6 @@ public struct Data
 
 public class LoadableData : ScriptableObject
 {
-    [SerializeField] private string _filePath;
     [SerializeField] protected List<Data> generateData = new List<Data>();
     public TextAsset toReadCsvFile;
     public string cellRange;

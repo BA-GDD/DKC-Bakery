@@ -3,6 +3,7 @@ using UnityEngine;
 using EpisodeDialogueDefine;
 using System;
 using UnityEngine.Events;
+using DG.Tweening;
 
 [Serializable]
 public struct CharacterElementGroup
@@ -46,10 +47,11 @@ public class EpisodeCharacterDrawer : MonoBehaviour
         _selectCharacter.CharacterShake();
     }
 
-    public void HandleCharacterMoveDraw(CharacterType ct, Vector2 movePos)
+    public void HandleCharacterMoveDraw(CharacterType ct, Vector2 movePos, Quaternion rot)
     {
         _selectCharacter = _characterSelectDictionary[ct];
         _selectCharacter.MoveCharacter(movePos);
+        _selectCharacter.transform.DOLocalRotateQuaternion(rot, 0.2f);
     }
 
     public void HandleDialogueEffectDraw(CharacterType ct, EmotionType emo)
@@ -59,9 +61,7 @@ public class EpisodeCharacterDrawer : MonoBehaviour
         DialogueEffect de = PoolManager.Instance.Pop(PoolingType.DialogueEffect) as DialogueEffect;
 
         EmotionElementGroup eg = _emotionGroupArr[(int)emo - 1];
-        de.transform.parent = _emotionTrm;
-        de.transform.localScale = Vector3.one;
-        de.StartEffect(eg.elementImg, eg.elementClip, _characterSelectDictionary[ct].transform.localPosition);
+        de.StartEffect(eg.elementImg, eg.elementClip, _characterSelectDictionary[ct]);
 
         SFXType st = emo == EmotionType.Sparkle ? SFXType.sparcle : SFXType.bubble;
         _episodeSounder.HandleOutputSFX(st);

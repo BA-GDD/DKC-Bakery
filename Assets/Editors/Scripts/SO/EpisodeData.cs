@@ -53,11 +53,13 @@ public struct CaptureElement
 {
     public bool isActive;
     public Vector2 movePosition;
+    public Quaternion rotationValue;
 
-    public CaptureElement(bool _isActive, Vector2 _movePosition)
+    public CaptureElement(bool _isActive, Vector2 _movePosition, Quaternion _rotationValue)
     {
         isActive = _isActive;
         movePosition = _movePosition;
+        rotationValue = _rotationValue;
     }
 }
 
@@ -107,7 +109,7 @@ public class EpisodeData : LoadableData
                     AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
                     AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6]),
                     AllocatePE(generateData[i].str[3]),
-                    new CaptureElement(false, Vector2.zero),
+                    new CaptureElement(false, Vector2.zero, Quaternion.identity),
                     generateData[i].str[1].Contains("link")
                 )
             ); 
@@ -149,7 +151,9 @@ public class EpisodeData : LoadableData
             cPath += "/Mawang";
         }
         CharacterStandard selectCharacter = GameObject.Find(cPath).GetComponent<CharacterStandard>();
-        CaptureElement ce = new CaptureElement(selectCharacter.gameObject.activeSelf, selectCharacter.transform.localPosition);
+        CaptureElement ce = new CaptureElement(selectCharacter.gameObject.activeSelf, 
+                                               selectCharacter.transform.localPosition,
+                                               selectCharacter.transform.localRotation);
         DialogueElement de = dialogueElement[CurrentCaptureIdx];
         de.captureElement = ce;
         dialogueElement[CurrentCaptureIdx] = de;

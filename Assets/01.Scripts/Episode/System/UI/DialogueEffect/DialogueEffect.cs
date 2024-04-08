@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using EpisodeDialogueDefine;
 
 public class DialogueEffect : PoolableMono
 {
@@ -16,18 +15,13 @@ public class DialogueEffect : PoolableMono
 
     private readonly int _starthash = Animator.StringToHash("isStart");
 
-    public void StartEffect(Sprite img, AnimationClip clip, Vector2 currentPos)
+    public void StartEffect(Sprite img, AnimationClip clip, CharacterStandard currentCharacter)
     {
         _effectAnimator["NormalClip"] = clip;
         _effectElement.sprite = img;
 
         _animator.SetBool(_starthash, true);
-        Debug.Log(currentPos);
-        _effectElement.transform.localPosition = EpiswordMaster.GetEmotionReactionPos(currentPos);
-        if(currentPos.x > 0)
-        {
-            _effectElement.transform.localRotation = Quaternion.identity;
-        }
+        EpiswordMaster.SetEmotionReactionPos(transform, currentCharacter);
         
         Sequence seq = DOTween.Sequence();
         seq.Append(_bubble.DOFade(1, _fadingTime));

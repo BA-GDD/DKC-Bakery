@@ -13,7 +13,7 @@ public class EpisodeDialogueCore : MonoBehaviour
     [SerializeField] private UnityEvent<string, string, BackGroundType> StandardDrawEvent;
     [SerializeField] private UnityEvent<FadeOutType> ProductionDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, FaceType, bool, bool> CharacterDrawEvent;
-    [SerializeField] private UnityEvent<CharacterType, Vector2> CharacterMoveEvent;
+    [SerializeField] private UnityEvent<CharacterType, Vector2, Quaternion> CharacterMoveEvent;
     [SerializeField] private UnityEvent<CharacterType, EmotionType> CharacterEmotionEvent;
 
     private void Start()
@@ -89,7 +89,8 @@ public class EpisodeDialogueCore : MonoBehaviour
                                    _selectDialogueElement.characterElement.isShake);
 
         CharacterMoveEvent?.Invoke(characterType,
-                                   _selectDialogueElement.captureElement.movePosition);
+                                   _selectDialogueElement.captureElement.movePosition,
+                                   _selectDialogueElement.captureElement.rotationValue);
 
         CharacterEmotionEvent?.Invoke(characterType,
                                       _selectDialogueElement.characterElement.emotionType);
