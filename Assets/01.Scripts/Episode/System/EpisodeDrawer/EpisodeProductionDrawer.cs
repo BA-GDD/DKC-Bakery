@@ -17,9 +17,21 @@ public class EpisodeProductionDrawer : MonoBehaviour
     [SerializeField] private float _fadeInTime;
     [SerializeField] private float _fadeOutTime;
 
+    [Header("에피소드 이미지 프리뷰")]
+    [SerializeField] private GameObject _priviewObject;
+    [SerializeField] private Image _priviewVisual;
+
     private event Action _fadeInOutAction;
     private FadeOutType _beforeFadeOutType;
     private Dictionary<FadeOutType, Action> _findFadeDic = new Dictionary<FadeOutType, Action>();
+
+    public void HandleActivePriviewImage(bool isActive, Sprite visual)
+    {
+        if (_priviewObject.activeSelf == isActive && _priviewVisual.sprite == visual) return;
+
+        _priviewObject.SetActive(isActive);
+        _priviewVisual.sprite = visual;
+    }
 
     private void OnDisable()
     {

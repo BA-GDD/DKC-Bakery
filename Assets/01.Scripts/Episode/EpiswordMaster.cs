@@ -18,7 +18,7 @@ public static class EpiswordMaster
             case "Å©¸²½¼ ºê·õ·¹":
                 return CharacterType.mawang;
             default:
-                return CharacterType.mawang;
+                return CharacterType.tart;
         }
     }
 

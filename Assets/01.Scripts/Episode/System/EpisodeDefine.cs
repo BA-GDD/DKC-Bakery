@@ -22,7 +22,7 @@ namespace EpisodeDialogueDefine
 
     public enum BackGroundType
     {
-        None,
+        None ,
         Black,
         Guild,
         Castle,

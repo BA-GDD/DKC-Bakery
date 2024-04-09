@@ -63,7 +63,6 @@ public struct CaptureElement
     }
 }
 
-
 [Serializable]
 public struct DialogueElement
 {
@@ -71,23 +70,24 @@ public struct DialogueElement
     public DialogueCharacterElement characterElement;
     public DialogueProductElement productElement;
     public CaptureElement captureElement;
+    public Sprite priviewSprite;
     public bool isLinker;
 
     public DialogueElement(DialogueStandardElement  _sElement,
                     DialogueCharacterElement _cElement,
                     DialogueProductElement   _pElement,
                     CaptureElement _capElement,
+                    Sprite _priviewSprite,
                     bool _linker)
     {
         standardElement = _sElement;
         characterElement = _cElement;
         productElement = _pElement;
         captureElement = _capElement;
+        priviewSprite = _priviewSprite;
         isLinker = _linker;
     }
 }
-
-
 
 #if UNITY_EDITOR
 [CreateAssetMenu(menuName = "SO/Episode/Dialogue")]
@@ -110,6 +110,7 @@ public class EpisodeData : LoadableData
                     AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6]),
                     AllocatePE(generateData[i].str[3]),
                     new CaptureElement(false, Vector2.zero, Quaternion.identity),
+                    null,
                     generateData[i].str[1].Contains("link")
                 )
             ); 
@@ -154,10 +155,10 @@ public class EpisodeData : LoadableData
         CaptureElement ce = new CaptureElement(selectCharacter.gameObject.activeSelf, 
                                                selectCharacter.transform.localPosition,
                                                selectCharacter.transform.localRotation);
+
         DialogueElement de = dialogueElement[CurrentCaptureIdx];
         de.captureElement = ce;
         dialogueElement[CurrentCaptureIdx] = de;
-        CurrentCaptureIdx++;
     }
 }
 

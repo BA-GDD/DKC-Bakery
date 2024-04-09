@@ -12,6 +12,7 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     [SerializeField] private UnityEvent<string, string, BackGroundType> StandardDrawEvent;
     [SerializeField] private UnityEvent<FadeOutType> ProductionDrawEvent;
+    [SerializeField] private UnityEvent<bool, Sprite> PriviewImageDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, FaceType, bool, bool> CharacterDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, Vector2, Quaternion> CharacterMoveEvent;
     [SerializeField] private UnityEvent<CharacterType, EmotionType> CharacterEmotionEvent;
@@ -52,7 +53,6 @@ public class EpisodeDialogueCore : MonoBehaviour
         {
             while (_selectEpisodeData.dialogueElement[epiManager.DialogueIdx].isLinker)
             {
-                Debug.Log(1);
                 _selectDialogueElement = _selectEpisodeData.dialogueElement[epiManager.DialogueIdx];
                 PhaseConnectStandard();
 
@@ -78,6 +78,7 @@ public class EpisodeDialogueCore : MonoBehaviour
         CharacterType characterType = EpiswordMaster.GetCharacterTypeByName(_selectDialogueElement.standardElement.name);
 
         ProductionDrawEvent?.Invoke(_selectDialogueElement.productElement.fadeType);
+        PriviewImageDrawEvent?.Invoke(_selectDialogueElement.priviewSprite != null, _selectDialogueElement.priviewSprite);
 
         epiManager.AddDialogeLogData(              characterType,
                                                    _selectDialogueElement.standardElement.name,

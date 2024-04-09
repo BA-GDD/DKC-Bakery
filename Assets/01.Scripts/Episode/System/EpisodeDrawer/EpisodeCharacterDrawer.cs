@@ -49,6 +49,8 @@ public class EpisodeCharacterDrawer : MonoBehaviour
 
     public void HandleCharacterMoveDraw(CharacterType ct, Vector2 movePos, Quaternion rot)
     {
+        if (movePos == Vector2.zero || rot == Quaternion.identity) return;
+
         _selectCharacter = _characterSelectDictionary[ct];
         _selectCharacter.MoveCharacter(movePos);
         _selectCharacter.transform.DOLocalRotateQuaternion(rot, 0.2f);
