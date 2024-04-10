@@ -37,19 +37,33 @@ public class EpisodeCharacterDrawer : MonoBehaviour
         }
     }
 
-    public void HandleCharacterDraw(CharacterType ct, FaceType faceType , bool isActive, bool isShake)
+    public void HandleCharacterDraw(CharacterType ct, FaceType faceType , CharacterActiveType activeType, bool isShake)
     {
         _selectCharacter = _characterSelectDictionary[ct];
         _selectCharacter.SetFace(faceType);
-        _selectCharacter.SetActive(isActive);
 
-        if (!isShake) return;
-        _selectCharacter.CharacterShake();
+        switch (activeType)
+        {
+            case CharacterActiveType.Contain:
+                _selectCharacter.SetActive(_selectCharacter.gameObject.activeSelf);
+                break;
+            case CharacterActiveType.None:
+                _selectCharacter.SetActive(false);
+                break;
+            case CharacterActiveType.Active:
+                _selectCharacter.SetActive(true);
+                break;
+        }
+
+        if (isShake)
+        {
+            _selectCharacter.CharacterShake();
+        }
     }
 
     public void HandleCharacterMoveDraw(CharacterType ct, Vector2 movePos, Quaternion rot)
     {
-        if (movePos == Vector2.zero || rot == Quaternion.identity) return;
+        if (movePos == Vector2.zero && rot == Quaternion.identity) return;
 
         _selectCharacter = _characterSelectDictionary[ct];
         _selectCharacter.MoveCharacter(movePos);

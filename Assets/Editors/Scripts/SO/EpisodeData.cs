@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using EpisodeDialogueDefine;
 using System;
-using Unity.VisualScripting;
-using UnityEditor.U2D.Animation;
 
 [Serializable]
 public struct DialogueStandardElement
@@ -21,7 +19,6 @@ public struct DialogueStandardElement
         backGroundType = bt;
     }
 }
-
 [Serializable]
 public struct DialogueCharacterElement
 {
@@ -36,7 +33,6 @@ public struct DialogueCharacterElement
         emotionType = et;
     }
 }
-
 [Serializable]
 public struct DialogueProductElement
 {
@@ -47,17 +43,16 @@ public struct DialogueProductElement
         fadeType = ft;
     }
 }
-
 [Serializable]
 public struct CaptureElement
 {
-    public bool isActive;
+    public CharacterActiveType activeType;
     public Vector2 movePosition;
     public Quaternion rotationValue;
 
-    public CaptureElement(bool _isActive, Vector2 _movePosition, Quaternion _rotationValue)
+    public CaptureElement(CharacterActiveType _activeType, Vector2 _movePosition, Quaternion _rotationValue)
     {
-        isActive = _isActive;
+        activeType = _activeType;
         movePosition = _movePosition;
         rotationValue = _rotationValue;
     }
@@ -94,7 +89,7 @@ public struct DialogueElement
 #endif
 public class EpisodeData : LoadableData
 {
-    public int CurrentCaptureIdx;
+    public EpisodeCaptureData captureData;
     public List<DialogueElement> dialogueElement = new List<DialogueElement>();
 
     public void GeneratDialogueData()
@@ -109,13 +104,34 @@ public class EpisodeData : LoadableData
                     AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
                     AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6]),
                     AllocatePE(generateData[i].str[3]),
-                    new CaptureElement(false, Vector2.zero, Quaternion.identity),
+                    new CaptureElement(CharacterActiveType.Contain, Vector2.zero, Quaternion.identity),
                     null,
                     generateData[i].str[1].Contains("link")
                 )
             ); 
         }
         Debug.Log("Complete DataReading!!");
+    }
+    public void GenerateCaptureData()
+    {
+        if(captureData == null)
+        {
+            Debug.LogError("캡쳐 데이터가 없는데숭?");
+            return;
+        }
+
+        foreach(CaptureDataBox box in captureData.episodeCaptureElement)
+        {
+            if(box.captureDataIDX >= dialogueElement.Count)
+            {
+                Debug.LogError("다이얼로그 리스트 확인 요함");
+                return;
+            }
+
+            DialogueElement de = dialogueElement[box.captureDataIDX];
+            de.captureElement = box.captureElement;
+            dialogueElement[box.captureDataIDX] = de;
+        }
     }
     private DialogueStandardElement AllocateSE(string n, string s, string bt)
     {
@@ -139,35 +155,12 @@ public class EpisodeData : LoadableData
         return new DialogueProductElement((FadeOutType)Enum.Parse(typeof(FadeOutType), ft));
     }
 
-    public void CaptureCharacterElement(CharacterType characterType)
-    {
-        string cPath = "ManagerGroup/EpisodeManager/EpisodeGroup/UICANVAS/CharacterGroup";
-
-        if (characterType == CharacterType.tart)
-        {
-            cPath += "/Tart";
-        }
-        else
-        {
-            cPath += "/Mawang";
-        }
-        CharacterStandard selectCharacter = GameObject.Find(cPath).GetComponent<CharacterStandard>();
-        CaptureElement ce = new CaptureElement(selectCharacter.gameObject.activeSelf, 
-                                               selectCharacter.transform.localPosition,
-                                               selectCharacter.transform.localRotation);
-
-        DialogueElement de = dialogueElement[CurrentCaptureIdx];
-        de.captureElement = ce;
-        dialogueElement[CurrentCaptureIdx] = de;
-    }
 }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(EpisodeData))]
 public class EpisodeLoader : Editor
 {
-    public CharacterType CaptureCharacterType;
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -179,24 +172,15 @@ public class EpisodeLoader : Editor
             Debug.Log("DataReading Start . . .");
             episodeData.GeneratDialogueData();
         }
+        if (GUILayout.Button("CaptureDataReading"))
+        {
+            Debug.Log("DataGenerate Start . . .");
+            episodeData.GenerateCaptureData();
+        }
         if (GUILayout.Button("DataGenerate"))
         {
             Debug.Log("DataGenerate Start . . .");
             ld.Generate();
-        }
-
-        GUILayout.Label("캡쳐할 캐릭터 선택");
-        GUIContent[] enumOptions = new GUIContent[Enum.GetNames(typeof(CharacterType)).Length];
-        for (int i = 0; i < enumOptions.Length; i++)
-        {
-            enumOptions[i] = new GUIContent(Enum.GetNames(typeof(CharacterType))[i]);
-        }
-        CaptureCharacterType = (CharacterType)GUILayout.SelectionGrid((int)CaptureCharacterType, enumOptions, 1);
-
-        if (GUILayout.Button("CaptureCharacterPose"))
-        {
-            episodeData.CaptureCharacterElement(CaptureCharacterType);
-            Debug.Log("Cheez :)");
         }
     }
 }

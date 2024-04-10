@@ -1,6 +1,13 @@
 
 namespace EpisodeDialogueDefine
 {
+    public enum CharacterActiveType
+    {
+        Contain,
+        None,
+        Active
+    }
+
     public enum CharacterType
     {
         tart,

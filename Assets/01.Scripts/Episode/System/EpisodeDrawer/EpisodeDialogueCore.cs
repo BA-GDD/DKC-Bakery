@@ -13,7 +13,7 @@ public class EpisodeDialogueCore : MonoBehaviour
     [SerializeField] private UnityEvent<string, string, BackGroundType> StandardDrawEvent;
     [SerializeField] private UnityEvent<FadeOutType> ProductionDrawEvent;
     [SerializeField] private UnityEvent<bool, Sprite> PriviewImageDrawEvent;
-    [SerializeField] private UnityEvent<CharacterType, FaceType, bool, bool> CharacterDrawEvent;
+    [SerializeField] private UnityEvent<CharacterType, FaceType, CharacterActiveType, bool> CharacterDrawEvent;
     [SerializeField] private UnityEvent<CharacterType, Vector2, Quaternion> CharacterMoveEvent;
     [SerializeField] private UnityEvent<CharacterType, EmotionType> CharacterEmotionEvent;
 
@@ -86,7 +86,7 @@ public class EpisodeDialogueCore : MonoBehaviour
 
         CharacterDrawEvent?.Invoke(characterType,
                                    _selectDialogueElement.characterElement.faceType,
-                                   _selectDialogueElement.captureElement.isActive,
+                                   _selectDialogueElement.captureElement.activeType,
                                    _selectDialogueElement.characterElement.isShake);
 
         CharacterMoveEvent?.Invoke(characterType,
