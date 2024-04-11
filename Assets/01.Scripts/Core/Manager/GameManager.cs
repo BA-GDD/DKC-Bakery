@@ -7,21 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public Action<int> LoadingProgressChanged { get; set; }
-    private int _loadingProgress;
-    private int LoadingProgress
-    {
-        get { return _loadingProgress;}
-        set 
-        { 
-            if(value != _loadingProgress)
-            {
-                LoadingProgressChanged?.Invoke(value);
-            }
-            _loadingProgress = value; 
-        }
-    }
-
     [Header("Contents")]
     [SerializeField] private List<Content> _contentList = new List<Content>();
     private Dictionary<SceneType, Content> _contentDic = new Dictionary<SceneType, Content>();
@@ -31,6 +16,9 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("Pooling")]
     [SerializeField] private PoolListSO _poolingList;
     [SerializeField] private Transform _poolingTrm;
+
+    [Header("Fade")]
+    [SerializeField] private FadePanel _fadePanel;
 
     private void Start()
     {
@@ -88,12 +76,14 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SceneObserver.BeforeSceneType = CurrentSceneType;
 
-        SceneObserver.CurrentSceneType = SceneType.loading;
-        SceneManager.LoadScene("LoadingScene");
-        StartCoroutine(LoadingProcessCo(toChangingScene));
+        StartCoroutine(Fade(toChangingScene));
+
+        //SceneObserver.CurrentSceneType = SceneType.loading;
+        //SceneManager.LoadScene("LoadingScene");
+        //StartCoroutine(LoadingProcessCo(toChangingScene));
     }
     
-    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
+/*    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
     {
         yield return null;
 
@@ -105,7 +95,8 @@ public class GameManager : MonoSingleton<GameManager>
             LoadingProgress = Mathf.CeilToInt(asyncOperation.progress * 100);
             if (asyncOperation.progress >= 0.9f)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(2.0f);
+                yield return _fadePanel.StartFade(Vector2.zero);
                 SceneObserver.CurrentSceneType = toChangingSceneType;
                 asyncOperation.allowSceneActivation = true;
             }
@@ -113,8 +104,22 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+        SceneObserver.CurrentSceneType = SceneType.loading;
+        SceneObserver.CurrentSceneType = toChangingScene;
+        SceneManager.LoadScene("ActiveScene");
+    }*/
+    
     public Scene GetCurrentSceneInfo()
     {
         return SceneManager.GetActiveScene();
+    }
+
+    private IEnumerator Fade(SceneType toChangingScene)
+    {
+        yield return _fadePanel.StartFade(MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition));
+
+        SceneObserver.CurrentSceneType = SceneType.loading;
+        SceneObserver.CurrentSceneType = toChangingScene;
+        SceneManager.LoadScene("ActiveScene");
     }
 }

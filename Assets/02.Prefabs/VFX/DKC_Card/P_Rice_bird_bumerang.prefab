@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3610422583597391662}
   - component: {fileID: 4956012267514451922}
   - component: {fileID: 6283180006602654858}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_Rice_bird_bumerang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,6 +4957,10 @@ PrefabInstance:
     - target: {fileID: 6105294104623472291, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: TrailModule.widthOverTrail.scalar
       value: 1.5723909
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105294104623472291, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6427028827015011718, guid: c4b5278c577abdb4083e661858da2f1a, type: 3}
       propertyPath: playOnAwake
