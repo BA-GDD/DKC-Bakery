@@ -174,7 +174,7 @@ public class EpisodeLoader : Editor
         }
         if (GUILayout.Button("CaptureDataReading"))
         {
-            Debug.Log("DataGenerate Start . . .");
+            Debug.Log("CaptureReading Start . . .");
             episodeData.GenerateCaptureData();
         }
         if (GUILayout.Button("DataGenerate"))

@@ -18,6 +18,11 @@ public class LobbyInteraction : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        _characterDic.Clear();
+    }
+
     public void StartInteraction()
     {
         int rdIdx = Random.Range(0, _interactionData.Count);
