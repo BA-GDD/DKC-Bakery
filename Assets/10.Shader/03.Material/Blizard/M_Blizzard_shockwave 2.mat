@@ -102,8 +102,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSample0:
-        m_Texture: {fileID: 2800000, guid: 0c9e585b001cd8048afcd07b5676b774, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 992e97d1a7d73334db2b96c1f0646057, type: 3}
+        m_Scale: {x: 0.12, y: 0.37}
         m_Offset: {x: 0, y: 0}
     - _TextureSample1:
         m_Texture: {fileID: 2800000, guid: 6e009ce74e1fc9445bee190ddadb2a6d, type: 3}
@@ -151,7 +151,9 @@ Material:
     - _EnvironmentReflections: 1
     - _Fade_Distance: 0
     - _Float0: 0.5
-    - _Float1: 0.64
+    - _Float1: 0.94
+    - _Float4: 12.21
+    - _Float8: 5.06
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -172,6 +174,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Rot: 10.49
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -193,6 +196,7 @@ Material:
     - _main_vpanner: 1
     - _rad: 1.42
     - _step: -0.32
+    - _tex_value: 0.67
     - _use_custom: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -201,5 +205,5 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SubTex_Color: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 1.3627831, g: 3.6397197, b: 7.0465865, a: 0}
-    - _main_color: {r: 0.4408152, g: 0.49707747, b: 0.735849, a: 0}
+    - _main_color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
