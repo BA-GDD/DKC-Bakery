@@ -6,7 +6,7 @@ using UnityEngine;
 public class LobbyInteraction : MonoBehaviour
 {
     private Dictionary<CharacterType, CharacterStand> _characterDic = new ();
-    [SerializeField] private List<EpisodeData> _interactionData = new ();
+    private List<EpisodeData> _interactionData = new ();
 
     private void Start()
     {

@@ -8,10 +8,9 @@ using UnityEngine.UI;
 
 public class CostCheck : MonoBehaviour
 {
-    private int _currentMana = 10;
+    private Tween _numberingTween;
+    private int _targetCost;
     [SerializeField] private TextMeshProUGUI _costText;
-
-    [SerializeField] private Image[] _manaArr;
     [SerializeField] private Image[] _extramanaArr;
 
     private void Start()
@@ -40,31 +39,16 @@ public class CostCheck : MonoBehaviour
 
     private void HandleCheckCost(int currentMoney)
     {
-        int diffMana =  currentMoney - _currentMana;
+        _numberingTween.Kill();
+        _targetCost = currentMoney;
 
-        Debug.Log(diffMana);
-        if(diffMana > 0 )
-        {
-            for(int i = _currentMana; i < currentMoney + 1; i++)
-            {
-                Material mat = new Material(_manaArr[i].material);
-                _manaArr[i].material = mat;
-                DOTween.To(() => -1, v => mat.SetFloat("_dissolve_amount", v), 1, 0.4f);
-            }
-        }
-        else
-        {
-            Debug.Log($"{_currentMana}, {currentMoney}");
-            for(int i = _currentMana; i > currentMoney; i--)
-            {
-                Material mat = new Material(_manaArr[i].material);
-                _manaArr[i].material = mat;
-                DOTween.To(() => 1, v => mat.SetFloat("_dissolve_amount", v), -1, 0.4f);
-            }
-        }
+        _costText.transform.DOScale(Vector3.one * 1.2f, 0.2f).OnComplete(() =>
+        _costText.transform.DOScale(Vector3.one, 0.2f));
 
-        _currentMana = currentMoney;
-        _costText.text = currentMoney.ToString();
+        int currentMarkingNum = Convert.ToInt16(_costText.text);
+        _numberingTween = DOTween.To(() => currentMarkingNum, 
+                                      m => _costText.text = m.ToString(), 
+                                      _targetCost, 0.5f);
     }
 
     private void HandleCheckExMana(int currentMana)
