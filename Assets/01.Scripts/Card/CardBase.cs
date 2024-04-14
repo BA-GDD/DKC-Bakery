@@ -6,6 +6,7 @@ using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public abstract class CardBase : MonoBehaviour 
 {
@@ -69,11 +70,18 @@ public abstract class CardBase : MonoBehaviour
     [SerializeField]protected BuffSO buffSO;
     [SerializeField]protected int[] damageArr;
 
+    private GameObject _costObject;
+    public GameObject CostObject => _costObject;
+    private TextMeshProUGUI _costText;
 
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
+        _costObject = transform.Find("Cost").gameObject;
+        _costText = CostObject.transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
+        _costText.text = CardInfo.AbillityCost.ToString();
     }
+
     public abstract void Abillity();
     public void ActiveInfo()
     {
@@ -137,7 +145,6 @@ public abstract class CardBase : MonoBehaviour
             return false;
         }
     }
-    
     private void Shuffling()
     {
         CardReader.ShuffleInHandCard(CardReader.OnPointerCard, this);
@@ -165,7 +172,6 @@ public abstract class CardBase : MonoBehaviour
             }
         }
     }
-
     public int GetDamage(CombineLevel level)
     {
         return damageArr[(int)level];

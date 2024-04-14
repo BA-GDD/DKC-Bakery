@@ -102,6 +102,7 @@ public class SkillCardManagement : CardManagement
     public void SetSkillCardInCardZone(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;
+        selectCard.CostObject.SetActive(false);
 
         selectCard.transform.SetParent(_cardWaitZone);
         CardReader.RemoveCardInHand(CardReader.OnPointerCard);
