@@ -71,7 +71,7 @@ public class Player : Entity
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
 
-        HealthCompo.OnDeathEvent.AddListener(() => UIManager.Instance.GetSceneUI<BattleUI>().SetClear());
+        HealthCompo.OnDeathEvent.AddListener(() => UIManager.Instance.GetSceneUI<BattleUI>().SetResult(false));
 
         cream.OnAnimationCall = () => OnAnimationCall?.Invoke();
         cream.OnAnimationEnd = () => OnAnimationEnd?.Invoke();
@@ -87,8 +87,6 @@ public class Player : Entity
         if (_hpUI != null)
             HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
-
-
 
     public void AnimationEndTrigger()
     {

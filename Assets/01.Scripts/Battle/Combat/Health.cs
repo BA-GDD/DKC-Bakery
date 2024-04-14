@@ -36,7 +36,7 @@ public class Health : MonoBehaviour, IDamageable
             if (_isDead)
             {
                 if (_owner is Enemy)
-                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSeq);
+                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSequence);
                 else
                     OnDeathEvent?.Invoke();
             }

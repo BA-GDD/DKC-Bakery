@@ -10,11 +10,12 @@ using UnityEngine.EventSystems;
 public struct InteractionElement
 {
     public Sprite characterFaceVisual;
-    public string line;
+    [TextArea] public string line;
 }
 
 public class CharacterStand : MonoBehaviour, IPointerClickHandler
 {
+    public bool _canClick = true;
     [SerializeField] private CharacterType _characterType;
     public CharacterType CharacterType => _characterType;
 
@@ -31,6 +32,11 @@ public class CharacterStand : MonoBehaviour, IPointerClickHandler
         idleTween = transform.DOLocalMoveY(transform.localPosition.y + 10, _movingTurm).SetLoops(-1, LoopType.Yoyo);
     }
 
+    public void SetInteraction(bool canInteraction)
+    {
+        _canClick = canInteraction;
+    }
+
     public void JumpAction()
     {
         Vector2 normalValue = transform.localPosition;
@@ -39,6 +45,13 @@ public class CharacterStand : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!_canClick) return;
+
+        Interaction();
+    }
+
+    public void Interaction()
     {
         InteractionElement ie = _characterInteractionList[Random.Range(0, _characterInteractionList.Count)];
         _characterStandImg.sprite = ie.characterFaceVisual;
