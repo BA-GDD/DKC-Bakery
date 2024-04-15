@@ -61,7 +61,7 @@ public class BattleController : MonoBehaviour
 
                 OnGameEndEvent?.Invoke();
                 CostCalculator.Init();
-                ChangePlayerTarget(null);
+                SelectPlayerTarget(null);
 
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
@@ -205,11 +205,11 @@ public class BattleController : MonoBehaviour
 
             if (e != null && !e.HealthCompo.IsDead)
             {
-                ChangePlayerTarget(e);
+                SelectPlayerTarget(e);
                 return;
             }
         }
-        ChangePlayerTarget(null);
+        SelectPlayerTarget(null);
     }
     public bool IsStuck(int to, int who)
     {
@@ -227,7 +227,7 @@ public class BattleController : MonoBehaviour
         e2.DOMoveX(e1.position.x, 0.5f).OnComplete(() => callback?.Invoke());
     }
 
-    public void ChangePlayerTarget(Entity entity)
+    public void SelectPlayerTarget(Entity entity)
     {
         Player.target = entity;
         OnChangePlayerTarget?.Invoke(entity);

@@ -14,11 +14,10 @@ public struct EnemyAttack
     public float duration;
 }
 
-public abstract class Enemy : Entity,IPointerDownHandler
+public abstract class Enemy : Entity
 {
 
     [SerializeField] protected EnemyAttack attackParticle; 
-
     [SerializeField] protected CameraMoveTrack camTrack;
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
@@ -48,7 +47,6 @@ public abstract class Enemy : Entity,IPointerDownHandler
     {
         OnAnimationEnd?.Invoke();
     }
-
 
     public abstract void Attack();
 
@@ -88,9 +86,8 @@ public abstract class Enemy : Entity,IPointerDownHandler
     [ContextMenu("TurnEnd")]
     private void TestTurnEnd() => TurnEnd();
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void ActiveOnAttackMarking()
     {
-        BattleController.ChangePlayerTarget(this);
-        print(123);
+        BattleController.SelectPlayerTarget(this);
     }
 }

@@ -115,6 +115,7 @@ public class SkillCardManagement : CardManagement
     }
     private void GenerateCardPosition(CardBase selectCard)
     {
+        CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, true);
         Sequence seq = DOTween.Sequence();
 
         int maxIdx = InCardZoneCatalogue.Count - 1;
@@ -135,7 +136,11 @@ public class SkillCardManagement : CardManagement
             Transform selectTrm = InCardZoneCatalogue[i].transform;
             seq.Join(selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 150), 0.3f));
         }
-        seq.AppendCallback(() => CardReader.AbilityTargetSystem.SetMouseAndCardArrowBind(CardReader.OnPointerCard));
+        seq.AppendCallback(() => 
+        { 
+            CardReader.AbilityTargetSystem.SetMouseAndCardArrowBind(CardReader.OnPointerCard);
+            CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, false);
+        });
     }
     public void SetCardInfo(CardInfo info, bool isSet)
     {
