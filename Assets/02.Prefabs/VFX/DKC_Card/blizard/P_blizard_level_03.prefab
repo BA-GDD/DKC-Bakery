@@ -4371,22 +4371,13 @@ ParticleSystem:
     vector0_1:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 3
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: -1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.61578447
           value: -1
           inSlope: -0.0000026186476
           outSlope: -0.0000026186476
@@ -4395,7 +4386,7 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.15660988
         - serializedVersion: 3
-          time: 1
+          time: 0.734375
           value: 1
           inSlope: 0
           outSlope: 0
@@ -4403,6 +4394,24 @@ ParticleSystem:
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9296875
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: -1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -19609,14 +19618,13 @@ GameObject:
   - component: {fileID: 4583197349745874785}
   - component: {fileID: 5899259399057341763}
   - component: {fileID: 2237406418798851991}
-  - component: {fileID: 4060772255006189812}
   m_Layer: 11
   m_Name: P_blizard_level_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4583197349745874785
 Transform:
   m_ObjectHideFlags: 0
@@ -24500,21 +24508,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4060772255006189812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750576097794438431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73fff1dfa6c4e154bbd09a6e94ece8b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shatterEffect: {fileID: 4035860297969525419, guid: 94fa9ebd1a77a4b41984e31fc8c7e87d, type: 3}
-  _explosionPower: 100
-  _explosionRad: 100
 --- !u!1 &5866443904064151877
 GameObject:
   m_ObjectHideFlags: 0
