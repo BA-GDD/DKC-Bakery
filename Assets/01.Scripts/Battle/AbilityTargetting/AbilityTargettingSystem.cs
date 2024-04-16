@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AbilityTargettingSystem : MonoBehaviour
@@ -21,38 +20,15 @@ public class AbilityTargettingSystem : MonoBehaviour
     [SerializeField] private Color _reactionColor;
     [SerializeField] private ChainSelectTarget _chainTarget;
 
-    public void AllGenerateChainPos(bool isGenerate)
+    public void AllGenerateChainPos(List<CardBase> onActiveZoneList, bool isGenerate)
     {
-        List<CardBase> onActiveZoneList = CardReader.SkillCardManagement.InCardZoneList;
-
-        foreach (CardBase cb in onActiveZoneList)
+        foreach(CardBase cb in onActiveZoneList)
         {
             if(_getTargetArrowDic.ContainsKey(cb))
             {
                 foreach(AbilityTargetArrow ata in _getTargetArrowDic[cb])
                 {
                     ata.IsGenerating = isGenerate;
-                }
-            }
-        }
-    }
-
-    public void ActivationCardSelect(CardBase selectCard)
-    {
-        List<CardBase> onActiveZoneList = CardReader.SkillCardManagement.InCardZoneList;
-
-        foreach (CardBase cb in onActiveZoneList)
-        {
-            if (_getTargetArrowDic.ContainsKey(cb))
-            {
-                foreach (AbilityTargetArrow ata in _getTargetArrowDic[cb])
-                {
-                    if (cb == selectCard)
-                    {
-                        ata.SetFade(1);
-                        continue;
-                    }
-                    ata.SetFade(0.1f);
                 }
             }
         }
@@ -90,32 +66,7 @@ public class AbilityTargettingSystem : MonoBehaviour
         }
         else
         {
-            foreach(Enemy e in _battleController.onFieldMonsterList)
-            {
-                if (e is null) continue;
 
-                _selectCard = selectCard;
-                AbilityTargetArrow ata = Instantiate(_targetArrowPrefab, transform);
-                ata.HideArrow();
-                if (!_getTargetArrowDic.ContainsKey(selectCard))
-                {
-                    List<AbilityTargetArrow> atlist = new();
-                    _getTargetArrowDic.Add(selectCard, atlist);
-                }
-                _getTargetArrowDic[selectCard].Add(ata);
-
-                ata.transform.position = selectCard.transform.position;
-
-                Vector2 screenPoint = MaestrOffice.GetScreenPosToWorldPos(e.transform.position);
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm, screenPoint, UIManager.Instance.Canvas.worldCamera, out Vector2 anchoredPosition);
-
-                Debug.Log(anchoredPosition);
-                int idx = _getTargetArrowDic[_selectCard].Count - 1;
-                _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, anchoredPosition);
-                _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
-
-                EnemyMarking(e);
-            }
         }
 
         _battleController.Player.VFXManager.BackgroundColor(Color.white);
@@ -123,13 +74,14 @@ public class AbilityTargettingSystem : MonoBehaviour
 
     private void BindMouseAndCardWithArrow()
     {
+        if (_mousePos == MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition)) return;
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm, 
                                                                 Input.mousePosition, Camera.main, out _mousePos);
 
-        Debug.Log(_mousePos);
         int idx = _getTargetArrowDic[_selectCard].Count - 1;
         _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, _mousePos);
-        _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
+        _getTargetArrowDic[_selectCard][idx].SetFade();
     }
 
     private void CheckSelectEnemy()
@@ -143,30 +95,25 @@ public class AbilityTargettingSystem : MonoBehaviour
 
             if (hit.transform.TryGetComponent<Enemy>(out Enemy e))
             {
-                EnemyMarking(e);
+                e.SelectedOnAttack(_selectCard);
+
+                int idx = _getTargetArrowDic[_selectCard].Count - 1;
+                _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, _mousePos);
+                Tween t = _getTargetArrowDic[_selectCard][idx].ReChainning(() =>
+                {
+                    Instantiate(_chainImPact, e.transform.position, Quaternion.identity);
+                    DamageTextManager.Instance.PopupReactionText(e.transform.position + new Vector3(0, 1, 0), _reactionColor, "Connect!");
+
+                    ChainSelectTarget cst = Instantiate(_chainTarget, transform);
+                    Vector2 screenPoint = MaestrOffice.GetScreenPosToWorldPos(e.transform.position);
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm, screenPoint, UIManager.Instance.Canvas.worldCamera, out Vector2 anchoredPosition);
+                    RectTransform trm = cst.transform as RectTransform;
+                    trm.anchoredPosition = anchoredPosition;
+                    cst.SetMark();
+                });
+                _isBindingMouseAndCard = false;
             }
         }
-    }
-
-    private void EnemyMarking(Enemy e)
-    {
-        e.SelectedOnAttack(_selectCard);
-
-        int idx = _getTargetArrowDic[_selectCard].Count - 1;
-        //_getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, _mousePos);
-        Tween t = _getTargetArrowDic[_selectCard][idx].ReChainning(() =>
-        {
-            Instantiate(_chainImPact, e.transform.position, Quaternion.identity);
-            DamageTextManager.Instance.PopupReactionText(e.transform.position + new Vector3(0, 1, 0), _reactionColor, "Connect!");
-
-            ChainSelectTarget cst = Instantiate(_chainTarget, transform);
-            Vector2 screenPoint = MaestrOffice.GetScreenPosToWorldPos(e.transform.position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm, screenPoint, UIManager.Instance.Canvas.worldCamera, out Vector2 anchoredPosition);
-            RectTransform trm = cst.transform as RectTransform;
-            trm.anchoredPosition = anchoredPosition;
-            cst.SetMark();
-        });
-        _isBindingMouseAndCard = false;
     }
     
     private void Update()
