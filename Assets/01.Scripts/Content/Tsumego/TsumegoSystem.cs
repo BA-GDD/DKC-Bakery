@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class TsumegoSystem : MonoBehaviour
 {
-    [SerializeField] private UnityEvent _stageClearEvent;
+    [SerializeField] private UnityEvent<bool> _stageClearEvent;
     [SerializeField] private UnityEvent<bool> _gameEndEvent; 
     public TsumegoInfo CurTsumegoInfo { get; set; }
 
@@ -26,10 +26,9 @@ public class TsumegoSystem : MonoBehaviour
     public void ClearStage()
     {
         // SO에 클리어 처리
-        Debug.Log(1);
         CurTsumegoInfo.IsClear = true;
         _gameEndEvent?.Invoke(true);
-        _stageClearEvent?.Invoke();
+        _stageClearEvent?.Invoke(true);
         // 클리어 연출, 보상 지급, 클리어 데이터 갱신 처리
     }
 }

@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleSheetsToUnity;
-using UnityEngine.Events;
 using System;
 using System.Text.RegularExpressions;
+using System.Linq;
+using System.IO;
 
 [Serializable]
 public struct Data
@@ -19,31 +18,31 @@ public struct Data
 public class LoadableData : ScriptableObject
 {
     [SerializeField] protected List<Data> generateData = new List<Data>();
-    public string sheetUrI;
-    public string sheetPage;
+    public TextAsset toReadCsvFile;
     public string cellRange;
 
-    private void GenerateData(List<GSTU_Cell> list, int start, int end)
+    private void GenerateData(List<string> cellList, int start, int end)
     {
         int len = end - start + 1;
-        List<GSTU_Cell> newList = list.GetRange(start, len);
-        List<string> arr =
-            newList.ConvertAll(new Converter<GSTU_Cell, string>((GSTU_Cell x) => x.value));
-        generateData.Add(new Data(arr.ToArray()));
 
+        List<string> newList = cellList.GetRange(start, len);
+        generateData.Add(new Data(newList.ToArray()));
     }
-
+        
     public void Generate()
     {
-        UpdateStatas(UpdateMethodOne);
+        string[] splitLine = toReadCsvFile.text.Split("\n");
+        List<List<string>> cellList = new List<List<string>>();
+
+        foreach (string line in splitLine)
+        {
+            cellList.Add(line.Split(",").ToList());
+        }
+
+        ReadData(cellList);
     }
 
-    private void UpdateStatas(UnityAction<GstuSpreadSheet> callback, bool mergedCells = false)
-    {
-        SpreadsheetManager.Read(new GSTU_Search(sheetUrI, sheetPage), callback, mergedCells);
-    }
-
-    private void UpdateMethodOne(GstuSpreadSheet ss)
+    private void ReadData(List<List<string>> ss)
     {
         string[] range = cellRange.Split(':');
         if(range.Length != 2)
@@ -60,9 +59,9 @@ public class LoadableData : ScriptableObject
         }
 
         generateData.Clear();
-        for (int i = (int)callingRanges[0].y; i < (int)callingRanges[1].y + 1; i++)
+        for (int i = (int)callingRanges[0].y - 1; i < (int)callingRanges[1].y; i++)
         {
-            GenerateData(ss.rows[i], (int)callingRanges[0].x, (int)callingRanges[1].x);
+            GenerateData(ss[i], (int)callingRanges[0].x, (int)callingRanges[1].x);
         }
     }
 }
@@ -78,8 +77,6 @@ public class RangeCalculator
 
     public RangeCalculator(string cellMark_1, string cellMark_2)
     {
-        Debug.Log($"{cellMark_1}, {cellMark_2}");
-
         _cellMarks[0] = cellMark_1;
         _cellMarks[1] = cellMark_2;
 

@@ -102,6 +102,7 @@ public class SkillCardManagement : CardManagement
     public void SetSkillCardInCardZone(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;
+        selectCard.CostObject.SetActive(false);
 
         selectCard.transform.SetParent(_cardWaitZone);
         CardReader.RemoveCardInHand(CardReader.OnPointerCard);
@@ -110,27 +111,36 @@ public class SkillCardManagement : CardManagement
         selectCard.transform.DOScale(0.7f, 0.3f);
         GenerateCardPosition(selectCard);
         CardReader.CombineMaster.CombineGenerate();
+        CardReader.CaptureHand();
     }
     private void GenerateCardPosition(CardBase selectCard)
     {
+        CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, true);
+        Sequence seq = DOTween.Sequence();
+
         int maxIdx = InCardZoneCatalogue.Count - 1;
 
         if (maxIdx != 0)
         {
-            selectCard.transform.
+            seq.Append(selectCard.transform.
             DOLocalMove(new Vector2(InCardZoneCatalogue[maxIdx - 1].transform.localPosition.x
-                                    + 70, 0), 0.3f);
+                                    + 70, 150), 0.3f));
         }
         else
         {
-            selectCard.transform.DOLocalMove(Vector3.zero, 0.3f);
+            seq.Append(selectCard.transform.DOLocalMove(new Vector3(0, 150, 0), 0.3f));
         }
 
         for (int i = 0; i < maxIdx; i++)
         {
             Transform selectTrm = InCardZoneCatalogue[i].transform;
-            selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 0), 0.3f);
+            seq.Join(selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 150), 0.3f));
         }
+        seq.AppendCallback(() => 
+        { 
+            CardReader.AbilityTargetSystem.SetMouseAndCardArrowBind(CardReader.OnPointerCard);
+            CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, false);
+        });
     }
     public void SetCardInfo(CardInfo info, bool isSet)
     {

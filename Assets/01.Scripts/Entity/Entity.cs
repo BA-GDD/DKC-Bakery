@@ -183,9 +183,9 @@ public abstract class Entity : PoolableMono
     }
     protected abstract void HandleEndMoveToOriginPos();
 
-    public void DeadSeq()
+    public void DeadSequence()
     {
-        CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSeq);
+        CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSequence);
         HealthCompo.OnDeathEvent?.Invoke();
         GotoPool();
     }

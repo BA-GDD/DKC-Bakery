@@ -16,11 +16,15 @@ public class CakeInventoryElement : MonoBehaviour, IPointerClickHandler
     [Header("¸¶½ºÅ©")]
     [SerializeField] private GameObject _usingMask;
 
+    private bool _isSelectThisCake;
     private ItemDataBreadSO _myBreadData;
     private CakeInventoryPanel _cakeInvenPanel;
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (_isSelectThisCake) return;
+
+        _isSelectThisCake = true;
         _cakeCollocation.CollocateCake(_myBreadData);
         _usingMask.SetActive(true);
         _cakeInvenPanel.FadePanel(false, ()=> _cakeInvenPanel.gameObject.SetActive(false));

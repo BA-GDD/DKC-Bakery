@@ -6,50 +6,61 @@ using EpisodeDialogueDefine;
 
 public class EpisodeDialogueCore : MonoBehaviour
 {
-    [SerializeField] private List<EpisodeData> _selectEpisodeDataList;
+    [SerializeField] private EpisodeData _selectEpisodeData;
     private DialogueElement _selectDialogueElement;
     private EpisodeManager epiManager;
 
     [SerializeField] private UnityEvent<string, string, BackGroundType> StandardDrawEvent;
     [SerializeField] private UnityEvent<FadeOutType> ProductionDrawEvent;
-    [SerializeField] private UnityEvent<CharacterType, FaceType, bool, bool> CharacterDrawEvent;
-    [SerializeField] private UnityEvent<CharacterType, MoveType, ExitType> CharacterMoveEvent;
+    [SerializeField] private UnityEvent<bool, Sprite> PriviewImageDrawEvent;
+    [SerializeField] private UnityEvent<CharacterType, FaceType, CharacterActiveType, bool> CharacterDrawEvent;
+    [SerializeField] private UnityEvent<CharacterType, Vector2, Quaternion> CharacterMoveEvent;
     [SerializeField] private UnityEvent<CharacterType, EmotionType> CharacterEmotionEvent;
 
-    public void HandleEpisodeStart(List<EpisodeData> episodeDataList)
+    private void Start()
+    {
+        HandleEpisodeStart(_selectEpisodeData);
+    }
+    public void HandleEpisodeStart(EpisodeData episodeData)
     {
         epiManager = EpisodeManager.Instanace;
-        _selectEpisodeDataList = episodeDataList;
+        _selectEpisodeData = episodeData;
         HandleNextDialogue();
     }
 
     public void HandleNextDialogue()
     {
-        if(epiManager.DialogueIdx == epiManager.PauseIdx[epiManager.PuaseCount])
+        if(epiManager.PauseIdx.Length > 0)
         {
-            epiManager.SetPauseEpisode(true);
-            epiManager.PuaseCount++;
-            return;
-        }
-
-        if(_selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement.Count == epiManager.DialogueIdx)
-        {
-            epiManager.EpisodeIdx++;
-            epiManager.DialogueIdx = 0;
-
-            if(epiManager.EpisodeIdx == _selectEpisodeDataList.Count)
+            if (epiManager.DialogueIdx == epiManager.PauseIdx[epiManager.PuaseCount])
             {
-                epiManager.EpisodeEndEvent?.Invoke();
+                epiManager.SetPauseEpisode(true);
+                epiManager.PuaseCount++;
                 return;
             }
         }
 
-        _selectDialogueElement = _selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement[epiManager.DialogueIdx];
-        PhaseEventConnect();
-        while (_selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement[epiManager.DialogueIdx].isLinker)
+        if (epiManager.DialogueIdx == _selectEpisodeData.dialogueElement.Count)
         {
-            _selectDialogueElement = _selectEpisodeDataList[epiManager.EpisodeIdx].dialogueElement[epiManager.DialogueIdx];
-            PhaseConnectStandard();
+            epiManager.EpisodeEndEvent?.Invoke();
+            return;
+        }
+        
+        _selectDialogueElement = _selectEpisodeData.dialogueElement[epiManager.DialogueIdx];
+        PhaseEventConnect();
+
+        if(_selectEpisodeData.dialogueElement.Count > epiManager.DialogueIdx)
+        {
+            while (_selectEpisodeData.dialogueElement[epiManager.DialogueIdx].isLinker)
+            {
+                _selectDialogueElement = _selectEpisodeData.dialogueElement[epiManager.DialogueIdx];
+                PhaseConnectStandard();
+
+                if(_selectEpisodeData.dialogueElement.Count == epiManager.DialogueIdx)
+                {
+                    break;
+                }
+            }
         }
     }
 
@@ -64,23 +75,28 @@ public class EpisodeDialogueCore : MonoBehaviour
 
     private void PhaseConnectStandard()
     {
+        CharacterType characterType = EpiswordMaster.GetCharacterTypeByName(_selectDialogueElement.standardElement.name);
+
         ProductionDrawEvent?.Invoke(_selectDialogueElement.productElement.fadeType);
+        PriviewImageDrawEvent?.Invoke(_selectDialogueElement.priviewSprite != null, _selectDialogueElement.priviewSprite);
 
-        CharacterDrawEvent?.Invoke(_selectDialogueElement.characterElement.characterType,
-                                   _selectDialogueElement.characterElement.faceType,
-                                   _selectDialogueElement.characterElement.isActive,
-                                   _selectDialogueElement.characterElement.isShake);
-
-        CharacterMoveEvent?.Invoke(_selectDialogueElement.characterElement.characterType,
-                                   _selectDialogueElement.movementElement.moveType,
-                                   _selectDialogueElement.movementElement.exitTpe);
-
-        CharacterEmotionEvent?.Invoke(_selectDialogueElement.characterElement.characterType,
-                                      _selectDialogueElement.characterElement.emotionType);
-
-        epiManager.AddDialogeLogData(_selectDialogueElement.characterElement.characterType,
+        epiManager.AddDialogeLogData(              characterType,
                                                    _selectDialogueElement.standardElement.name,
                                                    _selectDialogueElement.standardElement.sentence);
+
+        CharacterDrawEvent?.Invoke(characterType,
+                                   _selectDialogueElement.characterElement.faceType,
+                                   _selectDialogueElement.captureElement.activeType,
+                                   _selectDialogueElement.characterElement.isShake);
+
+        CharacterMoveEvent?.Invoke(characterType,
+                                   _selectDialogueElement.captureElement.movePosition,
+                                   _selectDialogueElement.captureElement.rotationValue);
+
+        CharacterEmotionEvent?.Invoke(characterType,
+                                      _selectDialogueElement.characterElement.emotionType);
+
+        
         epiManager.DialogueIdx++;
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using EpisodeDialogueDefine;
 using System;
 using UnityEngine.Events;
+using DG.Tweening;
 
 [Serializable]
 public struct CharacterElementGroup
@@ -20,10 +21,10 @@ public struct EmotionElementGroup
 
 public class EpisodeCharacterDrawer : MonoBehaviour
 {
+    [SerializeField] private Transform _emotionTrm;
     [SerializeField] private CharacterElementGroup[] _characterGroupArr;
     [SerializeField] private EmotionElementGroup[] _emotionGroupArr;
     private Dictionary<CharacterType, CharacterStandard> _characterSelectDictionary = new Dictionary<CharacterType, CharacterStandard>();
-    private Dictionary<CharacterType, MoveType> _characterPosSaveDic = new Dictionary<CharacterType, MoveType>();
     private CharacterStandard _selectCharacter;
     private SoundSelecter _episodeSounder;
 
@@ -36,23 +37,37 @@ public class EpisodeCharacterDrawer : MonoBehaviour
         }
     }
 
-    public void HandleCharacterDraw(CharacterType ct, FaceType faceType , bool isActive, bool isShake)
+    public void HandleCharacterDraw(CharacterType ct, FaceType faceType , CharacterActiveType activeType, bool isShake)
     {
         _selectCharacter = _characterSelectDictionary[ct];
         _selectCharacter.SetFace(faceType);
-        _selectCharacter.SetActive(isActive);
 
-        if (!isShake) return;
-        _selectCharacter.CharacterShake();
+        switch (activeType)
+        {
+            case CharacterActiveType.Contain:
+                _selectCharacter.SetActive(_selectCharacter.gameObject.activeSelf);
+                break;
+            case CharacterActiveType.None:
+                _selectCharacter.SetActive(false);
+                break;
+            case CharacterActiveType.Active:
+                _selectCharacter.SetActive(true);
+                break;
+        }
+
+        if (isShake)
+        {
+            _selectCharacter.CharacterShake();
+        }
     }
 
-    public void HandleCharacterMoveDraw(CharacterType ct, MoveType moveType, ExitType exitType)
+    public void HandleCharacterMoveDraw(CharacterType ct, Vector2 movePos, Quaternion rot)
     {
-        SaveCharacterPos(ct, moveType);
+        if (movePos == Vector2.zero && rot == Quaternion.identity) return;
 
         _selectCharacter = _characterSelectDictionary[ct];
-        _selectCharacter.MoveCharacter(moveType);
-        _selectCharacter.ExitCharacter(exitType);
+        _selectCharacter.MoveCharacter(movePos);
+        _selectCharacter.transform.DOLocalRotateQuaternion(rot, 0.2f);
     }
 
     public void HandleDialogueEffectDraw(CharacterType ct, EmotionType emo)
@@ -60,24 +75,11 @@ public class EpisodeCharacterDrawer : MonoBehaviour
         if (emo == EmotionType.None) return;
 
         DialogueEffect de = PoolManager.Instance.Pop(PoolingType.DialogueEffect) as DialogueEffect;
-        int idx = Mathf.Clamp((int)_characterPosSaveDic[ct] - 1, 0, 1);
-        de.transform.parent = _characterGroupArr[(int)ct].emotionTrm[idx];
-        de.transform.localPosition = Vector3.zero;
 
         EmotionElementGroup eg = _emotionGroupArr[(int)emo - 1];
-        de.StartEffect(eg.elementImg, eg.elementClip, _characterPosSaveDic[ct]);
+        de.StartEffect(eg.elementImg, eg.elementClip, _characterSelectDictionary[ct]);
 
         SFXType st = emo == EmotionType.Sparkle ? SFXType.sparcle : SFXType.bubble;
         _episodeSounder.HandleOutputSFX(st);
-    }
-
-    private void SaveCharacterPos(CharacterType ct, MoveType mt)
-    {
-        if (_characterPosSaveDic.ContainsKey(ct))
-        {
-            _characterPosSaveDic[ct] = mt;
-            return;
-        }
-        _characterPosSaveDic.Add(ct, mt);
     }
 }

@@ -15,7 +15,7 @@ public class UIManager : MonoSingleton<UIManager>
     private SceneUI _currentSceneUIObject;
 
     public Canvas Canvas { get; private set; }
-    public Transform CanvasTrm => Canvas.transform;
+    public RectTransform CanvasTrm => Canvas.transform as RectTransform;
 
     private void Start()
     {

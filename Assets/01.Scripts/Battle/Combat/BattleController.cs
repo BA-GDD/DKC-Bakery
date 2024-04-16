@@ -19,9 +19,7 @@ public class BattleController : MonoBehaviour
     public List<Enemy> DeathEnemyList { get; private set; } = new List<Enemy>();
     public List<Enemy> SpawnEnemyList { get; private set; } = new List<Enemy>();
 
-
-    [HideInInspector]
-    private HpBarMaker _hpBarMaker;
+    [HideInInspector] private HpBarMaker _hpBarMaker;
 
     [Header("���� ��")]
     [SerializeField] [Range(0.01f, 0.1f)] private float _spawnTurm;
@@ -54,12 +52,17 @@ public class BattleController : MonoBehaviour
                 {
                     Enemy e = onFieldMonsterList[i];
                     if (e == null) continue;
+
                     onFieldMonsterList[i] = null;
                     e.turnStatus = TurnStatus.End;
                     e.GotoPool();
                     //PoolManager.Instance.Push(e);
                 }
-                ChangePlayerTarget(null);
+
+                OnGameEndEvent?.Invoke();
+                CostCalculator.Init();
+                SelectPlayerTarget(null, null);
+
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
                 StopAllCoroutines();
@@ -67,7 +70,7 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
+    [SerializeField] private UnityEvent OnGameEndEvent;
 
     private void Start()
     {
@@ -104,6 +107,7 @@ public class BattleController : MonoBehaviour
         }
         StartCoroutine(EnemySquence());
     }
+
     private void OnEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
@@ -128,8 +132,11 @@ public class BattleController : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
         }
+
         if (!_isGameEnd)
+        {
             TurnCounter.ChangeTurn();
+        }
     }
 
     public void SetStage()
@@ -152,9 +159,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        if (Player.target == null)
-            SetPlayerCloseTarget();
-        //_enemyHpBarMaker.SetupEnemyHpBar();
+        
     }
     private void SpawnMonster(int idx)
     {
@@ -181,24 +186,10 @@ public class BattleController : MonoBehaviour
     public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
-        if (enemy == Player.target)
-            SetPlayerCloseTarget();
+
         DeathEnemyList.Add(enemy);
     }
-    private void SetPlayerCloseTarget()
-    {
-        for (int i = onFieldMonsterList.Length - 1; i >= 0; i--)
-        {
-            Enemy e = onFieldMonsterList[i];
 
-            if (e != null && !e.HealthCompo.IsDead)
-            {
-                ChangePlayerTarget(e);
-                return;
-            }
-        }
-        ChangePlayerTarget(null);
-    }
     public bool IsStuck(int to, int who)
     {
         return isStuck.list[to].list[who];
@@ -215,10 +206,9 @@ public class BattleController : MonoBehaviour
         e2.DOMoveX(e1.position.x, 0.5f).OnComplete(() => callback?.Invoke());
     }
 
-    public void ChangePlayerTarget(Entity entity)
+    public void SelectPlayerTarget(CardBase cardBase, Entity entity)
     {
-        Player.target = entity;
-        OnChangePlayerTarget?.Invoke(entity);
+        Player.SaveSkillToEnemy(cardBase, entity);
     }
 
     public void BackgroundColor(Color color)
