@@ -15,7 +15,7 @@ public class LobbyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         _hoverTween.Kill();
-        _hoverTween = _visualTrm.DOScale(Vector2.one * 1.2f, 0.1f);
+        _hoverTween = _visualTrm.DOScale(Vector2.one * 1.1f, 0.1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)

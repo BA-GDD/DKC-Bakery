@@ -36,7 +36,7 @@ public class Health : MonoBehaviour, IDamageable
             if (_isDead)
             {
                 if (_owner is Enemy)
-                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSeq);
+                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSequence);
                 else
                     OnDeathEvent?.Invoke();
             }
@@ -95,7 +95,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         _owner = owner;
         _currentHealth = maxHealth = _owner.CharStat.GetMaxHealthValue();
-        Debug.Log($"{_currentHealth}/{maxHealth}");
     }
 
     public float GetNormalizedHealth()

@@ -22,15 +22,21 @@ public static class EpiswordMaster
         }
     }
 
-    public static Vector2 GetEmotionReactionPos(Vector2 characterPos)
+    public static void SetEmotionReactionPos(Transform emoTrm, CharacterStandard characterStandard)
     {
-        if(characterPos.x >= 0)
+        Transform selectEmoTrm;
+        if(characterStandard.transform.localPosition.x >= 0)
         {
-            return characterPos += new Vector2(-200, 442);
+            selectEmoTrm = characterStandard.EmotionLeftPos;
         }
         else
         {
-            return characterPos += new Vector2(200, 442);
+            selectEmoTrm = characterStandard.EmotionRightPos;
+            selectEmoTrm.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
+
+        emoTrm.SetParent(selectEmoTrm, false);
+        emoTrm.localScale = Vector3.one * 3;
+        emoTrm.transform.localPosition = Vector3.zero;
     }
 }

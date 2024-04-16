@@ -19,7 +19,6 @@ public struct DialogueStandardElement
         backGroundType = bt;
     }
 }
-
 [Serializable]
 public struct DialogueCharacterElement
 {
@@ -34,7 +33,6 @@ public struct DialogueCharacterElement
         emotionType = et;
     }
 }
-
 [Serializable]
 public struct DialogueProductElement
 {
@@ -45,20 +43,20 @@ public struct DialogueProductElement
         fadeType = ft;
     }
 }
-
 [Serializable]
 public struct CaptureElement
 {
-    public bool isActive;
+    public CharacterActiveType activeType;
     public Vector2 movePosition;
+    public Quaternion rotationValue;
 
-    public CaptureElement(bool _isActive, Vector2 _movePosition)
+    public CaptureElement(CharacterActiveType _activeType, Vector2 _movePosition, Quaternion _rotationValue)
     {
-        isActive = _isActive;
+        activeType = _activeType;
         movePosition = _movePosition;
+        rotationValue = _rotationValue;
     }
 }
-
 
 [Serializable]
 public struct DialogueElement
@@ -67,29 +65,31 @@ public struct DialogueElement
     public DialogueCharacterElement characterElement;
     public DialogueProductElement productElement;
     public CaptureElement captureElement;
+    public Sprite priviewSprite;
     public bool isLinker;
 
     public DialogueElement(DialogueStandardElement  _sElement,
                     DialogueCharacterElement _cElement,
                     DialogueProductElement   _pElement,
                     CaptureElement _capElement,
+                    Sprite _priviewSprite,
                     bool _linker)
     {
         standardElement = _sElement;
         characterElement = _cElement;
         productElement = _pElement;
         captureElement = _capElement;
+        priviewSprite = _priviewSprite;
         isLinker = _linker;
     }
 }
-
-
 
 #if UNITY_EDITOR
 [CreateAssetMenu(menuName = "SO/Episode/Dialogue")]
 #endif
 public class EpisodeData : LoadableData
 {
+    public EpisodeCaptureData captureData;
     public List<DialogueElement> dialogueElement = new List<DialogueElement>();
 
     public void GeneratDialogueData()
@@ -104,12 +104,34 @@ public class EpisodeData : LoadableData
                     AllocateSE(generateData[i].str[0], generateData[i].str[1], generateData[i].str[2]),
                     AllocateCE(generateData[i].str[4], generateData[i].str[5], generateData[i].str[6]),
                     AllocatePE(generateData[i].str[3]),
-                    new CaptureElement(false, Vector2.zero),
+                    new CaptureElement(CharacterActiveType.Contain, Vector2.zero, Quaternion.identity),
+                    null,
                     generateData[i].str[1].Contains("link")
                 )
             ); 
         }
         Debug.Log("Complete DataReading!!");
+    }
+    public void GenerateCaptureData()
+    {
+        if(captureData == null)
+        {
+            Debug.LogError("캡쳐 데이터가 없는데숭?");
+            return;
+        }
+
+        foreach(CaptureDataBox box in captureData.episodeCaptureElement)
+        {
+            if(box.captureDataIDX >= dialogueElement.Count)
+            {
+                Debug.LogError("다이얼로그 리스트 확인 요함");
+                return;
+            }
+
+            DialogueElement de = dialogueElement[box.captureDataIDX];
+            de.captureElement = box.captureElement;
+            dialogueElement[box.captureDataIDX] = de;
+        }
     }
     private DialogueStandardElement AllocateSE(string n, string s, string bt)
     {
@@ -132,6 +154,7 @@ public class EpisodeData : LoadableData
     {
         return new DialogueProductElement((FadeOutType)Enum.Parse(typeof(FadeOutType), ft));
     }
+
 }
 
 #if UNITY_EDITOR
@@ -149,14 +172,15 @@ public class EpisodeLoader : Editor
             Debug.Log("DataReading Start . . .");
             episodeData.GeneratDialogueData();
         }
+        if (GUILayout.Button("CaptureDataReading"))
+        {
+            Debug.Log("CaptureReading Start . . .");
+            episodeData.GenerateCaptureData();
+        }
         if (GUILayout.Button("DataGenerate"))
         {
             Debug.Log("DataGenerate Start . . .");
             ld.Generate();
-        }
-        if(GUILayout.Button("CaptureCharacterPose"))
-        {
-            Debug.Log("Cheez :)");
         }
     }
 }

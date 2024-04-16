@@ -37,7 +37,7 @@ public class EpisodeManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject _episodeGroup;
-    [SerializeField] private UnityEvent<List<EpisodeData>> _episodeStartEvent;
+    [SerializeField] private UnityEvent<EpisodeData> _episodeStartEvent;
     [SerializeField] private UnityEvent _nextDialogueEvent;
     [SerializeField] private UnityEvent<bool> _activeSyntexPanel;
     [SerializeField] private Sprite[] _characterSprite;
@@ -45,12 +45,11 @@ public class EpisodeManager : MonoBehaviour
     public Action EpisodeEndEvent { get; set; }
 
     [HideInInspector] public int DialogueIdx { get; set; }
-    [HideInInspector] public int EpisodeIdx { get; set; }
     [HideInInspector] public List<LogData> dialogueLog = new List<LogData>();
     [HideInInspector] public bool isTextInTyping;
 
     [HideInInspector] public int PuaseCount { get; set; }
-    private int[] _pauseIdx;
+    private int[] _pauseIdx = new int[0];
     [HideInInspector] public int[] PauseIdx => _pauseIdx;
     private bool _isInPuase;
     public bool isInPause => _isInPuase;
@@ -68,17 +67,17 @@ public class EpisodeManager : MonoBehaviour
         callback?.Invoke();
     }
 
-    public void StartEpisode(EpisodeDataListSO data)
+    public void StartEpisode(EpisodeData data)
     {
         ActiveUIPlanel(true);
-        _episodeStartEvent?.Invoke(data.episodeDataList);
+        _episodeStartEvent?.Invoke(data);
     }
 
-    public void StartEpisode(EpisodeDataListSO data, int[] pauseIndexs)
+    public void StartEpisode(EpisodeData data, int[] pauseIndexs)
     {
         ActiveUIPlanel(true);
         _pauseIdx = pauseIndexs;
-        _episodeStartEvent?.Invoke(data.episodeDataList);
+        _episodeStartEvent?.Invoke(data);
     }
 
     public void ActiveUIPlanel(bool isActive)

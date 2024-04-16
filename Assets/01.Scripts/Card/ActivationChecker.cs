@@ -40,7 +40,6 @@ public class ActivationChecker : MonoBehaviour
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
         pointerEventData.position = Input.mousePosition;
 
-        Debug.Log(pointerEventData.position);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerEventData, results);
 
@@ -50,7 +49,6 @@ public class ActivationChecker : MonoBehaviour
             {
                 if (!CardReader.OnBinding || c.CanUseThisCard)
                 {
-                    Debug.Log(c);
                     RectTransform rt = c.transform as RectTransform;
                     CardReader.OnPointerCard = c;
                     rt.SetAsLastSibling();
@@ -76,7 +74,6 @@ public class ActivationChecker : MonoBehaviour
         {
             CardReader.OnBinding = false;
             Activation();
-            Debug.Log(CardReader.IsSameCaptureHand());
             
             CardReader.OnPointerCard = null;
         }
