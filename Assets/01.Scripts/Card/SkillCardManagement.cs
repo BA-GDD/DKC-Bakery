@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class SkillCardManagement : CardManagement
 {
+    [SerializeField] private TargettingMaskCreater _maskCreater;
     private ExpansionList<CardBase> InCardZoneCatalogue = new ExpansionList<CardBase>();
     public List<CardBase> InCardZoneList => InCardZoneCatalogue;
 
@@ -62,7 +63,6 @@ public class SkillCardManagement : CardManagement
                 seq.InsertCallback(1, () => 
                 { 
                     ChainingSkill();
-                    CardReader.AbilityTargetSystem.AllGenerateChainPos(false);
                 });
             }
         }
@@ -116,7 +116,7 @@ public class SkillCardManagement : CardManagement
         InCardZoneCatalogue.Add(selectCard);
         selectCard.IsOnActivationZone = true;
 
-        selectCard.transform.DOScale(0.7f, 0.3f);
+        selectCard.transform.DOScale(1.1f, 0.3f);
         GenerateCardPosition(selectCard);
         CardReader.CombineMaster.CombineGenerate();
         CardReader.CaptureHand();
@@ -132,7 +132,7 @@ public class SkillCardManagement : CardManagement
         {
             seq.Append(selectCard.transform.
             DOLocalMove(new Vector2(InCardZoneCatalogue[maxIdx - 1].transform.localPosition.x
-                                    + 70, 150), 0.3f));
+                                    + 100, 150), 0.3f));
         }
         else
         {
@@ -142,7 +142,7 @@ public class SkillCardManagement : CardManagement
         for (int i = 0; i < maxIdx; i++)
         {
             Transform selectTrm = InCardZoneCatalogue[i].transform;
-            seq.Join(selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 150), 0.3f));
+            seq.Join(selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 100f, 150), 0.3f));
         }
         seq.AppendCallback(() => 
         {

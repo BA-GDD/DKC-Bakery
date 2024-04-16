@@ -71,6 +71,7 @@ public class BattleController : MonoBehaviour
     }
 
     [SerializeField] private UnityEvent OnGameEndEvent;
+    [SerializeField] private UnityEvent<Vector2> MaskCreateEvent;
 
     private void Start()
     {
@@ -147,20 +148,15 @@ public class BattleController : MonoBehaviour
         {
             _enemyQue.Enqueue(e.poolingType);
         }
-        StartCoroutine(SpawnInitMonster());
-    }
-
-    private IEnumerator SpawnInitMonster()
-    {
-        yield return null;
 
         for (int i = 0; i < spawnDistanceByPoint.Count; i++)
         {
             SpawnMonster(i);
-            yield return new WaitForSeconds(_spawnTurm);
         }
+
         
     }
+
     private void SpawnMonster(int idx)
     {
         if (_enemyQue.Count > 0)
@@ -171,6 +167,7 @@ public class BattleController : MonoBehaviour
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
             selectEnemy.Spawn(pos);
+            MaskCreateEvent?.Invoke(pos);
             selectEnemy.SpriteRendererCompo.sortingOrder = posChecker;
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));

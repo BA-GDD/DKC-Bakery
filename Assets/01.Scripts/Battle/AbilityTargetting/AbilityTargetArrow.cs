@@ -17,9 +17,9 @@ public class AbilityTargetArrow : MonoBehaviour
     public bool IsGenerating { get; set; }
     public bool IsBindSucess { get; private set; }
 
-    public void HideArrow()
+    public void ActiveArrow(bool value)
     {
-        _chainArrowVisual.enabled = false;
+        _chainArrowVisual.enabled = value;
     }
 
     public void SetFade(float fadeValue)

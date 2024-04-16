@@ -6,13 +6,26 @@ using UnityEngine;
 
 public class AbilityTargettingSystem : MonoBehaviour
 {
+    private bool _canBinding = true;
+    public bool CanBinding
+    {
+        get => _canBinding;
+        set
+        {
+            _canBinding = value;
+            if(_getTargetArrowDic.ContainsKey(_selectCard))
+            {
+                _getTargetArrowDic[_selectCard][0].ActiveArrow(value);
+            }
+        }
+    }
     [SerializeField] private BattleController _battleController;
 
     [Header("마우스 카드 바인딩")]
     [SerializeField] private AbilityTargetArrow _targetArrowPrefab;
     private Dictionary<CardBase, List<AbilityTargetArrow>> _getTargetArrowDic = new ();
     private CardBase _selectCard;
-    private Vector2 _mousePos;
+    public Vector2 mousePos;
     private bool _isBindingMouseAndCard;
 
     [Header("적 확인")]
@@ -58,6 +71,22 @@ public class AbilityTargettingSystem : MonoBehaviour
         }
     }
 
+    public void ChainFadeControl(float fadeValue)
+    {
+        List<CardBase> onActiveZoneList = CardReader.SkillCardManagement.InCardZoneList;
+
+        foreach (CardBase cb in onActiveZoneList)
+        {
+            if (_getTargetArrowDic.ContainsKey(cb))
+            {
+                foreach (AbilityTargetArrow ata in _getTargetArrowDic[cb])
+                {
+                    ata.SetFade(fadeValue);
+                }
+            }
+        }
+    }
+
     public void SetMouseAndCardArrowBind(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;
@@ -96,7 +125,7 @@ public class AbilityTargettingSystem : MonoBehaviour
 
                 _selectCard = selectCard;
                 AbilityTargetArrow ata = Instantiate(_targetArrowPrefab, transform);
-                ata.HideArrow();
+                ata.ActiveArrow(false);
                 if (!_getTargetArrowDic.ContainsKey(selectCard))
                 {
                     List<AbilityTargetArrow> atlist = new();
@@ -123,12 +152,14 @@ public class AbilityTargettingSystem : MonoBehaviour
 
     private void BindMouseAndCardWithArrow()
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm, 
-                                                                Input.mousePosition, Camera.main, out _mousePos);
+        if(CanBinding)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm,
+                                                                Input.mousePosition, Camera.main, out mousePos);
+        }
 
-        Debug.Log(_mousePos);
         int idx = _getTargetArrowDic[_selectCard].Count - 1;
-        _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, _mousePos);
+        _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, mousePos);
         _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
     }
 
@@ -144,6 +175,7 @@ public class AbilityTargettingSystem : MonoBehaviour
             if (hit.transform.TryGetComponent<Enemy>(out Enemy e))
             {
                 EnemyMarking(e);
+                ActivationCardSelect(_selectCard);
             }
         }
     }
@@ -166,6 +198,7 @@ public class AbilityTargettingSystem : MonoBehaviour
             trm.anchoredPosition = anchoredPosition;
             cst.SetMark();
         });
+
         _isBindingMouseAndCard = false;
     }
     
