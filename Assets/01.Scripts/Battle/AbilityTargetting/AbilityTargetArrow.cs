@@ -17,7 +17,12 @@ public class AbilityTargetArrow : MonoBehaviour
     public bool IsGenerating { get; set; }
     public bool IsBindSucess { get; private set; }
 
-    public void SetFade()
+    public void HideArrow()
+    {
+        _chainArrowVisual.enabled = false;
+    }
+
+    public void SetFade(float fadeValue)
     {
         _fadeSequence.Kill();
 
@@ -25,7 +30,7 @@ public class AbilityTargetArrow : MonoBehaviour
 
         foreach(var chain in _chainVisual)
         {
-            _fadeSequence.Join(chain.DOFade(0.5f, 0.2f));
+            _fadeSequence.Join(chain.DOFade(fadeValue, 0.2f));
         }
     }
 
@@ -58,7 +63,7 @@ public class AbilityTargetArrow : MonoBehaviour
         {
             FeedbackManager.Instance.ShakeScreen(0.5f);
             _chainArrowVisual.DOFade(0, 0.1f);
-            SetFade();
+            SetFade(0.5f);
             
             callBack();
         });

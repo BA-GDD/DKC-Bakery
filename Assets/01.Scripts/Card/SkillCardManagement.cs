@@ -1,11 +1,13 @@
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class SkillCardManagement : CardManagement
 {
     private ExpansionList<CardBase> InCardZoneCatalogue = new ExpansionList<CardBase>();
+    public List<CardBase> InCardZoneList => InCardZoneCatalogue;
 
     [Header("대기존 셋팅값")]
     [SerializeField] private Transform _cardWaitZone;
@@ -57,10 +59,15 @@ public class SkillCardManagement : CardManagement
 
             if (i == maxCount - 1)
             {
-                seq.InsertCallback(1, () => ChainingSkill());
+                seq.InsertCallback(1, () => 
+                { 
+                    ChainingSkill();
+                    CardReader.AbilityTargetSystem.AllGenerateChainPos(false);
+                });
             }
         }
     }
+
     public void ChainingSkill()
     {
         if (_isInChaining)
@@ -107,6 +114,7 @@ public class SkillCardManagement : CardManagement
         selectCard.transform.SetParent(_cardWaitZone);
         CardReader.RemoveCardInHand(CardReader.OnPointerCard);
         InCardZoneCatalogue.Add(selectCard);
+        selectCard.IsOnActivationZone = true;
 
         selectCard.transform.DOScale(0.7f, 0.3f);
         GenerateCardPosition(selectCard);
@@ -115,7 +123,7 @@ public class SkillCardManagement : CardManagement
     }
     private void GenerateCardPosition(CardBase selectCard)
     {
-        CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, true);
+        CardReader.AbilityTargetSystem.AllGenerateChainPos(true);
         Sequence seq = DOTween.Sequence();
 
         int maxIdx = InCardZoneCatalogue.Count - 1;
@@ -137,11 +145,13 @@ public class SkillCardManagement : CardManagement
             seq.Join(selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 150), 0.3f));
         }
         seq.AppendCallback(() => 
-        { 
+        {
+            CardReader.AbilityTargetSystem.ActivationCardSelect(CardReader.OnPointerCard);
             CardReader.AbilityTargetSystem.SetMouseAndCardArrowBind(CardReader.OnPointerCard);
-            CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, false);
+            CardReader.AbilityTargetSystem.AllGenerateChainPos(false);
         });
     }
+
     public void SetCardInfo(CardInfo info, bool isSet)
     {
         if (isSet)

@@ -5,18 +5,16 @@ using DG.Tweening;
 using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
+using TMPro;
 
-[Serializable]
-public abstract class CardBase : MonoBehaviour, 
-                                 IPointerEnterHandler, 
-                                 IPointerExitHandler
+public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private float _toMovePosInSec;
     public RectTransform VisualRectTrm { get; private set; }
     public CardInfo CardInfo => _myCardInfo;
     [SerializeField] private CardInfo _myCardInfo;
     public bool CanUseThisCard { get; set; } = true;
+    public bool IsOnActivationZone { get; set; }
     [SerializeField] private GameObject[] _objArr = new GameObject[3];
     [SerializeField] private CombineLevel _combineLevel;
     public CombineLevel CombineLevel
@@ -70,13 +68,20 @@ public abstract class CardBase : MonoBehaviour,
     protected Player Player => battleController.Player;
 
     [SerializeField]protected BuffSO buffSO;
-    [SerializeField]protected SEList<SEList<int>> damageArr;
+    [SerializeField]protected int[] damageArr;
 
+    private GameObject _costObject;
+    public GameObject CostObject => _costObject;
+    private TextMeshProUGUI _costText;
 
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
+        _costObject = transform.Find("Cost").gameObject;
+        _costText = CostObject.transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
+        _costText.text = CardInfo.AbillityCost.ToString();
     }
+
     public abstract void Abillity();
     public void ActiveInfo()
     {
@@ -97,7 +102,6 @@ public abstract class CardBase : MonoBehaviour,
             CardReader.SkillCardManagement.ChainingSkill();
             CardReader.LockHandCard(false);
 
-            Debug.Log(1);
             Destroy(gameObject);
         });
     }
@@ -141,20 +145,6 @@ public abstract class CardBase : MonoBehaviour,
             return false;
         }
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (CardReader.OnBinding || !CanUseThisCard) return;
-
-        RectTransform rt = transform as RectTransform;
-        rt.SetAsLastSibling();
-        CardReader.OnPointerCard = this;
-    }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (CardReader.OnBinding || !CanUseThisCard) return;
-
-        CardReader.OnPointerCard = null;
-    }
     private void Shuffling()
     {
         CardReader.ShuffleInHandCard(CardReader.OnPointerCard, this);
@@ -182,13 +172,15 @@ public abstract class CardBase : MonoBehaviour,
             }
         }
     }
-
-    public int[] GetDamage(int level)
+    public int GetDamage(CombineLevel level)
     {
-        return damageArr.list[level].list.ToArray();
+        return damageArr[(int)level];
     }
-    public int[] GetDamage(CombineLevel level)
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        return damageArr.list[(int)level].list.ToArray();
+        if (!IsOnActivationZone) return;
+
+        CardReader.AbilityTargetSystem.ActivationCardSelect(this);
     }
 }

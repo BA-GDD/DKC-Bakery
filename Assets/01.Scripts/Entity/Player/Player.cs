@@ -36,7 +36,7 @@ public class Player : Entity
     private bool _isFront;
 
     private Dictionary<CardBase, List<Entity>> _saveSkillDic = new();
-    public Dictionary<CardBase, List<Entity>> SkillTargetEnemyList => _saveSkillDic;
+    public Dictionary<CardBase, List<Entity>> GetSkillTargetEnemyList => _saveSkillDic;
 
     protected override void Awake()
     {
