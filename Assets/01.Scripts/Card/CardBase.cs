@@ -5,16 +5,16 @@ using DG.Tweening;
 using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
 using TMPro;
 
-public abstract class CardBase : MonoBehaviour 
+public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private float _toMovePosInSec;
     public RectTransform VisualRectTrm { get; private set; }
     public CardInfo CardInfo => _myCardInfo;
     [SerializeField] private CardInfo _myCardInfo;
     public bool CanUseThisCard { get; set; } = true;
+    public bool IsOnActivationZone { get; set; }
     [SerializeField] private GameObject[] _objArr = new GameObject[3];
     [SerializeField] private CombineLevel _combineLevel;
     public CombineLevel CombineLevel
@@ -175,5 +175,12 @@ public abstract class CardBase : MonoBehaviour
     public int GetDamage(CombineLevel level)
     {
         return damageArr[(int)level];
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!IsOnActivationZone) return;
+
+        CardReader.AbilityTargetSystem.ActivationCardSelect(this);
     }
 }
