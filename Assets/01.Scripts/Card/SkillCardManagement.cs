@@ -113,6 +113,12 @@ public class SkillCardManagement : CardManagement
     }
     private void GenerateCardPosition(CardBase selectCard)
     {
+<<<<<<< HEAD
+=======
+        CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, true);
+        Sequence seq = DOTween.Sequence();
+
+>>>>>>> parent of 58888007 (Merge remote-tracking branch 'origin/Maestro' into Enemy)
         int maxIdx = InCardZoneCatalogue.Count - 1;
 
         if (maxIdx != 0)
@@ -131,6 +137,14 @@ public class SkillCardManagement : CardManagement
             Transform selectTrm = InCardZoneCatalogue[i].transform;
             selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 0), 0.3f);
         }
+<<<<<<< HEAD
+=======
+        seq.AppendCallback(() => 
+        { 
+            CardReader.AbilityTargetSystem.SetMouseAndCardArrowBind(CardReader.OnPointerCard);
+            CardReader.AbilityTargetSystem.AllGenerateChainPos(InCardZoneCatalogue, false);
+        });
+>>>>>>> parent of 58888007 (Merge remote-tracking branch 'origin/Maestro' into Enemy)
     }
     public void SetCardInfo(CardInfo info, bool isSet)
     {

@@ -35,6 +35,12 @@ public class Player : Entity
     public Cream cream;
     private bool _isFront;
 
+<<<<<<< HEAD
+=======
+    private Dictionary<CardBase, List<Entity>> _saveSkillDic = new();
+    public Dictionary<CardBase, List<Entity>> SkillTargetEnemyList => _saveSkillDic;
+
+>>>>>>> parent of 58888007 (Merge remote-tracking branch 'origin/Maestro' into Enemy)
     protected override void Awake()
     {
         base.Awake();
