@@ -7,6 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    public Action<int> LoadingProgressChanged { get; set; }
+    private int _loadingProgress;
+    private int LoadingProgress
+    {
+        get { return _loadingProgress; }
+        set
+        {
+            if (value != _loadingProgress)
+            {
+                LoadingProgressChanged?.Invoke(value);
+            }
+            _loadingProgress = value;
+        }
+    }
+
     [Header("Contents")]
     [SerializeField] private List<Content> _contentList = new List<Content>();
     private Dictionary<SceneType, Content> _contentDic = new Dictionary<SceneType, Content>();
@@ -14,14 +29,14 @@ public class GameManager : MonoSingleton<GameManager>
     private Content _currentContent;
 
     [Header("Pooling")]
-    [SerializeField] private PoolListSO _poolingList;
+    [SerializeField] private List<PoolListSO> _poolingList;
     [SerializeField] private Transform _poolingTrm;
 
     private void Start()
     {
-        foreach(Content content in _contentList)
+        foreach (Content content in _contentList)
         {
-            if(_contentDic.ContainsKey(content.SceneType))
+            if (_contentDic.ContainsKey(content.SceneType))
             {
                 Debug.LogError($"Error : {content.SceneType} has overlap!!");
                 continue;
@@ -64,9 +79,13 @@ public class GameManager : MonoSingleton<GameManager>
     private void PoolSetUp()
     {
         PoolManager.Instance = new PoolManager(_poolingTrm);
-        foreach (PoolingItem item in _poolingList.poolList)
+        foreach (var list in _poolingList)
         {
-            PoolManager.Instance.CreatePool(item.prefab, item.type, item.count);
+            foreach (PoolingItem item in list.poolList)
+            {
+                PoolManager.Instance.CreatePool(item.prefab, item.type, item.count);
+            }
+
         }
     }
     public void ChangeScene(SceneType toChangingScene)
@@ -74,10 +93,30 @@ public class GameManager : MonoSingleton<GameManager>
         SceneObserver.BeforeSceneType = CurrentSceneType;
 
         SceneObserver.CurrentSceneType = SceneType.loading;
-        SceneObserver.CurrentSceneType = toChangingScene;
-        SceneManager.LoadScene("ActiveScene");
+        SceneManager.LoadScene("LoadingScene");
+        StartCoroutine(LoadingProcessCo(toChangingScene));
     }
-    
+
+    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
+    {
+        yield return null;
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("ActiveScene");
+        asyncOperation.allowSceneActivation = false;
+
+        while (!asyncOperation.isDone)
+        {
+            LoadingProgress = Mathf.CeilToInt(asyncOperation.progress * 100);
+            if (asyncOperation.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(0.5f);
+                SceneObserver.CurrentSceneType = toChangingSceneType;
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+    }
+
     public Scene GetCurrentSceneInfo()
     {
         return SceneManager.GetActiveScene();

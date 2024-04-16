@@ -20,41 +20,18 @@ public class ActivationChecker : MonoBehaviour
 
     private void Update()
     {
-        CheckActivation();
-
         if (!IsPointerOnCard()) return;
+
+        CheckActivation();
         BindMouse();
     }
 
     private void BindMouse()
     {
-        if (Input.GetMouseButton(0) && CardReader.OnBinding && CardReader.OnPointerCard.CanUseThisCard)
+        if (Input.GetMouseButton(0) && CardReader.OnBinding)
         {
             CardReader.OnPointerCard.transform.position =
             MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
-        }
-    }
-
-    private void SelectOnPointerCard()
-    {
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerEventData, results);
-
-        foreach(RaycastResult result in results)
-        {
-            if(result.gameObject.transform.parent.TryGetComponent<CardBase>(out CardBase c))
-            {
-                if (!CardReader.OnBinding || c.CanUseThisCard)
-                {
-                    RectTransform rt = c.transform as RectTransform;
-                    CardReader.OnPointerCard = c;
-                    rt.SetAsLastSibling();
-                }
-                break;
-            }
         }
     }
 
@@ -62,11 +39,7 @@ public class ActivationChecker : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SelectOnPointerCard();
-            if (!CardReader.OnPointerCard || !CardReader.OnPointerCard.CanUseThisCard) return;
-
             _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
-            CardReader.CaptureHand();
             CardReader.OnBinding = true;
         }
 
@@ -74,24 +47,17 @@ public class ActivationChecker : MonoBehaviour
         {
             CardReader.OnBinding = false;
             Activation();
+            CardReader.OnPointerCard = null;
         }
     }
 
     private void Activation()
     {
-        if (!IsPointerOnCard() || !CardReader.OnPointerCard.CanUseThisCard) return;
-
         if (IsMouseInWaitZone())
         {
             if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL))
             {
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
-
-                foreach(CardBase cb in CardReader._captureHandList)
-                {
-                    Debug.Log(cb.CardInfo.CardName);
-                }
-                CardReader.ResetByCaptureHand();
                 CardReader.OnPointerCard.SetUpCard(CardReader.GetHandPos(CardReader.OnPointerCard), true);
                 return;
             }

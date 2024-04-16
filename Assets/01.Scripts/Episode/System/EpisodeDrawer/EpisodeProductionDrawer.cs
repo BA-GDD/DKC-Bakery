@@ -17,45 +17,28 @@ public class EpisodeProductionDrawer : MonoBehaviour
     [SerializeField] private float _fadeInTime;
     [SerializeField] private float _fadeOutTime;
 
-    [Header("에피소드 이미지 프리뷰")]
-    [SerializeField] private GameObject _priviewObject;
-    [SerializeField] private Image _priviewVisual;
-
     private event Action _fadeInOutAction;
     private FadeOutType _beforeFadeOutType;
-    private Dictionary<FadeOutType, Action> _findFadeDic = new Dictionary<FadeOutType, Action>();
-
-    public void HandleActivePriviewImage(bool isActive, Sprite visual)
-    {
-        if (_priviewObject.activeSelf == isActive && _priviewVisual.sprite == visual) return;
-
-        _priviewObject.SetActive(isActive);
-        _priviewVisual.sprite = visual;
-    }
-
-    private void OnDisable()
-    {
-        _findFadeDic.Clear();
-    }
+    private Dictionary<FadeOutType, Action> _findFadeAction = new Dictionary<FadeOutType, Action>();
 
     private void OnEnable()
     {
-        _findFadeDic = new Dictionary<FadeOutType, Action>();
+        _findFadeAction = new Dictionary<FadeOutType, Action>();
         foreach(FadeOutType ft in Enum.GetValues(typeof(FadeOutType)))
         {
             switch (ft)
             {
                 case FadeOutType.None:
-                    _findFadeDic.Add(FadeOutType.None, HandleFadeOut);
+                    _findFadeAction.Add(FadeOutType.None, HandleFadeOut);
                     break;
                 case FadeOutType.Normal:
-                    _findFadeDic.Add(FadeOutType.Normal, HandleFadeInNormal);
+                    _findFadeAction.Add(FadeOutType.Normal, HandleFadeInNormal);
                     break;
                 case FadeOutType.UpToDown:
-                    _findFadeDic.Add(FadeOutType.UpToDown, HandleFadeInUpToDown);
+                    _findFadeAction.Add(FadeOutType.UpToDown, HandleFadeInUpToDown);
                     break;
                 case FadeOutType.LeftToRight:
-                    _findFadeDic.Add(FadeOutType.LeftToRight, HandleFadeInLeftToRight);
+                    _findFadeAction.Add(FadeOutType.LeftToRight, HandleFadeInLeftToRight);
                     break;
                 default:
                     break;
@@ -65,24 +48,22 @@ public class EpisodeProductionDrawer : MonoBehaviour
 
     public void HandleProductionDraw(FadeOutType fType)
     {
-        if (fType == FadeOutType.None) return;
+        if (fType == FadeOutType.Maintain) return;
 
         _fadeInOutAction = null;
 
-        _fadeInOutAction += _findFadeDic[fType];
+        _fadeInOutAction += _findFadeAction[fType];
 
         _fadeInOutAction?.Invoke();
-        EpisodeManager.Instanace.ActiveSyntexPanel(false);
         _beforeFadeOutType = fType;
     }
 
     private void HandleFadeOut()
     {
-        if (_beforeFadeOutType == FadeOutType.None) return;
-
-        EpisodeManager.Instanace.NextDialogue();
         switch (_beforeFadeOutType)
         {
+            case FadeOutType.None:
+                break;
             case FadeOutType.Normal:
                 Sequence _fadeSequence = DOTween.Sequence();
                 _fadeSequence.Append(_blackPanel.DOFade(0, _fadeOutTime));
@@ -90,17 +71,15 @@ public class EpisodeProductionDrawer : MonoBehaviour
                 {
                     _blackPanelTrm.localPosition = new Vector2(_blackPanelTrm.sizeDelta.x,
                                                                _blackPanelTrm.sizeDelta.y);
-                    EpisodeManager.Instanace.ActiveSyntexPanel(true);
                 });
                 break;
             case FadeOutType.UpToDown:
-                _blackPanelTrm.DOLocalMoveY(-_blackPanelTrm.sizeDelta.y, _fadeOutTime).OnComplete(() => EpisodeManager.Instanace.ActiveSyntexPanel(true));
+                _blackPanelTrm.DOLocalMoveY(-_blackPanelTrm.sizeDelta.y, _fadeOutTime);
                 break;
             case FadeOutType.LeftToRight:
-                 _blackPanelTrm.DOLocalMoveX(_blackPanelTrm.sizeDelta.x, _fadeOutTime).OnComplete(() => EpisodeManager.Instanace.ActiveSyntexPanel(true));
+                _blackPanelTrm.DOLocalMoveX(_blackPanelTrm.sizeDelta.x, _fadeOutTime);
                 break;
         }
-        EpisodeManager.Instanace.ActiveSyntexPanel(true);
     }
 
     private void HandleFadeInNormal()
@@ -108,7 +87,7 @@ public class EpisodeProductionDrawer : MonoBehaviour
         _blackPanel.color = _alphaZeroBlackColor;
         _blackPanelTrm.localPosition = Vector3.zero;
 
-        _blackPanel.DOFade(1, _fadeInTime).OnComplete(HandleFadeOut);
+        _blackPanel.DOFade(1, _fadeInTime);
     }
 
     private void HandleFadeInUpToDown()
@@ -116,8 +95,8 @@ public class EpisodeProductionDrawer : MonoBehaviour
         _blackPanel.color = _blackColor;
         _blackPanelTrm.localPosition = new Vector2(0, _blackPanelTrm.sizeDelta.y);
 
-        _blackPanelTrm.DOLocalMoveY(0, _fadeInTime).OnComplete(HandleFadeOut);
-
+        _blackPanelTrm.DOLocalMoveY(0, _fadeInTime);
+        
     }
 
     private void HandleFadeInLeftToRight()
@@ -125,6 +104,6 @@ public class EpisodeProductionDrawer : MonoBehaviour
         _blackPanel.color = _blackColor;
         _blackPanelTrm.localPosition = new Vector2(-_blackPanelTrm.sizeDelta.x, 0);
 
-        _blackPanelTrm.DOLocalMoveX(0, _fadeInTime).OnComplete(HandleFadeOut);
+        _blackPanelTrm.DOLocalMoveX(0, _fadeInTime);
     }
 }

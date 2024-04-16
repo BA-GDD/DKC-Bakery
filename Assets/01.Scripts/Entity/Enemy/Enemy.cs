@@ -13,7 +13,7 @@ public struct EnemyAttack
     public ParticleInfo attack;
 }
 
-public abstract class Enemy : Entity
+public abstract class Enemy : Entity,IPointerDownHandler
 {
     [SerializeField] protected EnemyAttack attackParticle; 
 
@@ -93,8 +93,8 @@ public abstract class Enemy : Entity
     [ContextMenu("TurnEnd")]
     private void TestTurnEnd() => TurnEnd();
 
-    public void SelectedOnAttack(CardBase selectCard)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        BattleController.SelectPlayerTarget(selectCard, this);
+        BattleController.ChangePlayerTarget(this);
     }
 }

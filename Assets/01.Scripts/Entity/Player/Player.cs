@@ -35,24 +35,12 @@ public class Player : Entity
     public Cream cream;
     private bool _isFront;
 
-    private Dictionary<CardBase, List<Entity>> _saveSkillDic = new();
-    public Dictionary<CardBase, List<Entity>> SkillTargetEnemyList => _saveSkillDic;
-
     protected override void Awake()
     {
         base.Awake();
 
         PlayerStat = CharStat as PlayerStat;
         VFXManager = FindObjectOfType<PlayerVFXManager>();
-    }
-
-    public void SaveSkillToEnemy(CardBase skillCard, Entity target)
-    {
-        if(!_saveSkillDic.ContainsKey(skillCard))
-        {
-            _saveSkillDic.Add(skillCard, new List<Entity>());
-        }
-        _saveSkillDic[skillCard].Add(target);
     }
 
     private void TurnStart(bool b)
@@ -62,7 +50,6 @@ public class Player : Entity
     private void TurnEnd()
     {
         ColliderCompo.enabled = true;
-        _saveSkillDic.Clear();
         ChangePosWithCream(false);
     }
 
@@ -83,7 +70,7 @@ public class Player : Entity
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
 
-        HealthCompo.OnDeathEvent.AddListener(() => UIManager.Instance.GetSceneUI<BattleUI>().SetResult(false));
+        HealthCompo.OnDeathEvent.AddListener(() => UIManager.Instance.GetSceneUI<BattleUI>().SetClear());
 
         cream.OnAnimationCall = () => OnAnimationCall?.Invoke();
         cream.OnAnimationEnd = () => OnAnimationEnd?.Invoke();
@@ -99,6 +86,8 @@ public class Player : Entity
         if (_hpUI != null)
             HealthCompo.OnDamageEvent -= _hpUI.SetHpOnUI;
     }
+
+
 
     public void AnimationEndTrigger()
     {
@@ -142,7 +131,6 @@ public class Player : Entity
         _isFront = front;
         BattleController.ChangeXPosition(transform, cream.transform, callback);
     }
-
     public void EndAbility()
     {
         AnimatorCompo.SetBool(_abilityHash, false);

@@ -26,6 +26,7 @@ public class StageDataSO : ScriptableObject
     public StageBackGround stageBackGround;
     public EnemyGroupSO enemyGroup;
     public TsumegoInfo clearCondition;
+    public List<CardBase> missionDeck;
     public bool isClearThisStage;
 
     private const string _dataKey = "AdventureKEY";

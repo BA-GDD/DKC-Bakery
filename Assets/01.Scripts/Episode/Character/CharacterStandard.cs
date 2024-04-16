@@ -14,14 +14,13 @@ public class CharacterStandard : MonoBehaviour
     [Header("¼ÂÆÃ°ª")]
     [SerializeField] private Image _characterDraw;
     [SerializeField] private Sprite[] _faceGroup;
+    [SerializeField] private Vector2[] _movePointGroup;
+    [SerializeField] private Vector2[] _exitPointGroup;
 
-    [field:SerializeField] public Transform EmotionRightPos { get; private set; }
-    [field:SerializeField] public Transform EmotionLeftPos { get; private set; }
-
-    private Tween _moveTween;
     private FaceType _currentFaceType;
     private bool _currentActive;
-    private Vector2 _alreadyInPos;
+    private MoveType _alreadyInPos;
+    private ExitType _alreadyOutPos;
 
     public void SetFace(FaceType faceType)
     {
@@ -34,6 +33,7 @@ public class CharacterStandard : MonoBehaviour
     public void SetActive(bool isActive)
     {
         if (_currentActive == isActive) return;
+
         _characterDraw.DOFade(Convert.ToInt32(isActive), _activeTime);
         _currentActive = isActive;
     }
@@ -43,13 +43,16 @@ public class CharacterStandard : MonoBehaviour
         transform.DOShakePosition(0.4f, 15f, 20);
     }
 
-    public void MoveCharacter(Vector2 pos)
+    public void MoveCharacter(MoveType moveType)
     {
-        Debug.Log(pos);
-        if (_alreadyInPos == pos) return;
+        if (_alreadyInPos == moveType || moveType == MoveType.None) return;
 
-        _moveTween.Kill();
-        _moveTween = transform.DOLocalMove(pos, _moveTime);
-        _alreadyInPos = pos;
+        transform.DOLocalMove(_movePointGroup[(int)moveType - 1], _moveTime);
+    }
+
+    public void ExitCharacter(ExitType exitType)
+    {
+        if (_alreadyOutPos == exitType || exitType == ExitType.None) return;
+        transform.DOLocalMove(_exitPointGroup[(int)exitType - 1], _exitTime);
     }
 }

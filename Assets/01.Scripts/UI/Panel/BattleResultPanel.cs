@@ -3,86 +3,73 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class BattleResultPanel : PanelUI
 {
     [Header("배틀 리절트 패널")]
     [SerializeField] private BattleController _battleController;
-
-    [Header("승패")]
     [SerializeField] private TextMeshProUGUI _clearText;
-    [SerializeField] private Transform _clearStamp;
-    [SerializeField] private Transform _defeatRain;
-
-    [Header("스테이지 정보")]
-    [SerializeField] private Sprite[] _iconSpriteArr;
-    [SerializeField] private Transform _stagePanelTrm;
-    [SerializeField] private Image _stageIconImage;
-    [SerializeField] private TextMeshProUGUI _stageNameText;
-
-    [Header("클리어 컨디션")]
-    [SerializeField] private Transform _conditionPanel;
-    [SerializeField] private Image _conditionResultIcon;
-    [SerializeField] private TextMeshProUGUI _conditionText;
-
-    [Header("얻은 아이템")]
-    [SerializeField] private Transform _itemScrollTrm;
+    [SerializeField] private Transform _enemyProfileTrm;
+    [SerializeField] private BattleResultProfilePanel _enemyProfile;
     [SerializeField] private BattleResultProfilePanel _itemProfile;
     [SerializeField] private Transform _itemProfileTrm;
 
-    [SerializeField] private UnityEvent _sequenceEndEvent;
-
-    public void LookResult(bool isClear,
-                           StageType stageType, 
-                           string stageName, 
-                           string conditionName)
+    public void SetClear()
     {
+        _clearText.gameObject.SetActive(true);
+        _clearText.transform.localScale = Vector3.one * 1.5f;
+        _clearText.transform.DOScale(Vector3.one, 0.1f);
 
-        if (!isClear)
+        if (!MapManager.Instanace.SelectStageData.clearCondition.IsClear)
         {
-            _clearText.text = "스테이지 패배..";              
+            _clearText.text = "Defeat";                 
         }
         else
         {
             MapManager.Instanace.SelectStageData.StageClear();
         }
 
-        _stageIconImage.sprite = _iconSpriteArr[(int)stageType];
-        _stageNameText.text = stageName;
-        _conditionText.text = conditionName;
+        SetEnemyProfile();
+    }
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(_clearText.transform.DOLocalMoveX(730, 0.4f).SetEase(Ease.OutBack));
-        seq.Insert(0.15f, _stagePanelTrm.DOLocalMoveX(540, 0.4f).SetEase(Ease.OutBack));
-        seq.Insert(0.25f, _conditionPanel.DOLocalMoveX(535, 0.4f).SetEase(Ease.OutBack));
-        seq.Insert(0.35f, _itemScrollTrm.DOLocalMoveX(500, 0.4f).SetEase(Ease.OutBack));
-
-        if(isClear)
+    private void SetEnemyProfile()
+    {
+        List<BattleResultProfilePanel> battleResultEnemyProfiles = new List<BattleResultProfilePanel>();
+        Enemy[] stageInEnemies = MapManager.Instanace.SelectStageData.enemyGroup.enemies.ToArray();
+        foreach (Enemy e in stageInEnemies)
         {
-            seq.AppendCallback(() => _clearStamp.gameObject.SetActive(true));
-            seq.Join(_clearStamp.DOLocalRotateQuaternion(Quaternion.Euler(0, 0, -14), 0.4f));
-            seq.Join(_clearStamp.DOScale(Vector3.one, 0.4f).SetEase(Ease.InBack));
+            BattleResultProfilePanel erp = Instantiate(_enemyProfile, _enemyProfileTrm);
+            erp.SetProfile(e.CharStat.characterVisual);
+            battleResultEnemyProfiles.Add(erp);
         }
-        else
-        {
+        StartCoroutine(KillEnemyMarking(battleResultEnemyProfiles));
+    }
 
-        }
+    private IEnumerator KillEnemyMarking(List<BattleResultProfilePanel> brelist)
+    {
+        yield return new WaitForSeconds(1f);
 
-        seq.AppendCallback(() =>
+        for (int i = 0; i < _battleController.SpawnEnemyList.Count; i++)
         {
-            foreach(Enemy e in _battleController.DeathEnemyList)
+            for (int j = 0; j < _battleController.DeathEnemyList.Count; j++)
             {
-                EnemyStat es = e.CharStat as EnemyStat;
-                BattleResultProfilePanel bp = Instantiate(_itemProfile, _itemProfileTrm);
-                bp.SetProfile(es.DropItem.itemIcon);
+                if (_battleController.SpawnEnemyList[i] == _battleController.DeathEnemyList[j])
+                {
+                    brelist[i].DeathMarking();
+                }
             }
+        }
 
-            _battleController.DeathEnemyList.Clear();
-        });
+        yield return new WaitForSeconds(1f);
 
-        seq.AppendCallback(() => _sequenceEndEvent?.Invoke());
+        if (MapManager.Instanace.SelectStageData.clearCondition.IsClear)
+        {
+            foreach (ItemDataIngredientSO i in Inventory.Instance.GetIngredientInThisBattle)
+            {
+                Instantiate(_itemProfile, _itemProfileTrm).SetProfile(i.itemIcon);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
     }
 
     public void GotoPoolAllEnemy()

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleTutorial : Stage
 {
-    [SerializeField] private EpisodeData _battleTutorialSO;
+    [SerializeField] private EpisodeDataListSO _battleTutorialSO;
     private List<Action> tutorialActionList;
 
     [Header("튜토리얼 이벤트")]

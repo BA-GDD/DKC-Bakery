@@ -5,9 +5,9 @@ using UnityEngine;
 
 public static class CardReader
 {
-    public static List<CardBase> _inHandCardList = new List<CardBase>();
+    private static List<CardBase> _inHandCardList = new List<CardBase>();
     private static List<CardBase> _inDeckCardList = new List<CardBase>();
-    public static List<CardBase> _captureHandList = new List<CardBase>();
+    private static List<CardBase> _captureHandList = new List<CardBase>();
 
     private static CardDrawer _cardDrawer;
     public static CardDrawer CardDrawer
@@ -66,17 +66,6 @@ public static class CardReader
         }
     }
 
-    private static AbilityTargettingSystem _abilityTargetSystem;
-    public static AbilityTargettingSystem AbilityTargetSystem
-    {
-        get
-        {
-            if (_abilityTargetSystem != null) return _abilityTargetSystem;
-            _abilityTargetSystem = GameObject.FindObjectOfType<AbilityTargettingSystem>();
-            return _abilityTargetSystem;
-        }
-    }
-
     public static CardBase OnPointerCard { get; set; }
     public static bool OnBinding { get; set; }
 
@@ -85,23 +74,7 @@ public static class CardReader
 
     public static void CaptureHand()
     {
-        _captureHandList.Clear();
-
-        foreach(CardBase cb in _inHandCardList)
-        {
-            _captureHandList.Add(cb);
-        }
-    }
-
-    public static bool IsSameCaptureHand()
-    {
-        if(_captureHandList.Count != _inHandCardList.Count) return false;
-
-        for(int i = 0; i < _captureHandList.Count; i++)
-        {
-            if (_captureHandList[i].CardInfo != _inHandCardList[i].CardInfo) return false;
-        }
-        return true;
+        _captureHandList = _inHandCardList;
     }
 
     public static void SetDeck(List<CardBase> deck)
@@ -111,14 +84,9 @@ public static class CardReader
         _inDeckCardList = deck;
     }
 
-    public static void ResetByCaptureHand()
+    public static bool IsSameCaptureHand()
     {
-        _inHandCardList.Clear();
-
-        foreach(CardBase cb in _captureHandList)
-        {
-            _inHandCardList.Add(cb);
-        }
+        return _captureHandList == _inHandCardList;
     }
 
     public static List<CardBase> GetHandCards()

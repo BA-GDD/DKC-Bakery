@@ -1,13 +1,6 @@
 
 namespace EpisodeDialogueDefine
 {
-    public enum CharacterActiveType
-    {
-        Contain,
-        None,
-        Active
-    }
-
     public enum CharacterType
     {
         tart,
@@ -23,13 +16,13 @@ namespace EpisodeDialogueDefine
         sad,
         cutesad,
         embrass,
-        normal,
+        cutesmile,
         curious
     }
 
     public enum BackGroundType
     {
-        None ,
+        None,
         Black,
         Guild,
         Castle,

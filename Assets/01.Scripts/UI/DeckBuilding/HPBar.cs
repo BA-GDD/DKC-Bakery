@@ -51,7 +51,7 @@ public class HPBar : MonoBehaviour
         _playerGetDamageSequence.Join
         (
             DOTween.To(() => _hpBarTurm.value, v => _hpBarTurm.value = v,
-            generatedHealth, _easingTime + 0.5f)
+            generatedHealth, _easingTime + 0.15f)
         );
     }
 }

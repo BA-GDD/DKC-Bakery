@@ -2,16 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CardDefine;
-
-public enum TargetEnemyCount
-{
-    I = 1,
-    II,
-    III,
-    IV,
-    V,
-    ALL
-}
+using System.Security.Cryptography;
 
 [CreateAssetMenu(menuName = "SO/Card/CardInfo")]
 public class CardInfo : ScriptableObject
@@ -23,7 +14,6 @@ public class CardInfo : ScriptableObject
 
     [Header("스킬 정보")]
     public AnimationClip abilityAnimation;
-    public TargetEnemyCount targetEnemyCount;
 
     [Header("개별 타격 이펙트")]
     public ParticleSystem hitEffect;
