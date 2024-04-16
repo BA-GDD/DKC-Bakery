@@ -7,14 +7,19 @@ public class MonStrowberry : Enemy
     protected override void Start()
     {
         base.Start();
-        VFXPlayer.OnEndEffect += () => turnStatus = TurnStatus.End;
+        VFXPlayer.OnEndEffect += () => 
+        {
+            turnStatus = TurnStatus.End;
+            OnAttackEnd?.Invoke();
+        };
     }
 
     public override void Attack()
     {
         OnAttackStart?.Invoke();
 
-        VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
+        attackParticle.attack.SetTriggerTarget(target);
+        VFXPlayer.PlayParticle(attackParticle);
         StartCoroutine(AttackCor());
     }
     private IEnumerator AttackCor()
@@ -24,19 +29,9 @@ public class MonStrowberry : Enemy
         Quaternion vfxQua = attackParticle.attack.transform.rotation;
         SetSeedVFXPos();
 
-        for (int i = 0; i < 3; ++i)
-        {
-            yield return new WaitForSeconds(0.1f);
-            VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
-            target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
-        }
         attackParticle.attack.transform.position = vfxPos;
         attackParticle.attack.transform.rotation = vfxQua;
 
-        turnStatus = TurnStatus.End;
-
-
-        OnAttackEnd?.Invoke();
     }
 
     public override void SlowEntityBy(float percent)
@@ -51,6 +46,7 @@ public class MonStrowberry : Enemy
 
     public override void TurnEnd()
     {
+        OnAttackEnd?.Invoke();
         base.TurnEnd();
     }
 

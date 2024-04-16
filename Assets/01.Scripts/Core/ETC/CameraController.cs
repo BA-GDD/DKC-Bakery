@@ -5,22 +5,39 @@ using Cinemachine;
 
 public class CameraController : MonoSingleton<CameraController>
 {
+    private CinemachineBrain brain;
+    public PoolVCam cam { get; private set; }
 
-    public CinemachineVirtualCamera _defaultCVCam;
-    public CinemachineVirtualCamera _followCVCam;
+    private void Awake()
+    {
+        brain = Camera.main.GetComponent<CinemachineBrain>();
+    }
+
+    public void SetTransitionTime(float time)
+    {
+        brain.m_DefaultBlend.m_Time = time;
+    }
+    public PoolVCam GetVCam()
+    {
+        PoolVCam tempCam = null;
+        if (cam != null)
+            tempCam = cam;
+
+        cam = PoolManager.Instance.Pop(PoolingType.VCamPool) as PoolVCam;
+        cam.VCam.Priority = 15;
+
+        if(tempCam != null)
+            PoolManager.Instance.Push(tempCam);
+
+        return cam;
+    }
 
     public void SetDefaultCam()
     {
-        _defaultCVCam.Priority = 20;
-        _followCVCam.Priority = 10;
-
+        SetTransitionTime(2);
+        if(cam != null)
+            PoolManager.Instance.Push(cam);
+        cam = null;
     }
-    public void SetFollowCam(Transform _followTrm, Transform _lookTrm)
-    {
-        _defaultCVCam.Priority = 10;
-        _followCVCam.Priority = 20;
 
-        _followCVCam.m_Follow = _followTrm;
-        _followCVCam.m_LookAt = _lookTrm;
-    }
 }

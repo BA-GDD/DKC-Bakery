@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Particle;
 using System;
 using System.Threading.Tasks;
 using UnityEditor;
@@ -9,17 +10,12 @@ using Sequence = DG.Tweening.Sequence;
 [Serializable]
 public struct EnemyAttack
 {
-    public ParticleSystem attack;
-    public ParticleSystem hitPrefab;
-    public float duration;
+    public ParticleInfo attack;
 }
 
 public abstract class Enemy : Entity,IPointerDownHandler
 {
-
     [SerializeField] protected EnemyAttack attackParticle; 
-
-    [SerializeField] protected CameraMoveTrack camTrack;
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
@@ -27,7 +23,7 @@ public abstract class Enemy : Entity,IPointerDownHandler
 
     protected EnemyVFXPlayer VFXPlayer { get; private set; }
 
-    protected Collider Collider;
+    protected Collider2D Collider;
 
     public TurnStatus turnStatus;
 
@@ -35,21 +31,30 @@ public abstract class Enemy : Entity,IPointerDownHandler
     {
         base.Awake();
         VFXPlayer = GetComponent<EnemyVFXPlayer>();
-        Collider = GetComponent<Collider>();
+        Collider = GetComponent<Collider2D>();
         
+    }
+    protected virtual void HandleAttackStart()
+    {
+        AnimatorCompo.SetBool(attackAnimationHash, true);
+    }
+    protected virtual void HandleAttackEnd()
+    {
+        AnimatorCompo.SetBool(attackAnimationHash, false);
     }
     protected override void OnEnable()
     {
         base.OnEnable();
+        OnAttackStart += HandleAttackStart;
+        OnAttackEnd += HandleAttackEnd;
         target = BattleController?.Player;
     }
-
-    public void AnimationFinishTrigger()
+    protected override void OnDisable()
     {
-        OnAnimationEnd?.Invoke();
+        base.OnDisable();
+        OnAttackStart -= HandleAttackStart;
+        OnAttackEnd -= HandleAttackEnd;
     }
-
-
     public abstract void Attack();
 
     public virtual void TurnStart()
@@ -91,6 +96,5 @@ public abstract class Enemy : Entity,IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         BattleController.ChangePlayerTarget(this);
-        print(123);
     }
 }

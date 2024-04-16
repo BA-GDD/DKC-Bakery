@@ -70,7 +70,7 @@ public abstract class CardBase : MonoBehaviour,
     protected Player Player => battleController.Player;
 
     [SerializeField]protected BuffSO buffSO;
-    [SerializeField]protected int[] damageArr;
+    [SerializeField]protected SEList<SEList<int>> damageArr;
 
 
     private void Awake()
@@ -183,8 +183,12 @@ public abstract class CardBase : MonoBehaviour,
         }
     }
 
-    public int GetDamage(CombineLevel level)
+    public int[] GetDamage(int level)
     {
-        return damageArr[(int)level];
+        return damageArr.list[level].list.ToArray();
+    }
+    public int[] GetDamage(CombineLevel level)
+    {
+        return damageArr.list[(int)level].list.ToArray();
     }
 }

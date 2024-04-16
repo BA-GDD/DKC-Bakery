@@ -8,13 +8,12 @@ public class PumpkinBat : Enemy
     {
         base.Start();
         VFXPlayer.OnEndEffect += () => turnStatus = TurnStatus.End;
-        Debug.Log("Ãß°¡");
     }
 
     public override void Attack()
     {
         OnAttackStart?.Invoke();
-        VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
+        VFXPlayer.PlayParticle(attackParticle);
         StartCoroutine(AttackCor());
     }
 
@@ -25,7 +24,7 @@ public class PumpkinBat : Enemy
         {
             yield return new WaitForSeconds(0.15f);
             target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
-            VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
+            //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         }
         turnStatus = TurnStatus.End;
         OnAttackEnd?.Invoke();

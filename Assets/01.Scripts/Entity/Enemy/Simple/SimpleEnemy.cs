@@ -44,7 +44,7 @@ public class SimpleEnemy : Enemy
 
     public override void TurnEnd()
     {
-        camTrack.transform.SetParent(transform);
+
     }
     public override void TurnStart()
     {

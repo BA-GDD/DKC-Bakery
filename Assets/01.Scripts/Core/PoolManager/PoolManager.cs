@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,12 @@ public enum PoolingType
     KingBufferDog,
     RiceBird,
     TouchEffect,
+    SeedGun,
+    VCamPool,
+}
+public enum ParticleEnum
+{
+
 }
 
 public class PoolManager
@@ -30,13 +37,15 @@ public class PoolManager
     public static PoolManager Instance;
 
     private Dictionary<PoolingType, Pool<PoolableMono>> _poolDic = new Dictionary<PoolingType, Pool<PoolableMono>>();
+    //private Dictionary<PoolingType, PoolGroup> Dic = new();
+    
 
     private Transform _parentTrm;
     public PoolManager(Transform parentTrm)
     {
         _parentTrm = parentTrm;
     }
-
+    
     public void CreatePool(PoolableMono prefab, PoolingType poolingType, int count = 10)
     {
         _poolDic.Add(poolingType, new Pool<PoolableMono>(prefab, poolingType, _parentTrm, count));

@@ -11,14 +11,14 @@ public class GameManager : MonoSingleton<GameManager>
     private int _loadingProgress;
     private int LoadingProgress
     {
-        get { return _loadingProgress;}
-        set 
-        { 
-            if(value != _loadingProgress)
+        get { return _loadingProgress; }
+        set
+        {
+            if (value != _loadingProgress)
             {
                 LoadingProgressChanged?.Invoke(value);
             }
-            _loadingProgress = value; 
+            _loadingProgress = value;
         }
     }
 
@@ -29,14 +29,14 @@ public class GameManager : MonoSingleton<GameManager>
     private Content _currentContent;
 
     [Header("Pooling")]
-    [SerializeField] private PoolListSO _poolingList;
+    [SerializeField] private List<PoolListSO> _poolingList;
     [SerializeField] private Transform _poolingTrm;
 
     private void Start()
     {
-        foreach(Content content in _contentList)
+        foreach (Content content in _contentList)
         {
-            if(_contentDic.ContainsKey(content.SceneType))
+            if (_contentDic.ContainsKey(content.SceneType))
             {
                 Debug.LogError($"Error : {content.SceneType} has overlap!!");
                 continue;
@@ -79,9 +79,13 @@ public class GameManager : MonoSingleton<GameManager>
     private void PoolSetUp()
     {
         PoolManager.Instance = new PoolManager(_poolingTrm);
-        foreach (PoolingItem item in _poolingList.poolList)
+        foreach (var list in _poolingList)
         {
-            PoolManager.Instance.CreatePool(item.prefab, item.type, item.count);
+            foreach (PoolingItem item in list.poolList)
+            {
+                PoolManager.Instance.CreatePool(item.prefab, item.type, item.count);
+            }
+
         }
     }
     public void ChangeScene(SceneType toChangingScene)
@@ -92,7 +96,7 @@ public class GameManager : MonoSingleton<GameManager>
         SceneManager.LoadScene("LoadingScene");
         StartCoroutine(LoadingProcessCo(toChangingScene));
     }
-    
+
     private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
     {
         yield return null;

@@ -48965,6 +48965,7 @@ GameObject:
   - component: {fileID: 3599030315999073390}
   - component: {fileID: 6334272378504871410}
   - component: {fileID: 6057572684834501451}
+  - component: {fileID: 790256272632916619}
   m_Layer: 0
   m_Name: P_Seedgun_level1
   m_TagString: Untagged
@@ -53860,6 +53861,27 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &790256272632916619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031158330665112198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeDamages:
+  - {fileID: 5254632808949279050}
+  duration: 0
+  OnStartParticleEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndParticleEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5214670665798199685
 GameObject:
   m_ObjectHideFlags: 0
@@ -102912,8 +102934,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
-      propertyPath: CollisionModule.enabled
+      propertyPath: TriggerModule.enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -102926,6 +102952,10 @@ PrefabInstance:
     - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       propertyPath: InitialModule.startSizeZ.scalar
       value: 1.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
+      propertyPath: TriggerModule.primitives.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       propertyPath: TrailModule.colorOverLifetime.maxColor.b
@@ -103022,13 +103052,99 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8867134259767185914}
+    - targetCorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5254632808949279050}
+    - targetCorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2522120327411367017}
   m_SourcePrefab: {fileID: 100100000, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
 --- !u!4 &5996551099899592382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7042236108065086676, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
   m_PrefabInstance: {fileID: 3639765128118280810}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7811029970772000465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
+  m_PrefabInstance: {fileID: 3639765128118280810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8867134259767185914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811029970772000465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc0b2716c8cfcc4f82daa35f9fa3745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inSideEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  outSideEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  enterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5254632808949279050}
+        m_TargetAssemblyTypeName: TakeDamageParticle, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2522120327411367017}
+        m_TargetAssemblyTypeName: TakeDamageParticle, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5254632808949279050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811029970772000465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d40deb3f742e44199b421ed7798f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2522120327411367017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811029970772000465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb5e5bfd89a5c84e86e83f472645644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3905794423436333113
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ public class TsumegoSystem : MonoBehaviour
 
     public void CheckClear()
     {
-        Debug.Log(1);
         foreach(var condition in CurTsumegoInfo.Conditions)
         {
             if (!condition.CheckCondition())

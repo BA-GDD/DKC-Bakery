@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class CandyParty : Enemy
 {
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         VFXPlayer.OnEndEffect += () => turnStatus = TurnStatus.End;
     }
 
     public override void Attack()
     {
         OnAttackStart?.Invoke();
-        VFXPlayer.PlayParticle(attackParticle, attackParticle.duration);
+        VFXPlayer.PlayParticle(attackParticle);
         StartCoroutine(AttackCor());
     }
     private IEnumerator AttackCor()
@@ -22,7 +22,7 @@ public class CandyParty : Enemy
         for (int i = 0; i < 5; ++i)
         {
             yield return new WaitForSeconds(0.3f);
-            VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
+            //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
             target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         }
         OnAttackEnd?.Invoke();

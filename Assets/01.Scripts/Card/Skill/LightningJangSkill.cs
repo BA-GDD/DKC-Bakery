@@ -60,7 +60,7 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.1f);
 
-        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
+        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
         GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
         Destroy(obj, 1.0f);
 
