@@ -86,8 +86,8 @@ public abstract class Enemy : Entity
     [ContextMenu("TurnEnd")]
     private void TestTurnEnd() => TurnEnd();
 
-    public void ActiveOnAttackMarking()
+    public void SelectedOnAttack(CardBase selectCard)
     {
-        BattleController.SelectPlayerTarget(this);
+        BattleController.SelectPlayerTarget(selectCard, this);
     }
 }

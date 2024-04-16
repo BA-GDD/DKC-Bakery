@@ -41,6 +41,7 @@ public class PopDamageText : PoolableMono
     }
     public void ShowReactionText(Vector3 position, string word, float fontSize, Color color)
     {
+        Debug.Log(9);
         _damageText.color = color;
         _damageText.fontSize = fontSize;
         _damageText.text = word;
@@ -49,10 +50,11 @@ public class PopDamageText : PoolableMono
         transform.position = position;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMove(transform.position + GetRandomnessPos(), 0.7f));
+        seq.Append(transform.DOMove(transform.position + new Vector3(0, 0.2f), 0.7f));
         seq.Join(_damageText.DOFade(0, 1f));
         seq.OnComplete(() => PoolManager.Instance.Push(this));
     }
+    
     public void ActiveCriticalDamage()
     {
         _criticalFrame.SetActive(true);

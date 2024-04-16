@@ -61,7 +61,7 @@ public class BattleController : MonoBehaviour
 
                 OnGameEndEvent?.Invoke();
                 CostCalculator.Init();
-                SelectPlayerTarget(null);
+                SelectPlayerTarget(null, null);
 
                 UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
@@ -71,7 +71,6 @@ public class BattleController : MonoBehaviour
     }
 
     [SerializeField] private UnityEvent OnGameEndEvent;
-    [SerializeField] private UnityEvent<Entity> OnChangePlayerTarget;
 
     private void Start()
     {
@@ -160,9 +159,7 @@ public class BattleController : MonoBehaviour
             SpawnMonster(i);
             yield return new WaitForSeconds(_spawnTurm);
         }
-        if (Player.target == null)
-            SetPlayerCloseTarget();
-        //_enemyHpBarMaker.SetupEnemyHpBar();
+        
     }
     private void SpawnMonster(int idx)
     {
@@ -190,27 +187,9 @@ public class BattleController : MonoBehaviour
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
 
-        if (enemy == Player.target)
-        {
-            SetPlayerCloseTarget();
-        }
-
         DeathEnemyList.Add(enemy);
     }
-    private void SetPlayerCloseTarget()
-    {
-        for (int i = onFieldMonsterList.Length - 1; i >= 0; i--)
-        {
-            Enemy e = onFieldMonsterList[i];
 
-            if (e != null && !e.HealthCompo.IsDead)
-            {
-                SelectPlayerTarget(e);
-                return;
-            }
-        }
-        SelectPlayerTarget(null);
-    }
     public bool IsStuck(int to, int who)
     {
         return isStuck.list[to].list[who];
@@ -227,10 +206,9 @@ public class BattleController : MonoBehaviour
         e2.DOMoveX(e1.position.x, 0.5f).OnComplete(() => callback?.Invoke());
     }
 
-    public void SelectPlayerTarget(Entity entity)
+    public void SelectPlayerTarget(CardBase cardBase, Entity entity)
     {
-        Player.target = entity;
-        OnChangePlayerTarget?.Invoke(entity);
+        Player.SaveSkillToEnemy(cardBase, entity);
     }
 
     public void BackgroundColor(Color color)

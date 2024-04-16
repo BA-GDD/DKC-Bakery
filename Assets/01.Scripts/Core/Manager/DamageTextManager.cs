@@ -57,5 +57,12 @@ public class DamageTextManager : MonoSingleton<DamageTextManager>
         int randomIdx = UnityEngine.Random.Range(0, _reactionType[idx].reactionWordArr.Length);
         _reactionText.ShowReactionText(position, _reactionType[idx].reactionWordArr[randomIdx], 10, _textColors[idx]);
     }
+
+    public void PopupReactionText(Vector3 position, Color color, string message)
+    {
+        PopDamageText _reactionText = PoolManager.Instance.Pop(PoolingType.DamageText) as PopDamageText;
+        _reactionText.DamageText.font = _reactionTextFont;
+        _reactionText.ShowReactionText(position, message, 5, color);
+    }
 }
               

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,13 +7,15 @@ public class AbilityTargetArrow : MonoBehaviour
 {
     [SerializeField] private Image _chainArrowVisual;
     [SerializeField] private Image[] _chainVisual;
-    [SerializeField] private RectTransform _arrowTrm;
+    [SerializeField] private RectTransform _arrowMask;
 
     private Transform _saveStartTrm;
     private Vector2 _saveEndPos;
+    private float _saveLength;
     
     private Sequence _fadeSequence;
     public bool IsGenerating { get; set; }
+    public bool IsBindSucess { get; private set; }
 
     public void SetFade()
     {
@@ -20,7 +23,6 @@ public class AbilityTargetArrow : MonoBehaviour
 
         _fadeSequence = DOTween.Sequence();
 
-        _fadeSequence.Append(_chainArrowVisual.DOFade(0f, 0.2f));
         foreach(var chain in _chainVisual)
         {
             _fadeSequence.Join(chain.DOFade(0.5f, 0.2f));
@@ -47,6 +49,24 @@ public class AbilityTargetArrow : MonoBehaviour
         }
     }
 
+    public Tween ReChainning(Action callBack)
+    {
+        SetActive();
+        float deltaY = _arrowMask.sizeDelta.y;
+        Tween re = DOTween.To(() => new Vector2(0, deltaY), vec => _arrowMask.sizeDelta = vec, new Vector2(_saveLength, deltaY), 0.3f).SetEase(Ease.InQuart);
+        re.OnComplete(() => 
+        {
+            FeedbackManager.Instance.ShakeScreen(0.5f);
+            _chainArrowVisual.DOFade(0, 0.1f);
+            SetFade();
+            
+            callBack();
+        });
+
+        IsBindSucess = true;
+        return re;
+    }
+
     public void ArrowBinding(Transform startTrm, Vector2 endPos)
     {
         _chainArrowVisual.transform.position = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
@@ -62,14 +82,15 @@ public class AbilityTargetArrow : MonoBehaviour
     private void SetLength(Vector2 startPos, Vector2 endPos)
     {
         float distance = Mathf.Sqrt(Mathf.Pow(endPos.x - startPos.x, 2) + Mathf.Pow(endPos.y - startPos.y, 2));
-        _arrowTrm.sizeDelta = new Vector2(distance, _arrowTrm.sizeDelta.y);
+        _arrowMask.sizeDelta = new Vector2(distance, _arrowMask.sizeDelta.y);
+        _saveLength = distance;
     }
 
     private void SetAngle(Vector2 dir)
     {
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle -180, Vector3.forward);
-        _arrowTrm.localRotation = rotation;
+        _arrowMask.localRotation = rotation;
         _chainArrowVisual.transform.localRotation = rotation;
     }
 }
