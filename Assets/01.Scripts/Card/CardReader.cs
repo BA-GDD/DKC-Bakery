@@ -66,6 +66,17 @@ public static class CardReader
         }
     }
 
+    private static AbilityTargettingSystem _abilityTargetSystem;
+    public static AbilityTargettingSystem AbilityTargetSystem
+    {
+        get
+        {
+            if (_abilityTargetSystem != null) return _abilityTargetSystem;
+            _abilityTargetSystem = GameObject.FindObjectOfType<AbilityTargettingSystem>();
+            return _abilityTargetSystem;
+        }
+    }
+
     public static CardBase OnPointerCard { get; set; }
     public static bool OnBinding { get; set; }
 

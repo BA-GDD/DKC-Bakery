@@ -1,11 +1,14 @@
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class SkillCardManagement : CardManagement
 {
+    [SerializeField] private TargettingMaskCreater _maskCreater;
     private ExpansionList<CardBase> InCardZoneCatalogue = new ExpansionList<CardBase>();
+    public List<CardBase> InCardZoneList => InCardZoneCatalogue;
 
     [Header("대기존 셋팅값")]
     [SerializeField] private Transform _cardWaitZone;
@@ -38,6 +41,9 @@ public class SkillCardManagement : CardManagement
     }
     public void SetupCardsInActivationZone()
     {
+        CardReader.AbilityTargetSystem.ChainFadeControl(0);
+        CardReader.AbilityTargetSystem.FadingAllChainTarget(0);
+
         _setupHandCardEvent?.Invoke(false);
         _acceptBtnSwitchEvent?.Invoke(false);
         int maxCount = InCardZoneCatalogue.Count;
@@ -57,10 +63,14 @@ public class SkillCardManagement : CardManagement
 
             if (i == maxCount - 1)
             {
-                seq.InsertCallback(1, () => ChainingSkill());
+                seq.InsertCallback(1, () => 
+                { 
+                    ChainingSkill();
+                });
             }
         }
     }
+
     public void ChainingSkill()
     {
         if (_isInChaining)
@@ -84,6 +94,8 @@ public class SkillCardManagement : CardManagement
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             _setupHandCardEvent?.Invoke(true);
             _checkStageClearEvent?.Invoke();
+
+            CardReader.AbilityTargetSystem.AllChainClear();
             return;
         }
 
@@ -106,33 +118,45 @@ public class SkillCardManagement : CardManagement
         selectCard.transform.SetParent(_cardWaitZone);
         CardReader.RemoveCardInHand(CardReader.OnPointerCard);
         InCardZoneCatalogue.Add(selectCard);
+        selectCard.IsOnActivationZone = true;
 
-        selectCard.transform.DOScale(0.7f, 0.3f);
+        selectCard.transform.DOScale(1.1f, 0.3f);
+        
         GenerateCardPosition(selectCard);
         CardReader.CombineMaster.CombineGenerate();
         CardReader.CaptureHand();
     }
     private void GenerateCardPosition(CardBase selectCard)
     {
+        CardReader.AbilityTargetSystem.AllGenerateChainPos(true);
+        Sequence seq = DOTween.Sequence();
+
         int maxIdx = InCardZoneCatalogue.Count - 1;
 
         if (maxIdx != 0)
         {
-            selectCard.transform.
+            seq.Append(selectCard.transform.
             DOLocalMove(new Vector2(InCardZoneCatalogue[maxIdx - 1].transform.localPosition.x
-                                    + 70, 0), 0.3f);
+                                    + 100, 150), 0.3f));
         }
         else
         {
-            selectCard.transform.DOLocalMove(Vector3.zero, 0.3f);
+            seq.Append(selectCard.transform.DOLocalMove(new Vector3(0, 150, 0), 0.3f));
         }
 
         for (int i = 0; i < maxIdx; i++)
         {
             Transform selectTrm = InCardZoneCatalogue[i].transform;
-            selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 70f, 0), 0.3f);
+            seq.Join(selectTrm.DOLocalMove(new Vector2(selectTrm.localPosition.x - 100f, 150), 0.3f));
         }
+        seq.AppendCallback(() => 
+        {
+            CardReader.AbilityTargetSystem.ActivationCardSelect(CardReader.OnPointerCard);
+            CardReader.AbilityTargetSystem.SetMouseAndCardArrowBind(CardReader.OnPointerCard);
+            CardReader.AbilityTargetSystem.AllGenerateChainPos(false);
+        });
     }
+
     public void SetCardInfo(CardInfo info, bool isSet)
     {
         if (isSet)

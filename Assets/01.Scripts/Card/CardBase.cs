@@ -5,15 +5,16 @@ using DG.Tweening;
 using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
+using TMPro;
 
-public abstract class CardBase : MonoBehaviour 
+public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private float _toMovePosInSec;
     public RectTransform VisualRectTrm { get; private set; }
     public CardInfo CardInfo => _myCardInfo;
     [SerializeField] private CardInfo _myCardInfo;
     public bool CanUseThisCard { get; set; } = true;
+    public bool IsOnActivationZone { get; set; }
     [SerializeField] private GameObject[] _objArr = new GameObject[3];
     [SerializeField] private CombineLevel _combineLevel;
     public CombineLevel CombineLevel
@@ -69,16 +70,23 @@ public abstract class CardBase : MonoBehaviour
     [SerializeField]protected BuffSO buffSO;
     [SerializeField]protected int[] damageArr;
 
+    private TextMeshProUGUI _costText;
 
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
+        _costText = transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
+        _costText.text = CardInfo.AbillityCost.ToString();
     }
+
     public abstract void Abillity();
     public void ActiveInfo()
     {
         CardReader.SkillCardManagement.SetCardInfo(CardInfo, true);
         VisualRectTrm.DOScale(1.3f, 0.2f);
+
+        Vector2 pos = transform.localPosition;
+        transform.DOLocalMove(new Vector2(pos.x - 50, pos.y + 40), 0.3f);
     }
     private void ExitThisCard()
     {
@@ -137,7 +145,6 @@ public abstract class CardBase : MonoBehaviour
             return false;
         }
     }
-    
     private void Shuffling()
     {
         CardReader.ShuffleInHandCard(CardReader.OnPointerCard, this);
@@ -165,9 +172,14 @@ public abstract class CardBase : MonoBehaviour
             }
         }
     }
-
     public int GetDamage(CombineLevel level)
     {
         return damageArr[(int)level];
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!IsOnActivationZone) return;
+
+        CardReader.AbilityTargetSystem.ActivationCardSelect(this);
     }
 }

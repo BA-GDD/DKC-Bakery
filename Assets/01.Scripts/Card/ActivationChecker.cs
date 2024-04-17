@@ -28,7 +28,7 @@ public class ActivationChecker : MonoBehaviour
 
     private void BindMouse()
     {
-        if (Input.GetMouseButton(0) && CardReader.OnBinding)
+        if (Input.GetMouseButton(0) && CardReader.OnBinding && CardReader.OnPointerCard.CanUseThisCard)
         {
             CardReader.OnPointerCard.transform.position =
             MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
@@ -63,7 +63,7 @@ public class ActivationChecker : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SelectOnPointerCard();
-            if (!CardReader.OnPointerCard) return;
+            if (!CardReader.OnPointerCard || !CardReader.OnPointerCard.CanUseThisCard) return;
 
             _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
             CardReader.CaptureHand();
@@ -74,14 +74,12 @@ public class ActivationChecker : MonoBehaviour
         {
             CardReader.OnBinding = false;
             Activation();
-            
-            CardReader.OnPointerCard = null;
         }
     }
 
     private void Activation()
     {
-        if (!IsPointerOnCard()) return;
+        if (!IsPointerOnCard() || !CardReader.OnPointerCard.CanUseThisCard) return;
 
         if (IsMouseInWaitZone())
         {
