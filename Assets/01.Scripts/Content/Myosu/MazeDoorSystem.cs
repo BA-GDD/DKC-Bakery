@@ -1,0 +1,41 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MazeDoorSystem : MonoBehaviour
+{
+    [SerializeField] private Image _wallImg;
+    private MazeDoor[] _mazeDoorArr;
+
+    private void Awake()
+    {
+        _mazeDoorArr = GetComponentsInChildren<MazeDoor>();
+    }
+
+    public void SelectDoor(MazeDoor mazeDoor)
+    {
+        _wallImg.DOFade(0.8f, 0.2f);
+        foreach(MazeDoor md in _mazeDoorArr)
+        {
+            if (md != mazeDoor)
+            {
+                md.Visual.DOFade(0.2f, 0.3f);
+            }
+        }
+    }
+
+    public void UnSelectDoor(MazeDoor mazeDoor)
+    {
+        _wallImg.DOFade(0.5f, 0.2f);
+        foreach (MazeDoor md in _mazeDoorArr)
+        {
+            if (md != mazeDoor)
+            {
+                md.Visual.DOFade(1f, 0.3f);
+            }
+        }
+    }
+}

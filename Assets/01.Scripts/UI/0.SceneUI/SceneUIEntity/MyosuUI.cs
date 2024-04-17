@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class MyosuUI : SceneUI
 {
-    private MyosuPanel _myosuPanel;
+    [SerializeField] private CrossRoadsAppearText _appearText;
 
-    public override void SceneUIStart()
+    public void ApearText()
     {
-        _myosuPanel = FindObjectOfType<MyosuPanel>();
-        SceneObserver.BeforeSceneType = SceneType.Lobby;
-    }
-
-    public void SetUpPanel(bool isSetUp, MyosuTestInfo myosuInfo)
-    {
-        MapManager.Instanace.SelectStageData = myosuInfo.stageData;
-        _myosuPanel.MyosuTestInfo = myosuInfo;
-        _myosuPanel.SetUpPanel(isSetUp);
+        _appearText.Show();
     }
 
     public void GoToBattleScene()
