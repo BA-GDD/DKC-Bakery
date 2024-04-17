@@ -272,7 +272,11 @@ MonoBehaviour:
   _cardMat: {fileID: 2100000, guid: 7215dc6c25e09bd4da589c4bef8f3be2, type: 2}
   battleController: {fileID: 0}
   buffSO: {fileID: 0}
-  damageArr: 03000000080000000b000000
+  damageArr:
+    list:
+    - list: 020000000200000002000000
+    - list: 040000000400000004000000
+    - list: 080000000800000008000000
 --- !u!1 &2420215855139704407
 GameObject:
   m_ObjectHideFlags: 0

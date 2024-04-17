@@ -13,6 +13,8 @@ public class EnemyStat : CharacterStat
     [Range(0, 1f)]
     [SerializeField] private float _percentageModifier;
 
+    public int attackCnt = 1;
+
     public void Modify(Stat stat)
     {
         for (int i = 1; i < _level; i++)

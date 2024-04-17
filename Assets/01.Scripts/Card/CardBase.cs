@@ -68,9 +68,11 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     protected Player Player => battleController.Player;
 
     [SerializeField]protected BuffSO buffSO;
-    [SerializeField]protected int[] damageArr;
+    [SerializeField] protected SEList<SEList<int>> damageArr;
 
     private TextMeshProUGUI _costText;
+
+    protected List<Entity> targets = new();
 
     private void Awake()
     {
@@ -172,9 +174,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-    public int GetDamage(CombineLevel level)
+    public int[] GetDamage(CombineLevel level)
     {
-        return damageArr[(int)level];
+        return damageArr.list[(int)level].list.ToArray();
     }
     public void OnPointerClick(PointerEventData eventData)
     {

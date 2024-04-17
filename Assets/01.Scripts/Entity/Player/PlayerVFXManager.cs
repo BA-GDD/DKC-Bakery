@@ -5,22 +5,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Particle;
 
-[System.Serializable]
-public struct CardAndEffect
+[Serializable]
+public struct PlayerVFXData
 {
     public CardInfo info;
     public ParticleSystem[] particle;
+    public ParticlePoolObject poolObject;
 }
 
 public class PlayerVFXManager : MonoBehaviour
 {
-    [SerializeField] private List<CardAndEffect> cardAndEffects = new();
+    [SerializeField] private List<PlayerVFXData> cardAndEffects = new();
     private Dictionary<CardInfo, ParticleSystem[]> _cardByEffects = new();
+    private Dictionary<CardInfo, ParticlePoolObject> _cardByEffects2 = new();
     //���ݽ� ����Ʈ ������ ����
     public Action OnEndEffectEvent;
     //public Action OnEffectEvent;
-
+    [SerializeField] private Player p;
     [SerializeField] private SpriteRenderer[] backgrounds;
     private SpriteRenderer currentBackground;
 
@@ -31,6 +34,7 @@ public class PlayerVFXManager : MonoBehaviour
             if (!_cardByEffects.ContainsKey(c.info))
             {
                 _cardByEffects.Add(c.info, c.particle);
+                _cardByEffects2.Add(c.info, c.poolObject);
             }
             else
             {
@@ -68,13 +72,26 @@ public class PlayerVFXManager : MonoBehaviour
             Debug.LogError("����Ʈ�� �����");
             return;
         }
-
         _cardByEffects[card][combineLevel].transform.position = pos;
         _cardByEffects[card][combineLevel].gameObject.SetActive(true);
         currentBackground.DOColor(Color.gray, 1.0f);
         ParticleSystem.MainModule mainModule = _cardByEffects[card][combineLevel].main;
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card][combineLevel].Play();
+    }
+    public void PlayParticle(CardBase card, Vector3 pos)
+    {
+        int level = (int)card.CombineLevel;
+        ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
+        obj.transform.position = p.transform.position;
+        obj.transform.right = Vector2.left;
+        obj[level].owner = p;
+        obj[level].damages = card.GetDamage(card.CombineLevel);
+        foreach (var t in p.GetSkillTargetEnemyList[card])
+        {
+            obj[level].SetTriggerTarget(t);
+        }
+        obj.Active(level,null, OnEndEffectEvent);
     }
 
     public void PlayParticle(CardInfo card, int combineLevel)

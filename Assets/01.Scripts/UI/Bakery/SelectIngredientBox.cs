@@ -32,7 +32,6 @@ public class SelectIngredientBox : MonoBehaviour, IPointerClickHandler
         BakingManager.Instance.RemoveItem(_itemInfo);
         //Inventory.Instance.AddItem(_itemInfo);
         _itemInfo.isUsed = false;
-        BakingManager.Instance.FilterTabGroup.FilteringItem(BakingManager.Instance.FilterTabGroup.CurrentFilterTab);
         _itemInfo = null;
     }
 

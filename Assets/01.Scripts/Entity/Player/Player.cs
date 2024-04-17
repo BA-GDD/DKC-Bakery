@@ -77,7 +77,6 @@ public class Player : Entity
             //HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
         }
 
-        HealthCompo.OnDeathEvent.AddListener(() => AnimatorCompo.SetTrigger(_deathAnimationHash));
         animatorOverrideController = new AnimatorOverrideController(AnimatorCompo.runtimeAnimatorController);
         AnimatorCompo.runtimeAnimatorController = animatorOverrideController;
 

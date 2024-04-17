@@ -96,9 +96,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323525244023635933}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 644fa53d39425af4cab83d667db7a001, type: 2}
+  m_Controller: {fileID: 9100000, guid: 77311905828df444a8ebfae11da41b64, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 77316
+  m_InstanceId: 164138
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 6736362940761896713}
   - component: {fileID: 3374196801977967140}
   - component: {fileID: 510890420117777525}
-  - component: {fileID: 7950591921927601975}
+  - component: {fileID: 7152735046820868193}
   m_Layer: 7
   m_Name: CandyParty
   m_TagString: Untagged
@@ -286,7 +286,7 @@ MonoBehaviour:
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7950591921927601975}
+      - m_Target: {fileID: 7152735046820868193}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -332,10 +332,7 @@ MonoBehaviour:
   lastMovePos: {x: 0, y: 0, z: 0}
   moveDuration: 0.1
   attackParticle:
-    attack: {fileID: 6841293656774775470}
-    hitPrefab: {fileID: 5440926737855270592, guid: 197573e2a601308479f8e6b8a97c5814, type: 3}
-    duration: 3.5
-  camTrack: {fileID: 0}
+    attack: {fileID: 7393357144630919074}
   turnStatus: 0
 --- !u!114 &510890420117777525
 MonoBehaviour:
@@ -349,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d0c5dd4dff604eb1c458b753681b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &7950591921927601975
+--- !u!61 &7152735046820868193
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,10 +375,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.02584052, y: -0.033622146}
+  m_Offset: {x: 0.028343678, y: -0.14171672}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -392,7 +389,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1934323, y: 2.310303}
+  m_Size: {x: 2.1337328, y: 2.0770469}
   m_EdgeRadius: 0
 --- !u!1 &4735587779671641435
 GameObject:
@@ -630,7 +627,7 @@ SpriteRenderer:
   m_SortingLayerID: -1779282389
   m_SortingLayer: 4
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 4e565dce49b9ddd408fdbdae664cae04, type: 3}
+  m_Sprite: {fileID: 304454170, guid: dce526af3c9d1ae42ab9f068808e396f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -649,9 +646,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7553911267160038330}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 644fa53d39425af4cab83d667db7a001, type: 2}
+  m_Controller: {fileID: 9100000, guid: 77311905828df444a8ebfae11da41b64, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -700,7 +697,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 77338
+  m_InstanceId: 164160
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -761,7 +758,7 @@ Transform:
   m_GameObject: {fileID: 8451250816034524113}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.45, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -809,11 +806,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3393137069184154106, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.89
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 3393137069184154106, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 3393137069184154106, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -981,18 +978,35 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3393137069184154106, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
       insertIndex: 0
       addedObject: {fileID: 6098578815692312156}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8707845523171385621, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7393357144630919074}
   m_SourcePrefab: {fileID: 100100000, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
 --- !u!4 &1778924133795303051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3393137069184154106, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
   m_PrefabInstance: {fileID: 4010132472805422961}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &6841293656774775470 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7590802231082018271, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
+--- !u!1 &5728193214990014052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8707845523171385621, guid: b8433c09a03f6cb4a8829633db09f2fc, type: 3}
   m_PrefabInstance: {fileID: 4010132472805422961}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7393357144630919074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5728193214990014052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerInfos: []
+  duration: 5
 --- !u!1001 &8921332557392245299
 PrefabInstance:
   m_ObjectHideFlags: 0

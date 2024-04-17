@@ -59,8 +59,6 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
-        
-
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
@@ -88,7 +86,7 @@ public abstract class Entity : PoolableMono
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         OnMoveTarget -= HandleEndMoveToTarget;
         OnMoveOriginPos -= HandleEndMoveToOriginPos;

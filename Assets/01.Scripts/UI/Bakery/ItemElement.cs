@@ -23,7 +23,6 @@ public class ItemElement : PoolableMono,
             _myIngredientSO = value;
             _itemImg.sprite = value.itemIcon;
 
-            _useMask.SetActive(value.isUsed);
         }
     }
     [SerializeField] private TextMeshProUGUI _countText;
@@ -62,6 +61,8 @@ public class ItemElement : PoolableMono,
         BakingManager.Instance.CookingBox.AddSelectIngredientInfo(IngredientSO);
         Inventory.Instance.RemoveItem(IngredientSO);
 
+        BakingManager.Instance.FilterTabGroup.FilteringItem(BakingManager.Instance.FilterTabGroup.CurrentFilterTab);
+        PoolManager.Instance.Push(_popupPanel);
         IngredientSO.isUsed = true;
         ActiveUpdateIngredientUseMask();
     }

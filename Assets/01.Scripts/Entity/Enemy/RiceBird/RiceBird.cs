@@ -13,7 +13,7 @@ public class RiceBird : Enemy
     private IEnumerator AttackCor()
     {
         yield return new WaitForSeconds(0.9f);
-        VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
+        //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
         OnAttackEnd?.Invoke();
     }
@@ -27,7 +27,6 @@ public class RiceBird : Enemy
     public override void TurnAction()
     {
         turnStatus = TurnStatus.Running;
-        AnimatorCompo.SetBool(attackAnimationHash,true);
         AnimatorCompo.SetTrigger(attackTriggerAnimationHash);
         MoveToTargetForward();
     }
