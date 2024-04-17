@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +16,18 @@ public class MazeDoorSystem : MonoBehaviour
 
     public void SelectDoor(MazeDoor mazeDoor)
     {
+        foreach (MazeDoor md in _mazeDoorArr)
+        {
+            md.CanInteractible = false;
+            if (md != mazeDoor)
+            {
+                md.Visual.DOFade(0, 0.2f);
+            }
+        }
+    }    
+
+    public void HoverDoor(MazeDoor mazeDoor)
+    {
         _wallImg.DOFade(0.8f, 0.2f);
         foreach(MazeDoor md in _mazeDoorArr)
         {
@@ -27,7 +38,7 @@ public class MazeDoorSystem : MonoBehaviour
         }
     }
 
-    public void UnSelectDoor(MazeDoor mazeDoor)
+    public void UnHoverDoor(MazeDoor mazeDoor)
     {
         _wallImg.DOFade(0.5f, 0.2f);
         foreach (MazeDoor md in _mazeDoorArr)

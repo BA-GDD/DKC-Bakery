@@ -19,4 +19,9 @@ public class CrossRoadsAppearText : MonoBehaviour
         seq.Append(transform.DOScale(1, 0.2f));
         seq.Join(transform.DOLocalRotateQuaternion(Quaternion.identity, 0.2f));
     }
+
+    public void Hide()
+    {
+        transform.DOScale(0f, 0.2f);
+    }
 }

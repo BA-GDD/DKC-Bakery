@@ -11,6 +11,11 @@ public class MyosuUI : SceneUI
         _appearText.Show();
     }
 
+    public void HideText()
+    {
+        _appearText.Hide();
+    }
+
     public void GoToBattleScene()
     {
         GameManager.Instance.ChangeScene(SceneType.battle);

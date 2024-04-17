@@ -26,12 +26,16 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
     }
     [SerializeField] private Transform _doorTrm;
     [SerializeField] private CompensationBubble _comBubble;
+
     [SerializeField] private UnityEvent<MazeDoor> _doorHoverEvent;
     [SerializeField] private UnityEvent<MazeDoor> _doorHoverOutEvent;
+    [SerializeField] private UnityEvent<MazeDoor> _doorSelectEvent;
 
     private Vector3 _normalScale;
     private Tween _hoverTween;
     private Tween _shakeTween;
+
+    public bool CanInteractible { get; set; } = true;
 
     private void Start()
     {
@@ -39,6 +43,8 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!CanInteractible) return;
+
         _hoverTween.Kill();
 
         _hoverTween = transform.DOScale(transform.localScale * 1.1f, 0.3f);
@@ -49,6 +55,8 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!CanInteractible) return;
+
         _hoverTween.Kill();
         _shakeTween.Kill();
 
@@ -60,6 +68,19 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        CanInteractible = false;
 
+        _comBubble.SpeachDownBubble();
+        _hoverTween?.Kill();
+        _shakeTween?.Kill();
+        UIManager.Instance.GetSceneUI<MyosuUI>().HideText();
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOScale(_normalScale * 1.3f, 1));
+        seq.Join(transform.DOLocalMoveX(0, 1));
+        seq.Join(_doorTrm.DOLocalRotateQuaternion(Quaternion.Euler(0, -90, 0), 1));
+        seq.Join(UIManager.Instance.GetSceneUI<MyosuUI>().gameObject.transform.DOScale(1.2f, 1));
+
+        _doorSelectEvent?.Invoke(this);
     }
 }

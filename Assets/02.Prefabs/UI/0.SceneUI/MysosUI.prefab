@@ -1428,13 +1428,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sample: {fileID: 21300000, guid: f858fe3f75c11494fbcdfa54a307ab59, type: 3}
+  _doorTrm: {fileID: 1362814998519708841}
   _comBubble: {fileID: 6870843879116514940}
   _doorHoverEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4579390667752117592}
         m_TargetAssemblyTypeName: MazeDoorSystem, Assembly-CSharp
-        m_MethodName: SelectDoor
+        m_MethodName: HoverDoor
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1449,7 +1450,22 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4579390667752117592}
         m_TargetAssemblyTypeName: MazeDoorSystem, Assembly-CSharp
-        m_MethodName: UnSelectDoor
+        m_MethodName: UnHoverDoor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _doorSelectEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4579390667752117592}
+        m_TargetAssemblyTypeName: MazeDoorSystem, Assembly-CSharp
+        m_MethodName: SelectDoor
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2014,13 +2030,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sample: {fileID: 21300000, guid: f858fe3f75c11494fbcdfa54a307ab59, type: 3}
+  _doorTrm: {fileID: 7198101891562618320}
   _comBubble: {fileID: 2965574680435721257}
   _doorHoverEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4579390667752117592}
         m_TargetAssemblyTypeName: MazeDoorSystem, Assembly-CSharp
-        m_MethodName: SelectDoor
+        m_MethodName: HoverDoor
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2035,7 +2052,22 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4579390667752117592}
         m_TargetAssemblyTypeName: MazeDoorSystem, Assembly-CSharp
-        m_MethodName: UnSelectDoor
+        m_MethodName: UnHoverDoor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _doorSelectEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4579390667752117592}
+        m_TargetAssemblyTypeName: MazeDoorSystem, Assembly-CSharp
+        m_MethodName: SelectDoor
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
