@@ -41,6 +41,9 @@ public class SkillCardManagement : CardManagement
     }
     public void SetupCardsInActivationZone()
     {
+        CardReader.AbilityTargetSystem.ChainFadeControl(0);
+        CardReader.AbilityTargetSystem.FadingAllChainTarget(0);
+
         _setupHandCardEvent?.Invoke(false);
         _acceptBtnSwitchEvent?.Invoke(false);
         int maxCount = InCardZoneCatalogue.Count;
@@ -91,6 +94,8 @@ public class SkillCardManagement : CardManagement
             TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             _setupHandCardEvent?.Invoke(true);
             _checkStageClearEvent?.Invoke();
+
+            CardReader.AbilityTargetSystem.AllChainClear();
             return;
         }
 
@@ -109,7 +114,6 @@ public class SkillCardManagement : CardManagement
     public void SetSkillCardInCardZone(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;
-        selectCard.CostObject.SetActive(false);
 
         selectCard.transform.SetParent(_cardWaitZone);
         CardReader.RemoveCardInHand(CardReader.OnPointerCard);
@@ -117,6 +121,7 @@ public class SkillCardManagement : CardManagement
         selectCard.IsOnActivationZone = true;
 
         selectCard.transform.DOScale(1.1f, 0.3f);
+        
         GenerateCardPosition(selectCard);
         CardReader.CombineMaster.CombineGenerate();
         CardReader.CaptureHand();

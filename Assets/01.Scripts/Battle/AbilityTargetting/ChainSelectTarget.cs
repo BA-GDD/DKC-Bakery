@@ -9,11 +9,11 @@ public class ChainSelectTarget : MonoBehaviour
     [SerializeField] private RectTransform _chainMaskTrm;
     [SerializeField] private Image[] _chinImg;
 
-    private void SetFade()
+    public void SetFade(float fadeValue)
     {
         foreach (var img in _chinImg)
         {
-            img.DOFade(0.5f, 0.2f);
+            img.DOFade(fadeValue, 0.2f);
         }
     }
 
@@ -24,6 +24,6 @@ public class ChainSelectTarget : MonoBehaviour
 
         int randZ = Random.Range(-360, 360);
         transform.rotation = Quaternion.Euler(0, 0, randZ);
-        SetFade();
+        SetFade(0.5f);
     }
 }

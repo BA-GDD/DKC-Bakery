@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -33,6 +34,18 @@ public class AbilityTargettingSystem : MonoBehaviour
     [SerializeField] private Transform _chainImPact;
     [SerializeField] private Color _reactionColor;
     [SerializeField] private ChainSelectTarget _chainTarget;
+    private List<ChainSelectTarget> _chainTargetList = new();
+
+    public void AllChainClear()
+    {
+        foreach(Transform chain in transform)
+        {
+            Destroy(chain);
+        }
+
+        _getTargetArrowDic.Clear();
+        _chainTargetList.Clear();
+    }
 
     public void AllGenerateChainPos(bool isGenerate)
     {
@@ -84,6 +97,14 @@ public class AbilityTargettingSystem : MonoBehaviour
                     ata.SetFade(fadeValue);
                 }
             }
+        }
+    }
+
+    public void FadingAllChainTarget(float fadeValue)
+    {
+        foreach(ChainSelectTarget cst in _chainTargetList)
+        {
+            cst.SetFade(fadeValue);
         }
     }
 
@@ -192,6 +213,7 @@ public class AbilityTargettingSystem : MonoBehaviour
             DamageTextManager.Instance.PopupReactionText(e.transform.position + new Vector3(0, 1, 0), _reactionColor, "Connect!");
 
             ChainSelectTarget cst = Instantiate(_chainTarget, transform);
+            _chainTargetList.Add(cst);
             Vector2 screenPoint = MaestrOffice.GetScreenPosToWorldPos(e.transform.position);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(UIManager.Instance.CanvasTrm, screenPoint, UIManager.Instance.Canvas.worldCamera, out Vector2 anchoredPosition);
             RectTransform trm = cst.transform as RectTransform;

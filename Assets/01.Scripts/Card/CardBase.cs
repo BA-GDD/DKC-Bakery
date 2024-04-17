@@ -70,15 +70,12 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     [SerializeField]protected BuffSO buffSO;
     [SerializeField]protected int[] damageArr;
 
-    private GameObject _costObject;
-    public GameObject CostObject => _costObject;
     private TextMeshProUGUI _costText;
 
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
-        _costObject = transform.Find("Cost").gameObject;
-        _costText = CostObject.transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
+        _costText = transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
         _costText.text = CardInfo.AbillityCost.ToString();
     }
 
@@ -87,6 +84,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     {
         CardReader.SkillCardManagement.SetCardInfo(CardInfo, true);
         VisualRectTrm.DOScale(1.3f, 0.2f);
+
+        Vector2 pos = transform.localPosition;
+        transform.DOLocalMove(new Vector2(pos.x - 50, pos.y + 40), 0.3f);
     }
     private void ExitThisCard()
     {
@@ -176,7 +176,6 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     {
         return damageArr[(int)level];
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!IsOnActivationZone) return;
