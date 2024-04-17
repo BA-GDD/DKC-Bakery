@@ -14,6 +14,8 @@ public class PumpkinBat : Enemy
     {
         OnAttackStart?.Invoke();
         VFXPlayer.PlayParticle(attackParticle);
+        CameraController.Instance.GetVCam().SetCamera(target.transform.position, 5);
+
         StartCoroutine(AttackCor());
     }
 
@@ -26,6 +28,7 @@ public class PumpkinBat : Enemy
             target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
             //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
         }
+        yield return new WaitForSeconds(1f);
         turnStatus = TurnStatus.End;
         OnAttackEnd?.Invoke();
     }

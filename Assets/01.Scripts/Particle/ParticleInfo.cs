@@ -11,7 +11,7 @@ namespace Particle
     {
         private ParticleSystem ps;
 
-        private ParticleTriggerInfo[] triggerInfos;
+        [SerializeField]private List<ParticleTriggerInfo> triggerInfos;
         //[SerializeField] private TakeDamageParticle[] takeDamages;
 
         public float duration;
@@ -23,7 +23,6 @@ namespace Particle
         private void Awake()
         {
             ps = GetComponent<ParticleSystem>();
-            triggerInfos = GetComponentsInChildren<ParticleTriggerInfo>();
         }
         private void Start()
         {
@@ -42,9 +41,9 @@ namespace Particle
 
         public void SetTriggerTarget(Entity target)
         {
-            for (int j = 0; j < triggerInfos.Length; j++)
+            foreach (var col in triggerInfos)
             {
-                triggerInfos[j].AddCollision(target.ColliderCompo);
+                col.AddCollision(target.ColliderCompo);
             }
             _targets.Add(target.HealthCompo);
         }

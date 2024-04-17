@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerInfos: []
   duration: 3
 --- !u!4 &7673950436708751073 stripped
 Transform:
@@ -358,6 +359,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 790256272632916619, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: triggerInfos.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 790256272632916619, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: takeDamages.Array.data[0]
       value: 
       objectReference: {fileID: 7067913691907951001}
@@ -369,6 +374,18 @@ PrefabInstance:
       propertyPath: takeDamages.Array.data[2]
       value: 
       objectReference: {fileID: 1441119387845623536}
+    - target: {fileID: 790256272632916619, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: triggerInfos.Array.data[0]
+      value: 
+      objectReference: {fileID: 5905363824132583721}
+    - target: {fileID: 790256272632916619, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: triggerInfos.Array.data[1]
+      value: 
+      objectReference: {fileID: 2573554102856500821}
+    - target: {fileID: 790256272632916619, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: triggerInfos.Array.data[2]
+      value: 
+      objectReference: {fileID: 7653211340891429400}
     - target: {fileID: 790256272632916619, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: OnStartParticleEvent.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -743,6 +760,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
+--- !u!114 &5905363824132583721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8867134259767185914, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+  m_PrefabInstance: {fileID: 3096913850914824403}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087986632532467202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc0b2716c8cfcc4f82daa35f9fa3745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6636290320215317919 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8566590171373370700, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
@@ -1629,6 +1657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerInfos:
+  - {fileID: 1185519628895116520}
+  - {fileID: 9218037170249999206}
+  - {fileID: 3692258699002123388}
   duration: 3
 --- !u!4 &7350658806332621102 stripped
 Transform:

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class MonStrowberry : Enemy
 {
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     protected override void Start()
     {
         base.Start();
+        attackParticle.attack.SetTriggerTarget(target);
         VFXPlayer.OnEndEffect += () => 
         {
             turnStatus = TurnStatus.End;
@@ -18,7 +23,6 @@ public class MonStrowberry : Enemy
     {
         OnAttackStart?.Invoke();
 
-        attackParticle.attack.SetTriggerTarget(target);
         VFXPlayer.PlayParticle(attackParticle);
         StartCoroutine(AttackCor());
     }

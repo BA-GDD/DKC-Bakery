@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,5 +47,10 @@ class Pool<T> where T : PoolableMono
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(_parent);
         _pool.Push(obj);
+    }
+
+    public bool Contain(T obj)
+    {
+        return _pool.Contains(obj);
     }
 }

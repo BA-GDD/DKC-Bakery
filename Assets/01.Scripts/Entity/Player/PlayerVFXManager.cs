@@ -79,15 +79,15 @@ public class PlayerVFXManager : MonoBehaviour
         StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
         _cardByEffects[card][combineLevel].Play();
     }
-    public void PlayParticle(CardBase card, Vector3 pos,List<Entity> targets)
+    public void PlayParticle(CardBase card, Vector3 pos)
     {
         int level = (int)card.CombineLevel;
         ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
         obj.transform.position = p.transform.position;
         obj.transform.right = Vector2.left;
         obj[level].owner = p;
-        obj[level].damages = card.GetDamage(level);
-        foreach (var t in targets)
+        obj[level].damages = card.GetDamage(card.CombineLevel);
+        foreach (var t in p.GetSkillTargetEnemyList[card])
         {
             obj[level].SetTriggerTarget(t);
         }

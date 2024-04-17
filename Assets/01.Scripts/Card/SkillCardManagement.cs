@@ -88,9 +88,9 @@ public class SkillCardManagement : CardManagement
                 Destroy(t.gameObject);
             }
 
-            TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             _setupHandCardEvent?.Invoke(true);
             _checkStageClearEvent?.Invoke();
+            TurnCounter.TurnCounting.ToEnemyTurnChanging(true);
             return;
         }
 

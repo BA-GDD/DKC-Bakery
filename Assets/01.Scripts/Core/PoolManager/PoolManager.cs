@@ -68,4 +68,10 @@ public class PoolManager
         obj.Init();
         return obj;
     }
+    public bool Contains(PoolableMono obj)
+    {
+        if (_poolDic.ContainsKey(obj.poolingType))
+            return _poolDic[obj.poolingType].Contain(obj);
+        return false;
+    }
 }

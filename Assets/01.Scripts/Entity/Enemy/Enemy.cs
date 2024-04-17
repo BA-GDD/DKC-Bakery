@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Particle;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
@@ -15,7 +16,7 @@ public struct EnemyAttack
 
 public abstract class Enemy : Entity
 {
-    [SerializeField] protected EnemyAttack attackParticle; 
+    [SerializeField] protected EnemyAttack attackParticle;
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
@@ -32,7 +33,25 @@ public abstract class Enemy : Entity
         base.Awake();
         VFXPlayer = GetComponent<EnemyVFXPlayer>();
         Collider = GetComponent<Collider2D>();
-        
+
+        if(attackParticle.attack != null)
+            SetParticleInfo();
+
+    }
+    private void SetParticleInfo()
+    {
+        attackParticle.attack.owner = this;
+        attackParticle.attack.damages = SetDamage((EnemyStat)CharStat);
+
+    }
+    private int[] SetDamage(EnemyStat stat)
+    {
+        List<int> list = new();
+        for (int i = 0; i < stat.attackCnt; i++)
+        {
+            list.Add(stat.damage.GetValue() / stat.attackCnt);
+        }
+        return list.ToArray();
     }
     protected virtual void HandleAttackStart()
     {
@@ -40,6 +59,7 @@ public abstract class Enemy : Entity
     }
     protected virtual void HandleAttackEnd()
     {
+        CameraController.Instance.SetDefaultCam();
         AnimatorCompo.SetBool(attackAnimationHash, false);
     }
     protected override void OnEnable()

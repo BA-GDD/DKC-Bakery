@@ -25,15 +25,14 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
         foreach (var e in battleController.onFieldMonsterList)
         {
-            if (e == Player.target) continue;
+            if (Player.GetSkillTargetEnemyList[this].Contains(e)) continue;
             e.SpriteRendererCompo.DOColor(minimumColor, 0.5f);
         }
     }
 
     public void HandleAnimationCall()
     {
-        List<Entity> a = new(){ Player.target };
-        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position,a); 
+        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position); 
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
