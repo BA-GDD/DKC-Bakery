@@ -15,8 +15,8 @@ public class FilterPass : ScriptableRenderPass
     {
         renderPassEvent = passEvent;
         _shaderTagIdList = shaderTagIds;
-        /*_filteringSettings = new FilteringSettings(RenderQueueRange.all, layerMask);
-        _renderStateBlock = new RenderStateBlock(RenderStateMask.Nothing);*/
+        _filteringSettings = new FilteringSettings(RenderQueueRange.all, layerMask);
+        _renderStateBlock = new RenderStateBlock(RenderStateMask.Nothing);
 
     }
 
