@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5713120387222821040}
   - component: {fileID: 3862679920563846299}
   - component: {fileID: 2690558524434134139}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: up (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4933,7 +4933,7 @@ GameObject:
   - component: {fileID: 397790002842845002}
   - component: {fileID: 443630170311770416}
   - component: {fileID: 3882687818491311718}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4949,7 +4949,7 @@ Transform:
   m_GameObject: {fileID: 1242494449704838602}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.4600003}
+  m_LocalPosition: {x: 0, y: 0, z: 0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5038,8 +5038,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 1
+      scalar: 0.99
+      minScalar: 0.55
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5091,8 +5091,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.15
-      minScalar: 0.76
+      scalar: 0.31
+      minScalar: 0.12
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5144,8 +5144,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.21226418, g: 0.9923661, b: 1, a: 1}
-      maxColor: {r: 0.6273585, g: 0.83096915, b: 1, a: 1}
+      minColor: {r: 0.9056604, g: 0.06407974, b: 0.50741774, a: 1}
+      maxColor: {r: 0.1485849, g: 0.392577, b: 0.5943396, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5845,7 +5845,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 5.8
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9761,7 +9761,7 @@ GameObject:
   - component: {fileID: 4633045613820915806}
   - component: {fileID: 3757587936524712837}
   - component: {fileID: 5160591412707769057}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_Healing (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9777,7 +9777,7 @@ Transform:
   m_GameObject: {fileID: 1377543295913846607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.56}
+  m_LocalPosition: {x: -0.72, y: 0, z: -2.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9808,7 +9808,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -11411,7 +11411,7 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -1.25
+      scalar: 3.12
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11570,7 +11570,7 @@ ParticleSystem:
     orbitalZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 21.79
+      scalar: 9.37
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11622,15 +11622,15 @@ ParticleSystem:
         m_RotationOrder: 4
     orbitalOffsetX:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: -0.1
-      minScalar: 0.1
+      minMaxState: 1
+      scalar: 0.7
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -11639,7 +11639,7 @@ ParticleSystem:
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0
+          value: -1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -11675,8 +11675,8 @@ ParticleSystem:
         m_RotationOrder: 4
     orbitalOffsetY:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0
+      minMaxState: 1
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11728,8 +11728,8 @@ ParticleSystem:
         m_RotationOrder: 4
     orbitalOffsetZ:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0
+      minMaxState: 1
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11782,7 +11782,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3.51
+      scalar: 1.02
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -14649,7 +14649,7 @@ GameObject:
   - component: {fileID: 4693272142479545864}
   - component: {fileID: 8625203548182741990}
   - component: {fileID: 855712147604931656}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19535,7 +19535,7 @@ GameObject:
   - component: {fileID: 6708760146617616608}
   - component: {fileID: 3759508413635899308}
   - component: {fileID: 5415427703058235521}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19551,7 +19551,7 @@ Transform:
   m_GameObject: {fileID: 5710189456605848975}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.16, y: 0, z: 2.72}
+  m_LocalPosition: {x: 0, y: 0, z: 3.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19580,7 +19580,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.71
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -20882,7 +20882,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -20890,9 +20890,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0, g: 0.645576, b: 1, a: 1}
+        key1: {r: 1, g: 0.32348302, b: 0, a: 1}
+        key2: {r: 0, g: 0, b: 0, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 1}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -23841,7 +23841,7 @@ ParticleSystem:
     vector0_0:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.55
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -24457,7 +24457,7 @@ GameObject:
   - component: {fileID: 5190349891291938726}
   - component: {fileID: 5915969673178985405}
   - component: {fileID: 2431285076697313083}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_CriBuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29292,7 +29292,7 @@ GameObject:
   - component: {fileID: 9126417053103985011}
   - component: {fileID: 1678200609307461930}
   - component: {fileID: 5307311320576988360}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_Healing (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34120,7 +34120,7 @@ GameObject:
   - component: {fileID: 4196387550222241128}
   - component: {fileID: 8518732872323745702}
   - component: {fileID: 1850700244946168129}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: up (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34396,7 +34396,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.45
+      scalar: 0.34
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -35089,7 +35089,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 17
+        scalar: 40.01
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -39024,7 +39024,7 @@ GameObject:
   - component: {fileID: 3769708209832272697}
   - component: {fileID: 3013204205139980673}
   - component: {fileID: 4249336284394595419}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: up (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43946,7 +43946,7 @@ GameObject:
   - component: {fileID: 5509356976739594233}
   - component: {fileID: 403486604554947178}
   - component: {fileID: 4424647441239272661}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cri
   m_TagString: Untagged
   m_Icon: {fileID: 0}

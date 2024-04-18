@@ -105,6 +105,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Vertex_texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _normal_tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -140,18 +144,18 @@ Material:
     - _DetailNormalMapScale: 1
     - _Diss_Tex_UPanner: 0
     - _Diss_Tex_VPanner: -0.94
-    - _Dissolve: -0.149
+    - _Dissolve: -0.985
     - _Dst: 10
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fade_Distance: 0
+    - _Fade_Distance: 3.42
     - _Fade_Ditance: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Main_Ins: 1
-    - _Main_Pow: 1
+    - _Main_Ins: 3.14
+    - _Main_Pow: 4
     - _Main_UPanner: 0
     - _Main_VPanner: -3.61
     - _Mask_1x: 1
@@ -162,7 +166,7 @@ Material:
     - _Noise_Tex_UPanner: 0
     - _Noise_Tex_VPanner: 0
     - _OcclusionStrength: 1
-    - _Opacity: 1
+    - _Opacity: 1.05
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -184,6 +188,7 @@ Material:
     - _Use_Customdata1: 0
     - _Use_MaskTex: 0
     - _Use_lerp: 0
+    - _Use_vertex: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _main_upanner: 0
@@ -193,13 +198,17 @@ Material:
     - _normal_upanner: 1
     - _normal_vpanner: 1
     - _use_polar: 0
+    - _vertex_pow: 3.71
+    - _vertex_str: 0
+    - _vertex_upanner: 0
+    - _vertex_vpanner: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SubTex_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _TintColor: {r: 0.58433104, g: 0, b: 1, a: 0}
+    - _TintColor: {r: 205.51152, g: 72.704544, b: 181.46817, a: 0}
     - _main_color_a: {r: 1, g: 0.1462264, b: 0.7836954, a: 0}
     - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

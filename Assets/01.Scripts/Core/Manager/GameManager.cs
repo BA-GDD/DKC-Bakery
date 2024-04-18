@@ -17,6 +17,9 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private PoolListSO _poolingList;
     [SerializeField] private Transform _poolingTrm;
 
+    [Header("Fade")]
+    [SerializeField] private FadePanel _fadePanel;
+
     private void Start()
     {
         foreach(Content content in _contentList)
@@ -73,13 +76,50 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SceneObserver.BeforeSceneType = CurrentSceneType;
 
+        StartCoroutine(Fade(toChangingScene));
+
+        //SceneObserver.CurrentSceneType = SceneType.loading;
+        //SceneManager.LoadScene("LoadingScene");
+        //StartCoroutine(LoadingProcessCo(toChangingScene));
+    }
+    
+/*    private IEnumerator LoadingProcessCo(SceneType toChangingSceneType)
+    {
+        yield return null;
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("ActiveScene");
+        asyncOperation.allowSceneActivation = false;
+
+        while (!asyncOperation.isDone)
+        {
+            LoadingProgress = Mathf.CeilToInt(asyncOperation.progress * 100);
+            if (asyncOperation.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(2.0f);
+                yield return _fadePanel.StartFade(Vector2.zero);
+                SceneObserver.CurrentSceneType = toChangingSceneType;
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+    }
+
         SceneObserver.CurrentSceneType = SceneType.loading;
         SceneObserver.CurrentSceneType = toChangingScene;
         SceneManager.LoadScene("ActiveScene");
-    }
+    }*/
     
     public Scene GetCurrentSceneInfo()
     {
         return SceneManager.GetActiveScene();
+    }
+
+    private IEnumerator Fade(SceneType toChangingScene)
+    {
+        yield return _fadePanel.StartFade(MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition));
+
+        SceneObserver.CurrentSceneType = SceneType.loading;
+        SceneObserver.CurrentSceneType = toChangingScene;
+        SceneManager.LoadScene("ActiveScene");
     }
 }

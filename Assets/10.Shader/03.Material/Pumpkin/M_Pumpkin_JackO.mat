@@ -75,6 +75,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _diss_normal_tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _normal_tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -117,7 +121,7 @@ Material:
     - _Main_Pow: 1.952941
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opacity: 1
+    - _Opacity: 2.77
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -130,15 +134,20 @@ Material:
     - _Surface: 0
     - _Use_Customdata: 0
     - _Use_Customdata1: 0
+    - _Use_ToonDissolve: 0
     - _Use_lerp: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _diss_normal_power: 0
+    - _diss_normal_upanner: 0
+    - _diss_normal_vpanner: 0
     - _main_upanner: 0
     - _main_vpanner: 0
     - _normal_radial: 0
     - _normal_str: 0
     - _normal_upanner: 1
     - _normal_vpanner: 1
+    - _use_other_diss: 0
     - _use_polar: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -146,7 +155,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color: {r: 6.498019, g: 0.99477625, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _main_color_a: {r: 6.498019, g: 2.490019, b: 0.091952935, a: 0}
+    - _main_color_a: {r: 0.9221514, g: 0.3533653, b: 0.013049288, a: 0}
     - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7833981854982115822

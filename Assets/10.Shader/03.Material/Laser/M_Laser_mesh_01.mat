@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 3b60e55f20c7a77489cb2660df8c8801, type: 3}
+        m_Texture: {fileID: 2800000, guid: 11c2754828141c94ca4f317949071404, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Texture:
@@ -102,6 +102,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Sub_Texture:
+        m_Texture: {fileID: 2800000, guid: f03a7b6ea419e314e8c52b72b5a7f6cd, type: 3}
+        m_Scale: {x: 3.82, y: 5.35}
+        m_Offset: {x: 0, y: 0}
+    - _Vertex_texture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -140,7 +144,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _Diss_Tex_UPanner: 0
     - _Diss_Tex_VPanner: 1.48
-    - _Dissolve: 0.17
+    - _Dissolve: 1
     - _Dst: 10
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -150,7 +154,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Main_Ins: 1
+    - _Main_Ins: 7.15
     - _Main_Pow: 1
     - _Main_UPanner: 0
     - _Main_VPanner: 0.39
@@ -158,11 +162,11 @@ Material:
     - _Mask_Mirror: 0
     - _Mask_Pow: 1
     - _Metallic: 0
-    - _Noise_Str: 0.06793601
+    - _Noise_Str: 0.0246
     - _Noise_Tex_UPanner: 0
-    - _Noise_Tex_VPanner: 0
+    - _Noise_Tex_VPanner: 0.84
     - _OcclusionStrength: 1
-    - _Opacity: 1
+    - _Opacity: 1.36
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -173,10 +177,10 @@ Material:
     - _Src: 5
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _SubTex_Ins: 0
-    - _SubTex_Pow: 0
+    - _SubTex_Ins: 7.75
+    - _SubTex_Pow: 3.88
     - _SubTex_UPanner: 0
-    - _SubTex_VPanner: 0
+    - _SubTex_VPanner: 0.44
     - _Surface: 0
     - _Use_AddMulityMask: 0
     - _Use_Ceil: 0
@@ -184,6 +188,7 @@ Material:
     - _Use_Customdata1: 0
     - _Use_MaskTex: 1
     - _Use_lerp: 0
+    - _Use_vertex: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _main_upanner: 0
@@ -193,13 +198,17 @@ Material:
     - _normal_upanner: 1
     - _normal_vpanner: 1
     - _use_polar: 0
+    - _vertex_pow: 3.71
+    - _vertex_str: 0
+    - _vertex_upanner: 0
+    - _vertex_vpanner: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SubTex_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _TintColor: {r: 0.88167334, g: 0.36470592, b: 1, a: 0}
+    - _SubTex_Color: {r: 59.017685, g: 54.965904, b: 16.981503, a: 0}
+    - _TintColor: {r: 0.44083667, g: 0.18235296, b: 0.5, a: 0}
     - _main_color_a: {r: 1, g: 0.1462264, b: 0.7836954, a: 0}
     - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

@@ -127,13 +127,13 @@ Material:
     - _GlossyReflections: 0
     - _Keyword0: 0
     - _Main_Ins: 1
-    - _Main_Pow: 1.39
+    - _Main_Pow: 1.08
     - _Main_UPanner: 0
     - _Main_VPanner: 0
     - _Mask_Pow: 10
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0.13
+    - _Opacity: 0.33
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -148,9 +148,12 @@ Material:
     - _Use_Customdata: 1
     - _Use_Customdata1: 0
     - _Use_Mask: 0
+    - _Use_lerp: 0
     - _VOffset: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _main_upanner: 0
+    - _main_vpanner: 0
     - _normal_radial: 0
     - _normal_str: 0
     - _normal_upanner: 1
@@ -163,6 +166,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Main_Color: {r: 8.574187, g: 8.574187, b: 8.574187, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _main_color_a: {r: 1, g: 1, b: 1, a: 0}
+    - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &630654010964668629
 MonoBehaviour:

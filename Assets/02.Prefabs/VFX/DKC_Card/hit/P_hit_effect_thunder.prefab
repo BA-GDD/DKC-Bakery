@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2510803160517340096}
   - component: {fileID: 4638507531089864893}
   - component: {fileID: 7890045095813167666}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: after_thunder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 587574029178949134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 0.11, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -287,7 +287,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.73
+      scalar: 2.49
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4915,7 +4915,7 @@ GameObject:
   - component: {fileID: 1950571517312874348}
   - component: {fileID: 703870175497967610}
   - component: {fileID: 1665117608912792828}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: P_toon_hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5192,7 +5192,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.52
-      minScalar: 2.33
+      minScalar: 1.59
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9829,7 +9829,7 @@ GameObject:
   - component: {fileID: 7993180798688134084}
   - component: {fileID: 1066998067286441912}
   - component: {fileID: 5554659012932333364}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: P_hit_effect_thunder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10107,7 +10107,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5.78
+      scalar: 2.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14711,7 +14711,7 @@ ParticleSystemRenderer:
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
-  m_SortingFudge: 599
+  m_SortingFudge: -500
   m_NormalDirection: 1
   m_ShadowBias: 0
   m_RenderAlignment: 2

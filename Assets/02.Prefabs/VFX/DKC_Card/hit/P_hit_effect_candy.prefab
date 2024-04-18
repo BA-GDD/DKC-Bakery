@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 377242867916227000}
   - component: {fileID: 439696054328918336}
   - component: {fileID: 3697860923151407289}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: P_Notes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 3
-      minScalar: 2
+      minScalar: 6.31
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4897,7 +4897,7 @@ GameObject:
   - component: {fileID: 870572448564256044}
   - component: {fileID: 8329676631713820535}
   - component: {fileID: 4340164131951949214}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: P_slash_blink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9828,7 +9828,7 @@ GameObject:
   - component: {fileID: 3278070172867210272}
   - component: {fileID: 8681208605506937654}
   - component: {fileID: 952132952471234250}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: P_toon_hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10039,8 +10039,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.015686274, b: 0.26126483, a: 1}
-      maxColor: {r: 1, g: 0.5990566, b: 0.8290874, a: 1}
+      minColor: {r: 0.8490566, g: 0.31639373, b: 0.45009005, a: 1}
+      maxColor: {r: 0.9433962, g: 0.6541474, b: 0.8186222, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10797,7 +10797,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 25
+        scalar: 15
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -14143,7 +14143,7 @@ ParticleSystem:
     vector0_0:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 2.6497998
+      scalar: 0.99814457
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -14712,7 +14712,7 @@ ParticleSystemRenderer:
   m_NormalDirection: 1
   m_ShadowBias: 0
   m_RenderAlignment: 0
-  m_Pivot: {x: 0, y: -0.25, z: 0}
+  m_Pivot: {x: 0, y: -0.48, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 1
@@ -14742,7 +14742,7 @@ GameObject:
   - component: {fileID: 5440926737855270592}
   - component: {fileID: 8656700746370947186}
   - component: {fileID: 7630543007366139485}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: P_hit_effect_candy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14956,8 +14956,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.735849, g: 0.13536847, b: 0.37878227, a: 1}
-      maxColor: {r: 0.8490566, g: 0.25231397, b: 0.78301704, a: 1}
+      minColor: {r: 1, g: 0.495283, b: 0.6998088, a: 1}
+      maxColor: {r: 0.9339623, g: 0.43614274, b: 0.878649, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19625,7 +19625,7 @@ ParticleSystemRenderer:
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
-  m_SortingFudge: 599
+  m_SortingFudge: -500
   m_NormalDirection: 1
   m_ShadowBias: 0
   m_RenderAlignment: 2
