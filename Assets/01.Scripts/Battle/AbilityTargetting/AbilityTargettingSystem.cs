@@ -40,7 +40,7 @@ public class AbilityTargettingSystem : MonoBehaviour
     {
         foreach(Transform chain in transform)
         {
-            Destroy(chain);
+            Destroy(chain.gameObject);
         }
 
         _getTargetArrowDic.Clear();

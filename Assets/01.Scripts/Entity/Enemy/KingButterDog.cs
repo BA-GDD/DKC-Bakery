@@ -13,7 +13,7 @@ public class KingButterDog : Enemy
     public override void Attack()
     {
         target.HealthCompo.ApplyDamage(CharStat.GetDamage(), this);
-        VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
+        //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
     }
 
     public override void SlowEntityBy(float percent)
@@ -29,7 +29,6 @@ public class KingButterDog : Enemy
     public override void MoveToTargetForward()
     {
         lastMovePos = transform.position;
-        AnimatorCompo.SetBool(attackAnimationHash,true);
 
         //seq.Append(transform.DOMove(target.forwardTrm.position, moveDuration));
         Vector2 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
@@ -76,7 +75,6 @@ public class KingButterDog : Enemy
 
     protected override void HandleEndMoveToOriginPos()
     {
-        AnimatorCompo.SetBool(attackAnimationHash, false);
         turnStatus = TurnStatus.End;
     }
 

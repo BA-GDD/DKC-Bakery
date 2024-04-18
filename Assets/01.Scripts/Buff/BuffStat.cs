@@ -14,8 +14,6 @@ public class BuffStat
     private Entity _owner;
     private Dictionary<BuffSO, int> _buffDic = new();
 
-
-
     public BuffStat(Entity entity)
     {
         _owner = entity;
@@ -39,7 +37,7 @@ public class BuffStat
     }
     public void ActivateSpecialBuff(SpecialBuff buff)
     {
-        _owner.BuffStatCompo.specialBuffList.Add(buff);
+        specialBuffList.Add(buff);
         if (buff is IOnTakeDamage)
         {
             IOnTakeDamage i = buff as IOnTakeDamage;
@@ -56,7 +54,7 @@ public class BuffStat
         if (buff is IOnHItDamage)
         {
             IOnHItDamage i = buff as IOnHItDamage;
-            _owner.BuffStatCompo.OnHitDamageEvent += i.HitDamage;
+            OnHitDamageEvent += i.HitDamage;
         }
     }
     public void CompleteBuff(SpecialBuff special)

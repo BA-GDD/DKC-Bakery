@@ -13,10 +13,10 @@ public class EnemyAnimationTrigger : MonoBehaviour
 
     private void EndAnimationTrigger()
     {
-        _enemy.AnimationFinishTrigger();
+        _enemy.OnAnimationEnd?.Invoke();
     }
 
-    private void CallAnimationEvent(int n)
+    private void CallAnimationEvent()
     {
         _enemy.OnAnimationCall?.Invoke();
     }

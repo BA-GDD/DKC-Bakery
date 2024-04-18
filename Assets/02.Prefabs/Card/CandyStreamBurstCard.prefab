@@ -105,7 +105,6 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4765647492564359230}
-  - {fileID: 6648403532937791846}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -136,7 +135,11 @@ MonoBehaviour:
   _cardMat: {fileID: 2100000, guid: 7215dc6c25e09bd4da589c4bef8f3be2, type: 2}
   battleController: {fileID: 0}
   buffSO: {fileID: 0}
-  damageArr: 020000000300000006000000
+  damageArr:
+    list:
+    - list: 02000000
+    - list: 03000000
+    - list: 06000000
 --- !u!1 &2640445690644565256
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +474,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8599017143455980862}
+  - {fileID: 6648403532937791846}
   m_Father: {fileID: 9031892388848759628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -655,11 +659,11 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9216482453174593172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.9000004}
+  m_LocalPosition: {x: 0, y: 0, z: 0.90000075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9031892388848759628}
+  m_Father: {fileID: 4765647492564359230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
