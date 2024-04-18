@@ -1,3 +1,4 @@
+using Particle;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,29 +8,13 @@ public class EnemyVFXPlayer : MonoBehaviour
 {
     public event Action OnEndEffect;
 
-    public void PlayParticle(EnemyAttack enemyAttack, float particleDuration)
+    public void PlayParticle(EnemyAttack enemyAttack)
     {
         enemyAttack.attack.gameObject.SetActive(true);
-        enemyAttack.attack.Play();
-        StartCoroutine(WaitParticleEndCor(enemyAttack.attack, particleDuration));
+        enemyAttack.attack.StartParticle(null,OnEndEffect);
     }
-    
-    public void PlayHitEffect(EnemyAttack enemyAttack, Vector3 pos)
+    public void SetTarget()
     {
-        Destroy(Instantiate(enemyAttack.hitPrefab,pos,Quaternion.identity),1.0f);
-    }
 
-    private IEnumerator WaitParticleEndCor(ParticleSystem ps, float particleDuration)
-    {
-        yield return new WaitForSeconds(particleDuration);
-        ps.gameObject.SetActive(false);
-        ps.Stop();
-        OnEndEffect?.Invoke();
-    }
-
-    public void EndParticle(ParticleSystem ps)
-    {
-        ps.gameObject.SetActive(false);
-        ps.Stop();
     }
 }

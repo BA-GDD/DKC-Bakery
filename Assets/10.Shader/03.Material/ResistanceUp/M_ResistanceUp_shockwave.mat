@@ -21,7 +21,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Dissolve
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -46,8 +46,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Tex:
-        m_Texture: {fileID: 2800000, guid: d6b17fdebfb35da4f9bd82661ff94718, type: 3}
-        m_Scale: {x: 5.92, y: 0.06}
+        m_Texture: {fileID: 2800000, guid: 3861373a99f5f4a4e95dcb68933556f4, type: 3}
+        m_Scale: {x: 8, y: 1.6}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
         m_Texture: {fileID: 2800000, guid: 89077298ef5a77c44a33b40e1e7122fc, type: 3}
@@ -63,7 +63,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Noise_Texture:
         m_Texture: {fileID: 2800000, guid: 0c9e585b001cd8048afcd07b5676b774, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 1, y: 0.39}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
@@ -98,15 +98,15 @@ Material:
     - Use_Custom: 1
     - _AlphaCutoff: 0.5
     - _Ceil: 0
-    - _Chromatic: 0.01
+    - _Chromatic: 0.025
     - _CullMode: 0
     - _Diss_Tex_UPanner: 0
     - _Diss_Tex_VPanner: 1.02
     - _Dissolve: 1
     - _Dst: 1
     - _Edge_Noise_Tex_VPanner: 0.34
-    - _Edge_Radius: 0.517
-    - _Edge_noise_str: 0.257
+    - _Edge_Radius: 0.685
+    - _Edge_noise_str: 0.41
     - _EnableExternalAlpha: 0
     - _Fade_Distance: 0
     - _Fade_Ditance: 0
@@ -115,7 +115,7 @@ Material:
     - _Main_Ins: 1
     - _Main_Pow: 1.98
     - _Main_UPanner: 0
-    - _Main_VPanner: 0.17
+    - _Main_VPanner: 1.1
     - _Mask_1x: 0
     - _Mask_Mirror: 1
     - _Mask_Pow: 5.346326
@@ -124,20 +124,20 @@ Material:
     - _Noise_Tex_VPanner: 0
     - _Noise_UPanner: 0
     - _Noise_VPanner: 0.59
-    - _Noise_str: 0
+    - _Noise_str: 0.35
     - _Opacity: 1.49
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Src: 5
-    - _Step_Amount: 0.63
+    - _Step_Amount: 0.27
     - _SubTex_Ins: 0
     - _SubTex_Pow: 0
     - _SubTex_UPanner: 0
     - _SubTex_VPanner: 0
     - _Sub_UPanner: 0
-    - _Sub_VPanner: 1.48
+    - _Sub_VPanner: 0.8
     - _Sub_ins: 20
-    - _Sub_pow: 4.39
+    - _Sub_pow: 2.2
     - _Texture_Value: 1
     - _Use_AddMulityMask: 0
     - _Use_Ceil: 0
@@ -149,7 +149,7 @@ Material:
     - _Use_Step: 1
     - _dissolve: -1.5
     - _edge_rad: 0.72
-    - _main_ins: 1
+    - _main_ins: 1.8
     - _main_intencity: 6.74
     - _main_pow: 3.41
     - _main_upanner: 0
@@ -165,11 +165,11 @@ Material:
     - _Edge_Color: {r: 1.717358, g: 6.1280284, b: 10.402285, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _Fresnel_Color: {r: 0.82567364, g: 1.7924526, b: 0.5536895, a: 0}
-    - _Main_Color: {r: 1.2253492, g: 0.93697757, b: 2.4685757, a: 0}
+    - _Fresnel_Color: {r: 0.27358496, g: 0.62498283, b: 1.9999999, a: 0}
+    - _Main_Color: {r: 2.7751958, g: 2.1220858, b: 5.5908804, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SubTex_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Sub_Color: {r: 6.4222345, g: 5.646999, b: 3.7866948, a: 0}
+    - _Sub_Color: {r: 22.627417, g: 3.1925745, b: 0, a: 0}
     - _TintColor: {r: 1.6753992, g: 1.2428185, b: 0.592712, a: 0}
     - _edge_color: {r: 2.0309038, g: 2.270603, b: 0.8461207, a: 0}
     - _main_color: {r: 0.7264151, g: 0.37845492, b: 0.33922213, a: 0}

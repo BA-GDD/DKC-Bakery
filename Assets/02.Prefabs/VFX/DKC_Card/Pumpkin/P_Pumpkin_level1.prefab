@@ -32,6 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6401808604994324462}
+  - {fileID: 7661527086121502877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!198 &7154836785486955595
@@ -4917,6 +4918,100 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1001 &3803543385517675154
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4131830788389139467}
+    m_Modifications:
+    - target: {fileID: 416344912173722751, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1841398161879586829, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5202769760012549633, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_Name
+      value: P_Pumpkin_Explosion_level_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5961229323626097760, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257402096339280845, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6353885210800614623, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939158330996151762, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217402617329125545, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760936110321328559, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1.7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+--- !u!4 &7661527086121502877 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6817272002410125839, guid: 8ca83b3ca82b29548a80f287feb1c11f, type: 3}
+  m_PrefabInstance: {fileID: 3803543385517675154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7250251145059123725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5172,6 +5267,10 @@ PrefabInstance:
     - target: {fileID: 9013165734167099072, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
       propertyPath: m_Name
       value: P_Explosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013165734167099072, guid: efcbd00b4e78ceb43a2e5c3272683ee9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -21,7 +21,7 @@ public abstract class Entity : PoolableMono
     public BuffStat BuffStatCompo { get; private set; }
     [field: SerializeField] public CharacterStat CharStat { get; private set; }
 
-    public Collider ColliderCompo { get; private set; }
+    public Collider2D ColliderCompo { get; private set; }
     #endregion
 
     protected int _hitAnimationHash = Animator.StringToHash("hit");
@@ -59,12 +59,10 @@ public abstract class Entity : PoolableMono
         SpriteRendererCompo = visualTrm.GetComponent<SpriteRenderer>();
         HealthCompo.SetOwner(this);
 
-        
-
         CharStat = Instantiate(CharStat); //������ ����
         CharStat.SetOwner(this);
 
-        ColliderCompo = GetComponent<Collider>();
+        ColliderCompo = GetComponent<Collider2D>();
 
         BuffStatCompo = new BuffStat(this);
     }
@@ -88,7 +86,7 @@ public abstract class Entity : PoolableMono
         HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         OnMoveTarget -= HandleEndMoveToTarget;
         OnMoveOriginPos -= HandleEndMoveToOriginPos;
@@ -185,9 +183,9 @@ public abstract class Entity : PoolableMono
     }
     protected abstract void HandleEndMoveToOriginPos();
 
-    public void DeadSeq()
+    public void DeadSequence()
     {
-        CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSeq);
+        CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(DeadSequence);
         HealthCompo.OnDeathEvent?.Invoke();
         GotoPool();
     }

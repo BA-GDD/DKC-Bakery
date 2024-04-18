@@ -14,12 +14,9 @@ public class FilterPass : ScriptableRenderPass
     public FilterPass(RenderPassEvent passEvent, List<ShaderTagId> shaderTagIds, LayerMask layerMask)
     {
         renderPassEvent = passEvent;
-        // 특정 LightMode Tag를 가진 쉐이더만 렌더링
         _shaderTagIdList = shaderTagIds;
-        // 렌더큐범위 & 레이어마스크 렌더 필터링 등록
-        _filteringSettings = new FilteringSettings(RenderQueueRange.all, layerMask);
-        // 스텐실 & 컬러마스크 등 렌더링할때 상태 세팅
-        _renderStateBlock = new RenderStateBlock(RenderStateMask.Nothing);
+        /*_filteringSettings = new FilteringSettings(RenderQueueRange.all, layerMask);
+        _renderStateBlock = new RenderStateBlock(RenderStateMask.Nothing);*/
 
     }
 

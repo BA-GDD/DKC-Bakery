@@ -12,9 +12,9 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_CUSTOMDATA1_ON
   - _USE_CUSTOMDATA_ON
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _USE_CUSTOMDATA1_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -49,6 +49,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _diss_normal_tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _normal_tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -78,13 +82,19 @@ Material:
     - _QueueOffset: 0
     - _Use_Customdata: 1
     - _Use_Customdata1: 1
+    - _Use_ToonDissolve: 0
     - _Use_lerp: 0
+    - _diss_normal_power: 0
+    - _diss_normal_upanner: 0
+    - _diss_normal_vpanner: 0
     - _main_upanner: 0
     - _main_vpanner: 0
     - _normal_radial: 0
     - _normal_str: 0
     - _normal_upanner: 1
     - _normal_vpanner: 1
+    - _pixel_count: 64
+    - _use_other_diss: 0
     - _use_polar: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

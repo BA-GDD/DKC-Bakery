@@ -1,3 +1,5 @@
+using DG.Tweening;
+using FunkyCode.Buffers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,8 +7,11 @@ using UnityEngine;
 
 public class BattleUI : SceneUI
 {
-    [SerializeField]
-    private BattleResultPanel _battleResultPanel;
+    [SerializeField] private BattleController _battleController;
+    public bool IsBattleEnd => _battleController.IsGameEnd;
+
+    [SerializeField] private BattleResultPanel _battleResultPanel;
+    [SerializeField] private TurnCounting _turnCounting;
     [SerializeField] private GameObject _battleSystem;
 
     public Action<bool> SystemActive { get; private set; }
@@ -26,9 +31,17 @@ public class BattleUI : SceneUI
         _battleSystem.SetActive(isActive);
     }
 
-    public void SetClear()
+    public void SetResult(bool isClear)
     {
-        _battleResultPanel.gameObject.SetActive(true);
-        _battleResultPanel.SetClear();
+        Sequence seq = _turnCounting.BattleEndSequence(isClear);
+        seq.AppendCallback(() =>
+        {
+            _battleResultPanel.gameObject.SetActive(true);
+            StageDataSO currentStage = MapManager.Instanace.SelectStageData;
+            _battleResultPanel.LookResult(isClear,
+                                          currentStage.stageType,
+                                          currentStage.stageName,
+                                          currentStage.clearCondition.Info);
+        });
     }
 }

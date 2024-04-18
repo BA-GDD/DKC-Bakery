@@ -22,7 +22,6 @@ public struct StagePanel
 {
     public TextMeshProUGUI inStageCount;
     public List<Sprite> chapterVisualList;
-    public List<GameObject> chapterVisualVFXList;
     public Image visual;
 }
 
@@ -42,12 +41,11 @@ public class AdventureMaster : MonoBehaviour
             _adventureData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _missionPanel.clearCountTxt.text = $"현재 위치 : {_adventureData.InChallingingMissionName}";
+        _missionPanel.clearCountTxt.text = $"<size=40>탐색 중인 향로</size> : {_adventureData.InChallingingMissionName}";
         _minePanel.clearCountTxt.text = $"정복 중인 층 : {_adventureData.ChallingingMineFloor}";
         _stagePanel.inStageCount.text = $"도전 중인 지역 : {_adventureData.InChallingingStageCount}";
 
         int idx = Convert.ToInt16(_adventureData.InChallingingStageCount.Split('-')[0]);
         _stagePanel.visual.sprite = _stagePanel.chapterVisualList[idx - 1];
-        _stagePanel.chapterVisualVFXList[idx - 1].SetActive(true);
     }
 }

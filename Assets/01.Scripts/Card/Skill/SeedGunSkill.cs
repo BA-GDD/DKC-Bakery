@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedGunSkill : CardBase, ISkillEffectAnim
@@ -11,6 +12,9 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
     public override void Abillity()
     {
+        CameraController.Instance.SetTransitionTime(1f);
+        CameraController.Instance.GetVCam().SetCamera(Player.transform.position, 4.5f);
+
         IsActivingAbillity = true;
 
         yPos = Player.transform.position.y;
@@ -21,19 +25,14 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
         foreach (var e in battleController.onFieldMonsterList)
         {
-            if (e == Player.target) continue;
+            if (Player.GetSkillTargetEnemyList[this].Contains(e)) continue;
             e.SpriteRendererCompo.DOColor(minimumColor, 0.5f);
         }
-
-        GameObject obj = Instantiate(CardInfo.targetEffect.gameObject, Player.target.transform.position, Quaternion.identity);
-        Destroy(obj, 1.0f);
     }
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position, (int)CombineLevel); 
-        if (Player.target != null)
-            StartCoroutine(AttackCor());
+        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position); 
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
@@ -41,34 +40,17 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     {
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
-        Player.transform.DOMoveY(yPos, 0.1f).OnComplete(() => IsActivingAbillity = false);
+        Player.transform.DOMoveY(yPos, 0.1f).OnComplete(() =>
+        {
+            CameraController.Instance.SetDefaultCam();
+            IsActivingAbillity = false;
+        });
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 
         foreach (var e in battleController.onFieldMonsterList)
         {
             if (e == null) continue;
             e.SpriteRendererCompo.DOColor(maxtimumColor, 0.5f);
-        }
-    }
-
-    private IEnumerator AttackCor()
-    {
-        yield return new WaitForSeconds(1f);
-
-        for (int i = 0; i < 3; ++i)
-        {
-            yield return new WaitForSeconds(0.15f);
-            Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
-
-            GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
-            Destroy(obj, 1.0f);
-
-            float randNumX = UnityEngine.Random.Range(-.5f, .5f);
-            float randNumY = UnityEngine.Random.Range(-.5f, .5f);
-            FeedbackManager.Instance.ShakeScreen(new Vector3(randNumX, randNumY, 0.0f));
-
-            yield return new WaitForSeconds(0.2f);
-            Player.target?.HealthCompo.ApplyDamage(GetDamage(CombineLevel), Player);
         }
     }
 }

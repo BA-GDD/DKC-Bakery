@@ -24,9 +24,9 @@ Material:
   m_Shader: {fileID: 4800000, guid: 4b7c34181f4d74244be6861121c94efa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _USE_CUSTOMDATA1_ON
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -78,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 74c0b44d952bfd641a6e8ea114bf1e47, type: 3}
+        m_Texture: {fileID: 2800000, guid: e209b0529833a7f47a0963ed08b8536f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_tex:
@@ -111,6 +111,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Sword_Texture:
         m_Texture: {fileID: 2800000, guid: e72995ee2527c4a408ead05479957a1c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _diss_normal_tex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normal_tex:
@@ -168,7 +172,7 @@ Material:
     - _Head_Ins: 1.03
     - _Head_power: 5.02
     - _Main_Ins: 1
-    - _Main_Pow: 3.98
+    - _Main_Pow: 2.71
     - _Main_UPanner: -1.13
     - _Main_VPanner: 0
     - _Main_intencity: 2.16
@@ -178,7 +182,7 @@ Material:
     - _Noise_VPanner: 0
     - _Noise_str: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0.98
+    - _Opacity: 0.7
     - _Parallax: 0.005
     - _Power: 0.89
     - _QueueControl: 0
@@ -203,9 +207,13 @@ Material:
     - _Use_Customdata1: 1
     - _Use_OneMinus: 0
     - _Use_Step: 0
+    - _Use_ToonDissolve: 0
     - _Use_lerp: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _diss_normal_power: 0
+    - _diss_normal_upanner: 0
+    - _diss_normal_vpanner: 0
     - _main_ins: 1.68
     - _main_upanner: 0
     - _main_vpanner: 0
@@ -215,6 +223,7 @@ Material:
     - _normal_vpanner: 0
     - _threshold: 0.01
     - _u_off: -0.134
+    - _use_other_diss: 0
     - _use_polar: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -227,6 +236,6 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Sub_Color: {r: 0, g: 0, b: 0, a: 0}
     - _main_color: {r: 1.5157166, g: 0.4933228, b: 0.4933228, a: 1}
-    - _main_color_a: {r: 1.9128783, g: 1.9766747, b: 0.49416867, a: 0}
+    - _main_color_a: {r: 2.639016, g: 2.639016, b: 2.639016, a: 0}
     - _main_color_b: {r: 0.49416867, g: 0.49102858, b: 0.23076744, a: 0}
   m_BuildTextureStacks: []

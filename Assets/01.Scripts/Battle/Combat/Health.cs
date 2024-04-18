@@ -31,15 +31,8 @@ public class Health : MonoBehaviour, IDamageable
     {
         get => _isDead;
         set
-        {
+        {           
             _isDead = value;
-            if (_isDead)
-            {
-                if (_owner is Enemy)
-                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(_owner.DeadSeq);
-                else
-                    OnDeathEvent?.Invoke();
-            }
         }
     }
     private bool _isInvincible = false; //무적상태
@@ -58,7 +51,7 @@ public class Health : MonoBehaviour, IDamageable
     }
     private void OnEnable()
     {
-        TurnCounter.RoundEndEvent += _ailmentStat.UpdateAilment;
+        TurnCounter.RoundEndEvent += UpdateHealth;
         _ailmentStat.EndOFAilmentEvent += HandleEndOfAilment;
 
         _isDead = false;
@@ -66,7 +59,7 @@ public class Health : MonoBehaviour, IDamageable
     private void OnDisable()
     {
         _ailmentStat.EndOFAilmentEvent -= HandleEndOfAilment;
-        TurnCounter.RoundEndEvent -= _ailmentStat.UpdateAilment;
+        TurnCounter.RoundEndEvent -= UpdateHealth;
     }
 
     private void HandleEndOfAilment(AilmentEnum ailment)
@@ -86,7 +79,7 @@ public class Health : MonoBehaviour, IDamageable
         AfterHitFeedbacks();
     }
 
-    protected void UpdateAilment()
+    protected void UpdateHealth()
     {
         _ailmentStat.UpdateAilment(); //질병 업데이트
     }
@@ -95,7 +88,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         _owner = owner;
         _currentHealth = maxHealth = _owner.CharStat.GetMaxHealthValue();
-        Debug.Log($"{_currentHealth}/{maxHealth}");
     }
 
     public float GetNormalizedHealth()
@@ -118,6 +110,8 @@ public class Health : MonoBehaviour, IDamageable
     }
     public void ApplyDamage(int damage, Entity dealer, Action action = null)
     {
+        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
+
         _owner.BuffStatCompo.OnHitDamageEvent?.Invoke(dealer, ref damage);
 
         if (dealer.CharStat.IsCritical(ref damage))
@@ -133,7 +127,6 @@ public class Health : MonoBehaviour, IDamageable
         damage = _owner.CharStat.ArmoredDamage(damage, IsFreeze);
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
         //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
-        if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
         foreach(var b in dealer.OnAttack)
         {
             b?.TakeDamage(this);
@@ -176,11 +169,6 @@ public class Health : MonoBehaviour, IDamageable
     private void AfterHitFeedbacks()
     {
         OnHitEvent?.Invoke();
-        if (_currentHealth == 0)
-        {
-            IsDead = true;
-            return;
-        }
     }
 
     [ContextMenu("Chilled")]

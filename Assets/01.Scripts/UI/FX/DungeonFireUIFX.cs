@@ -15,16 +15,14 @@ public class DungeonFireUIFX : MonoBehaviour
         rtTrm = GetComponent<RectTransform>();
     }
 
-    public void Play()
+    private void OnEnable()
     {
-        if(_fx != null) _fx.Play();
-        rtTrm.DOScaleY(1, 0.1f);
+        _fx.Play();
     }
 
-    public void Stop()
+    private void OnDisable()
     {
-        if (_fx != null) _fx.Play();
-        rtTrm.DOScaleY(0, 0.1f);
+        _fx.Stop();
     }
 
     //DEBUG

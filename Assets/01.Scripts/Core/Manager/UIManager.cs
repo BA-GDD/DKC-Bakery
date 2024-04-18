@@ -7,6 +7,7 @@ using UIDefine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    [SerializeField] private Transform _uiParent;
     [SerializeField] private SceneUI[] _screenElementGroup;
 
     private Dictionary<SceneType, SceneUI> _sceneUIDic = new Dictionary<SceneType, SceneUI>();
@@ -15,7 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
     private SceneUI _currentSceneUIObject;
 
     public Canvas Canvas { get; private set; }
-    public Transform CanvasTrm => Canvas.transform;
+    public RectTransform CanvasTrm => Canvas.transform as RectTransform;
 
     private void Start()
     {
@@ -49,7 +50,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         if (_sceneUIDic.ContainsKey(CurrentSceneType))
         {
-            SceneUI suObject = Instantiate(_sceneUIDic[CurrentSceneType], CanvasTrm);
+            SceneUI suObject = Instantiate(_sceneUIDic[CurrentSceneType], _uiParent);
             suObject.gameObject.name = _sceneUIDic[CurrentSceneType].gameObject.name + "_MAESTRO_[SceneUI]_";
             suObject.SceneUIStart();
 
