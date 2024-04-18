@@ -10,6 +10,9 @@ public class GrabPass : ScriptableRenderPass
 
     private List<ShaderTagId> _shaderTagIds;
 
+    private FilteringSettings _filteringSettings;
+    private RenderStateBlock _renderStateBlock;
+
     private RenderTargetIdentifier _source;
     private RTHandle _destination;
 
@@ -26,6 +29,9 @@ public class GrabPass : ScriptableRenderPass
         _globalProperty = globalProperty;
         _downsamplingMethod = downsampling;
         _layerMask = layermask;
+
+        _filteringSettings = new FilteringSettings(RenderQueueRange.all, layermask);
+        _renderStateBlock = new RenderStateBlock(RenderStateMask.Nothing);
 
         _destination = RTHandles.Alloc(_globalProperty, name:_globalProperty);
     }
@@ -69,7 +75,7 @@ public class GrabPass : ScriptableRenderPass
         // context.ExecuteCommandBuffer(cmd);
         cmd.Clear();
         DrawingSettings drawSettings;
-        drawSettings = CreateDrawingSettings(_shaderTagIdList, ref renderingData, SortingCriteria.CommonTransparent);
+        drawSettings = CreateDrawingSettings(_shaderTagIds, ref renderingData, SortingCriteria.CommonTransparent);
         context.DrawRenderers(renderingData.cullResults, ref drawSettings, ref _filteringSettings, ref _renderStateBlock);
         context.ExecuteCommandBuffer(cmd);
         cmd.Blit(_source, Shader.PropertyToID(_destination.name));
