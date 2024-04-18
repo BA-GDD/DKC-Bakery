@@ -9,6 +9,8 @@ namespace Particle
 {
     public class ParticleInfo : MonoBehaviour
     {
+        public AudioClip soundEffect;
+
         private ParticleSystem ps;
 
         [SerializeField]private List<ParticleTriggerInfo> triggerInfos;
@@ -51,6 +53,8 @@ namespace Particle
         public void StartParticle(Action OnStartParticleEvent, Action OnEndParticleEvent)
         {
             ps.Play();
+            if(soundEffect != null)
+                SoundManager.PlayAudio(soundEffect);
             OnStartParticleEvent?.Invoke();
             StartCoroutine(WaitEndParticle(OnEndParticleEvent));
         }

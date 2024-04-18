@@ -6,10 +6,12 @@ using UnityEngine;
 public class PoolVCam : PoolableMono
 {
     private CinemachineVirtualCamera vCam;
+    private CinemachineConfiner2D confiner2D;
     public CinemachineVirtualCamera VCam { get => vCam; }
     private void Awake()
     {
         vCam = GetComponent<CinemachineVirtualCamera>();
+        confiner2D = GetComponent<CinemachineConfiner2D>();
     }
     public override void Init()
     {
@@ -20,6 +22,7 @@ public class PoolVCam : PoolableMono
         transform.position = pos;
         if (size < 1)
             size = Camera.main.orthographicSize;
+        confiner2D.m_BoundingShape2D = GameManager.Instance.GetContent<BattleContent>()?.contentConfiner;
         vCam.m_Lens.OrthographicSize = size;
 
     }
