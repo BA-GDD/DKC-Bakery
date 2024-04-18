@@ -77,7 +77,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
-        _costText = transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
+        _costText = transform.Find("Visual/CsotText").GetComponent<TextMeshProUGUI>();
         _costText.text = CardInfo.AbillityCost.ToString();
     }
 
