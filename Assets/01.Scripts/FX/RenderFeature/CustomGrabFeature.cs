@@ -33,23 +33,23 @@ public class CustomGrabFeature : ScriptableRendererFeature
 
     public override void Create()
     {
-        _grabPass = new GrabPass(_settings.passEvent, _settings.Texture2DPropertyName, _settings.downsamplingMethod);
 
         List<ShaderTagId> shaderTagIds = new List<ShaderTagId>();
         for (int i = 0; i < _settings.shaderTagStrings.Length; i++)
         {
             shaderTagIds.Add(new ShaderTagId(_settings.shaderTagStrings[i]));
         }
-        _renderPass = new FilterPass(_settings.passEvent + 1, shaderTagIds, _settings.layerMask);
+        _grabPass = new GrabPass(shaderTagIds,_settings.passEvent, _settings.Texture2DPropertyName, _settings.downsamplingMethod, _settings.layerMask);
+        //_renderPass = new FilterPass(_settings.passEvent + 1, shaderTagIds, _settings.layerMask);
     }
 
 
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        _grabPass.Setup(renderer.cameraColorTargetHandle);
+        //_grabPass.Setup(renderer.cameraColorTargetHandle);
 
         renderer.EnqueuePass(_grabPass);
-        renderer.EnqueuePass(_renderPass);
+        //renderer.EnqueuePass(_renderPass);
     }
 }
