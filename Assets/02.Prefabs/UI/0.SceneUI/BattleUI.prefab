@@ -487,12 +487,13 @@ MonoBehaviour:
   onFieldMonsterList: []
   _spawnTurm: 0.0597
   _enemyGroup: {fileID: 0}
-  spawnDistanceByPoint:
+  enemySpawnPos:
   - {fileID: 9034104704580529501}
   - {fileID: 1751131394602917211}
   - {fileID: 6264700976906485318}
   - {fileID: 8541839153663294792}
   - {fileID: 7012533141677335594}
+  enemyGroupCenter: {fileID: 0}
   _player: {fileID: 0}
   OnGameEndEvent:
     m_PersistentCalls:
@@ -800,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2160893068857893561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1703,6 +1704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67739438b068dd24f853bc1a83ccc5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maskCreater: {fileID: 4643738038772436178}
   _cardWaitZone: {fileID: 8936919061014111785}
   _normalZonePos: {x: 0, y: 0}
   _waitTurmValue: 85

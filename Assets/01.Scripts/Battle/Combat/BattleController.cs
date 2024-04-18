@@ -81,6 +81,7 @@ public class BattleController : MonoBehaviour
         onFieldMonsterList = new Enemy[enemySpawnPos.Count];
 
         CardReader.SkillCardManagement.useCardEndEvnet.AddListener(HandleEndSkill);
+
         TurnCounter.PlayerTurnStartEvent += HandleCardDraw;
         TurnCounter.EnemyTurnStartEvent += OnEnemyTurnStart;
         TurnCounter.EnemyTurnEndEvent += OnEnemyTurnEnd;
@@ -165,6 +166,7 @@ public class BattleController : MonoBehaviour
 
     public void SetStage()
     {
+        Debug.Log(MapManager.Instanace.SelectStageData.enemyGroup);
         _enemyGroup = MapManager.Instanace.SelectStageData.enemyGroup;
 
         foreach (var e in _enemyGroup.enemies)
