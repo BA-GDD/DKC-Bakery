@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b25dbbf1a8140b47b7382dcf43e19a1, type: 3}
-  m_Name: Myosu Stage_1
+  m_Script: {fileID: 11500000, guid: 6b405ec8c20f0ec4a8eaa31777476453, type: 3}
+  m_Name: M_Stage_1-2_Info
   m_EditorClassIdentifier: 
-  Limit: 1
-  LimitCondition: 2
+  Info: "\uC801 \uD55C \uBA85\uB9CC \uB0A8\uAE30\uAE30"
+  IsClear: 0
+  Conditions:
+  - {fileID: 11400000, guid: ea650e80335066842bf62d571002203c, type: 2}
