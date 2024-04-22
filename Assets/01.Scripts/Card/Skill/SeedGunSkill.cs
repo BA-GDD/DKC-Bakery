@@ -51,6 +51,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         {
             if (e == null) continue;
             e.SpriteRendererCompo.DOColor(maxtimumColor, 0.5f);
+
         }
     }
 }

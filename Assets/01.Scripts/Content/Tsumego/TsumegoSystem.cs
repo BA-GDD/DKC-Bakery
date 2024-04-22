@@ -48,6 +48,6 @@ public class TsumegoSystem : MonoBehaviour
     {
         CurTsumegoInfo.IsClear = false;
         _gameEndEvent?.Invoke(true);
-        _stageClearEvent?.Invoke();
+        _stageClearEvent?.Invoke(false);
     }
 }

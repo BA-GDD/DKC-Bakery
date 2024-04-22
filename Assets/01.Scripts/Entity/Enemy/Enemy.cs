@@ -69,7 +69,9 @@ public abstract class Enemy : Entity
         OnAttackEnd += HandleAttackEnd;
         target = BattleController?.Player;
         if(attackParticle.attack != null)
-            VFXPlayer.EndParticle(attackParticle.attack);
+        {
+            //VFXPlayer.EndParticle(attackParticle.attack);
+        }
     }
     protected override void OnDisable()
     {
