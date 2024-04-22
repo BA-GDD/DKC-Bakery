@@ -64,7 +64,7 @@ public class BattleController : MonoBehaviour
                 CostCalculator.Init();
                 //SelectPlayerTarget(null, null);
 
-                UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
+                //UIManager.Instance.GetSceneUI<BattleUI>().SystemActive?.Invoke(true);
                 _hpBarMaker.DeleteAllHPBar();
                 StopAllCoroutines();
             }

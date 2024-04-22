@@ -88064,6 +88064,7 @@ GameObject:
   - component: {fileID: 8586844499232876592}
   - component: {fileID: 4707007775528526897}
   - component: {fileID: 3180880882694010003}
+  - component: {fileID: 3420545567612359670}
   m_Layer: 11
   m_Name: P_Seedgun_level3
   m_TagString: Untagged
@@ -92962,6 +92963,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3420545567612359670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6184664313182263262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 0}
+  triggerInfos: []
+  duration: 3
 --- !u!1 &6425332055025276672
 GameObject:
   m_ObjectHideFlags: 0

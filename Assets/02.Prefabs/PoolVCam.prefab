@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5495399523246158339}
   - component: {fileID: 1491615746373310825}
   - component: {fileID: 1819514168809652577}
+  - component: {fileID: 5094838242261005029}
   m_Layer: 0
   m_Name: PoolVCam
   m_TagString: Untagged
@@ -110,6 +111,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingType: 20
+--- !u!114 &5094838242261005029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5680154089948160314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BoundingShape2D: {fileID: 0}
+  m_Damping: 0
+  m_MaxWindowSize: -1
 --- !u!1 &6847144632598769674
 GameObject:
   m_ObjectHideFlags: 0

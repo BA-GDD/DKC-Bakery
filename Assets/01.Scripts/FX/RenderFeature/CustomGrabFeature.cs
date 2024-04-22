@@ -40,7 +40,7 @@ public class CustomGrabFeature : ScriptableRendererFeature
             shaderTagIds.Add(new ShaderTagId(_settings.shaderTagStrings[i]));
         }
         _grabPass = new GrabPass(shaderTagIds,_settings.passEvent, _settings.Texture2DPropertyName, _settings.downsamplingMethod, _settings.layerMask);
-        //_renderPass = new FilterPass(_settings.passEvent + 1, shaderTagIds, _settings.layerMask);
+        _renderPass = new FilterPass(_settings.passEvent + 1, shaderTagIds, _settings.layerMask);
     }
 
 
@@ -50,6 +50,6 @@ public class CustomGrabFeature : ScriptableRendererFeature
         //_grabPass.Setup(renderer.cameraColorTargetHandle);
 
         renderer.EnqueuePass(_grabPass);
-        //renderer.EnqueuePass(_renderPass);
+        renderer.EnqueuePass(_renderPass);
     }
 }

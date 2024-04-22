@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BattleContent : Content
 {
-    
+    public CompositeCollider2D contentConfiner;
 }
