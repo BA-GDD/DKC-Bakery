@@ -74,10 +74,7 @@ public class GrabPass : ScriptableRenderPass
         CommandBuffer cmd = CommandBufferPool.Get(PASS_NAME);
         // context.ExecuteCommandBuffer(cmd);
         cmd.Clear();
-/*        DrawingSettings drawSettings;
-        drawSettings = CreateDrawingSettings(_shaderTagIds, ref renderingData, SortingCriteria.CommonTransparent);
-        context.DrawRenderers(renderingData.cullResults, ref drawSettings, ref _filteringSettings, ref _renderStateBlock);
-        context.ExecuteCommandBuffer(cmd);*/
+        
         cmd.Blit(_source, Shader.PropertyToID(_destination.name));
         context.ExecuteCommandBuffer(cmd);
         CommandBufferPool.Release(cmd);

@@ -153,19 +153,6 @@ public class Health : MonoBehaviour, IDamageable
         action?.Invoke();
     }
 
-    public void ApplyMagicDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
-    {
-        int magicDamage = _owner.CharStat.GetMagicDamageAfterRegist(damage);
-        _currentHealth = Mathf.Clamp(_currentHealth - magicDamage, 0, maxHealth);
-        Debug.Log($"apply magic damage to {_owner.gameObject.name}! : {damage}");
-
-        knockbackPower.x *= attackDirection.x; //y값은 고정으로.
-
-        //데미지 띄우기
-        //DamageTextManager.Instance.PopupDamageText(_owner.transform.position, magicDamage, DamageCategory.Noraml);
-        AfterHitFeedbacks();
-    }
-
     private void AfterHitFeedbacks()
     {
         OnHitEvent?.Invoke();
