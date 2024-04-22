@@ -31,6 +31,7 @@ public class CardSelectElement : MonoBehaviour, IPointerClickHandler
 
     public void RemoveThisCardInDeck()
     {
+        Debug.Log(CardBase.CardInfo.CardName);
         _deckBuilder.RemoveInDeck(CardBase);
         IsSelect = false;
     }
