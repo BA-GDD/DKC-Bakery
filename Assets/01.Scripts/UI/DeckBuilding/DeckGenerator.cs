@@ -29,13 +29,11 @@ public class DeckGenerator : MonoBehaviour
 
     protected virtual void Start()
     {
-        
-
         GenerateDeckList();
         ResetDeckList(_saveDeckData.SaveDeckList);
     }
 
-    private void GenerateDeckList()
+    public void GenerateDeckList()
     {
         if (DataManager.Instance.IsHaveData(_saveDeckDataKey))
         {

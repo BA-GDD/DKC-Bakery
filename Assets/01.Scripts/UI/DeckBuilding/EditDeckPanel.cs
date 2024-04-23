@@ -16,6 +16,7 @@ public class EditDeckPanel : MonoBehaviour
 
     [SerializeField] private UnityEvent<DeckElement> _deckEditEvent;
     [SerializeField] private UnityEvent _deckRemoveEvent;
+    [SerializeField] private UnityEvent<List<DeckElement>> _reloadEvent;
 
     private Vector2 _randomRiseValue = new Vector2(1, 2);
     private Sequence _toRiseCardSeq = null;
@@ -49,6 +50,7 @@ public class EditDeckPanel : MonoBehaviour
         _saveDeckData.SaveDeckList.Remove(de);
         DataManager.Instance.SaveData(_saveDeckData, _saveDeckDataKey);
         _deckRemoveEvent?.Invoke();
+        _reloadEvent?.Invoke(_saveDeckData.SaveDeckList);
 
         gameObject.SetActive(false);
     }
