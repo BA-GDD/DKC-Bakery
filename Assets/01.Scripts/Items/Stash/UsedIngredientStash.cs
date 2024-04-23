@@ -10,14 +10,9 @@ public class UsedIngredientStash : Stash
     public UsedIngredientStash(Transform slotParentTrm) : base(slotParentTrm)
     {
         usedIngredientStash = new List<InventoryItem>();
-        for (int i = 0; i < 17; ++i)
-        {
-            usedIngredientStash.Add(null);
-        }
         usedIngredDictionary = new Dictionary<IngredientType, InventoryItem>();
 
         _slotParentTrm = slotParentTrm;
-        _itemSlots = _slotParentTrm.GetComponentsInChildren<ItemSlot>();
     }
 
     public override void AddItem(ItemDataSO item, int count = 1)
@@ -31,21 +26,6 @@ public class UsedIngredientStash : Stash
         //Debug.Log((int)((ItemDataIngredientSO)item).ingredientType - 1);
 
         usedIngredDictionary.Add(((ItemDataIngredientSO)item).ingredientType, newItem);
-    }
-
-    public override void UpdateSlotUI()
-    {
-        //base.UpdateSlotUI();
-        for (int i = 0; i < _itemSlots.Length; ++i)
-        {
-            _itemSlots[i].CleanUpSlot();
-        }
-
-        for (int i = 0; i < 5; ++i)
-        {
-            int result = (int)Mathf.Pow(2, i);
-            _itemSlots[i].UpdateSlot(usedIngredientStash[result]);
-        }
     }
 
     public override bool CanAddItem(ItemDataSO item)

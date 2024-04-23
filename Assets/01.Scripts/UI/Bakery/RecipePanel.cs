@@ -1,0 +1,99 @@
+using ExtensionFunction;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public enum RecipeSortType
+{
+    Fast = -1,
+    Favorites,
+    New
+}
+
+public class RecipePanel : MonoBehaviour
+{
+    [SerializeField] private RecipeSortType _startSorting;
+    
+    [SerializeField] private RecipeElement _recipeElementPrefab;
+    [SerializeField] private ItemSlot _usedIngresientSlot;
+
+    [SerializeField] private float _recipeElementInterval;
+    [SerializeField] private RectTransform _recipeElementTrm;
+
+    [SerializeField] private float _ingredientElementInterval;
+    [SerializeField] private RectTransform _ingredientElementTrm;
+
+    private Dictionary<RecipeSortType, Action> _recipeSortActionDic = new();
+
+    private BakeryData _bakeryData = new BakeryData();
+    private const string _bakeryKey = "BakeryDataKey";
+
+    private void Awake()
+    {
+        _recipeSortActionDic.Add(RecipeSortType.Fast, FastRecipeSortAction);
+        _recipeSortActionDic.Add(RecipeSortType.New, NewRecipeSortAction);
+        _recipeSortActionDic.Add(RecipeSortType.Favorites, FavoritesRecipeSortAction);
+    }
+
+    private void FastRecipeSortAction()
+    {
+        foreach (CakeData cd in _bakeryData.CakeDataList)
+        {
+            RecipeElement re = Instantiate(_recipeElementPrefab, _recipeElementTrm);
+            re.SetCakeInfo(BakingManager.Instance.GetCakeDataByName(cd.CakeName));
+
+            _recipeElementTrm.sizeDelta += new Vector2(_recipeElementInterval, 0);
+        }
+    }
+
+    private void NewRecipeSortAction()
+    {
+        List<InventoryItem> itemList = 
+        Inventory.Instance.ingredientStash.stash.
+        Where(x => x.itemDataSO.itemType == ItemType.Ingredient).ToList();
+
+        foreach(InventoryItem item in itemList)
+        {
+
+        }
+    }
+
+    private void FavoritesRecipeSortAction()
+    {
+        List<CakeData> _favorites = 
+        _bakeryData.CakeDataList.Where(c => c.IsFavorites).ToList();
+
+        foreach (CakeData cd in _favorites)
+        {
+            RecipeElement re = Instantiate(_recipeElementPrefab, _recipeElementTrm);
+            re.SetCakeInfo(BakingManager.Instance.GetCakeDataByName(cd.CakeName));
+
+            _recipeElementTrm.sizeDelta += new Vector2(_recipeElementInterval, 0);
+        }
+    }
+
+    private void Start()
+    {
+        if(DataManager.Instance.IsHaveData(_bakeryKey))
+        {
+            _bakeryData = DataManager.Instance.LoadData<BakeryData>(_bakeryKey);
+        }
+
+        _recipeSortActionDic[_startSorting]?.Invoke();
+    }
+
+    public void InvokeRecipeAction(RecipeSortType rSortType)
+    {
+        bool isActive = Convert.ToBoolean(Mathf.Abs((int)rSortType));
+
+        _recipeElementTrm.gameObject.SetActive(isActive);
+        _ingredientElementTrm.gameObject.SetActive(isActive);
+
+        _recipeElementTrm.Clear();
+        _ingredientElementTrm.Clear();
+
+        _recipeSortActionDic[rSortType]?.Invoke();
+    }
+}

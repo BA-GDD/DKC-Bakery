@@ -75,7 +75,7 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
         //}
 
         // 클릭 시 제빵 팝업이 열려있고, 현재 슬롯의 타입이 Ingredient(재료)라면
-        if (BakingManager.Instance.isOpen && (item.itemDataSO.itemType == ItemType.Ingredient))
+        if (item.itemDataSO.itemType == ItemType.Ingredient)
         {
             if(BakingManager.Instance.usedIngredientStash.usedIngredDictionary.TryGetValue(ingredientSO.ingredientType, out InventoryItem invenItem))
             {

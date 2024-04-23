@@ -10,20 +10,13 @@ public class Inventory : MonoSingleton<Inventory>
     public IngredientStash ingredientStash;
     public BreadStash breadStash;
 
-    public Transform IngredientParent => _ingredientParent;
-    [Header("ParentTrms")]
-    [SerializeField] private Transform _ingredientParent; 
-    [SerializeField] private Transform _breadParent;
-    public ExpansionList<ItemDataIngredientSO> GetIngredientInThisBattle { get; set; } = new ExpansionList<ItemDataIngredientSO>();
-
-    [Header("Events")]
-    public UnityEvent<int> onRemoveBreadTrigger; 
-    public UnityEvent<int> onRemoveIngredientTrigger; 
+    public ExpansionList<ItemDataIngredientSO> GetIngredientInThisBattle { get; set; } = 
+       new ExpansionList<ItemDataIngredientSO>();
 
     private void Awake()
     {
-        ingredientStash = new IngredientStash(_ingredientParent);
-        breadStash = new BreadStash(_breadParent);
+        ingredientStash = new IngredientStash(transform);
+        breadStash = new BreadStash(transform);
 
         SceneManager.activeSceneChanged += HandleClearGetIngList;
     }
@@ -33,16 +26,6 @@ public class Inventory : MonoSingleton<Inventory>
         GetIngredientInThisBattle.Clear();
     }
 
-    private void Start()
-    {
-        UpdateSlotUI();
-    }
-    
-    public void UpdateSlotUI() 
-    {
-        ingredientStash.UpdateSlotUI();
-        breadStash.UpdateSlotUI();
-    }
     public void AddItem(ItemDataSO item, int count = 0)
     { 
         if (item.itemType == ItemType.Bread)
@@ -61,24 +44,17 @@ public class Inventory : MonoSingleton<Inventory>
                 ingredientStash.AddItem(item, count);
             }
         }
-        UpdateSlotUI();
     }
     public void RemoveItem(ItemDataSO item, int count = 1)
     {
         if (item.itemType == ItemType.Bread)
         {
-            ItemDataBreadSO breadSO = ((ItemDataBreadSO)item);
             breadStash.RemoveItem(item, count);
         }
         else if (item.itemType == ItemType.Ingredient)
         {
             ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
-            if (ingredientSO != null)
-            {
-                onRemoveIngredientTrigger.Invoke(ingredientSO.itemIndex);
-            }
             ingredientStash.RemoveItem(item, count);
         }
-        UpdateSlotUI();
     }
 }

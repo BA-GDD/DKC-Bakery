@@ -30,7 +30,7 @@ public class BreadRecipeTable : LoadableData
             if (_isMatch)
             {
                 // 매치되는 경우가 있을 경우 해당 것 반환해줘야함
-                returnBread = BakingManager.Instance.breadDictionary[generateData[i].str[0]];
+                returnBread = BakingManager.Instance.BreadDictionary[generateData[i].str[0]];
                 return returnBread;
             }
 
@@ -39,7 +39,7 @@ public class BreadRecipeTable : LoadableData
 
         if(returnBread == null)
         {
-            returnBread = BakingManager.Instance.breadDictionary["DubiousBread"];
+            returnBread = BakingManager.Instance.BreadDictionary["DubiousBread"];
         }
 
         return returnBread;

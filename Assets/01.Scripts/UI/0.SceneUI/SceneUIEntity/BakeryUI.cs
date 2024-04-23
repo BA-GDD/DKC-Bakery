@@ -7,53 +7,19 @@ using TMPro;
 
 public class BakeryUI : SceneUI
 {
-    [SerializeField] private Transform _popupPanelTrm;
-    [SerializeField] private GameObject _bakingCakePanelObj;
+    [SerializeField] private Transform _ingredientTrm;
+    public Transform IngredientTrm => _ingredientTrm;
 
-    [Header("리절트 케이크")]
-    [SerializeField] private Image _cakeImg;
-    [SerializeField] private TextMeshProUGUI _cakeNameText;
-    [SerializeField] private TextMeshProUGUI _cakeInfoText;
-
-    private NormalPanelInfo _warningPanelInfo;
-
-    private void Start()
+    private RecipePanel _recipePanel;
+    public RecipePanel RecipePanel
     {
-        _warningPanelInfo = new NormalPanelInfo
-            (
-                "경고!",
-                "모든 종류의 재료를 넣어 주세요.",
-                true
-            );
-    }
-
-    public void ClearBakingCakePanel(bool value)
-    {
-        _bakingCakePanelObj.SetActive(value);
-        BakingManager.Instance.CookingBox.ClearImgAllSelectedIngredient();
-    }
-
-    public void BakeBread()
-    {
-        if(BakingManager.Instance.CanBake())
+        get
         {
-            ItemDataBreadSO bakingCakeSO = BakingManager.Instance.BakeBread();
-            ClearBakingCakePanel(true);
-
-            _cakeImg.sprite = bakingCakeSO.itemIcon;
-            _cakeNameText.text = bakingCakeSO.itemName;
-            _cakeInfoText.text = bakingCakeSO.itemInfo;
-        }
-        else
-        {
-            NormalPanel bakingWarningPanel = PanelManager.Instance.CreatePanel(PanelType.normal,
-                                                                               _popupPanelTrm,
-                                                                               Vector3.zero) 
-                as NormalPanel;
-
-            bakingWarningPanel.transform.localScale = Vector3.one;
-            bakingWarningPanel.SetUpPanel(_warningPanelInfo);
-            bakingWarningPanel.gameObject.SetActive(true);
+            if(_recipePanel == null)
+            {
+                _recipePanel = FindObjectOfType<RecipePanel>();
+            }
+            return _recipePanel;
         }
     }
 }

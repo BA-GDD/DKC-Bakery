@@ -17,81 +17,24 @@ public enum IngredientType
 
 public class BakingManager : MonoSingleton<BakingManager>
 {
-    private CookingBox _cookingBox;
-    public CookingBox CookingBox
-    {
-        get
-        {
-            if (_cookingBox != null)
-                return _cookingBox;
-            _cookingBox = FindObjectOfType<CookingBox>();
-            return _cookingBox;
-        }
-    }
-
-    private FilterTabGroup _fiterTabGroup;
-    public FilterTabGroup FilterTabGroup
-    {
-        get
-        {
-            if (_fiterTabGroup != null)
-                return _fiterTabGroup;
-            _fiterTabGroup = FindObjectOfType<FilterTabGroup>();
-            return _fiterTabGroup;
-        }
-    }
-
     public UsedIngredientStash usedIngredientStash;
-    public bool isOpen = false;
-
-    [SerializeField] private GameObject _bakingUI;
-
-    [Header("ParentTrm")]
-    [SerializeField] private Transform _usedIngredientParent;
-
-    [Header("Events")]
-    public UnityEvent<int> onRemoveUsedIngredientTrigger;
 
     [SerializeField]
     private BreadRecipeTable _recipeTable;
 
-    public Dictionary<string, ItemDataBreadSO> breadDictionary;
+    public Dictionary<string, ItemDataBreadSO> BreadDictionary { get; private set; }
     [SerializeField]
     private List<ItemDataBreadSO> _breadList;
 
     private void Awake()
     {
-        if (_usedIngredientParent == null)
-        {
-            _usedIngredientParent = Inventory.Instance.IngredientParent;
-        }
+        usedIngredientStash = new UsedIngredientStash(transform);
+        BreadDictionary = new Dictionary<string, ItemDataBreadSO>();
 
-        usedIngredientStash = new UsedIngredientStash(_usedIngredientParent);
-        breadDictionary = new Dictionary<string, ItemDataBreadSO>();
         for (int i = 0; i < _breadList.Count; ++i)
         {
-            breadDictionary.Add(_breadList[i].itemName, _breadList[i]);
+            BreadDictionary.Add(_breadList[i].itemName, _breadList[i]);
         }
-    }
-
-    private void Start()
-    {
-        SetBakingUI(isOpen);
-        UpdateSlotUI();
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.hKey.wasPressedThisFrame)
-        {
-            isOpen = !isOpen;
-            SetBakingUI(isOpen);
-        }
-    }
-
-    public void UpdateSlotUI()
-    {
-        usedIngredientStash.UpdateSlotUI();
     }
 
     public void AddItem(ItemDataSO item)
@@ -100,7 +43,6 @@ public class BakingManager : MonoSingleton<BakingManager>
         {
             usedIngredientStash.AddItem(item);
         }
-        UpdateSlotUI();
     }
 
     public void RemoveItem(ItemDataSO item)
@@ -108,17 +50,10 @@ public class BakingManager : MonoSingleton<BakingManager>
         ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
         if (ingredientSO != null)
         {
-            onRemoveUsedIngredientTrigger?.Invoke(ingredientSO.itemIndex);
         }
         usedIngredientStash.RemoveItem(item);
-        UpdateSlotUI();
     }
-
-    public void SetBakingUI(bool isOpen)
-    {
-        //_bakingUI.SetActive(isOpen);
-    }
-
+    
     public bool CanBake()
     {
         return usedIngredientStash.usedIngredDictionary.Count >= 3;
@@ -132,21 +67,28 @@ public class BakingManager : MonoSingleton<BakingManager>
             return null;
         }
 
-        string[] names = new string[5];
+        string[] names = new string[3];
         for (int i = 0; i < 3; ++i)
         {
-            int result = (int)Mathf.Pow(2, i);
-            names[i] = usedIngredientStash.usedIngredientStash[result].itemDataSO.itemName;
+            names[i] = usedIngredientStash.usedIngredientStash[i].itemDataSO.itemName;
         }
         ItemDataBreadSO returnBread = _recipeTable.Bake(names);
         if (returnBread != null)
         {
             Inventory.Instance.AddItem(returnBread);
             usedIngredientStash.RemoveAllItem();
-            usedIngredientStash.UpdateSlotUI();
         }
 
-        FilterTabGroup.FilteringItem(FilterTabGroup.CurrentFilterTab);
         return returnBread;
+    }
+    public ItemDataBreadSO GetCakeDataByName(string cakeName)
+    {
+        if(!BreadDictionary.ContainsKey(cakeName))
+        {
+            Debug.LogError($"{cakeName} is Not Exist!");
+            return null;
+        }
+
+        return BreadDictionary[cakeName];
     }
 }

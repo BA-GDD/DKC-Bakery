@@ -1,29 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.EventSystems;
 
-public class BakeryFilterTab : FilterTab
+public class BakeryFilterTab : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private int _normalX = -744;
-    [SerializeField] private int _addValue = -16;
+    [SerializeField] private RecipeSortType _sortType;
+    private RecipePanel _recipePanel;
 
-    public override void ActiveTab(bool isActive)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (isActive)
-        {
-            transform.DOLocalMoveX(_normalX + _addValue, _easingTime);
-            BtnImg.DOColor(Color.white, _easingTime);
-            _tapLabel.DOColor(Color.white, _easingTime);
-        }
-        else
-        {
-            Color unActiveColor = Color.white * _labelBlurValue;
-            unActiveColor.a = 1;
+        GetRecipePanel().InvokeRecipeAction(_sortType);
+    }
 
-            transform.DOLocalMoveX(_normalX, _easingTime);
-            BtnImg.DOColor(unActiveColor, _easingTime);
-            _tapLabel.DOColor(unActiveColor, _easingTime);
+    protected RecipePanel GetRecipePanel()
+    {
+        if(_recipePanel == null )
+        {
+            _recipePanel = UIManager.Instance.GetSceneUI<BakeryUI>().RecipePanel;
         }
+
+        return _recipePanel;
     }
 }
