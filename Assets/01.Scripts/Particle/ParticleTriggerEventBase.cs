@@ -14,6 +14,6 @@ namespace Particle.Trigger
         {
             this.info = info;
         }
-        public abstract void Action(ref ParticleSystem.Particle p);
+        public abstract void Action(ref ParticleSystem.Particle p, Collider2D col);
     }
 }

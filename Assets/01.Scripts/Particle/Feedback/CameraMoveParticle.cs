@@ -6,13 +6,16 @@ using UnityEngine;
 public class CameraMoveParticle : ParticleTriggerEventBase
 {
     public float orthoSize;
+    public float transitionTime;
 
     private PoolVCam cam;
-    public override void Action(ref ParticleSystem.Particle p)
+    public override void Action(ref ParticleSystem.Particle p, Collider2D col)
     {
         CameraController.Instance.SetTransitionTime(0.1f);
         if (cam == null || PoolManager.Instance.Contains(cam))
         {
+            if(transitionTime > 0)
+                CameraController.Instance.SetTransitionTime(transitionTime);
             cam = CameraController.Instance.GetVCam();
             Vector3 initPos = transform.TransformPoint(p.position);
             initPos.z = -10;

@@ -14,7 +14,7 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(this, Player.transform.position);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -23,6 +23,7 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
     {
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
+        CameraController.Instance.SetDefaultCam();
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }

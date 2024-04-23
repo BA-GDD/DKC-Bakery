@@ -4935,6 +4935,7 @@ GameObject:
   - component: {fileID: 1640436548237025014}
   - component: {fileID: 3436924288582707925}
   - component: {fileID: 2752532097185728918}
+  - component: {fileID: 6788601777709963253}
   m_Layer: 11
   m_Name: P_Pumpkin_level3
   m_TagString: Untagged
@@ -9868,6 +9869,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   orthoSize: 4
+--- !u!114 &6788601777709963253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8471468320405269040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 0}
+  triggerInfos:
+  - {fileID: 3436924288582707925}
+  duration: 0
 --- !u!1001 &4459104638394035848
 PrefabInstance:
   m_ObjectHideFlags: 0

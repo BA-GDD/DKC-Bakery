@@ -18,7 +18,7 @@ namespace Particle
 
         public float duration;
 
-        private List<Health> _targets = new();
+        private List<Entity> _targets = new();
         public int[] damages { get; set; }
         public Entity owner { get; set; }
 
@@ -47,7 +47,7 @@ namespace Particle
             {
                 col.AddCollision(target.ColliderCompo);
             }
-            _targets.Add(target.HealthCompo);
+            _targets.Add(target);
         }
 
         public void StartParticle(Action OnStartParticleEvent, Action OnEndParticleEvent)

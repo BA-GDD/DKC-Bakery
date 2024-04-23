@@ -18,8 +18,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         IsActivingAbillity = true;
 
         yPos = Player.transform.position.y;
-        if (Player.target == null) Player.UseAbility(this);
-        else Player.transform.DOMoveY(Player.target.transform.position.y, 0.1f).OnComplete(() => Player.UseAbility(this));
+        Player.transform.DOMoveY(Player.target.transform.position.y, 0.1f).OnComplete(() => Player.UseAbility(this));
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
 

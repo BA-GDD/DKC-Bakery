@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DeleteParticle : ParticleTriggerEventBase
 {
-    public override void Action(ref ParticleSystem.Particle p)
+    public override void Action(ref ParticleSystem.Particle p, Collider2D col)
     {
         p.remainingLifetime = -.1f;
     }

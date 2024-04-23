@@ -5,7 +5,7 @@ using Particle.Trigger;
 
 public class CameraShakeParticle : ParticleTriggerEventBase
 {
-    public override void Action(ref ParticleSystem.Particle p)
+    public override void Action(ref ParticleSystem.Particle p, Collider2D col)
     {
         float randNumX = Random.Range(-.5f, .5f);
         float randNumY = Random.Range(-.5f, .5f);

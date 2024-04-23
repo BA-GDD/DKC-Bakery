@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 53899141429957707}
   - component: {fileID: 6345739143320679246}
   - component: {fileID: 8460065621862739404}
+  - component: {fileID: 6114337948283115393}
   m_Layer: 11
   m_Name: P_Pumpkin_level1
   m_TagString: Untagged
@@ -3870,7 +3871,8 @@ ParticleSystem:
     exit: 0
     colliderQueryMode: 0
     radiusScale: 1
-    primitives: []
+    primitives:
+    - {fileID: 0}
   SubModule:
     serializedVersion: 2
     enabled: 0
@@ -4946,6 +4948,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   orthoSize: 4
+--- !u!114 &6114337948283115393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658211269050546155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 0}
+  triggerInfos:
+  - {fileID: 6345739143320679246}
+  duration: 0
 --- !u!1001 &3803543385517675154
 PrefabInstance:
   m_ObjectHideFlags: 0

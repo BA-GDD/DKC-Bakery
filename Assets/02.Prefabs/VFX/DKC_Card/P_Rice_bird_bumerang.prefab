@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3610422583597391662}
   - component: {fileID: 4956012267514451922}
   - component: {fileID: 6283180006602654858}
+  - component: {fileID: 1606712765944755379}
+  - component: {fileID: 2564493413235025210}
   m_Layer: 11
   m_Name: P_Rice_bird_bumerang
   m_TagString: Untagged
@@ -3868,10 +3870,10 @@ ParticleSystem:
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 2
-    inside: 1
-    outside: 0
+    inside: 0
+    outside: 2
     enter: 0
     exit: 0
     colliderQueryMode: 0
@@ -4906,6 +4908,33 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1606712765944755379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889760593628113060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc0b2716c8cfcc4f82daa35f9fa3745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2564493413235025210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889760593628113060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a05f226db3913f4198f9ded4c5dca23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  orthoSize: 4
+  transitionTime: 1
 --- !u!1001 &4124111576662217342
 PrefabInstance:
   m_ObjectHideFlags: 0
