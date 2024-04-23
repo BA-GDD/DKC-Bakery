@@ -13,7 +13,7 @@ public class ItemDataSO : ScriptableObject
 {
     public ItemType itemType;
     public string itemName;
-    public string itemInfo;
+    [TextArea] public string itemInfo;
     public Sprite itemIcon;
 
     [Range(0, 100)]
