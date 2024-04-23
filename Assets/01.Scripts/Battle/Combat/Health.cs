@@ -11,6 +11,12 @@ public enum AilmentEnum : int
     Chilled = 1,
     Shocked = 2
 }
+
+public enum StackEnum : int
+{
+    Forging = 0, // ¥‹¡∂
+}
+
 public class Health : MonoBehaviour, IDamageable
 {
     public int maxHealth;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,17 @@ public class BuffStat
     public List<SpecialBuff> specialBuffList = new();
     private Entity _owner;
     private Dictionary<BuffSO, int> _buffDic = new();
+    private Dictionary<StackEnum, int> _stackDic = new();
 
     public BuffStat(Entity entity)
     {
         _owner = entity;
         _buffDic = new();
         TurnCounter.RoundStartEvent += UpdateBuff;
+        foreach (StackEnum t in Enum.GetValues(typeof(StackEnum)))
+        {
+            _stackDic.Add(t,0);
+        }
         //_owner.BeforeChainingEvent.AddListener(UpdateBuff);
     }
     public void AddBuff(BuffSO so, int durationTurn, int combineLevel = 0)
@@ -35,6 +41,16 @@ public class BuffStat
             _buffDic.Add(so, durationTurn);
         }
     }
+    public void AddStack(StackEnum type, int cnt)
+    {
+        _stackDic[type] += cnt;
+    }
+    public int GetState(StackEnum type) => _stackDic[type];
+    public void RemoveStack(StackEnum type, int cnt)
+    {
+        _stackDic[type] -= cnt;
+    }
+    public void ClearStack(StackEnum type) => _stackDic[type] = 0;
     public void ActivateSpecialBuff(SpecialBuff buff)
     {
         specialBuffList.Add(buff);

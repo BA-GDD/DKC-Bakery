@@ -8,6 +8,13 @@ public struct NormalBuff
     public StatType type;
     public List<int> values;
 }
+[System.Serializable]
+public struct StackBuff
+{
+    public StackEnum type;
+    public List<int> values;
+}
+
 
 [CreateAssetMenu(menuName = "SO/Buff")]
 public class BuffSO : ScriptableObject
@@ -17,6 +24,7 @@ public class BuffSO : ScriptableObject
 
     public List<NormalBuff> statBuffs = new();
     public List<SpecialBuff> specialBuffs = new();
+    public List<StackBuff> stackBuffs = new();
 
     private int _combineLevel = 0;
 
@@ -38,6 +46,10 @@ public class BuffSO : ScriptableObject
         {
 
             _owner.BuffStatCompo.ActivateSpecialBuff(b);
+        }
+        foreach (var b in stackBuffs)
+        {
+            //알잘딱 넣어주기
         }
     }
 

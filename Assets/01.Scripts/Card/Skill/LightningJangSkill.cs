@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 {
-    private Color minimumColor = new Color(255, 255, 255, .1f);
-    private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
-
-
     public override void Abillity()
     {
         IsActivingAbillity = true;

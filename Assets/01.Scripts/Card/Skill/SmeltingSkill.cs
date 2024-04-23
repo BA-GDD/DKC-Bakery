@@ -1,0 +1,38 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SmeltingSkill : CardBase, ISkillEffectAnim
+{
+    public override void Abillity()
+    {
+        IsActivingAbillity = true;
+
+        Player.UseAbility(this);
+        Player.OnAnimationCall += HandleAnimationCall;
+        Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+    }
+
+    public void HandleAnimationCall()
+    {
+        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
+        StartCoroutine(AddStackCor());
+        Player.OnAnimationCall -= HandleAnimationCall;
+    }
+
+    public void HandleEffectEnd()
+    {
+        Player.EndAbility();
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
+        IsActivingAbillity = false;
+        Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
+    }
+
+    private IEnumerator AddStackCor()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        Player.BuffStatCompo.AddStack(StackEnum.Forging, buffSO.stackBuffs[0].values[(int)CombineLevel]);
+    }
+}

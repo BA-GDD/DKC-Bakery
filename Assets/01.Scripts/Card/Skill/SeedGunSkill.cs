@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class SeedGunSkill : CardBase, ISkillEffectAnim
 {
-    private Color minimumColor = new Color(255, 255, 255, .1f);
-    private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
-
     private float yPos;
 
     public override void Abillity()
