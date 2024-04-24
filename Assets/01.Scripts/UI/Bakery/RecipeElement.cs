@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
 [Serializable]
 public struct NeedIngredent
@@ -13,10 +14,12 @@ public struct NeedIngredent
     public TextMeshProUGUI countText;
 }
 
-public class RecipeElement : MonoBehaviour
+public class RecipeElement : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Vector2 _crookedAngleRange;
     public CakeData ThisCakeData { get; set; }
+    public ItemDataBreadSO CakeItemData { get; set; }
+    public Action<RecipeElement> ClickAction { get; set; }
 
     [Header("ÂüÁ¶°ª")]
     [SerializeField] private TextMeshProUGUI _cakeNameText;
@@ -26,6 +29,8 @@ public class RecipeElement : MonoBehaviour
 
     public void SetCakeInfo(ItemDataBreadSO cakeInfo)
     {
+        CakeItemData = cakeInfo;
+
         _cakeNameText.text = cakeInfo.itemName;
         _cakeVisual.sprite = cakeInfo.itemIcon;
 
@@ -44,5 +49,10 @@ public class RecipeElement : MonoBehaviour
             _needIngredientArr[i].visual.sprite = ingDatas[i].itemIcon;
             _needIngredientArr[i].countText.text = "";
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        ClickAction?.Invoke(this);
     }
 }

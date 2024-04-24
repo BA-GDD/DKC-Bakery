@@ -35,6 +35,8 @@ public class Inventory : MonoSingleton<Inventory>
             item.haveCount += count;
             return;
         }
+
+        item.haveCount = 1;
         _inventoryList.Add(item);
     }
 

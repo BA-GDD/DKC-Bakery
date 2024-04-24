@@ -31,9 +31,7 @@ public class BakeryContentPanel : MonoBehaviour
     private Dictionary<RecipeSortType, Action> _recipeSortActionDic = new();
 
     [SerializeField] private UnityEvent<RecipeSortType> _recipeSortEvent;
-
-    private BakeryData _bakeryData = new BakeryData();
-    private const string _bakeryKey = "BakeryDataKey";
+    private BakeryData _bakeryData => UIManager.Instance.GetSceneUI<BakeryUI>().BakeryData;
 
     private void Awake()
     {
@@ -55,6 +53,7 @@ public class BakeryContentPanel : MonoBehaviour
         {
             RecipeElement re = Instantiate(_recipeElementPrefab, _recipeElementTrm);
             re.SetCakeInfo(BakingManager.Instance.GetCakeDataByName(cd.CakeName));
+            re.ClickAction += UIManager.Instance.GetSceneUI<BakeryUI>().SelectRecipe;
 
             _recipeElementTrm.sizeDelta += new Vector2(0, _recipeElementInterval);
         }
@@ -95,21 +94,12 @@ public class BakeryContentPanel : MonoBehaviour
 
     private void Start()
     {
-        if(DataManager.Instance.IsHaveData(_bakeryKey))
-        {
-            _bakeryData = DataManager.Instance.LoadData<BakeryData>(_bakeryKey);
-        }
-
-        _recipeSortActionDic[_startSorting]?.Invoke();
+        InvokeRecipeAction(_startSorting);
     }
 
     public void InvokeRecipeAction(RecipeSortType rSortType)
     {
         FilterTabSelectionGenerate(rSortType);
-        bool isActive = Convert.ToBoolean(Mathf.Abs((int)rSortType));
-
-        _recipeElementTrm.gameObject.SetActive(isActive);
-        _ingredientElementTrm.gameObject.SetActive(isActive);
 
         _recipeElementTrm.Clear();
         _ingredientElementTrm.Clear();

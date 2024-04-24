@@ -7,6 +7,12 @@ public struct CakeData
 {
     public string CakeName;
     public bool IsFavorites;
+
+    public CakeData(string _cakeName,  bool _isFavorites)
+    {
+        CakeName = _cakeName;
+        IsFavorites = _isFavorites;
+    }
 }
 
 public class BakeryData : CanSaveData

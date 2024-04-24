@@ -13,6 +13,7 @@ public class IngredientElement : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private Image _visual;
     [SerializeField] private GameObject _selectMask;
+    [SerializeField] private TextMeshProUGUI _countText;
 
     private bool _isSelected;
     public bool IsSelected
@@ -32,6 +33,7 @@ public class IngredientElement : MonoBehaviour, IPointerClickHandler
     {
         IngredientData = ingInfo;
         _visual.sprite = ingInfo.itemIcon;
+        _countText.text = ingInfo.haveCount.ToString();
     }
 
     public void OnPointerClick(PointerEventData eventData)

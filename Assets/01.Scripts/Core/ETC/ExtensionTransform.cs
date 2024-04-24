@@ -9,7 +9,7 @@ namespace ExtensionFunction
         {
             foreach(Transform child in trm)
             {
-                GameObject.Destroy(child);
+                GameObject.Destroy(child.gameObject);
             }
         }
     }
