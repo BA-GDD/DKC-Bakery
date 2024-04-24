@@ -25,10 +25,10 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_CUSTOMDATA1_ON
   - _USE_CUSTOMDATA_ON
   - _USE_LERP_ON
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _USE_CUSTOMDATA1_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -91,6 +91,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _diss_normal_tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _normal_tex:
         m_Texture: {fileID: 2800000, guid: 0c9e585b001cd8048afcd07b5676b774, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -146,21 +150,28 @@ Material:
     - _Surface: 0
     - _Use_Customdata: 1
     - _Use_Customdata1: 1
+    - _Use_ToonDissolve: 0
     - _Use_lerp: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _diss_normal_power: 0
+    - _diss_normal_upanner: 0
+    - _diss_normal_vpanner: 0
+    - _edge_width: 0.06
     - _main_upanner: 0
     - _main_vpanner: 0
     - _normal_radial: 4.74
     - _normal_str: 0
     - _normal_upanner: -1
     - _normal_vpanner: 0
+    - _use_other_diss: 0
     - _use_polar: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _main_color_a: {r: 1.0324569, g: 1.1353015, b: 0.60513705, a: 0}
-    - _main_color_b: {r: 0.49474415, g: 0.2737288, b: 1.1353015, a: 0}
+    - _edge_color: {r: 0, g: 0, b: 0, a: 0}
+    - _main_color_a: {r: 6.708924, g: 7.3772097, b: 3.9321916, a: 0}
+    - _main_color_b: {r: 12.859431, g: 7.1147814, b: 29.50885, a: 0}
   m_BuildTextureStacks: []
