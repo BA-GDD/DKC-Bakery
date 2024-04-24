@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmeltingSkill : CardBase, ISkillEffectAnim
+public class ReforgingSkill : CardBase, ISkillEffectAnim
 {
     public override void Abillity()
     {
