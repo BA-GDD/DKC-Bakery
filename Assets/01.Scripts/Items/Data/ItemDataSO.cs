@@ -20,6 +20,7 @@ public class ItemDataSO : ScriptableObject
     public float dropChance = 50f;
 
     protected StringBuilder _stringBuilder = new StringBuilder();
+    public int haveCount;
 
     public virtual string GetDescription()
     {

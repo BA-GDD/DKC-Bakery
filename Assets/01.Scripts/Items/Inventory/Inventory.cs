@@ -1,60 +1,56 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class Inventory : MonoSingleton<Inventory>
 {
-    public IngredientStash ingredientStash;
-    public BreadStash breadStash;
+    private List<ItemDataSO> _inventoryList = new List<ItemDataSO>();
 
     public ExpansionList<ItemDataIngredientSO> GetIngredientInThisBattle { get; set; } = 
        new ExpansionList<ItemDataIngredientSO>();
-
-    private void Awake()
-    {
-        ingredientStash = new IngredientStash(transform);
-        breadStash = new BreadStash(transform);
-
-        SceneManager.activeSceneChanged += HandleClearGetIngList;
-    }
 
     private void HandleClearGetIngList(Scene arg0, Scene arg1)
     {
         GetIngredientInThisBattle.Clear();
     }
 
-    public void AddItem(ItemDataSO item, int count = 0)
-    { 
-        if (item.itemType == ItemType.Bread)
-        {
-            if (breadStash.CanAddItem(item))
-            {
-                breadStash.AddItem(item);
-            }
-        }
-        else if (item.itemType == ItemType.Ingredient)
-        {
-            //Debug.Log("itemType is Ingredient");
-            if (ingredientStash.CanAddItem(item))
-            {
-                //Debug.Log("Can Add Item");
-                ingredientStash.AddItem(item, count);
-            }
-        }
+    public List<ItemDataSO> GetSpecificTypeItemList(ItemType itemType)
+    {
+        return _inventoryList.Where(x => x.itemType == itemType).ToList();
     }
+
+    public bool IsHaveItem(ItemDataSO itemData)
+    {
+        return _inventoryList.Contains(itemData);
+    }
+
+    public void AddItem(ItemDataSO item, int count = 1)
+    { 
+        if(_inventoryList.Contains(item))
+        {
+            item.haveCount += count;
+            return;
+        }
+        _inventoryList.Add(item);
+    }
+
     public void RemoveItem(ItemDataSO item, int count = 1)
     {
-        if (item.itemType == ItemType.Bread)
+        if (_inventoryList.Contains(item))
         {
-            breadStash.RemoveItem(item, count);
+            Mathf.Clamp(item.haveCount -= count, 0, int.MaxValue);
+            if(item.haveCount == 0)
+            {
+                _inventoryList.Remove(item);
+            }
         }
-        else if (item.itemType == ItemType.Ingredient)
+        else
         {
-            ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
-            ingredientStash.RemoveItem(item, count);
+            Debug.LogError("아이템 없음!");
         }
     }
 }

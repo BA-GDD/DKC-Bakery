@@ -82,7 +82,7 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
                 Debug.Log("이미 들어있음");
                 return;
             }
-            if (ingredientSO != null && ingredientSO.ingredientType != IngredientType.None)
+            if (ingredientSO != null)
             {
                 ((ItemDataIngredientSO)item.itemDataSO).isUsed = true;
                 BakingManager.Instance.AddItem(item.itemDataSO);

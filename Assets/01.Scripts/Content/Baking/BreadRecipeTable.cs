@@ -11,6 +11,26 @@ public class BreadRecipeTable : LoadableData
 {
     private bool _isMatch = false;
 
+    public string[] GetIngredientNamesByCakeName(string cakeName)
+    {
+        foreach (var data in generateData)
+        {
+            if (data.str[0] == cakeName)
+            {
+                string[] ingredientNames = new string[3]
+                {
+                    data.str[1],
+                    data.str[2],
+                    data.str[3]
+                };
+
+                return ingredientNames;
+            }
+        }
+
+        return null;
+    }
+
     public ItemDataBreadSO Bake(string[] ingredientNames)
     {
         _isMatch = true;

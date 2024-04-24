@@ -2,24 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BakeryFilterTab : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private RecipeSortType _sortType;
-    private RecipePanel _recipePanel;
+    public RecipeSortType SortType => _sortType;
+    public BakeryContentPanel RecipePanel { get; set; }
+
+    private Image _filterTabVisual;
+    [SerializeField] private Color _selectedColor;
+    [SerializeField] private Sprite _selectedSprite;
+    private Sprite _normalSprite;
+
+    private void Awake()
+    {
+        _filterTabVisual = GetComponent<Image>();
+        _normalSprite = _filterTabVisual.sprite;
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GetRecipePanel().InvokeRecipeAction(_sortType);
+        RecipePanel.InvokeRecipeAction(_sortType);
+        _filterTabVisual.color = _selectedColor;
+        _filterTabVisual.sprite = _selectedSprite;
     }
 
-    protected RecipePanel GetRecipePanel()
+    public void UnSelected()
     {
-        if(_recipePanel == null )
-        {
-            _recipePanel = UIManager.Instance.GetSceneUI<BakeryUI>().RecipePanel;
-        }
-
-        return _recipePanel;
+        _filterTabVisual.color = Color.white;
+        _filterTabVisual.sprite = _normalSprite;
     }
 }

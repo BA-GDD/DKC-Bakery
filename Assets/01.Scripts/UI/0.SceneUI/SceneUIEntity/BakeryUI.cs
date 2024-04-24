@@ -4,22 +4,42 @@ using UnityEngine;
 using UIDefine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class BakeryUI : SceneUI
 {
-    [SerializeField] private Transform _ingredientTrm;
-    public Transform IngredientTrm => _ingredientTrm;
-
-    private RecipePanel _recipePanel;
-    public RecipePanel RecipePanel
+    private BakeryContentPanel _recipePanel;
+    public BakeryContentPanel RecipePanel
     {
         get
         {
             if(_recipePanel == null)
             {
-                _recipePanel = FindObjectOfType<RecipePanel>();
+                _recipePanel = FindObjectOfType<BakeryContentPanel>();
             }
             return _recipePanel;
         }
+    }
+
+    [SerializeField] private GameObject _previewPanelObj;
+    private PreviewPanel[] _previewPanels;
+
+    public override void SceneUIStart()
+    {
+        _previewPanels = _previewPanelObj.GetComponentsInChildren<PreviewPanel>();
+    }
+
+    public void FilteringPreviewContent(RecipeSortType type)
+    {
+        foreach (var panel in _previewPanels)
+        {
+            panel.SetUpPanel(type);
+        }
+    }
+
+    public void SelectIngredient(IngredientElement element)
+    {
+        var bp = _previewPanels.FirstOrDefault(x => x.MySortType == RecipeSortType.Baking) as LookBakingPreviewPanel;
+        bp.SetIngredientElement(element.IngredientData);
     }
 }
