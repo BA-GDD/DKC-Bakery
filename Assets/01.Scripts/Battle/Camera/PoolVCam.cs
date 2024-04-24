@@ -15,6 +15,7 @@ public class PoolVCam : PoolableMono
     }
     public override void Init()
     {
+        vCam.m_Follow = null;
     }
     public void SetCamera(Vector3 pos ,float size = 0)
     {

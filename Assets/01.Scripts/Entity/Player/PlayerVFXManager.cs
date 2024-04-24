@@ -83,7 +83,7 @@ public class PlayerVFXManager : MonoBehaviour
     {
         int level = (int)card.CombineLevel;
         ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
-        obj.transform.position = p.transform.position;
+        obj.transform.position = pos;
         obj[level].owner = p;
         obj[level].damages = card.GetDamage(card.CombineLevel);
         foreach (var t in p.GetSkillTargetEnemyList[card])
@@ -91,6 +91,20 @@ public class PlayerVFXManager : MonoBehaviour
             obj[level].SetTriggerTarget(t);
         }
         obj.Active(level,null, OnEndEffectEvent);
+    }
+    public void PlayParticle(CardBase card, Vector3 pos, out ParticlePoolObject particle)
+    {
+        int level = (int)card.CombineLevel;
+        ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
+        obj.transform.position = pos;
+        obj[level].owner = p;
+        obj[level].damages = card.GetDamage(card.CombineLevel);
+        foreach (var t in p.GetSkillTargetEnemyList[card])
+        {
+            obj[level].SetTriggerTarget(t);
+        }
+        obj.Active(level, null, OnEndEffectEvent);
+        particle = obj;
     }
 
     public void PlayParticle(CardInfo card, int combineLevel)

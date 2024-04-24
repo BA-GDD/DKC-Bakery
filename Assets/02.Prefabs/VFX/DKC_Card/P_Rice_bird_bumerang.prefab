@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 6283180006602654858}
   - component: {fileID: 1606712765944755379}
   - component: {fileID: 2564493413235025210}
+  - component: {fileID: 3559094866911221151}
+  - component: {fileID: 5444740825630651200}
+  - component: {fileID: 7435960872234869328}
   m_Layer: 11
   m_Name: P_Rice_bird_bumerang
   m_TagString: Untagged
@@ -1556,7 +1559,7 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 20
+      scalar: 40
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1571,8 +1574,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.26769692
         - serializedVersion: 3
-          time: 0.51517373
-          value: 0.10084154
+          time: 0.5
+          value: 0
           inSlope: 1.0418416
           outSlope: 1.0418416
           tangentMode: 0
@@ -4934,7 +4937,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   orthoSize: 4
-  transitionTime: 1
+  transitionTime: 0.3
+--- !u!114 &3559094866911221151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889760593628113060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 0}
+  triggerInfos:
+  - {fileID: 1606712765944755379}
+  duration: 3
+--- !u!114 &5444740825630651200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889760593628113060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e0cf5918d8b4b42877dfffff0fa97c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+--- !u!114 &7435960872234869328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889760593628113060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a998636d2b2474da3251d1b1853507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  velType: 0
 --- !u!1001 &4124111576662217342
 PrefabInstance:
   m_ObjectHideFlags: 0
