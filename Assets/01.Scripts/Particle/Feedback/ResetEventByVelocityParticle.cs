@@ -11,7 +11,7 @@ public class ResetEventByVelocityParticle : ParticleTriggerEventBase
         y
     }
     [SerializeField] private velocityType velType;
-    private List<IUseInit> inits;
+    private List<IUseInit> inits = new();
     private float velocity;
 
     private void Awake()
@@ -23,16 +23,16 @@ public class ResetEventByVelocityParticle : ParticleTriggerEventBase
         switch (velType)
         {
             case velocityType.x:
-                if (p.velocity.x != 0 && Mathf.Sign(velocity) != Mathf.Sign(p.velocity.x))
+                if (p.totalVelocity.x != 0 && Mathf.Sign(velocity) != Mathf.Sign(p.totalVelocity.x))
                 {
-                    velocity = p.velocity.x;
+                    velocity = p.totalVelocity.x;
                     InitEvents();
                 }
                 break;
             case velocityType.y:
-                if (p.velocity.y != 0&&Mathf.Sign(velocity) != Mathf.Sign(p.velocity.y))
+                if (p.totalVelocity.y != 0 && Mathf.Sign(velocity) != Mathf.Sign(p.totalVelocity.y))
                 {
-                    velocity = p.velocity.y;
+                    velocity = p.totalVelocity.y;
                     InitEvents();
                 }
                 break;
@@ -41,6 +41,7 @@ public class ResetEventByVelocityParticle : ParticleTriggerEventBase
     private void InitEvents()
     {
         if (velocity == 0) return;
+        print(123);
         foreach (var item in inits)
         {
             item.Init();

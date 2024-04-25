@@ -166,7 +166,7 @@ public abstract class Entity : PoolableMono
         }
     }
 
-    public virtual void MoveToTargetForward()
+    public virtual void MoveToTargetForward(Vector3 pos)
     {
         lastMovePos = transform.position;
 

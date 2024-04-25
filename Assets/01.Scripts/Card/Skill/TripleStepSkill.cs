@@ -8,28 +8,28 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
     private Color minimumAlphaColor = new Color(255, 255, 255, 0.1f);
     private Color maximumAlphaColor = new Color(255, 255, 255, 1);
 
+    private List<Entity> target = new();
+
     public override void Abillity()
     {
         IsActivingAbillity = true;
-
+        target = Player.GetSkillTargetEnemyList[this];
         Player.UseAbility(this, true);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
+        CameraController.Instance.GetVCam(0.7f).SetCamera(Player.transform.position, 4).SetFollow(Player.transform);
 
-        if(Player.target != null)
+        foreach (var m in battleController.onFieldMonsterList)
         {
-            foreach(var m in battleController.onFieldMonsterList)
-            {
-                if (m == Player.target) continue;
-                m.SpriteRendererCompo.DOColor(minimumAlphaColor, 0.5f);
-            }
+            if (target.Contains(m)) continue;
+            m.SpriteRendererCompo.DOColor(minimumAlphaColor, 0.5f);
         }
     }
 
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(1.8f, 0f, 0f), (int)CombineLevel);
-        if (Player.target != null)
+        if (target.Count > 0)
             StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -42,22 +42,21 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
 
-        foreach(var m in battleController.onFieldMonsterList)
+        foreach (var m in battleController.onFieldMonsterList)
         {
-            if (m == null) continue;
-
+            if (target.Contains(m)) continue;
             m.SpriteRendererCompo.DOColor(maximumAlphaColor, 0.5f);
         }
     }
 
     private IEnumerator AttackCor()
     {
-        for(int i = 0; i < 2; ++i)
+        for (int i = 0; i < 2; ++i)
         {
             yield return new WaitForSeconds(0.2f);
             Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
-            
-            if(Player.target != null)
+
+            if (Player.target != null)
             {
                 GameObject fx = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
                 Destroy(fx, 1.0f);

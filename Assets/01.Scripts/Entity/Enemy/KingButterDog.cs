@@ -23,10 +23,10 @@ public class KingButterDog : Enemy
     public override void TurnAction()
     {
         OnAttackStart?.Invoke();
-        MoveToTargetForward();
+        MoveToTargetForward(Vector3.zero);
     }
 
-    public override void MoveToTargetForward()
+    public override void MoveToTargetForward(Vector3 p)
     {
         lastMovePos = transform.position;
 

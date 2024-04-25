@@ -26,8 +26,10 @@ public class BattleController : MonoBehaviour
 
     [SerializeField] private EnemyGroupSO _enemyGroup;
 
-    public List<Transform> enemySpawnPos = new();
-    public Transform enemyGroupCenter;
+    [SerializeField]private List<Transform> enemySpawnTrm = new();
+    [HideInInspector] public List<Vector3> enemySpawnPos = new();
+    [SerializeField]private Transform enemyGroupCenter;
+    [HideInInspector] public Vector3 enemyGroupPos;
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
 
     [SerializeField] private Player _player;
@@ -76,6 +78,13 @@ public class BattleController : MonoBehaviour
 
     private void Start()
     {
+        enemySpawnPos.Clear();
+        foreach (var p in enemySpawnTrm)
+        {
+            enemySpawnPos.Add(p.position);
+        }
+        enemyGroupPos = enemyGroupCenter.position;
+
         _hpBarMaker = FindObjectOfType<HpBarMaker>();
 
         onFieldMonsterList = new Enemy[enemySpawnPos.Count];
@@ -97,9 +106,9 @@ public class BattleController : MonoBehaviour
     }
     private void HandleEndSkill()
     {
-        foreach(var e in onFieldMonsterList)
+        foreach (var e in onFieldMonsterList)
         {
-            if(e != null)
+            if (e != null)
             {
                 Health h = e.HealthCompo;
                 if (h.GetNormalizedHealth() <= 0)
@@ -184,7 +193,8 @@ public class BattleController : MonoBehaviour
     {
         if (_enemyQue.Count > 0)
         {
-            Vector3 pos = enemySpawnPos[idx].position;
+            Vector3 pos = enemySpawnPos[idx];
+            print(pos);
             Enemy selectEnemy = PoolManager.Instance.Pop(_enemyQue.Dequeue()) as Enemy;
             selectEnemy.transform.position = pos;
             selectEnemy.BattleController = this;

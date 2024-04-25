@@ -32,7 +32,13 @@ public class CardDrawer : MonoBehaviour
         }
     }
     int idx;
-
+#if UNITY_EDITOR
+    public void TestDraw(CardBase card)
+    {
+        _toDrawCatalog.Enqueue(card);
+        DrawCardLogic(_toDrawCatalog.Dequeue());
+    }
+#endif
     public void DrawCard(int count, bool isRandom = true)
     {
         CanDraw = false;

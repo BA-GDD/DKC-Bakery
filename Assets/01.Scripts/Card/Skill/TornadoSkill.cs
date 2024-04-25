@@ -15,9 +15,9 @@ public class TornadoSkill : CardBase
     private void HandleAnimationCall()
     {
         //Player.VFXManager.PlayParticle(CardInfo, battleController.enemyGroupCenter.position, (int)CombineLevel);
-        Player.VFXManager.PlayParticle(this, battleController.enemyGroupCenter.position,out ParticlePoolObject obj);
+        Player.VFXManager.PlayParticle(this, battleController.enemyGroupPos,out ParticlePoolObject obj);
         CameraController.Instance.SetTransitionTime(0.6f);
-        CameraController.Instance.GetVCam().SetCamera(obj.transform.position);
+        CameraController.Instance.GetVCam().SetCameraWithClamp(obj.transform.position,0,0.1f);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }

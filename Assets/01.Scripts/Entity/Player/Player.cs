@@ -121,8 +121,8 @@ public class Player : Entity
             AnimatorCompo.SetBool(_abilityHash, true);
             AnimatorCompo.SetBool(_moveHash, isMove);
 
-            if (isMove) MoveToTargetForward();
-            ChangePosWithCream(false);
+            if (isMove) MoveToTargetForward(GetSkillTargetEnemyList[card][0].forwardTrm.position);
+            //ChangePosWithCream(false);
         }
         else
         {

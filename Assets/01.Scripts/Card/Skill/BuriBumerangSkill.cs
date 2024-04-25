@@ -17,7 +17,7 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     {
         Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
         //Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
-        StartCoroutine(AttackCor());
+        //StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
