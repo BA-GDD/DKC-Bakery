@@ -5071,7 +5071,6 @@ GameObject:
   - component: {fileID: 862913171192703166}
   - component: {fileID: 6843897836520962941}
   - component: {fileID: 2751135952693482609}
-  - component: {fileID: 5513996975929449146}
   m_Layer: 5
   m_Name: ReturnDeckListBtn
   m_TagString: Untagged
@@ -5181,10 +5180,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5513996975929449146}
-        m_TargetAssemblyTypeName: LobbyButton, Assembly-CSharp
-        m_MethodName: PressThisButton
-        m_Mode: 1
+      - m_Target: {fileID: 7511087335793627872}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 9092955072996842667}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5193,20 +5204,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5513996975929449146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6072927517535887219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 528f85d97050efe49b6e7343cdabd699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toGoScene: 6
-  _visualTrm: {fileID: 8207797360377164105}
 --- !u!1 &6103108140688208068
 GameObject:
   m_ObjectHideFlags: 0
