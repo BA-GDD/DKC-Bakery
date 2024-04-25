@@ -16,7 +16,7 @@ public class ReforgingSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
+        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
         StartCoroutine(AddStackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -34,5 +34,7 @@ public class ReforgingSkill : CardBase, ISkillEffectAnim
         yield return new WaitForSeconds(0.3f);
 
         Player.BuffStatCompo.AddStack(StackEnum.Forging, buffSO.stackBuffs[0].values[(int)CombineLevel]);
+
+        Debug.Log($"Current Forging Stat: {Player.BuffStatCompo.GetStack(StackEnum.Forging)}");
     }
 }

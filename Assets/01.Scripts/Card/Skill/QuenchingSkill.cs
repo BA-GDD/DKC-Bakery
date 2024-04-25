@@ -16,7 +16,7 @@ public class QuenchingSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
+        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
         StartCoroutine(SkillCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -33,7 +33,9 @@ public class QuenchingSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.3f);
 
-        Player.BuffStatCompo.AddStack(StackEnum.Forging, (int)CombineLevel);
+        Player.BuffStatCompo.AddStack(StackEnum.Forging, (int)CombineLevel + 1);
         Player.BuffStatCompo.AddBuff(buffSO, 2, (int)CombineLevel);
+
+        Debug.Log($"Current Forging Stat: {Player.BuffStatCompo.GetStack(StackEnum.Forging)}");
     }
 }

@@ -11,7 +11,6 @@ public abstract class LightningCardBase : CardBase
     {
         foreach (var e in battleController.onFieldMonsterList)
         {
-            Debug.Log("ddd");
             try
             {
                 e?.HealthCompo.AilmentStat.UsedToAilment(AilmentEnum.Shocked);
@@ -23,5 +22,16 @@ public abstract class LightningCardBase : CardBase
                 Debug.Log(e);
             }
         }
+    }
+
+    protected void ApplyShockedAilment(Entity enemy)
+    {
+        enemy.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
+    }
+
+    protected void RandomApplyShockedAilment(Entity enemy, float percentage)
+    {
+        if (UnityEngine.Random.value * 100 >= percentage)
+            enemy.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
     }
 }

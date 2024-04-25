@@ -16,7 +16,7 @@ public class DeliverSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
+        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -43,11 +43,9 @@ public class DeliverSkill : CardBase, ISkillEffectAnim
             }
         }
 
-        yield return new WaitForSeconds(2f);
-
         foreach(var e in Player.GetSkillTargetEnemyList[this])
         {
-            e?.HealthCompo.ApplyDamage(5 * Player.BuffStatCompo.GetState(StackEnum.Forging), Player);
+            e?.HealthCompo.ApplyDamage(5 * Player.BuffStatCompo.GetStack(StackEnum.Forging), Player);
             if(e != null)
             {
                 GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, e.transform.position, Quaternion.identity);

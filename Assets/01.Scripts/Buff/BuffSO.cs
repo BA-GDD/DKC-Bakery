@@ -47,9 +47,18 @@ public class BuffSO : ScriptableObject
 
             _owner.BuffStatCompo.ActivateSpecialBuff(b);
         }
-        foreach (var b in stackBuffs)
+    }
+    
+    public void RefreshBuff(int combineLevel = 0)
+    {
+        _combineLevel = combineLevel;
+        foreach (var b in statBuffs)
         {
-            //알잘딱 넣어주기
+            _stat.IncreaseStatBy(b.values[combineLevel], _stat.GetStatByType(b.type));
+        }
+        foreach (var b in specialBuffs)
+        {
+            b.Refresh(_combineLevel);
         }
     }
 

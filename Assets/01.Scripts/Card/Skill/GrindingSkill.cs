@@ -16,7 +16,7 @@ public class GrindingSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
+        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
         StartCoroutine(AddStackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -24,7 +24,7 @@ public class GrindingSkill : CardBase, ISkillEffectAnim
     public void HandleEffectEnd()
     {
         Player.EndAbility();
-        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel + 1);
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }
@@ -35,5 +35,7 @@ public class GrindingSkill : CardBase, ISkillEffectAnim
 
         Player.BuffStatCompo.AddStack(StackEnum.Forging, (int)CombineLevel);
         Player.BuffStatCompo.AddBuff(buffSO, 2, (int)CombineLevel);
+
+        Debug.Log($"Current Forging Stat: {Player.BuffStatCompo.GetStack(StackEnum.Forging)}");
     }
 }
