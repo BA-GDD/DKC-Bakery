@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -118,7 +119,10 @@ public class AbilityTargettingSystem : MonoBehaviour
 
     IEnumerator EnemyTargetting(CardBase selectCard)
     {
-        TargetEnemyCount tec = selectCard.CardInfo.targetEnemyCount;
+        TargetEnemyCount tec =
+        (TargetEnemyCount)selectCard.CardInfo.cardShameData.cardShameDataList[(int)selectCard.CombineLevel - 1].
+        list.Find(x => x.cardShameType == CardShameType.Range).currentShame;
+        
         if (tec != TargetEnemyCount.ALL)
         {
             for (int i = 0; i < (int)tec; i++)

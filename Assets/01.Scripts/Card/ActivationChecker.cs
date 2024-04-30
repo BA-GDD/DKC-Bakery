@@ -51,6 +51,7 @@ public class ActivationChecker : MonoBehaviour
                 {
                     RectTransform rt = c.transform as RectTransform;
                     CardReader.OnPointerCard = c;
+                    Debug.Log(CardReader.OnPointerCard);
                     rt.SetAsLastSibling();
                 }
                 break;
