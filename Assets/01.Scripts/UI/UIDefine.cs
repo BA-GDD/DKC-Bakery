@@ -10,12 +10,11 @@ public enum SceneType
     deckBuild,
     Lobby,
     Mine,
-    Myosu
+    Myosu,
+    CardManaging,
 }
 namespace UIDefine
 {
-    
-
     public enum BakeryCombinationType
     {
         none,

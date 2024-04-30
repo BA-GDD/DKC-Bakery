@@ -6,6 +6,7 @@ using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 {
@@ -63,6 +64,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         }
     }
     [SerializeField] private Material _cardMat;
+    public int AbilityCost => CardManagingHelper.GetCardCost(CardInfo.cardShameData);
 
     [HideInInspector]public BattleController battleController;
     protected Player Player => battleController.Player;
@@ -78,7 +80,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
         _costText = transform.Find("Visual/CsotText").GetComponent<TextMeshProUGUI>();
-        _costText.text = CardInfo.AbillityCost.ToString();
+        _costText.text = AbilityCost.ToString();
     }
 
     public abstract void Abillity();

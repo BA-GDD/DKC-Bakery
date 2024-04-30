@@ -41,7 +41,7 @@ public class AdventureMaster : MonoBehaviour
             _adventureData = DataManager.Instance.LoadData<AdventureData>(_adventureKey);
         }
 
-        _missionPanel.clearCountTxt.text = $"<size=40>탐색 중인 향로</size> : {_adventureData.InChallingingMissionName}";
+        _missionPanel.clearCountTxt.text = $"<size=40>탐색 중인 향로</size> : {_adventureData.InChallingingMazeLoad}";
         _minePanel.clearCountTxt.text = $"정복 중인 층 : {_adventureData.ChallingingMineFloor}";
         _stagePanel.inStageCount.text = $"도전 중인 지역 : {_adventureData.InChallingingStageCount}";
 

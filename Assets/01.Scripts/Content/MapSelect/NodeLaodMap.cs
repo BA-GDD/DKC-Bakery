@@ -21,6 +21,7 @@ public class NodeLaodMap : MonoBehaviour
             Destroy(_currentLoadMap);
         }
 
+        _chapterNameText.text = mapData.chapterName;
         _currentLoadMap = Instantiate(mapData.loadMap, _loadMapParent);
     }
 

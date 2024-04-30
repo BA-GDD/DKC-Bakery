@@ -9,7 +9,6 @@ public abstract class Stash
     public Dictionary<ItemDataSO, InventoryItem> stashDictionary;
 
     protected Transform _slotParentTrm;
-    protected ItemSlot[] _itemSlots;
 
     public Stash(Transform slotParentTrm)
     {
@@ -17,20 +16,6 @@ public abstract class Stash
         stashDictionary = new Dictionary<ItemDataSO, InventoryItem>();
 
         _slotParentTrm = slotParentTrm;
-        _itemSlots = _slotParentTrm.GetComponentsInChildren<ItemSlot>();
-    }
-
-    public virtual void UpdateSlotUI()
-    {
-        for (int i = 0; i < _itemSlots.Length; ++i)
-        {
-            _itemSlots[i].CleanUpSlot();
-        }
-
-        for (int i = 0; i < stash.Count; ++i)
-        {
-            _itemSlots[i].UpdateSlot(stash[i]);
-        }
     }
 
     public virtual bool HasItem(ItemDataSO item)

@@ -1,29 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class BakeryFilterTab : FilterTab
+public class BakeryFilterTab : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private int _normalX = -744;
-    [SerializeField] private int _addValue = -16;
+    [SerializeField] private RecipeSortType _sortType;
+    public RecipeSortType SortType => _sortType;
+    public BakeryContentPanel RecipePanel { get; set; }
 
-    public override void ActiveTab(bool isActive)
+    private Image _filterTabVisual;
+    [SerializeField] private Color _selectedColor;
+    [SerializeField] private Sprite _selectedSprite;
+    private Sprite _normalSprite;
+
+    private void Awake()
     {
-        if (isActive)
-        {
-            transform.DOLocalMoveX(_normalX + _addValue, _easingTime);
-            BtnImg.DOColor(Color.white, _easingTime);
-            _tapLabel.DOColor(Color.white, _easingTime);
-        }
-        else
-        {
-            Color unActiveColor = Color.white * _labelBlurValue;
-            unActiveColor.a = 1;
+        _filterTabVisual = GetComponent<Image>();
+        _normalSprite = _filterTabVisual.sprite;
+    }
 
-            transform.DOLocalMoveX(_normalX, _easingTime);
-            BtnImg.DOColor(unActiveColor, _easingTime);
-            _tapLabel.DOColor(unActiveColor, _easingTime);
-        }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        RecipePanel.InvokeRecipeAction(_sortType);
+        _filterTabVisual.color = _selectedColor;
+        _filterTabVisual.sprite = _selectedSprite;
+    }
+
+    public void UnSelected()
+    {
+        _filterTabVisual.color = Color.white;
+        _filterTabVisual.sprite = _normalSprite;
     }
 }

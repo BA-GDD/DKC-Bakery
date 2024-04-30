@@ -25,26 +25,35 @@ public class DeckGenerator : MonoBehaviour
     private SaveDeckData _saveDeckData = new SaveDeckData();
     private const string _saveDeckDataKey = "SaveDeckDataKey";
 
-    protected List<CanUseDeckElement> _currentDeckList = new List<CanUseDeckElement>();
+    public List<DeckElement> CurrentDeckList { get; private set; } = new List<DeckElement>();
 
     protected virtual void Start()
     {
-        ResetDeckList();
+        GenerateDeckList();
+        ResetDeckList(_saveDeckData.SaveDeckList);
     }
 
-    public void ResetDeckList()
+    public void GenerateDeckList()
     {
         if (DataManager.Instance.IsHaveData(_saveDeckDataKey))
         {
             _saveDeckData = DataManager.Instance.LoadData<SaveDeckData>(_saveDeckDataKey);
         }
 
+        foreach(DeckElement de in _saveDeckData.SaveDeckList)
+        {
+            CurrentDeckList.Add(de);
+        }
+    }
+
+    public void ResetDeckList(List<DeckElement> deList)
+    {
         foreach(Transform t in _deckElemetTrm)
         {
             Destroy(t.gameObject);
         }
 
-        for (int i = 0; i < _saveDeckData.SaveDeckList.Count; i++)
+        for (int i = 0; i < deList.Count; i++)
         {
             if (i % 3 == 0)
             {
@@ -52,8 +61,8 @@ public class DeckGenerator : MonoBehaviour
             }
 
             CanUseDeckElement cude = Instantiate(_canUseDeckPrefab, _deckElemetTrm);
-            _currentDeckList.Add(cude);
-            cude.SetDeckInfo(_saveDeckData.SaveDeckList[i], this);
+            cude.SetDeckInfo(deList[i], this);
+            Debug.Log(cude);
         }
     }
 

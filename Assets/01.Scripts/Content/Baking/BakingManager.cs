@@ -1,152 +1,151 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-[Flags]
 public enum IngredientType
 {
-    None = 0,       // 绝澜 (眉农侩)
-    Core = 1,       // 海捞胶
-    Trace = 2,     // 如利
-    Subjectivity = 4,     // 林包
-    Else = 8
+    Core,       // 海捞胶
+    Trace,     // 如利
+    Subjectivity,     // 林包
+}
+
+public struct CakeGroup
+{
+    public string[] ingDatas;
+    public ItemDataBreadSO cake;
+
+    public CakeGroup(string[] _data, ItemDataBreadSO _cake)
+    {
+        ingDatas = _data;
+        cake = _cake;
+    }
 }
 
 public class BakingManager : MonoSingleton<BakingManager>
 {
-    private CookingBox _cookingBox;
-    public CookingBox CookingBox
-    {
-        get
-        {
-            if (_cookingBox != null)
-                return _cookingBox;
-            _cookingBox = FindObjectOfType<CookingBox>();
-            return _cookingBox;
-        }
-    }
+    [SerializeField] private BreadRecipeTable _recipeTable;
 
-    private FilterTabGroup _fiterTabGroup;
-    public FilterTabGroup FilterTabGroup
-    {
-        get
-        {
-            if (_fiterTabGroup != null)
-                return _fiterTabGroup;
-            _fiterTabGroup = FindObjectOfType<FilterTabGroup>();
-            return _fiterTabGroup;
-        }
-    }
+    private Dictionary<string, ItemDataBreadSO> _cakeDictionary = new();
+    [SerializeField] private List<ItemDataBreadSO> _breadList = new();
 
-    public UsedIngredientStash usedIngredientStash;
-    public bool isOpen = false;
+    private Dictionary<string, ItemDataIngredientSO> _ingredientDic = new();
+    [SerializeField] private List<ItemDataIngredientSO> _ingredientList = new();
 
-    [SerializeField] private GameObject _bakingUI;
-
-    [Header("ParentTrm")]
-    [SerializeField] private Transform _usedIngredientParent;
-
-    [Header("Events")]
-    public UnityEvent<int> onRemoveUsedIngredientTrigger;
-
-    [SerializeField]
-    private BreadRecipeTable _recipeTable;
-
-    public Dictionary<string, ItemDataBreadSO> breadDictionary;
-    [SerializeField]
-    private List<ItemDataBreadSO> _breadList;
-
-    private void Awake()
-    {
-        if (_usedIngredientParent == null)
-        {
-            _usedIngredientParent = Inventory.Instance.IngredientParent;
-        }
-
-        usedIngredientStash = new UsedIngredientStash(_usedIngredientParent);
-        breadDictionary = new Dictionary<string, ItemDataBreadSO>();
-        for (int i = 0; i < _breadList.Count; ++i)
-        {
-            breadDictionary.Add(_breadList[i].itemName, _breadList[i]);
-        }
-    }
+    private List<CakeGroup> _cakeGroupList = new List<CakeGroup>();
 
     private void Start()
     {
-        SetBakingUI(isOpen);
-        UpdateSlotUI();
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.hKey.wasPressedThisFrame)
+        foreach (ItemDataBreadSO cake in _breadList)
         {
-            isOpen = !isOpen;
-            SetBakingUI(isOpen);
+            _cakeDictionary.Add(cake.itemName, cake);
+        }
+
+        foreach (ItemDataIngredientSO ing in _ingredientList)
+        {
+            _ingredientDic.Add(ing.itemName, ing);
+        }
+
+        foreach (Data data in _recipeTable.DataList)
+        {
+            string[] extractedData = data.str;
+            string[] ida = new string[3] { extractedData[1], extractedData[2], extractedData[3] };
+            Array.Sort(ida);
+
+            CakeGroup cakeGroup =
+            new CakeGroup
+            (
+                ida,
+                GetCakeDataByName(extractedData[0])
+            );
+
+            _cakeGroupList.Add(cakeGroup);
         }
     }
 
-    public void UpdateSlotUI()
+    public bool CanBake(ItemDataIngredientSO[] ingredients)
     {
-        usedIngredientStash.UpdateSlotUI();
-    }
-
-    public void AddItem(ItemDataSO item)
-    {
-        if (usedIngredientStash.CanAddItem(item))
+        foreach(ItemDataIngredientSO i in ingredients)
         {
-            usedIngredientStash.AddItem(item);
+            if(i == null) return false;
         }
-        UpdateSlotUI();
-    }
 
-    public void RemoveItem(ItemDataSO item)
-    {
-        ItemDataIngredientSO ingredientSO = ((ItemDataIngredientSO)item);
-        if (ingredientSO != null)
-        {
-            onRemoveUsedIngredientTrigger?.Invoke(ingredientSO.itemIndex);
-        }
-        usedIngredientStash.RemoveItem(item);
-        UpdateSlotUI();
+        return true;
     }
-
-    public void SetBakingUI(bool isOpen)
+    public ItemDataBreadSO BakeBread(ItemDataIngredientSO[] ingredients)
     {
-        //_bakingUI.SetActive(isOpen);
-    }
-
-    public bool CanBake()
-    {
-        return usedIngredientStash.usedIngredDictionary.Count >= 3;
-    }
-
-    public ItemDataBreadSO BakeBread()
-    {
-        if (!CanBake())
+        if (!CanBake(ingredients))
         {
             Debug.LogError("Plz Check Can Bake");
             return null;
         }
 
-        string[] names = new string[5];
-        for (int i = 0; i < 3; ++i)
+        string[] ingNames = ingredients.Select(x => x.itemName).ToArray();
+        Array.Sort(ingNames);
+
+        CakeGroup cg = _cakeGroupList.FirstOrDefault(x => 
+        x.ingDatas[0] == ingNames[0] &&
+        x.ingDatas[1] == ingNames[1] &&
+        x.ingDatas[2] == ingNames[2]);
+
+        ItemDataBreadSO returnBread;
+
+        if(cg.Equals(default(CakeGroup)))
         {
-            int result = (int)Mathf.Pow(2, i);
-            names[i] = usedIngredientStash.usedIngredientStash[result].itemDataSO.itemName;
+            returnBread = _cakeDictionary["DubiousBread"];
         }
-        ItemDataBreadSO returnBread = _recipeTable.Bake(names);
-        if (returnBread != null)
+        else
         {
-            Inventory.Instance.AddItem(returnBread);
-            usedIngredientStash.RemoveAllItem();
-            usedIngredientStash.UpdateSlotUI();
+            returnBread = cg.cake;
         }
 
-        FilterTabGroup.FilteringItem(FilterTabGroup.CurrentFilterTab);
         return returnBread;
+    }
+    public ItemDataBreadSO GetCakeDataByName(string cakeName)
+    {
+        if(!_cakeDictionary.ContainsKey(cakeName))
+        {
+            Debug.LogError($"{cakeName} is Not Exist!");
+            return null;
+        }
+
+        return _cakeDictionary[cakeName];
+    }
+
+    public ItemDataIngredientSO GetIngredientDataByName(string ingredientName)
+    {
+        if (!_ingredientDic.ContainsKey(ingredientName))
+        {
+            Debug.LogError($"{ingredientName} is Not Exist");
+            return null;
+        }
+
+        return _ingredientDic[ingredientName];
+    }
+
+    public ItemDataIngredientSO[] GetIngredientDatasByCakeName(string cakeName)
+    {
+        string[] ingNames = _recipeTable.GetIngredientNamesByCakeName(cakeName);
+
+        ItemDataIngredientSO[] datas = new ItemDataIngredientSO[3]
+        {
+            GetIngredientDataByName(ingNames[0]),
+            GetIngredientDataByName(ingNames[1]),
+            GetIngredientDataByName(ingNames[2])
+        };
+
+        return datas;
+    }
+
+    [ContextMenu("GET_ALL_INGREDIENT")]
+    public void TEST_Get_All_Ingredient_Item()
+    {
+        foreach(var item in _ingredientList)
+        {
+            Inventory.Instance.AddItem(item);
+        }
     }
 }

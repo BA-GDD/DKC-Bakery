@@ -10,8 +10,7 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
                                        IPointerExitHandler,
                                        IPointerClickHandler
 {
-    [SerializeField] private Sprite _sample;
-    public MyosuTestInfo AssignedMyosuInfo { get; set; }
+    public StageDataSO AssignedStageInfo { get; set; }
     private CanvasGroup _visual;
     public CanvasGroup Visual
     {
@@ -49,7 +48,7 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
 
         _hoverTween = transform.DOScale(transform.localScale * 1.1f, 0.3f);
         _shakeTween = transform.DOShakeRotation(1f, 3, 10).SetLoops(-1);
-        _comBubble.SpeachUpBubble(_sample, 50);
+        _comBubble.SpeachUpBubble(AssignedStageInfo.compensation.Item.itemIcon, 50);
 
         _doorHoverEvent?.Invoke(this);
     }
@@ -79,8 +78,11 @@ public class MazeDoor : MonoBehaviour, IPointerEnterHandler,
         seq.Append(transform.DOScale(_normalScale * 1.3f, 1));
         seq.Join(transform.DOLocalMoveX(0, 1));
         seq.Join(_doorTrm.DOLocalRotateQuaternion(Quaternion.Euler(0, -90, 0), 1));
-        seq.Join(UIManager.Instance.GetSceneUI<MyosuUI>().gameObject.transform.DOScale(1.2f, 1));
-
+        seq.AppendCallback(() => 
+        {
+            MapManager.Instanace.SelectStageData = AssignedStageInfo;
+            GameManager.Instance.ChangeScene(SceneType.battle);
+        });
         _doorSelectEvent?.Invoke(this);
     }
 }
