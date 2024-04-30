@@ -12,10 +12,16 @@ public class CameraController : MonoSingleton<CameraController>
     {
         brain = Camera.main.GetComponent<CinemachineBrain>();
     }
-
     public void SetTransitionTime(float time)
     {
         brain.m_DefaultBlend.m_Time = time;
+    }
+    public PoolVCam GetVCam(CinemachineSmoothPath path)
+    {
+        cam = PoolManager.Instance.Pop(PoolingType.VCamPool) as PoolVCam;
+        cam.VCam.Priority = 15;
+
+        return cam;
     }
     public PoolVCam GetVCam(float duration = 0)
     {

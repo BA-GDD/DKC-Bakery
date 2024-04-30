@@ -146,7 +146,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 83422
+  m_InstanceId: 188718
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -683,7 +683,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 83428
+  m_InstanceId: 188724
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -758,7 +758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 810085389153848357, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: TriggerModule.outside
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 810085389153848357, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: CollisionModule.enabled
@@ -1008,7 +1008,8 @@ PrefabInstance:
       propertyPath: startDelay.scalar
       value: 0.2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 899001438656714459, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -29,7 +29,8 @@ public enum PoolingType
     CandyStreamBurst,
     Pumpkin,
     Boomerang,
-    Tornado
+    Tornado,
+    VVCamPool
 }
 public enum ParticleEnum
 {
