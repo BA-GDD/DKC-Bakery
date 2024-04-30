@@ -430,7 +430,7 @@ Shader "1_fx/star"
 				#endif
 				float vert_w_custom59 = staticSwitch56;
 				float step_142 = step( temp_output_17_0 , vert_w_custom59 );
-				float temp_output_23_0 = step( pow( temp_output_17_0 , _edge_width ) , vert_w_custom59 );
+				float temp_output_23_0 = step( saturate( pow( temp_output_17_0 , _edge_width ) ) , vert_w_custom59 );
 				
 				float step_243 = temp_output_23_0;
 				float vert_alpha_ref50 = IN.ase_color.a;
@@ -710,7 +710,7 @@ Shader "1_fx/star"
 				float staticSwitch56 = _amount;
 				#endif
 				float vert_w_custom59 = staticSwitch56;
-				float temp_output_23_0 = step( pow( temp_output_17_0 , _edge_width ) , vert_w_custom59 );
+				float temp_output_23_0 = step( saturate( pow( temp_output_17_0 , _edge_width ) ) , vert_w_custom59 );
 				float step_243 = temp_output_23_0;
 				float vert_alpha_ref50 = IN.ase_color.a;
 				
@@ -951,7 +951,7 @@ Shader "1_fx/star"
 				float staticSwitch56 = _amount;
 				#endif
 				float vert_w_custom59 = staticSwitch56;
-				float temp_output_23_0 = step( pow( temp_output_17_0 , _edge_width ) , vert_w_custom59 );
+				float temp_output_23_0 = step( saturate( pow( temp_output_17_0 , _edge_width ) ) , vert_w_custom59 );
 				float step_243 = temp_output_23_0;
 				float vert_alpha_ref50 = IN.ase_color.a;
 				
@@ -1187,7 +1187,7 @@ Shader "1_fx/star"
 				float staticSwitch56 = _amount;
 				#endif
 				float vert_w_custom59 = staticSwitch56;
-				float temp_output_23_0 = step( pow( temp_output_17_0 , _edge_width ) , vert_w_custom59 );
+				float temp_output_23_0 = step( saturate( pow( temp_output_17_0 , _edge_width ) ) , vert_w_custom59 );
 				float step_243 = temp_output_23_0;
 				float vert_alpha_ref50 = IN.ase_color.a;
 				
@@ -1446,7 +1446,7 @@ Shader "1_fx/star"
 				float staticSwitch56 = _amount;
 				#endif
 				float vert_w_custom59 = staticSwitch56;
-				float temp_output_23_0 = step( pow( temp_output_17_0 , _edge_width ) , vert_w_custom59 );
+				float temp_output_23_0 = step( saturate( pow( temp_output_17_0 , _edge_width ) ) , vert_w_custom59 );
 				float step_243 = temp_output_23_0;
 				float vert_alpha_ref50 = IN.ase_color.a;
 				
@@ -1509,7 +1509,6 @@ Node;AmplifyShaderEditor.VertexColorNode;48;1780.391,346.2785;Inherit;False;0;5;
 Node;AmplifyShaderEditor.RegisterLocalVarNode;49;1929.921,341.4702;Inherit;False;vert_color_ref;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;50;1925.941,437.4479;Inherit;False;vert_alpha_ref;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.StepOpNode;23;191,232.5;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.WireNode;41;-12.38379,239.291;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;43;329.8644,314.1511;Inherit;False;step_2;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleSubtractOpNode;24;596.6194,232.8841;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;46;357.8873,386.2107;Inherit;False;42;step_1;1;0;OBJECT;;False;1;FLOAT;0
@@ -1545,8 +1544,9 @@ Node;AmplifyShaderEditor.RangedFloatNode;19;-594,239.5;Inherit;False;Property;_e
 Node;AmplifyShaderEditor.WireNode;62;-219.0432,254.3058;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;39;-396.9592,760.9022;Inherit;False;38;vert_w;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;57;-366.3639,692.186;Inherit;False;Property;_amount;amount;4;0;Create;True;0;0;0;False;0;False;0;0.04;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.StaticSwitch;56;-223.364,692.186;Inherit;False;Property;_use_custom;use_custom;3;0;Create;True;0;0;0;False;0;False;0;0;1;True;;Toggle;2;Key0;Key1;Create;True;True;All;9;1;FLOAT;0;False;0;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.StaticSwitch;56;-223.364,692.186;Inherit;False;Property;_use_custom;use_custom;3;0;Create;True;0;0;0;False;0;False;0;0;0;True;;Toggle;2;Key0;Key1;Create;True;True;All;9;1;FLOAT;0;False;0;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;59;-19.36399,695.186;Inherit;False;vert_w_custom;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SaturateNode;63;39.62329,232.8378;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 WireConnection;14;0;11;2
 WireConnection;13;0;33;0
 WireConnection;13;1;14;0
@@ -1562,9 +1562,8 @@ WireConnection;26;1;27;0
 WireConnection;38;0;25;3
 WireConnection;49;0;48;0
 WireConnection;50;0;48;4
-WireConnection;23;0;41;0
+WireConnection;23;0;63;0
 WireConnection;23;1;60;0
-WireConnection;41;0;18;0
 WireConnection;43;0;23;0
 WireConnection;24;0;23;0
 WireConnection;24;1;46;0
@@ -1591,5 +1590,6 @@ WireConnection;62;0;19;0
 WireConnection;56;1;57;0
 WireConnection;56;0;39;0
 WireConnection;59;0;56;0
+WireConnection;63;0;18;0
 ASEEND*/
-//CHKSM=40A1BFDCF277A3C0766018894C539EEB3D39F955
+//CHKSM=C5AB78B8060DE01FA980F8A8A7741915D8A2FD1E
