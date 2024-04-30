@@ -35,7 +35,7 @@ public class EditDeckPanel : MonoBehaviour
         {
             _inDeckCardArr[i].sprite = _deck[i].CardInfo.CardVisual;
             TextMeshProUGUI cost =_inDeckCardArr[i].transform.Find("CsotText").GetComponent<TextMeshProUGUI>();
-            cost.text = _deck[i].CardInfo.AbillityCost.ToString();
+            cost.text = _deck[i].AbilityCost.ToString();
         }
     }
 

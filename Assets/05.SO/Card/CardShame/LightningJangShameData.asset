@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardLevel: 1
   cardExp: 0
+  increaseValuePerLevel:
+  - shameType: 0
+    perValue: 5
   cardShameDataList:
   - list:
     - cardShameType: 0
@@ -30,8 +33,34 @@ MonoBehaviour:
       info: 
   - list:
     - cardShameType: 0
+      currentShame: 15
+      afterShame: 25
+      info: 
+    - cardShameType: 3
+      currentShame: 3
+      afterShame: 3
+      info: 
+    - cardShameType: 4
+      currentShame: 1
+      afterShame: 1
+      info: 
+  - list:
+    - cardShameType: 0
       currentShame: 20
       afterShame: 30
+      info: 
+    - cardShameType: 3
+      currentShame: 3
+      afterShame: 3
+      info: 
+    - cardShameType: 4
+      currentShame: 1
+      afterShame: 1
+      info: 
+  - list:
+    - cardShameType: 0
+      currentShame: 25
+      afterShame: 35
       info: 
     - cardShameType: 3
       currentShame: 3

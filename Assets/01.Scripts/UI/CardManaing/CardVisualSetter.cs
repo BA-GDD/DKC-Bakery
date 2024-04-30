@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class CardVisualSetter : CardSetter
 
     public override void SetCardInfo(CardShameElementSO shameData, CardInfo cardInfo, int combineLevel)
     {
-        _cardCostText.text = cardInfo.AbillityCost.ToString();
+        _cardCostText.text = CardManagingHelper.GetCardCost(shameData).ToString();
         _cardNameText.text = cardInfo.CardName;
         _cardVisual.sprite = cardInfo.CardVisual;
     }

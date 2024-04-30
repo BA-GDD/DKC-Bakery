@@ -24,7 +24,7 @@ public class SelectCard : MonoBehaviour
         _cardVisual.sprite = info.CardVisual;
         _cardVisual.color = Color.white;
         _cardVisual.material = _cardMaterial;
-        _costText.text = info.AbillityCost.ToString();
+        _costText.text = CardManagingHelper.GetCardCost(info.cardShameData).ToString();
 
         IsAssignedCard = true;
     }

@@ -84,7 +84,7 @@ public class ActivationChecker : MonoBehaviour
 
         if (IsMouseInWaitZone())
         {
-            if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL))
+            if(!CostCalculator.CanUseCost(CardReader.OnPointerCard.AbilityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL))
             {
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
 
@@ -97,7 +97,7 @@ public class ActivationChecker : MonoBehaviour
                 return;
             }
             
-            CostCalculator.UseCost(CardReader.OnPointerCard.CardInfo.AbillityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL);
+            CostCalculator.UseCost(CardReader.OnPointerCard.AbilityCost, CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL);
 
             if (CardReader.OnPointerCard.CardInfo.CardType == CardType.SKILL)
             {

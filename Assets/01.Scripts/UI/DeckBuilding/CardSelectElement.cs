@@ -44,6 +44,6 @@ public class CardSelectElement : MonoBehaviour, IPointerClickHandler
 
         _visual.sprite = info.CardInfo.CardVisual;
         _nameText.text = info.CardInfo.CardName;
-        _costText.text = info.CardInfo.AbillityCost.ToString();
+        _costText.text = info.AbilityCost.ToString();
     }
 }

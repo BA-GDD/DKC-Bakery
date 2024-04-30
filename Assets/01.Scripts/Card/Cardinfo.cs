@@ -29,7 +29,6 @@ public class CardInfo : ScriptableObject
     public ParticleSystem hitEffect;
     public ParticleSystem targetEffect;
 
-    public int AbillityCost;
     [TextArea]
     public string AbillityInfo;
 }
