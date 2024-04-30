@@ -7,26 +7,26 @@ public static class CardManagingHelper
 {
     public static int GetCardCost(CardShameElementSO shameData)
     {
-        return shameData.cardShameDataList[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Cost).currentShame;
+        return shameData.cardShameDataList[0].list.FirstOrDefault(x => x.cardShameType == CardShameType.Cost).currentShame;
     }
 
-    public static float GetCardDamage(CardShameElementSO shameData)
+    public static float GetCardDamage(CardShameElementSO shameData, int combineLevel)
     {
         return shameData.cardShameDataList[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Damage).currentShame;
     }
 
-    public static float GetCardBuffValue(CardShameElementSO shameData)
+    public static float GetCardBuffValue(CardShameElementSO shameData, int combineLevel)
     {
-        return shameData.cardShameDataList[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Buff).currentShame;
+        return shameData.cardShameDataList[combineLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Buff).currentShame;
     }
 
-    public static float GetCardDeBuffValue(CardShameElementSO shameData)
+    public static float GetCardDeBuffValue(CardShameElementSO shameData, int combineLevel)
     {
-        return shameData.cardShameDataList[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Debuff).currentShame;
+        return shameData.cardShameDataList[combineLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Debuff).currentShame;
     }
 
-    public static float GetCardAbillityTurn(CardShameElementSO shameData)
+    public static float GetCardAbillityTurn(CardShameElementSO shameData, int combineLevel)
     {
-        return shameData.cardShameDataList[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Turn).currentShame;
+        return shameData.cardShameDataList[combineLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Turn).currentShame;
     }
 }
