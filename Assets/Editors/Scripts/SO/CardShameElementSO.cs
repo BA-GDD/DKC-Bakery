@@ -13,7 +13,7 @@ public enum CardShameType
     Debuff,
     Cost,
     Range,
-    Time
+    Turn
 }
 
 [Serializable]
