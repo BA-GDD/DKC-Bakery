@@ -14,72 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardLevel: 1
   cardExp: 0
-  increaseValuePerLevel:
-  - shameType: 0
-    perValue: 2
-  cardShameDataList:
-  - list:
-    - cardShameType: 0
-      currentShame: 6
-      afterShame: 7
-      info: 
-    - cardShameType: 3
-      currentShame: 5
-      afterShame: 5
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 8
-      afterShame: 9
-      info: 
-    - cardShameType: 3
-      currentShame: 5
-      afterShame: 5
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 10
-      afterShame: 11
-      info: 
-    - cardShameType: 3
-      currentShame: 5
-      afterShame: 5
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 12
-      afterShame: 13
-      info: 
-    - cardShameType: 3
-      currentShame: 5
-      afterShame: 5
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 14
-      afterShame: 15
-      info: 
-    - cardShameType: 3
-      currentShame: 5
-      afterShame: 5
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
+  cardLevelUppervalueGroup:
+  - shameType: 1
+    perValue: 1
+  normalValueGroup:
+  - cardShameType: 1
+    currentShame: 5
+    info: 
+  - cardShameType: 8
+    currentShame: 5
+    info: 
+  - cardShameType: 24
+    currentShame: 6
+    info: 

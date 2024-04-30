@@ -11,6 +11,8 @@ public class CardLevelSetter : CardSetter
     [SerializeField] private TextMeshProUGUI _cardCurrentLevelText;
     [SerializeField] private TextMeshProUGUI _cardAfterLevelText;
     [SerializeField] private Slider _cardEXPGazer;
+
+    [SerializeField] private UnityEvent<CardShameElementSO> _cardShameUpperEvent;
     [SerializeField] private UnityEvent _cardLevelUpEvent;
 
     private Tween _onGaigingTween;
@@ -47,6 +49,7 @@ public class CardLevelSetter : CardSetter
             _selectShameData.cardLevel += 1;
             _selectShameData.cardExp = exp - _maxEXP;
 
+            _cardShameUpperEvent?.Invoke(_selectShameData);
             _cardLevelUpEvent?.Invoke();
 
             _maxEXP = _selectShameData.cardLevel *
