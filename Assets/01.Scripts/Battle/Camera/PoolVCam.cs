@@ -44,7 +44,8 @@ public class PoolVCam : PoolableMono
 
         float x = Camera.main.aspect * size;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(pos);
-        screenPos.x = Mathf.Clamp(screenPos.x - x * 0.5f, Screen.width * ratio, Screen.width) + x * 0.5f;
+         //screenPos.x * ratio;
+        //screenPos.x = Mathf.Clamp(screenPos.x - x * 0.5f, Screen.width * ratio, Screen.width) + x * 0.5f;
         pos = Camera.main.ScreenToWorldPoint(screenPos);
         pos.z = -10;
         transform.position = pos;

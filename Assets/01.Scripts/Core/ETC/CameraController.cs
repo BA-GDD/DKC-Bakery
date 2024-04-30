@@ -47,5 +47,4 @@ public class CameraController : MonoSingleton<CameraController>
             PoolManager.Instance.Push(cam);
         cam = null;
     }
-
 }

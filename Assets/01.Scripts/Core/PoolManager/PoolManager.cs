@@ -27,7 +27,7 @@ public enum PoolingType
     SeedGun,
     VCamPool,
     CandyStreamBurst,
-    CardLevelUpFx
+    CardLevelUpFx,
     Pumpkin,
     Boomerang,
     Tornado,

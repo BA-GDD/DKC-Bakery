@@ -13,7 +13,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         CameraController.Instance.SetTransitionTime(1f);
-        CameraController.Instance.GetVCam().SetCamera(Player.transform.position, 4.5f);
+        CameraController.Instance.GetVCam().SetCamera(Player.transform.position, 4.9f);
 
         IsActivingAbillity = true;
 
