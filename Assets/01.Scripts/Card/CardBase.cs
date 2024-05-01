@@ -64,7 +64,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         }
     }
     [SerializeField] private Material _cardMat;
-    public int AbilityCost => CardManagingHelper.GetCardCost(CardInfo.cardShameData);
+    public int AbilityCost => CardManagingHelper.GetCardShame(CardInfo.cardShameData,
+                                                                  CardShameType.Cost,
+                                                                  (int)CombineLevel);
 
     [HideInInspector]public BattleController battleController;
     protected Player Player => battleController.Player;
@@ -80,6 +82,8 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
         _costText = transform.Find("Visual/CsotText").GetComponent<TextMeshProUGUI>();
+
+        Debug.Log(AbilityCost);
         _costText.text = AbilityCost.ToString();
     }
 

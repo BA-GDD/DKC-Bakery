@@ -5,28 +5,20 @@ using UnityEngine;
 
 public static class CardManagingHelper
 {
-    public static int GetCardCost(CardShameElementSO shameData)
+    public static int GetCardShame(CardShameElementSO shameData, CardShameType type, int combineLevel)
     {
-        return shameData.cardShameDataList[0].list.FirstOrDefault(x => x.cardShameType == CardShameType.Cost).currentShame;
+        return shameData.cardShameDataList[combineLevel].list[shameData.cardLevel - 1].list.FirstOrDefault(x => (x.cardShameType & type) != 0).currentShame;
     }
 
-    public static float GetCardDamage(CardShameElementSO shameData, int combineLevel)
+    public static int GetAfterLevelShame(CardShameElementSO shameData, CardShameType type, int combineLevel)
     {
-        return shameData.cardShameDataList[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Damage).currentShame;
+        if (shameData.cardLevel >= 5) return 0;
+
+        return shameData.cardShameDataList[combineLevel].list[shameData.cardLevel - 1].list.FirstOrDefault(x => (x.cardShameType & type) != 0).currentShame;
     }
 
-    public static float GetCardBuffValue(CardShameElementSO shameData, int combineLevel)
+    public static CardShameData GetCardShameData(CardShameElementSO shameData, CardShameType type, int combineLevel)
     {
-        return shameData.cardShameDataList[combineLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Buff).currentShame;
-    }
-
-    public static float GetCardDeBuffValue(CardShameElementSO shameData, int combineLevel)
-    {
-        return shameData.cardShameDataList[combineLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Debuff).currentShame;
-    }
-
-    public static float GetCardAbillityTurn(CardShameElementSO shameData, int combineLevel)
-    {
-        return shameData.cardShameDataList[combineLevel].list.FirstOrDefault(x => x.cardShameType == CardShameType.Turn).currentShame;
+        return shameData.cardShameDataList[combineLevel].list[shameData.cardLevel].list.FirstOrDefault(x => x.cardShameType == type);
     }
 }

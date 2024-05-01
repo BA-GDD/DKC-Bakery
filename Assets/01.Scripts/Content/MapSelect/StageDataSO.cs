@@ -15,7 +15,8 @@ public enum StageBackGround
     Forest,
     Dungeon,
     Myosu,
-    Desert
+    Desert,
+    Winter
 }
 
 [Serializable]

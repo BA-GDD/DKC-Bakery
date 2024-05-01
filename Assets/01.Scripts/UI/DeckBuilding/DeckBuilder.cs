@@ -61,7 +61,7 @@ public class DeckBuilder : MonoBehaviour
         {
             if(!sc.IsAssignedCard)
             {
-                sc.SetCard(cardBase.CardInfo);
+                sc.SetCard(cardBase.CardInfo, (int)cardBase.CombineLevel);
                 break;
             }
         }

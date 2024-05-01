@@ -14,85 +14,170 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardLevel: 1
   cardExp: 0
-  increaseValuePerLevel:
-  - shameType: 0
-    perValue: 4
+  cardLevelUppervalueGroup:
+  - shameType: 1
+    perValue: 2
+  normalValueGroup:
+  - cardShameType: 1
+    currentShame: 4
+    info: 
+  - cardShameType: 8
+    currentShame: 4
+    info: 
+  - cardShameType: 16
+    currentShame: 6
+    info: 
   cardShameDataList:
   - list:
-    - cardShameType: 0
-      currentShame: 6
-      afterShame: 8
-      info: 
-    - cardShameType: 3
-      currentShame: 4
-      afterShame: 4
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 4
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 6
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 8
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 10
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 12
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
   - list:
-    - cardShameType: 0
-      currentShame: 10
-      afterShame: 12
-      info: 
-    - cardShameType: 3
-      currentShame: 4
-      afterShame: 4
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 8
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 12
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 16
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 20
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 24
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
   - list:
-    - cardShameType: 0
-      currentShame: 14
-      afterShame: 16
-      info: 
-    - cardShameType: 3
-      currentShame: 4
-      afterShame: 4
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 18
-      afterShame: 20
-      info: 
-    - cardShameType: 3
-      currentShame: 4
-      afterShame: 4
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 22
-      afterShame: 24
-      info: 
-    - cardShameType: 3
-      currentShame: 4
-      afterShame: 4
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
-  - list:
-    - cardShameType: 0
-      currentShame: 26
-      afterShame: 28
-      info: 
-    - cardShameType: 3
-      currentShame: 4
-      afterShame: 4
-      info: 
-    - cardShameType: 4
-      currentShame: 6
-      afterShame: 6
-      info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 12
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 18
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 24
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 30
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 
+    - list:
+      - cardShameType: 1
+        currentShame: 36
+        info: 
+      - cardShameType: 8
+        currentShame: 4
+        info: 
+      - cardShameType: 16
+        currentShame: 6
+        info: 

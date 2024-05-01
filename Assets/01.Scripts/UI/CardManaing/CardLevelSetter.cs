@@ -11,6 +11,8 @@ public class CardLevelSetter : CardSetter
     [SerializeField] private TextMeshProUGUI _cardCurrentLevelText;
     [SerializeField] private TextMeshProUGUI _cardAfterLevelText;
     [SerializeField] private Slider _cardEXPGazer;
+
+    [SerializeField] private UnityEvent<CardShameElementSO> _cardShameUpperEvent;
     [SerializeField] private UnityEvent _cardLevelUpEvent;
 
     private Tween _onGaigingTween;
@@ -35,30 +37,29 @@ public class CardLevelSetter : CardSetter
         SetEXP(shameData.cardExp);
     }
 
-    public void SetEXP(float addExp)
+    public void SetEXP(float currentExp)
     {
-        float exp = _selectShameData.cardExp += addExp;
-
-        if(exp >= _maxEXP)
+        if(currentExp >= _maxEXP)
         {
             _selectShameData.cardExp = 0;
             _cardEXPGazer.value = 0;
 
             _selectShameData.cardLevel += 1;
-            _selectShameData.cardExp = exp - _maxEXP;
+            _selectShameData.cardExp = currentExp - _maxEXP;
 
+            _cardShameUpperEvent?.Invoke(_selectShameData);
             _cardLevelUpEvent?.Invoke();
 
             _maxEXP = _selectShameData.cardLevel *
                       _magnificationOfLevelArr[_selectShameData.cardLevel - 1];
 
-            exp = _selectShameData.cardExp;
+            currentExp = _selectShameData.cardExp;
         }
 
         _onGaigingTween.Kill();
 
         _isInCalculating = false;
         _onGaigingTween =
-        DOTween.To(() => _cardEXPGazer.value, x => _cardEXPGazer.value = x, exp / _maxEXP, 0.5f).SetEase(Ease.OutBack);
+        DOTween.To(() => _cardEXPGazer.value, x => _cardEXPGazer.value = x, currentExp / _maxEXP, 0.5f).SetEase(Ease.OutBack);
     }
 }
