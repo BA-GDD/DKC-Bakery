@@ -23,13 +23,12 @@ public class CardInfo : ScriptableObject
 
     [Header("스킬 정보")]
     public AnimationClip abilityAnimation;
-    public TargetEnemyCount targetEnemyCount;
+    public CardShameElementSO cardShameData;
 
     [Header("개별 타격 이펙트")]
     public ParticleSystem hitEffect;
     public ParticleSystem targetEffect;
 
-    public int AbillityCost;
     [TextArea]
     public string AbillityInfo;
 }

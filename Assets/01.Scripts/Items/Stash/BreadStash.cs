@@ -27,7 +27,7 @@ public class BreadStash : Stash
 
     public override bool CanAddItem(ItemDataSO itemData)
     {
-        if (stash.Count >= _itemSlots.Length || stashDictionary.ContainsKey(itemData))
+        if (stashDictionary.ContainsKey(itemData))
         {
             Debug.Log("No more space or already exists!");
             return false;

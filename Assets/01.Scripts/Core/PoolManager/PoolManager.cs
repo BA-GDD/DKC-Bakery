@@ -27,7 +27,7 @@ public enum PoolingType
     SeedGun,
     VCamPool,
     CandyStreamBurst,
-    FallingThunder,
+    CardLevelUpFx
 }
 public enum ParticleEnum
 {

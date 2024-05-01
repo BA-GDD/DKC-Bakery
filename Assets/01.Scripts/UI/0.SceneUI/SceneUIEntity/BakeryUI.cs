@@ -4,56 +4,60 @@ using UnityEngine;
 using UIDefine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class BakeryUI : SceneUI
 {
-    [SerializeField] private Transform _popupPanelTrm;
-    [SerializeField] private GameObject _bakingCakePanelObj;
-
-    [Header("리절트 케이크")]
-    [SerializeField] private Image _cakeImg;
-    [SerializeField] private TextMeshProUGUI _cakeNameText;
-    [SerializeField] private TextMeshProUGUI _cakeInfoText;
-
-    private NormalPanelInfo _warningPanelInfo;
-
-    private void Start()
+    private BakeryContentPanel _recipePanel;
+    public BakeryContentPanel RecipePanel
     {
-        _warningPanelInfo = new NormalPanelInfo
-            (
-                "경고!",
-                "모든 종류의 재료를 넣어 주세요.",
-                true
-            );
+        get
+        {
+            if(_recipePanel == null)
+            {
+                _recipePanel = FindObjectOfType<BakeryContentPanel>();
+            }
+            return _recipePanel;
+        }
     }
 
-    public void ClearBakingCakePanel(bool value)
+    [SerializeField] private GetCakePanel _getCakePanel;
+    public GetCakePanel GetCakePanel => _getCakePanel;
+
+    [SerializeField] private GameObject _previewPanelObj;
+    private PreviewPanel[] _previewPanels;
+
+    public BakeryData BakeryData { get; set; } = new BakeryData();
+    private const string _bakeryKey = "BakeryDataKey";
+
+    public override void SceneUIStart()
     {
-        _bakingCakePanelObj.SetActive(value);
-        BakingManager.Instance.CookingBox.ClearImgAllSelectedIngredient();
+        if (DataManager.Instance.IsHaveData(_bakeryKey))
+        {
+            BakeryData = DataManager.Instance.LoadData<BakeryData>(_bakeryKey);
+        }
+
+        _previewPanels = _previewPanelObj.GetComponentsInChildren<PreviewPanel>();
     }
-
-    public void BakeBread()
+    public void SaveData()
     {
-        if(BakingManager.Instance.CanBake())
+        DataManager.Instance.SaveData(BakeryData, _bakeryKey);
+    }
+    public void FilteringPreviewContent(RecipeSortType type)
+    {
+        foreach (var panel in _previewPanels)
         {
-            ItemDataBreadSO bakingCakeSO = BakingManager.Instance.BakeBread();
-            ClearBakingCakePanel(true);
-
-            _cakeImg.sprite = bakingCakeSO.itemIcon;
-            _cakeNameText.text = bakingCakeSO.itemName;
-            _cakeInfoText.text = bakingCakeSO.itemInfo;
+            panel.SetUpPanel(type);
         }
-        else
-        {
-            NormalPanel bakingWarningPanel = PanelManager.Instance.CreatePanel(PanelType.normal,
-                                                                               _popupPanelTrm,
-                                                                               Vector3.zero) 
-                as NormalPanel;
-
-            bakingWarningPanel.transform.localScale = Vector3.one;
-            bakingWarningPanel.SetUpPanel(_warningPanelInfo);
-            bakingWarningPanel.gameObject.SetActive(true);
-        }
+    }
+    public void SelectRecipe(RecipeElement element)
+    {
+        var bp = _previewPanels.FirstOrDefault(x => x.MySortType == RecipeSortType.Fast) as LookRecipePreviewPanel;
+        bp.HandleAppearRecipe(element);
+    }
+    public void SelectIngredient(IngredientElement element)
+    {
+        var bp = _previewPanels.FirstOrDefault(x => x.MySortType == RecipeSortType.Baking) as LookBakingPreviewPanel;
+        bp.SetIngredientElement(element);
     }
 }

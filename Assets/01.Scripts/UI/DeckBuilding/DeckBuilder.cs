@@ -57,15 +57,27 @@ public class DeckBuilder : MonoBehaviour
 
         canSelect = true;
         selectCardList.Add(cardBase);
-        _selectCardElementArr[selectCardList.Count - 1].SetCard(cardBase.CardInfo);
+        foreach(SelectCard sc in _selectCardElementArr)
+        {
+            if(!sc.IsAssignedCard)
+            {
+                sc.SetCard(cardBase.CardInfo, (int)cardBase.CombineLevel);
+                break;
+            }
+        }
     }
 
     public void RemoveInDeck(CardBase cardBase)
     {
-        int idx = selectCardList.IndexOf(cardBase);
-        selectCardList.Remove(cardBase);
-
-        _selectCardElementArr[idx].UnSetCard();
+        foreach (SelectCard sc in _selectCardElementArr)
+        {
+            if (sc.SelectCardInfo == cardBase.CardInfo)
+            {
+                sc.UnSetCard();
+                selectCardList.Remove(cardBase);
+                break;
+            }
+        }
     }
 
     public void SaveDeck(string deckName)

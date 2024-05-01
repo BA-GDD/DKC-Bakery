@@ -61,8 +61,6 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
 
             ((ItemDataIngredientSO)item.itemDataSO).isUsed = false;
             //Inventory.Instance.AddItem(item.itemDataSO);
-            BakingManager.Instance.RemoveItem(item.itemDataSO);
-
             Debug.Log("isUsed false로 해주고 사용한 재료에서 빼주고 인벤토리의 재료 인벤토리에 넣어준다");
 
             return;
@@ -75,19 +73,9 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
         //}
 
         // 클릭 시 제빵 팝업이 열려있고, 현재 슬롯의 타입이 Ingredient(재료)라면
-        if (BakingManager.Instance.isOpen && (item.itemDataSO.itemType == ItemType.Ingredient))
+        if (item.itemDataSO.itemType == ItemType.Ingredient)
         {
-            if(BakingManager.Instance.usedIngredientStash.usedIngredDictionary.TryGetValue(ingredientSO.ingredientType, out InventoryItem invenItem))
-            {
-                Debug.Log("이미 들어있음");
-                return;
-            }
-            if (ingredientSO != null && ingredientSO.ingredientType != IngredientType.None)
-            {
-                ((ItemDataIngredientSO)item.itemDataSO).isUsed = true;
-                BakingManager.Instance.AddItem(item.itemDataSO);
-                Inventory.Instance.RemoveItem(item.itemDataSO);
-            }
+            
             return;
         }
 

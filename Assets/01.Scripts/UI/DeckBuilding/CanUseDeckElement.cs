@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class CanUseDeckElement : MonoBehaviour, IPointerClickHandler
 {
+    public DeckElement DeckInfo { get; private set; }
+
     [SerializeField] private TextMeshProUGUI _deckNameText;
     private DeckElement _deckInfo;
 
@@ -19,6 +21,7 @@ public class CanUseDeckElement : MonoBehaviour, IPointerClickHandler
 
     public void SetDeckInfo(DeckElement deckInfo, DeckGenerator deckGenerator)
     {
+        DeckInfo = deckInfo;
         _deckGenerator = deckGenerator;
 
         _deckName = deckInfo.deckName;

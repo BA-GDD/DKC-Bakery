@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 145143eb93006454baed654b5669d0c3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _aura_texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -50,6 +54,9 @@ Material:
     - _noise_scale: 0
     - _outline_thickness: 1
     m_Colors:
+    - _aura_color: {r: 0, g: 0, b: 0, a: 0}
+    - _aura_panner_speed: {r: 0, g: -0.36, b: 0, a: 0}
+    - _aura_tiling: {r: 1.19, g: 0.07, b: 0, a: 0}
     - _blink_color: {r: 1, g: 1, b: 1, a: 0}
     - _dissolve_color: {r: 1.515717, g: 1.455241, b: 0.5934173, a: 0}
     - _outline_color: {r: 0, g: 0, b: 0, a: 0}
