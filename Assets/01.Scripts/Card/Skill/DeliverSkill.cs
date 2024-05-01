@@ -16,7 +16,7 @@ public class DeliverSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -31,7 +31,7 @@ public class DeliverSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
 
         foreach (var e in Player.GetSkillTargetEnemyList[this])
         {
@@ -42,6 +42,8 @@ public class DeliverSkill : CardBase, ISkillEffectAnim
                 Destroy(obj, 1.0f);
             }
         }
+
+        yield return new WaitForSeconds(3.65f);
 
         foreach(var e in Player.GetSkillTargetEnemyList[this])
         {

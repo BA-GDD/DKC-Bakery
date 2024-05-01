@@ -26,7 +26,8 @@ public enum PoolingType
     TouchEffect,
     SeedGun,
     VCamPool,
-    CandyStreamBurst
+    CandyStreamBurst,
+    FallingThunder,
 }
 public enum ParticleEnum
 {

@@ -31,14 +31,25 @@ public class LightingRodBuff : SpecialBuff, IOnEndSkill
     {
         foreach (var e in BattleController.Instance.onFieldMonsterList)
         {
-            if (e.HealthCompo.AilmentStat.HasAilment(AilmentEnum.Shocked))
+            if(e != null)
             {
-                entity.BuffStatCompo.AddStack(StackEnum.Lightning, 1);
-                e.HealthCompo.AilmentStat.CuredAilment(AilmentEnum.Shocked);
-                entity.CharStat.IncreaseStatBy(dmgValues[combineLevel], entity.CharStat.GetStatByType(StatType.damage));
+                if (e.HealthCompo.AilmentStat.HasAilment(AilmentEnum.Shocked))
+                {
+                    entity.BuffStatCompo.AddStack(StackEnum.Lightning, 1);
+                    e.HealthCompo.AilmentStat.CuredAilment(AilmentEnum.Shocked);
+                    entity.CharStat.IncreaseStatBy(dmgValues[combineLevel], entity.CharStat.GetStatByType(StatType.damage));
+                }
             }
         }
     }
+
+    public override void EndBuff()
+    {
+        base.EndBuff();
+        for (int i = 0; i < entity.BuffStatCompo.GetStack(StackEnum.Lightning); i++)
+            entity.CharStat.DecreaseStatBy(dmgValues[combineLevel], entity.CharStat.GetStatByType(StatType.damage));
+    }
+
     public override void SetIsComplete(bool value)
     {
         entity.CharStat.DecreaseStatBy(dmgValues[combineLevel], entity.CharStat.GetStatByType(StatType.damage));

@@ -15,7 +15,6 @@ public class FallingThunderSkill : LightningCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -36,6 +35,7 @@ public class FallingThunderSkill : LightningCardBase, ISkillEffectAnim
 
         if (isLastEnemy)
         {
+            Player.VFXManager.PlayParticle(this, Player.GetSkillTargetEnemyList[this][0].transform.position);
             for (int i = 0; i < 2; ++i)
             {
                 Player.GetSkillTargetEnemyList[this][0]?.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
@@ -50,6 +50,7 @@ public class FallingThunderSkill : LightningCardBase, ISkillEffectAnim
         }
         else
         {
+            Player.VFXManager.PlayParticle(this, Player.transform.position);
             foreach (var e in Player.GetSkillTargetEnemyList[this])
             {
                 e?.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);

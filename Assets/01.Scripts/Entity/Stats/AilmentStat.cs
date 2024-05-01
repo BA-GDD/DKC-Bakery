@@ -63,8 +63,8 @@ public class AilmentStat
             case AilmentEnum.Chilled:
                 break;
             case AilmentEnum.Shocked:
-                _ailmentStack[ailment] = 0;
-                CuredAilment(ailment);
+                //_ailmentStack[ailment] = 0;
+                //CuredAilment(ailment);
                 _health.AilmentByDamage(ailment, Mathf.RoundToInt(_health.maxHealth * 0.07f));
                 break;
         }

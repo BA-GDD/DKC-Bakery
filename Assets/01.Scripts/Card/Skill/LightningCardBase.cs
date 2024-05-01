@@ -13,9 +13,10 @@ public abstract class LightningCardBase : CardBase
         {
             try
             {
+                Debug.Log("번개 체인");
                 e?.HealthCompo.AilmentStat.UsedToAilment(AilmentEnum.Shocked);
-                GameObject shockedEffects = Instantiate(_shockedEffect.gameObject, Player.target.transform.position, Quaternion.identity);
-                Destroy(shockedEffects, 1.0f);
+                //GameObject shockedEffects = Instantiate(_shockedEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+                //Destroy(shockedEffects, 1.0f);
             }
             catch (Exception ex)
             {
