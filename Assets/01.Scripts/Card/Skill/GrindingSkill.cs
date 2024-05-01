@@ -16,7 +16,7 @@ public class GrindingSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         StartCoroutine(AddStackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
