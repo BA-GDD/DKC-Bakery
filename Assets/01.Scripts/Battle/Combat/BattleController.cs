@@ -11,7 +11,7 @@ public class SEList<T>
     public List<T> list;
 }
 
-public class BattleController : MonoBehaviour
+public class BattleController : MonoSingleton<BattleController>
 {
     [SerializeField] private SEList<SEList<bool>> isStuck;
 
@@ -200,6 +200,8 @@ public class BattleController : MonoBehaviour
 
             SpawnEnemyList.Add(selectEnemy);
             _hpBarMaker.SetupHpBar(selectEnemy);
+
+
         }
     }
 

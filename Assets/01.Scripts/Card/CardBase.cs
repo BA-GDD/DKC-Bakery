@@ -78,6 +78,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 
     protected List<Entity> targets = new();
 
+    protected Color minimumColor = new Color(255, 255, 255, .1f);
+    protected Color maxtimumColor = new Color(255, 255, 255, 1.0f);
+
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();

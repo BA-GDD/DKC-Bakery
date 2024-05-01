@@ -23,6 +23,18 @@ public class TsumegoSystem : MonoBehaviour
         ClearStage();
     }
 
+    public void CheckDefeat()
+    {
+        foreach(var condition in CurTsumegoInfo.DefeatConditions)
+        {
+            if (!condition.CheckCondition())
+            {
+                return;
+            }
+        }
+        DefeatStage();
+    }
+
     public void ClearStage()
     {
         // SO에 클리어 처리
@@ -30,5 +42,12 @@ public class TsumegoSystem : MonoBehaviour
         _gameEndEvent?.Invoke(true);
         _stageClearEvent?.Invoke(true);
         // 클리어 연출, 보상 지급, 클리어 데이터 갱신 처리
+    }
+
+    public void DefeatStage()
+    {
+        CurTsumegoInfo.IsClear = false;
+        _gameEndEvent?.Invoke(true);
+        _stageClearEvent?.Invoke(false);
     }
 }

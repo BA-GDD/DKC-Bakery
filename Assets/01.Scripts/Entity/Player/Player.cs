@@ -122,7 +122,11 @@ public class Player : Entity
             AnimatorCompo.SetBool(_abilityHash, true);
             AnimatorCompo.SetBool(_moveHash, isMove);
 
-            if (isMove) MoveToTargetForward();
+            if (isMove)
+            {
+                MoveToTargetForward();
+                if (_isFront) lastMovePos = cream.transform.position;
+            }
             ChangePosWithCream(false);
         }
         else

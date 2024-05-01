@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
 {
-    private Color minimumColor = new Color(255, 255, 255, .1f);
-    private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
-
-
     public override void Abillity()
     {
         IsActivingAbillity = true;
@@ -77,7 +73,6 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
             GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, e.transform.position, Quaternion.identity);
             Destroy(obj, 1.0f);
         }
-
 
         FeedbackManager.Instance.EndSpeed = 3.0f;
         FeedbackManager.Instance.ShakeScreen(2.0f);

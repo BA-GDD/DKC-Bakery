@@ -9,5 +9,5 @@ public class TsumegoInfo : ScriptableObject
     public string Info;
     public bool IsClear;
     public List<TsumegoCondition> Conditions;
-
+    public List<TsumegoCondition> DefeatConditions;
 }
