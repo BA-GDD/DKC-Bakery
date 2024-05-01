@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443923fdcae71fc4b98c3a4367fa193d, type: 3}
   m_Name: LightingRodBuff
   m_EditorClassIdentifier: 
-  dmgValues: 
-  durationValues: 
+  dmgValues: 030000000400000005000000
+  durationValues: 020000000200000003000000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,5 +27,6 @@ MonoBehaviour:
   m_Name: LightningRodBuf
   m_EditorClassIdentifier: 
   statBuffs: []
-  specialBuffs: []
+  specialBuffs:
+  - {fileID: -2437881621337367683}
   stackBuffs: []
