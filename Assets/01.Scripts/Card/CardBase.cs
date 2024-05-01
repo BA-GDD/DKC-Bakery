@@ -178,7 +178,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     }
     public int[] GetDamage(CombineLevel level)
     {
-        CardManagingHelper.GetCardDamage(CardInfo.cardShameData);
+        CardManagingHelper.GetCardDamage(CardInfo.cardShameData,(int)_combineLevel);
         return damageArr.list[(int)level].list.ToArray();
     }
     public void OnPointerClick(PointerEventData eventData)

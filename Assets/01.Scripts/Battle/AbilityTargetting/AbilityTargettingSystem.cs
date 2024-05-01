@@ -120,7 +120,7 @@ public class AbilityTargettingSystem : MonoBehaviour
     IEnumerator EnemyTargetting(CardBase selectCard)
     {
         TargetEnemyCount tec =
-        (TargetEnemyCount)selectCard.CardInfo.cardShameData.cardShameDataList[(int)selectCard.CombineLevel - 1].
+        (TargetEnemyCount)selectCard.CardInfo.cardShameData.cardShameDataList[(int)selectCard.CombineLevel].
         list.Find(x => x.cardShameType == CardShameType.Range).currentShame;
         
         if (tec != TargetEnemyCount.ALL)
