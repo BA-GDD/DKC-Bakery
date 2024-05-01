@@ -8,9 +8,11 @@ public class CardManagingUI : SceneUI
     [SerializeField] private int _loadStoneCount;
     public int LoadStoneCount => _loadStoneCount;
 
-    public CardShameElementSO CurrentCardShameElementInfo { get; set; }
+    public CardShameElementSO CurrentCardShameElementInfo { get; private set; }
+    private SelectToManagingCardElement _selectCardElement;
 
     [SerializeField] private UnityEvent<float> _onPressLevelUpEvent;
+    [SerializeField] private UnityEvent<CardInfo> _onSelectToManagingCardEvent;
 
     public void PressLevelUpButton()
     {
@@ -18,8 +20,22 @@ public class CardManagingUI : SceneUI
 
         if(CanUseGoods(toUseGoods))
         {
-            _onPressLevelUpEvent?.Invoke(toUseGoods * 0.4f);
+            float currentEXP = CurrentCardShameElementInfo.cardExp += toUseGoods * 0.4f;
+            _onPressLevelUpEvent?.Invoke(currentEXP);
         }
+    }
+
+    public void OnSelectToManagingCard(SelectToManagingCardElement selectCardElement)
+    {
+        if(_selectCardElement != null)
+        {
+            _selectCardElement.UnSelectCard();
+        }
+
+        _selectCardElement = selectCardElement;
+
+        CurrentCardShameElementInfo = selectCardElement.CardInfo.cardShameData;
+        _onSelectToManagingCardEvent?.Invoke(selectCardElement.CardInfo);
     }
 
     public bool CanUseGoods(int toUseGoods)

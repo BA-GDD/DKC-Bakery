@@ -19,10 +19,10 @@ public class CardShameSetter : CardSetter
     {
         CardShameData shameData = CardManagingHelper.GetCardShameData(data, type, combineLevel);
 
-        int shameType = (int)shameData.cardShameType;
+        int shameType = (int)(Mathf.Log((int)shameData.cardShameType) / Mathf.Log(2));
 
         return (_shameIconSprite[shameType], _shameTypeName[shameType],
-                shameData.currentShame, CardManagingHelper.GetAfterLevelShame(data, shameData.cardShameType, combineLevel) , shameData.info);
+                 CardManagingHelper.GetAfterLevelShame(data, shameData.cardShameType, combineLevel), shameData.currentShame, shameData.info);
     }
 
     private (float, float) GetGookBapShame(CardShameElementSO data, int combineLevel)
@@ -63,7 +63,7 @@ public class CardShameSetter : CardSetter
     public override void SetCardInfo(CardShameElementSO shameData, CardInfo cardInfo, int combineLevel)
     {
         combineLevel = Mathf.Clamp(combineLevel - 1, 0, 5);
-        List<CardShameData> dataList = shameData.cardShameDataList[combineLevel][shameData.cardLevel - 1];
+        List<CardShameData> dataList = shameData.cardShameDataList[combineLevel].list[shameData.cardLevel - 1].list;
 
         SetGookBapShame(shameData, combineLevel);
 

@@ -16,7 +16,7 @@ public class SelectCard : MonoBehaviour
 
     public bool IsAssignedCard { get; private set; }
 
-    public void SetCard(CardInfo info)
+    public void SetCard(CardInfo info, int combineLevel)
     {
         SelectCardInfo = info;
 
@@ -24,7 +24,7 @@ public class SelectCard : MonoBehaviour
         _cardVisual.sprite = info.CardVisual;
         _cardVisual.color = Color.white;
         _cardVisual.material = _cardMaterial;
-        _costText.text = CardManagingHelper.GetCardCost(info.cardShameData).ToString();
+        _costText.text = CardManagingHelper.GetCardShame(info.cardShameData, CardShameType.Cost, combineLevel).ToString();
 
         IsAssignedCard = true;
     }

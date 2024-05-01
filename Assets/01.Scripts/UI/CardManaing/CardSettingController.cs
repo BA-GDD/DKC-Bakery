@@ -5,33 +5,32 @@ using UnityEngine;
 
 public class CardSettingController : MonoBehaviour
 {
-    [SerializeField] private CardInfo _testInfo;
-
     private CardSetter[] _cardSetterArr;
     private CardShameContainer _cardShameContaner;
 
     [SerializeField] private TextMeshProUGUI _combineText;
     private int _combineLevel = 1;
 
+    private CardInfo _selectCardInfo;
+
     public void AddCombineLevel()
     {
         if (_combineLevel == 3) return;
 
         _combineLevel++;
-        CardSetting(_combineLevel, _testInfo);
+        ResetInfo();
         SetCombineText();
     }
-
     public void MinusCombineLevel()
     {
         if (_combineLevel == 1) return;
 
         _combineLevel--;
-        CardSetting(_combineLevel, _testInfo);
+        ResetInfo();
         SetCombineText();
     }
 
-    private void Awake()
+    private void Start()
     {
         _cardSetterArr = GetComponentsInChildren<CardSetter>();
         _cardShameContaner = GetComponent<CardShameContainer>();
@@ -44,17 +43,15 @@ public class CardSettingController : MonoBehaviour
         _combineText.text = $"ÄÞ¹ÙÀÎ ·¹º§ : {_combineLevel}";
     }
 
-    private void Start()
+    public void SetCardInfo(CardInfo cardInfo)
     {
-        UIManager.Instance.GetSceneUI<CardManagingUI>().
-        CurrentCardShameElementInfo = _testInfo.cardShameData;
-
+        _selectCardInfo = cardInfo;
         ResetInfo();
     }
 
     public void ResetInfo()
     {
-        CardSetting(_combineLevel, _testInfo);
+        CardSetting(_combineLevel, _selectCardInfo);
     }
 
     public void CardSetting(int combineLevel, CardInfo cardInfo)

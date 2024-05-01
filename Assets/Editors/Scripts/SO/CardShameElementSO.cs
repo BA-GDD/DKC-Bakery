@@ -55,35 +55,48 @@ public class CardShameElementSO : ScriptableObject
     public List<CardShameData> normalValueGroup;
 
     [Header("카드 수치 [콤바인리스트<레벨리스트<리스트<수치>>>]")]
-    public List<List<List<CardShameData>>> cardShameDataList = new ();
+    public List<SEList<SEList<CardShameData>>> cardShameDataList = new ();
 
     public void ReadData()
     {
         cardShameDataList.Clear ();
 
-        for(int j = 0; j < 3; j++)
+        for(int j = 1; j <= 3; j++)
         {
-            List<List<CardShameData>> dataListGroup = new();
+            SEList<SEList<CardShameData>> dataListGroup = new();
+            dataListGroup.list = new List<SEList<CardShameData>>();
 
             for (int i = 0; i < 5; i++)
             {
-                CardShameData[] dataArr = new CardShameData[normalValueGroup.Count];
-                normalValueGroup.CopyTo(dataArr);
-                List<CardShameData> dataList = dataArr.ToList();
-
-                foreach(var icvpl in cardLevelUppervalueGroup)
+                SEList<CardShameData> dataList = new SEList<CardShameData>();
+                dataList.list = new List<CardShameData> ();
+                foreach (var icvpl in cardLevelUppervalueGroup)
                 {
-                    CardShameData csd = dataList.FirstOrDefault(x => x.cardShameType == icvpl.shameType);
-                    csd.currentShame += icvpl.perValue * i * j;
+                    foreach(CardShameData d in normalValueGroup)
+                    {
+                        CardShameData data = new CardShameData();
+
+                        data.cardShameType = d.cardShameType;
+                        if (d.cardShameType == icvpl.shameType)
+                        {
+                            data.currentShame = (d.currentShame + (icvpl.perValue * i)) * j;
+                        }
+                        else
+                        {
+                            data.currentShame = d.currentShame;
+                        }
+
+                        dataList.list.Add(data);
+                    }
                 }
 
-                dataListGroup.Add(dataList);
+                dataListGroup.list.Add(dataList);
             }
 
             cardShameDataList.Add(dataListGroup);
         }
 
-        Debug.Log("Generate Complere :)");
+        Debug.Log($"{cardShameDataList.Count} : Generate Complete :)");
     }
 }
 
