@@ -64,6 +64,7 @@ public class Player : Entity
         ColliderCompo.enabled = true;
         _saveSkillDic.Clear();
         ChangePosWithCream(false);
+        ChainningCardList.Clear();
     }
 
     protected override void Start()
