@@ -9,7 +9,7 @@ namespace BTVisual
         private int animationHash;
         [SerializeField] private string parametorName;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             animationHash = Animator.StringToHash(parametorName);
         }
