@@ -77,7 +77,8 @@ namespace Particle.Trigger
                     int chk = ps.GetTriggerParticles(type, particleList, out var colliderData);
                     for (int i = 0; i < chk; i++)
                     {
-                        for (int j = 0; j < colliderData.GetColliderCount(i); j++)
+                        int c = colliderData.GetColliderCount(i);
+                        for (int j = 0; j < c; j++)
                         {
                             Collider2D col = colliderData.GetCollider(i, j) as Collider2D;
                             if (col)
