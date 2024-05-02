@@ -13,7 +13,7 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
         Player.UseAbility(this, false, true);
 
-        Player.VFXManager.BackgroundColor(Color.gray);
+        Player.VFXManager.SetBackgroundColor(Color.gray);
 
         if (targets.Count > 0)
         {

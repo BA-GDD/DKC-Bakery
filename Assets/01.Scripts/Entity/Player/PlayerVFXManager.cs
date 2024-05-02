@@ -131,8 +131,9 @@ public class PlayerVFXManager : MonoBehaviour
         OnEndEffectEvent?.Invoke();
     }
 
-    public void BackgroundColor(Color color)
+    public void SetBackgroundColor(Color color)
     {
-        currentBackground.DOColor(color, 1.0f);
+        Debug.Log(color);
+        currentBackground.DOColor(color, 0.5f);
     }
 }

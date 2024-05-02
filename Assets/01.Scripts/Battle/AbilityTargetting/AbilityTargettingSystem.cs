@@ -111,7 +111,7 @@ public class AbilityTargettingSystem : MonoBehaviour
     public void SetMouseAndCardArrowBind(CardBase selectCard)
     {
         selectCard.CanUseThisCard = false;
-        _battleController.Player.VFXManager.BackgroundColor(Color.gray);
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.gray);
 
         EnemyTargetting(selectCard);
     }
@@ -215,10 +215,9 @@ public class AbilityTargettingSystem : MonoBehaviour
                                                                CardShameType.Range,
                                                                (int)selectCard.CombineLevel);
 
-        Debug.Log(_targetCountingActionDic[tec]);
         StartCoroutine(_targetCountingActionDic[tec].Invoke(selectCard, (int)tec));
 
-        _battleController.Player.VFXManager.BackgroundColor(Color.white);
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
     }
 
     private void BindMouseAndCardWithArrow()

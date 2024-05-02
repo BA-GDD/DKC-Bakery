@@ -75,8 +75,8 @@ public class CameraController : MonoBehaviour
         SetTransitionTime(1);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(_vCam.transform.DOLocalMoveX(0, 0.1f).SetEase(Ease.Linear));
-        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear));
-        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 6, 0.1f).SetEase(Ease.Linear));
+        seq.Append(_vCam.transform.DOLocalMoveX(0, 0.3f).SetEase(Ease.Linear));
+        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 0), 0.3f).SetEase(Ease.Linear));
+        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 6, 0.3f).SetEase(Ease.Linear));
     }
 }
