@@ -17,6 +17,8 @@ public class AbilityTargetArrow : MonoBehaviour
     public bool IsGenerating { get; set; }
     public bool IsBindSucess { get; private set; }
 
+    public Entity MarkingEntity { get; private set; }
+
     public void ActiveArrow(bool value)
     {
         _chainArrowVisual.enabled = value;
@@ -54,8 +56,10 @@ public class AbilityTargetArrow : MonoBehaviour
         }
     }
 
-    public Tween ReChainning(Action callBack)
+    public Tween ReChainning(Action callBack, Entity entity)
     {
+        MarkingEntity = entity;
+
         SetActive();
         float deltaY = _arrowMask.sizeDelta.y;
         Tween re = DOTween.To(() => new Vector2(0, deltaY), vec => _arrowMask.sizeDelta = vec, new Vector2(_saveLength, deltaY), 0.3f).SetEase(Ease.InQuart);
@@ -63,7 +67,7 @@ public class AbilityTargetArrow : MonoBehaviour
         {
             FeedbackManager.Instance.ShakeScreen(0.5f);
             _chainArrowVisual.DOFade(0, 0.1f);
-            SetFade(0.5f);
+            SetFade(0f);
             
             callBack();
         });

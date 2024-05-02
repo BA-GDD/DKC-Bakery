@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class SeedGunSkill : CardBase, ISkillEffectAnim
 {
-    private Color minimumColor = new Color(255, 255, 255, .1f);
-    private Color maxtimumColor = new Color(255, 255, 255, 1.0f);
-
     private float yPos;
     private Entity target;
 
@@ -63,6 +60,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         {
             if (Player.GetSkillTargetEnemyList[this].Contains(e) || e == null) continue;
             e.SpriteRendererCompo.DOColor(maxtimumColor, 0.5f);
+
         }
     }
 }

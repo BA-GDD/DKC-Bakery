@@ -13,6 +13,13 @@ public abstract class SpecialBuff : ScriptableObject
     {
         this.entity = entity;
     }
+    public virtual void Init()
+    {
+    }
+    public virtual void Refresh(int level)
+    {
+        combineLevel = level;
+    }
     public virtual void Active(int level)
     {
         combineLevel = level;

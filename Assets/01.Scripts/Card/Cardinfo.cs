@@ -10,7 +10,8 @@ public enum TargetEnemyCount
     III,
     IV,
     V,
-    ALL
+    ALL,
+    ME
 }
 
 [CreateAssetMenu(menuName = "SO/Card/CardInfo")]
@@ -22,6 +23,7 @@ public class CardInfo : ScriptableObject
     public Sprite CardVisual;
 
     [Header("스킬 정보")]
+    public Color skillPersonalColor = Color.white;
     public AnimationClip abilityAnimation;
     public CardShameElementSO cardShameData;
 

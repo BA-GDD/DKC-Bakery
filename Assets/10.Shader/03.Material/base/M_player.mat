@@ -43,6 +43,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _aura_texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,20 +65,23 @@ Material:
     - _alpha: 1
     - _blink_amount: 0
     - _dissolve_amount: 0
-    - _dissolve_edge: 0.0556
-    - _dissolve_pixelize_scale: 22.87
+    - _dissolve_edge: 0.0745
+    - _dissolve_pixelize_scale: 26.2
     - _is_outline: 1
-    - _noise_scale: 29
+    - _noise_scale: 167
     - _noise_step: 0.429
-    - _outline_thickness: 0
+    - _outline_thickness: 1
     - _pixel: 500
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _aura_color: {r: 0, g: 0, b: 0, a: 0}
+    - _aura_panner_speed: {r: 0, g: -0.36, b: 0, a: 0}
+    - _aura_tiling: {r: 1.19, g: 0.07, b: 0, a: 0}
     - _blink_color: {r: 1, g: 1, b: 1, a: 0}
     - _dissolve_color: {r: 2.4622898, g: 0.7317182, b: 2.0943062, a: 0}
-    - _outline_color: {r: 0, g: 0, b: 0, a: 0}
+    - _outline_color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8458588442279574301
 MonoBehaviour:

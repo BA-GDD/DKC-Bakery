@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MineUI : SceneUI
+public class MineUI : BattleUI
 {
     [SerializeField] private Animator _animator;
     public Animator StagePanelAnimator => _animator;

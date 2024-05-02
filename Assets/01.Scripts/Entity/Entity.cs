@@ -51,6 +51,23 @@ public abstract class Entity : PoolableMono
 
     public UnityEvent BeforeChainingEvent => CardReader.SkillCardManagement.beforeChainingEvent;
 
+    public List<CardBase> ChainningCardList { get; set; } = new List<CardBase>();
+
+    private Tween _materialChangeTween;
+
+    public void SelectChainningCharacter(Color skillColor, float Thickness)
+    {
+        _materialChangeTween.Kill();
+
+        Material mat = new Material(SpriteRendererCompo.material);
+        SpriteRendererCompo.material = mat;
+
+        mat.SetFloat("_outline_thickness", 0);
+        mat.SetColor("_outline_color", skillColor);
+
+        _materialChangeTween = mat.DOFloat(Thickness, "_outline_thickness", 0.2f);
+    }
+
     protected virtual void Awake()
     {
         Transform visualTrm = transform.Find("Visual");

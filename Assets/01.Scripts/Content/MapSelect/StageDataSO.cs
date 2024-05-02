@@ -40,6 +40,11 @@ public class StageDataSO : ScriptableObject
 
     private const string _dataKey = "AdventureKEY";
 
+    public void Clone()
+    {
+        clearCondition = Instantiate(clearCondition);
+    }
+
     public void StageClear()
     {
         if (isClearThisStage) return;

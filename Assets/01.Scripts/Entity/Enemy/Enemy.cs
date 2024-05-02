@@ -23,10 +23,10 @@ public abstract class Enemy : Entity
     protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
     protected EnemyVFXPlayer VFXPlayer { get; private set; }
-
     protected Collider2D Collider;
-
     public TurnStatus turnStatus;
+
+    
 
     protected override void Awake()
     {
@@ -76,7 +76,6 @@ public abstract class Enemy : Entity
         OnAttackEnd -= HandleAttackEnd;
     }
     public abstract void Attack();
-
     public virtual void TurnStart()
     {
         Collider.enabled = false;
@@ -85,8 +84,8 @@ public abstract class Enemy : Entity
     public virtual void TurnEnd()
     {
         Collider.enabled = true;
+        ChainningCardList.Clear();
     }
-
     public virtual void Spawn(Vector3 spawnPos)
     {
         SpriteRendererCompo.material.SetFloat("_dissolve_amount", 0);
@@ -105,7 +104,6 @@ public abstract class Enemy : Entity
     {
         transform.DOMove(pos, 1f);
     }
-
     [ContextMenu("TurnStart")]
     private void TestTurnStart() => TurnStart();
     [ContextMenu("TurnAction")]

@@ -25,8 +25,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_CUSTOMDATA_ON
   - _USE_LERP_ON
+  - _USE_OTHER_DISS_ON
   m_InvalidKeywords:
   - _USE_CUSTOMDATA1_ON
   m_LightmapFlags: 4
@@ -148,7 +148,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Use_Customdata: 1
+    - _Use_Customdata: 0
     - _Use_Customdata1: 1
     - _Use_ToonDissolve: 0
     - _Use_lerp: 1
@@ -164,7 +164,7 @@ Material:
     - _normal_str: 0
     - _normal_upanner: -1
     - _normal_vpanner: 0
-    - _use_other_diss: 0
+    - _use_other_diss: 1
     - _use_polar: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
