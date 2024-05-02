@@ -181,6 +181,7 @@ public class AbilityTargettingSystem : MonoBehaviour
     private IEnumerator HandleALLEnemyTargetting(CardBase selectCard, int count)
     {
         yield return null;
+
         foreach (Enemy e in _battleController.onFieldMonsterList)
         {
             if (e is null) continue;
