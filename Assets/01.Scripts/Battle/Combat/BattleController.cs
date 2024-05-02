@@ -150,12 +150,12 @@ public class BattleController : MonoSingleton<BattleController>
         foreach (var e in onFieldMonsterList)
         {
             if (e is null) continue;
-            Player.VFXManager.BackgroundColor(Color.gray);
+            Player.VFXManager.SetBackgroundColor(Color.gray);
 
             e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
 
-            Player.VFXManager.BackgroundColor(Color.white);
+            Player.VFXManager.SetBackgroundColor(Color.white);
             if (_isGameEnd)
                 break;
 
@@ -239,6 +239,6 @@ public class BattleController : MonoSingleton<BattleController>
 
     public void BackgroundColor(Color color)
     {
-        Player.VFXManager.BackgroundColor(color);
+        Player.VFXManager.SetBackgroundColor(color);
     }
 }
