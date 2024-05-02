@@ -11,6 +11,13 @@ public enum AilmentEnum : int
     Chilled = 1,
     Shocked = 2
 }
+
+public enum StackEnum : int
+{
+    Forging = 0, // 단조
+    Lightning, // 번개
+}
+
 public class Health : MonoBehaviour, IDamageable
 {
     public int maxHealth;
@@ -151,19 +158,6 @@ public class Health : MonoBehaviour, IDamageable
         AfterHitFeedbacks();
 
         action?.Invoke();
-    }
-
-    public void ApplyMagicDamage(int damage, Vector2 attackDirection, Vector2 knockbackPower, Entity dealer)
-    {
-        int magicDamage = _owner.CharStat.GetMagicDamageAfterRegist(damage);
-        _currentHealth = Mathf.Clamp(_currentHealth - magicDamage, 0, maxHealth);
-        Debug.Log($"apply magic damage to {_owner.gameObject.name}! : {damage}");
-
-        knockbackPower.x *= attackDirection.x; //y값은 고정으로.
-
-        //데미지 띄우기
-        //DamageTextManager.Instance.PopupDamageText(_owner.transform.position, magicDamage, DamageCategory.Noraml);
-        AfterHitFeedbacks();
     }
 
     private void AfterHitFeedbacks()

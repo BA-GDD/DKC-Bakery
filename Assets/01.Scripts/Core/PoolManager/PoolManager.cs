@@ -26,6 +26,12 @@ public enum PoolingType
     TouchEffect,
     SeedGun,
     VCamPool,
+    CandyStreamBurst,
+    CardLevelUpFx,
+    FallingThunder,
+    Pumpkin,
+    Boomerang,
+    Tornado,
 }
 public enum ParticleEnum
 {

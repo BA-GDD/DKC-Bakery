@@ -48,7 +48,7 @@ public class Player : Entity
 
     public void SaveSkillToEnemy(CardBase skillCard, Entity target)
     {
-        if(!_saveSkillDic.ContainsKey(skillCard))
+        if (!_saveSkillDic.ContainsKey(skillCard))
         {
             _saveSkillDic.Add(skillCard, new List<Entity>());
         }
@@ -64,6 +64,7 @@ public class Player : Entity
         ColliderCompo.enabled = true;
         _saveSkillDic.Clear();
         ChangePosWithCream(false);
+        ChainningCardList.Clear();
     }
 
     protected override void Start()
@@ -121,17 +122,21 @@ public class Player : Entity
             AnimatorCompo.SetBool(_abilityHash, true);
             AnimatorCompo.SetBool(_moveHash, isMove);
 
-            if (isMove) MoveToTargetForward();
+            if (isMove)
+            {
+                MoveToTargetForward(GetSkillTargetEnemyList[card][0].forwardTrm.position);
+                if (_isFront) lastMovePos = cream.transform.position;
+            }
             ChangePosWithCream(false);
         }
         else
         {
-            //Å©¸² ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà
-            ChangePosWithCream(true,cream.InvokeAnimationCall);
+            //Å©ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+            ChangePosWithCream(true, cream.InvokeAnimationCall);
         }
     }
 
-    private void ChangePosWithCream(bool front,Action callback = null)
+    private void ChangePosWithCream(bool front, Action callback = null)
     {
         if (_isFront == front)
         {
@@ -156,6 +161,6 @@ public class Player : Entity
 
     protected override void HandleEndMoveToOriginPos()
     {
-        // ÀÏ´Ü ÇÒ°Å ¾øÀ½
+        // ï¿½Ï´ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 }

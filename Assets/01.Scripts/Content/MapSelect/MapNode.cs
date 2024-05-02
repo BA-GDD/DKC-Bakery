@@ -27,6 +27,9 @@ public class MapNode : MonoBehaviour, IPointerClickHandler
     {
         float upperY = transform.localPosition.y + 10;
         transform.DOLocalMoveY(upperY, 1f).SetLoops(-1, LoopType.Yoyo);
+
+        _stageData = Instantiate(_stageData);
+        _stageData.Clone();
     }
 
     public void ClickThisNode()

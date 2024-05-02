@@ -11,17 +11,28 @@ public abstract class LightningCardBase : CardBase
     {
         foreach (var e in battleController.onFieldMonsterList)
         {
-            Debug.Log("ddd");
             try
             {
+                Debug.Log("번개 체인");
                 e?.HealthCompo.AilmentStat.UsedToAilment(AilmentEnum.Shocked);
-                GameObject shockedEffects = Instantiate(_shockedEffect.gameObject, Player.target.transform.position, Quaternion.identity);
-                Destroy(shockedEffects, 1.0f);
+                //GameObject shockedEffects = Instantiate(_shockedEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+                //Destroy(shockedEffects, 1.0f);
             }
             catch (Exception ex)
             {
                 Debug.Log(e);
             }
         }
+    }
+
+    protected void ApplyShockedAilment(Entity enemy)
+    {
+        enemy.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
+    }
+
+    protected void RandomApplyShockedAilment(Entity enemy, float percentage)
+    {
+        if (UnityEngine.Random.value * 100 >= percentage)
+            enemy.HealthCompo.AilmentStat.ApplyAilments(AilmentEnum.Shocked);
     }
 }

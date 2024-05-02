@@ -24,7 +24,7 @@ public class MrMuddy : Enemy
     public override void TurnAction()
     {
         turnStatus = TurnStatus.Running;
-        MoveToTargetForward();
+        MoveToTargetForward(Vector3.zero);
     }
 
     public override void TurnEnd()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -9,40 +10,26 @@ using UnityEditor;
 
 public class BreadRecipeTable : LoadableData
 {
-    private bool _isMatch = false;
+    public List<Data> DataList => generateData;
 
-    public ItemDataBreadSO Bake(string[] ingredientNames)
+    public string[] GetIngredientNamesByCakeName(string cakeName)
     {
-        _isMatch = true;
-        ItemDataBreadSO returnBread = null;
-
-        for(int i = 1; i < generateData.Count; ++i)
+        foreach (var data in generateData)
         {
-            for(int j = 1; j < generateData[i].str.Length; ++j)
+            if (data.str[0] == cakeName)
             {
-                if(ingredientNames[j - 1] != generateData[i].str[j])
+                string[] ingredientNames = new string[3]
                 {
-                    _isMatch = false;
-                    break;
-                }
-            }
+                    data.str[1],
+                    data.str[2],
+                    data.str[3]
+                };
 
-            if (_isMatch)
-            {
-                // 매치되는 경우가 있을 경우 해당 것 반환해줘야함
-                returnBread = BakingManager.Instance.breadDictionary[generateData[i].str[0]];
-                return returnBread;
+                return ingredientNames;
             }
-
-            _isMatch = true;
         }
 
-        if(returnBread == null)
-        {
-            returnBread = BakingManager.Instance.breadDictionary["DubiousBread"];
-        }
-
-        return returnBread;
+        return null;
     }
 
 #if UNITY_EDITOR

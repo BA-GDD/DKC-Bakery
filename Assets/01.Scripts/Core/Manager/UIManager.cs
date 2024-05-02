@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UIDefine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -18,9 +16,15 @@ public class UIManager : MonoSingleton<UIManager>
     public Canvas Canvas { get; private set; }
     public RectTransform CanvasTrm => Canvas.transform as RectTransform;
 
+    public CinemachineBrain CinemachineBrain { get; private set; }
+    public CinemachineVirtualCamera VirtualCamera { get; private set; }
+
     private void Start()
     {
         Canvas = GetComponentInChildren<Canvas>();
+        CinemachineBrain = GetComponentInChildren<CinemachineBrain>();
+        VirtualCamera = GetComponentInChildren<CinemachineVirtualCamera>(); 
+
         foreach(SceneUI su in _screenElementGroup)
         {
             _sceneUIDic.Add(su.ScreenType, su);

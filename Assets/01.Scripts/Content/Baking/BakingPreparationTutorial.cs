@@ -38,7 +38,7 @@ public class BakingPreparationTutorial : MonoBehaviour
         for (int i = 0; i < _necessaryIngredList.Count; ++i)
         {
             // 만약 인벤토리 딕셔너리에 하나라도 없다면
-            if (!Inventory.Instance.ingredientStash.stashDictionary.ContainsKey(_necessaryIngredList[i]))
+            if (!Inventory.Instance.IsHaveItem(_necessaryIngredList[i]))
             {
                 // 실패 띄우고 반복문 탈출
                 _isCompleted = false;
@@ -60,40 +60,4 @@ public class BakingPreparationTutorial : MonoBehaviour
             //GameManager.Instance.Player.onPickUpItem -= TraverseInventoryHandle;
         }
     }
-
-    //private void Update()
-    //{
-    //    if (Keyboard.current.yKey.wasPressedThisFrame)
-    //    {
-    //        Inventory.Instance.AddItem(_necessaryIngredList[0]);
-    //        TraverseInventoryHandle();
-    //    }
-    //    if (Keyboard.current.uKey.wasPressedThisFrame)
-    //    {
-    //        Inventory.Instance.AddItem(_necessaryIngredList[1]);
-    //        TraverseInventoryHandle();
-    //    }
-    //    if (Keyboard.current.iKey.wasPressedThisFrame)
-    //    {
-    //        Inventory.Instance.AddItem(_necessaryIngredList[2]);
-    //        TraverseInventoryHandle();
-    //    }
-    //    if (Keyboard.current.oKey.wasPressedThisFrame)
-    //    {
-    //        Inventory.Instance.AddItem(_necessaryIngredList[3]);
-    //        TraverseInventoryHandle();
-    //    }
-    //    if (Keyboard.current.pKey.wasPressedThisFrame)
-    //    {
-    //        Inventory.Instance.AddItem(_necessaryIngredList[4]);
-    //        TraverseInventoryHandle();
-    //    }
-
-    //    if (Keyboard.current.aKey.wasPressedThisFrame
-    //        && _isFirstOpenInventory)
-    //    {
-    //        ShowInventoryTutorialHandle();
-    //        _isFirstOpenInventory = false;
-    //    }
-    //}
 }

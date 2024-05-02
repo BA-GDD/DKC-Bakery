@@ -6,6 +6,7 @@ using CardDefine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 {
@@ -63,6 +64,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         }
     }
     [SerializeField] private Material _cardMat;
+    public int AbilityCost => CardManagingHelper.GetCardShame(CardInfo.cardShameData,
+                                                                  CardShameType.Cost,
+                                                                  (int)CombineLevel);
 
     [HideInInspector]public BattleController battleController;
     protected Player Player => battleController.Player;
@@ -74,11 +78,16 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 
     protected List<Entity> targets = new();
 
+    protected Color minimumColor = new Color(255, 255, 255, .1f);
+    protected Color maxtimumColor = new Color(255, 255, 255, 1.0f);
+
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
         _costText = transform.Find("Visual/CsotText").GetComponent<TextMeshProUGUI>();
-        _costText.text = CardInfo.AbillityCost.ToString();
+
+        Debug.Log(AbilityCost);
+        _costText.text = AbilityCost.ToString();
     }
 
     public abstract void Abillity();
@@ -176,6 +185,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     }
     public int[] GetDamage(CombineLevel level)
     {
+        CardManagingHelper.GetCardShame(CardInfo.cardShameData, CardShameType.Damage,(int)level);
         return damageArr.list[(int)level].list.ToArray();
     }
     public void OnPointerClick(PointerEventData eventData)

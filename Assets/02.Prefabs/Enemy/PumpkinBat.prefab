@@ -180,7 +180,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f3af1c98937f1343a6ef50a3c58eba9, type: 2}
+  - {fileID: 2100000, guid: 16e388985e100b847a5ca09c98afd8f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -271,7 +271,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 332446
+  m_InstanceId: 67860
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -413,6 +413,7 @@ MonoBehaviour:
   moveDuration: 0.1
   attackParticle:
     attack: {fileID: 5804965274282454122}
+  _cameraMoveInfo: {fileID: 11400000, guid: 936a0e891b9c1904a8512f55b0ce6431, type: 2}
   turnStatus: 0
 --- !u!114 &6201914371747861088
 MonoBehaviour:
@@ -618,7 +619,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 332494
+  m_InstanceId: 67908
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -777,6 +778,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 432224400353743010, guid: b8c27a8429c1f044bbd368b0554ee2cd, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432224400353743010, guid: b8c27a8429c1f044bbd368b0554ee2cd, type: 3}
       propertyPath: SizeModule.curve.scalar
       value: 1
       objectReference: {fileID: 0}
@@ -913,6 +918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcef8551a237a0d4a9bd043d7c6b8ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundEffect: {fileID: 0}
+  triggerInfos: []
   duration: 2
 --- !u!4 &4928135144180825003 stripped
 Transform:

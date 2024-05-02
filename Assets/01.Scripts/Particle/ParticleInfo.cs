@@ -9,6 +9,8 @@ namespace Particle
 {
     public class ParticleInfo : MonoBehaviour
     {
+        public AudioClip soundEffect;
+
         private ParticleSystem ps;
 
         [SerializeField]private List<ParticleTriggerInfo> triggerInfos;
@@ -16,7 +18,7 @@ namespace Particle
 
         public float duration;
 
-        private List<Health> _targets = new();
+        private List<Entity> _targets = new();
         public int[] damages { get; set; }
         public Entity owner { get; set; }
 
@@ -45,13 +47,15 @@ namespace Particle
             {
                 col.AddCollision(target.ColliderCompo);
             }
-            _targets.Add(target.HealthCompo);
+            _targets.Add(target);
         }
 
         public void StartParticle(Action OnStartParticleEvent, Action OnEndParticleEvent)
         {
             ps.Play();
             OnStartParticleEvent?.Invoke();
+            if(soundEffect != null)
+                SoundManager.PlayAudio(soundEffect);
             StartCoroutine(WaitEndParticle(OnEndParticleEvent));
         }
         public void EndParticle(Action OnEndParticleEvent)

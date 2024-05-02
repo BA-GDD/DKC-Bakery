@@ -14,14 +14,12 @@ public class PumpkinBat : Enemy
     {
         OnAttackStart?.Invoke();
         VFXPlayer.PlayParticle(attackParticle);
-        CameraController.Instance.GetVCam().SetCamera(target.transform.position, 5);
 
         StartCoroutine(AttackCor());
     }
 
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(0.6f);
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(0.15f);

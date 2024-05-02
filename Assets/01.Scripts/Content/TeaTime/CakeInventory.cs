@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CakeInventory : MonoBehaviour
@@ -12,7 +13,9 @@ public class CakeInventory : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < Inventory.Instance.breadStash.stash.Count; i++)
+        List<ItemDataSO> cakeList = Inventory.Instance.GetSpecificTypeItemList(ItemType.Bread);
+
+        for(int i = 0; i < cakeList.Count; i++)
         {
             if(i % 5 == 0)
             {
@@ -21,8 +24,8 @@ public class CakeInventory : MonoBehaviour
             }
 
             CakeInventoryElement cie =Instantiate(_cakeElementPrefab, _content);
-            cie.SetInfo(Inventory.Instance.breadStash.stash[i].itemDataSO, 
-                        _cakeCollocation, _cakeInvenPanel);
+
+            cie.SetInfo(cakeList[i], _cakeCollocation, _cakeInvenPanel);
         }
     }
 }

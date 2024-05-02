@@ -7,7 +7,7 @@ public class PlaySoundParticle : ParticleTriggerEventBase
 {
     [SerializeField]
     private AudioClip hitSound;
-    public override void Action(ref ParticleSystem.Particle p)
+    public override void Action(ref ParticleSystem.Particle p, Collider2D col)
     {
         SoundManager.PlayAudioRandPitch(hitSound);
     }

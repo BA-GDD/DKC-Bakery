@@ -12,9 +12,13 @@ namespace Particle
         public override void Init()
         {
         }
+        private void Awake()
+        {
+        }
         public void Active(int combineLevel, Action OnStartParticleEvent = null, Action OnEndParticleEvent = null)
         {
             particleSystems[combineLevel].gameObject.SetActive(true);
+            //particleEvent.OnStartEvnet += OnStartParticleEvent;
             particleSystems[combineLevel].StartParticle(OnStartParticleEvent, OnEndParticleEvent);
         }
     }

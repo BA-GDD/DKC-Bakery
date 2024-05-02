@@ -28,7 +28,7 @@ public class IngredientStash : Stash
 
     public override bool CanAddItem(ItemDataSO item)
     {
-        if (stash.Count >= _itemSlots.Length && !stashDictionary.ContainsKey(item))
+        if (!stashDictionary.ContainsKey(item))
         {
             Debug.Log("Full");
             return false;
