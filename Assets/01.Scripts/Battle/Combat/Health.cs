@@ -16,6 +16,7 @@ public enum StackEnum : int
 {
     Forging = 0, // 단조
     Lightning, // 번개
+    
 }
 
 public class Health : MonoBehaviour, IDamageable

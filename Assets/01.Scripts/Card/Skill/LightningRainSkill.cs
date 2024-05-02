@@ -51,7 +51,5 @@ public class LightningRainSkill : LightningCardBase, ISkillEffectAnim
         {
             RandomApplyShockedAilment(e, 20f);
         }
-
-        
     }
 }
