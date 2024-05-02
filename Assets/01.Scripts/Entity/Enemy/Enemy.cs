@@ -17,6 +17,7 @@ public struct EnemyAttack
 public abstract class Enemy : Entity
 {
     [SerializeField] protected EnemyAttack attackParticle;
+    [SerializeField] protected CameraMoveTypeSO _cameraMoveInfo;
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
@@ -25,8 +26,6 @@ public abstract class Enemy : Entity
     protected EnemyVFXPlayer VFXPlayer { get; private set; }
     protected Collider2D Collider;
     public TurnStatus turnStatus;
-
-    
 
     protected override void Awake()
     {
@@ -59,13 +58,18 @@ public abstract class Enemy : Entity
     }
     protected virtual void HandleAttackEnd()
     {
-        CameraController.Instance.SetDefaultCam();
         AnimatorCompo.SetBool(attackAnimationHash, false);
     }
+    public void HandleCameraAction()
+    {
+        BattleController.CameraController.StartCameraSequnce(_cameraMoveInfo);
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
         OnAttackStart += HandleAttackStart;
+        OnAttackStart += HandleCameraAction;
         OnAttackEnd += HandleAttackEnd;
         target = BattleController?.Player;
     }
@@ -73,6 +77,7 @@ public abstract class Enemy : Entity
     {
         base.OnDisable();
         OnAttackStart -= HandleAttackStart;
+        OnAttackStart -= HandleCameraAction;
         OnAttackEnd -= HandleAttackEnd;
     }
     public abstract void Attack();
@@ -104,12 +109,6 @@ public abstract class Enemy : Entity
     {
         transform.DOMove(pos, 1f);
     }
-    [ContextMenu("TurnStart")]
-    private void TestTurnStart() => TurnStart();
-    [ContextMenu("TurnAction")]
-    private void TestTurnAction() => TurnAction();
-    [ContextMenu("TurnEnd")]
-    private void TestTurnEnd() => TurnEnd();
 
     public void SelectedOnAttack(CardBase selectCard)
     {

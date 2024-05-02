@@ -9,9 +9,6 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
     public override void Abillity()
     {
-        CameraController.Instance.SetTransitionTime(1f);
-        CameraController.Instance.GetVCam().SetCamera(Player.transform.position, 4.5f);
-
         IsActivingAbillity = true;
 
         yPos = Player.transform.position.y;
@@ -39,7 +36,6 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
         Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         Player.transform.DOMoveY(yPos, 0.1f).OnComplete(() =>
         {
-            CameraController.Instance.SetDefaultCam();
             IsActivingAbillity = false;
         });
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;

@@ -26,6 +26,7 @@ public class CardInfo : ScriptableObject
     public Color skillPersonalColor = Color.white;
     public AnimationClip abilityAnimation;
     public CardShameElementSO cardShameData;
+    public CameraMoveTypeSO cameraSequenceData;
 
     [Header("개별 타격 이펙트")]
     public ParticleSystem hitEffect;

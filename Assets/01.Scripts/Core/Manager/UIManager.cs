@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,9 +16,13 @@ public class UIManager : MonoSingleton<UIManager>
     public Canvas Canvas { get; private set; }
     public RectTransform CanvasTrm => Canvas.transform as RectTransform;
 
+    public CinemachineBrain CinemachineBrain { get; private set; }
+
     private void Start()
     {
         Canvas = GetComponentInChildren<Canvas>();
+        CinemachineBrain = GetComponentInChildren<CinemachineBrain>();
+
         foreach(SceneUI su in _screenElementGroup)
         {
             _sceneUIDic.Add(su.ScreenType, su);

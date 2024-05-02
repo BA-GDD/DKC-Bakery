@@ -73,10 +73,14 @@ public class BattleController : MonoSingleton<BattleController>
 
     [SerializeField] private UnityEvent OnGameEndEvent;
     [SerializeField] private UnityEvent<Enemy, Vector2> MaskCreateEvent;
+    public CameraController CameraController { get; private set; }
 
     private void Start()
     {
         _hpBarMaker = FindObjectOfType<HpBarMaker>();
+
+        CameraController = FindObjectOfType<CameraController>();
+        CameraController.BattleController = this;
 
         onFieldMonsterList = new Enemy[enemySpawnPos.Count];
 
