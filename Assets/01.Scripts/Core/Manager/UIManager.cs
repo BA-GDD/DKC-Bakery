@@ -17,11 +17,13 @@ public class UIManager : MonoSingleton<UIManager>
     public RectTransform CanvasTrm => Canvas.transform as RectTransform;
 
     public CinemachineBrain CinemachineBrain { get; private set; }
+    public CinemachineVirtualCamera VirtualCamera { get; private set; }
 
     private void Start()
     {
         Canvas = GetComponentInChildren<Canvas>();
         CinemachineBrain = GetComponentInChildren<CinemachineBrain>();
+        VirtualCamera = GetComponentInChildren<CinemachineVirtualCamera>(); 
 
         foreach(SceneUI su in _screenElementGroup)
         {

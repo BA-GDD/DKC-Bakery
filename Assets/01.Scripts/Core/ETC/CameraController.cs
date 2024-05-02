@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        _vCam = Camera.main.GetComponent<CinemachineVirtualCamera>();
+        _vCam = UIManager.Instance.VirtualCamera;
     }
 
     private void Start()
@@ -31,8 +31,8 @@ public class CameraController : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(_vCam.transform.DOLocalMoveX(value, duration).SetEase(easing));
-        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, -2), duration).SetEase(easing));
-        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 6, duration).SetEase(easing));
+        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 2), duration).SetEase(easing));
+        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 5, duration).SetEase(easing));
         seq.OnComplete(() => _camOnMoving = true);
     }
 
@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         seq.Append(_vCam.transform.DOLocalMoveX(value, duration).SetEase(easing));
         seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, -2), duration).SetEase(easing));
-        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 6, duration).SetEase(easing));
+        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 5, duration).SetEase(easing));
         seq.OnComplete(() => _camOnMoving = true);
     }
 
@@ -52,9 +52,6 @@ public class CameraController : MonoBehaviour
 
     public void StartCameraSequnce(CameraMoveTypeSO moveType)
     {
-        CaomObj = PoolManager.Instance.Pop(PoolingType.VCamPool) as PoolVCam;
-        CaomObj.VCam.Priority = 15;
-
         StartCoroutine(CameraSequenceCo(moveType.camMoveSequenceList));
     }
 
@@ -77,11 +74,9 @@ public class CameraController : MonoBehaviour
     {
         SetTransitionTime(1);
 
-        if(CaomObj != null)
-        {
-            PoolManager.Instance.Push(CaomObj);
-        }
-            
-        CaomObj = null;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_vCam.transform.DOLocalMoveX(0, 0.1f).SetEase(Ease.Linear));
+        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear));
+        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 6, 0.1f).SetEase(Ease.Linear));
     }
 }
