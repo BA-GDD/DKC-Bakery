@@ -19,6 +19,8 @@ public class AbilityTargetArrow : MonoBehaviour
 
     public Entity MarkingEntity { get; private set; }
 
+    private float _inChaingingValue;
+
     public void ActiveArrow(bool value)
     {
         _chainArrowVisual.enabled = value;
@@ -26,13 +28,18 @@ public class AbilityTargetArrow : MonoBehaviour
 
     public void SetFade(float fadeValue)
     {
+        foreach (var chain in _chainVisual)
+        {
+            chain.color = new Color(chain.color.r, chain.color.g, chain.color.b, _inChaingingValue);
+        }
         _fadeSequence.Kill();
 
+        _inChaingingValue = fadeValue;
         _fadeSequence = DOTween.Sequence();
 
         foreach(var chain in _chainVisual)
         {
-            _fadeSequence.Join(chain.DOFade(fadeValue, 0.2f));
+            _fadeSequence.Join(chain.DOFade(fadeValue, 0.5f));
         }
     }
 
