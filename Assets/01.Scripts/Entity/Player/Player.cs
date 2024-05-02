@@ -48,7 +48,7 @@ public class Player : Entity
 
     public void SaveSkillToEnemy(CardBase skillCard, Entity target)
     {
-        if(!_saveSkillDic.ContainsKey(skillCard))
+        if (!_saveSkillDic.ContainsKey(skillCard))
         {
             _saveSkillDic.Add(skillCard, new List<Entity>());
         }
@@ -122,11 +122,9 @@ public class Player : Entity
             AnimatorCompo.SetBool(_abilityHash, true);
             AnimatorCompo.SetBool(_moveHash, isMove);
 
-            if (isMove) MoveToTargetForward(GetSkillTargetEnemyList[card][0].forwardTrm.position);
-            //ChangePosWithCream(false);
             if (isMove)
             {
-                MoveToTargetForward();
+                MoveToTargetForward(GetSkillTargetEnemyList[card][0].forwardTrm.position);
                 if (_isFront) lastMovePos = cream.transform.position;
             }
             ChangePosWithCream(false);
@@ -134,11 +132,11 @@ public class Player : Entity
         else
         {
             //ũ�� �ִϸ��̼� ����
-            ChangePosWithCream(true,cream.InvokeAnimationCall);
+            ChangePosWithCream(true, cream.InvokeAnimationCall);
         }
     }
 
-    private void ChangePosWithCream(bool front,Action callback = null)
+    private void ChangePosWithCream(bool front, Action callback = null)
     {
         if (_isFront == front)
         {

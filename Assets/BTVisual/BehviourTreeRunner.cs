@@ -4,7 +4,7 @@ namespace BTVisual
 {
     public class BehviourTreeRunner : MonoBehaviour
     {
-        public EnemyBrain brain;
+        public BossBrain brain;
         public BehaviourTree tree;
 
         private void Start()

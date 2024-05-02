@@ -16,7 +16,7 @@ namespace BTVisual
         [HideInInspector] public string guid;
         [HideInInspector] public Vector2 position;
         [HideInInspector] public BlackBoard blackboard;
-        [HideInInspector] public EnemyBrain brain;
+        [HideInInspector] public BossBrain brain;
         [HideInInspector] public Context context;
         [TextArea] public string description;
 

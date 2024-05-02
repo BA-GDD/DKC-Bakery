@@ -24,7 +24,6 @@ public abstract class Enemy : Entity
 
     protected EnemyVFXPlayer VFXPlayer { get; private set; }
     protected Collider2D Collider;
-    public TurnStatus turnStatus;
 
     
 
