@@ -17,7 +17,6 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
         Player.UseAbility(this, true);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
-        CameraController.Instance.GetVCam(0.7f).SetCamera(Player.transform.position, 4).SetFollow(Player.transform);
 
         foreach (var m in battleController.onFieldMonsterList)
         {

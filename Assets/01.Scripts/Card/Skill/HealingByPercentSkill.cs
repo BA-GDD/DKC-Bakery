@@ -10,7 +10,6 @@ public class HealingByPercentSkill : CardBase, ISkillEffectAnim
     {
         IsActivingAbillity = true;
         Player.UseAbility(this);
-        CameraController.Instance.GetVCam(1f).SetCamera(Player.transform.position, 3f);
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
     }

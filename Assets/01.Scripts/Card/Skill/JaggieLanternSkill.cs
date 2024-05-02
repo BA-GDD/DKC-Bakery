@@ -23,7 +23,6 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
     {
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
-        CameraController.Instance.SetDefaultCam();
         IsActivingAbillity = false;
         Player.VFXManager.OnEndEffectEvent -= HandleEffectEnd;
     }
@@ -34,7 +33,6 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
         yield return new WaitForSeconds(1.7f);
 
         FeedbackManager.Instance.ShakeScreen(3);
-        CameraController.Instance.GetVCam(0.3f).SetCamera(battleController.enemyGroupPos, 5.1f);
         foreach (var e in Player.GetSkillTargetEnemyList[this])
         {
             e?.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);

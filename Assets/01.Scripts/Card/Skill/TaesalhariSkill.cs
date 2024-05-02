@@ -7,7 +7,6 @@ public class TaesalhariSkill : ChilledCardBase, ISkillEffectAnim
     public override void Abillity()
     {
         IsActivingAbillity = true;
-        CameraController.Instance.GetVCam(1f).SetCamera(Player.transform.position, 3f);
         Player.UseAbility(this);
         Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;

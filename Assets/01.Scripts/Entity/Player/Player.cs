@@ -152,7 +152,6 @@ public class Player : Entity
     {
         AnimatorCompo.SetBool(_abilityHash, false);
         AnimatorCompo.SetBool(_moveHash, false);
-        CameraController.Instance.SetDefaultCam();
     }
 
     protected override void HandleEndMoveToTarget()

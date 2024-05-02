@@ -15,7 +15,6 @@ public class FrostSkill : ChilledCardBase ,ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
-        CameraController.Instance.GetVCam(0.3f).SetCamera(battleController.enemyGroupPos,4f);
         StartCoroutine(ChiledCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
