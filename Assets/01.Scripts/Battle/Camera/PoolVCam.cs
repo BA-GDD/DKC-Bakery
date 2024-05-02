@@ -45,12 +45,14 @@ public class PoolVCam : PoolableMono
         float x = Camera.main.aspect * size;
 
         Vector3 myPos = pos; 
-        myPos.y += size * 0.5f;
-        myPos.y -= size * ratio;
-        myPos.x = myPos.x + x * 0.5f;
-        myPos.x -= x * ratio;
+        //myPos.y += size;
+        //myPos.y -= size * 2 * ratio;
+        myPos.x += x;
+        myPos.x -= x * 2 * ratio;
         myPos.z = -10;
-        transform.position = myPos;
+        print($"{transform.position}/{myPos}");
+        transform.localPosition = myPos;
+        print($"{transform.position}/{myPos}");
 
         return this;
     }

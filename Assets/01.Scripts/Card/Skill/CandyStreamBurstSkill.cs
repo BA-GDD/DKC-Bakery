@@ -18,7 +18,7 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
         FeedbackManager.Instance.EndSpeed = 1.5f;
         FeedbackManager.Instance.ShakeScreen(2.0f);
 
-        CameraController.Instance.GetVCam().SetCamera(transform.position, 3.7f);
+        CameraController.Instance.GetVCam().SetCameraWithClamp(transform.position, 4.9f,0.8f);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -34,7 +34,7 @@ public class CandyStreamBurstSkill : CardBase, ISkillEffectAnim
     private IEnumerator AttackCor()
     {
         yield return new WaitForSeconds(1.7f);
-        CameraController.Instance.GetVCam(0.3f).SetCamera(battleController.enemyGroupPos, 3.7f);
+        CameraController.Instance.GetVCam(0.3f).SetCameraWithClamp(battleController.enemyGroupPos, 5.1f,0.3f);
         for (int i = 0; i < 5; ++i)
         {
             yield return new WaitForSeconds(0.5f);

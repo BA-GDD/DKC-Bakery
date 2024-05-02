@@ -38,7 +38,7 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         {
             Vector3 pos = e.transform.position;
             Player.VFXManager.PlayParticle(CardInfo, pos, (int)CombineLevel);
-            CameraController.Instance.GetVCam(0.1f).SetCamera(pos);
+            CameraController.Instance.GetVCam(0.1f).SetCameraWithClamp(pos, 5.1f, 0.25f);
         }
         if (targets.Count > 0)
         {

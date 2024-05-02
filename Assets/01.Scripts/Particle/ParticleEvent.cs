@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[Serializable]
 public struct ParticleEvent
 {
+    [Serializable]
     public struct ParticleEventData
     {
         public float time;

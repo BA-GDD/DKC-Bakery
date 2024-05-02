@@ -15,7 +15,7 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
     public override void Abillity()
     {
         CameraController.Instance.SetTransitionTime(1f);
-        CameraController.Instance.GetVCam().SetCamera(Player.transform.position, 4.9f);
+        CameraController.Instance.GetVCam().SetCameraWithClamp(Player.transform.position, 4.9f,0.9f);
 
 
         IsActivingAbillity = true;
@@ -37,8 +37,16 @@ public class SeedGunSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
+        StartCoroutine(CameraCor());
         Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
         Player.OnAnimationCall -= HandleAnimationCall;
+    }
+
+    private IEnumerator CameraCor()
+    {
+        CameraController.Instance.SetTransitionTime(0.5f);
+        yield return new WaitForSeconds(1.2f);
+        CameraController.Instance.GetVCam().SetCameraWithClamp(target.transform.position, 4.9f, 0.2f);
     }
 
     public void HandleEffectEnd()
