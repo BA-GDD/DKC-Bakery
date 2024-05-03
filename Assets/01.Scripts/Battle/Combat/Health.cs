@@ -16,7 +16,9 @@ public enum StackEnum : int
 {
     Forging = 0, // 단조
     Lightning, // 번개
-    
+    DEFMusicalNote, // 방어 음표
+    DMGMusicaldNote, // 피해 음표
+    FAINTMusicalNote, // 기절 음표
 }
 
 public class Health : MonoBehaviour, IDamageable
@@ -146,7 +148,9 @@ public class Health : MonoBehaviour, IDamageable
             return;
         }
         //크리티컬확률에 따라 크리티컬인지 확인하고 데미지 증뎀
-        
+
+        // 받는 데미지 증가 디버프에 따른 데미지 증가 처리
+        damage += damage * _owner.CharStat.GetStatByType(StatType.receivedDmgIncreaseValue).GetValue();
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
         OnDamageEvent?.Invoke(_currentHealth, maxHealth);
