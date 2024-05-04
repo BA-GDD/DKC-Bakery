@@ -1,0 +1,121 @@
+﻿using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using UnityEngine;
+using DG.Tweening;
+using System;
+
+public enum CardProductionType
+{
+    Hover,
+    Select
+}
+
+public class CardProductionMaster : MonoBehaviour 
+{
+    private List<CardProductionRecord> _recordList = new();
+
+    private Dictionary<CardProductionType, Action<Transform, Tween>> _toPlayActionDic = new();
+    private Dictionary<CardProductionType, Action<Transform>> _toQuitActionDic = new();
+    [SerializeField] private float _onTweeningEasingTime;
+
+    [Header("카드 호버")]
+    [SerializeField] private float _onHoverUpScaleValue;
+    private Vector2 _onHoverNormalScale;
+
+    [Header("카드 선택")]
+    [SerializeField] private float _onSelectScaleValue;
+    [SerializeField] private float _shadowMovingValue;
+    [SerializeField] private float _shadowAppearTime;
+    private Vector2 _onSelectNormalScale;
+    private Vector2 _onSelectNormalShadowPos;
+
+    private void Start()
+    {
+        foreach(CardProductionType type in Enum.GetValues(typeof(CardProductionType)))
+        {
+            switch (type)
+            {
+                case CardProductionType.Hover:
+                    _toPlayActionDic.Add(type, OnHoverCard);
+                    _toQuitActionDic.Add(type, QuitHoverCard);
+                    break;
+                case CardProductionType.Select:
+                    _toPlayActionDic.Add(type, OnSelectCard);
+                    _toQuitActionDic.Add(type, QuitSelectCard);
+                    break;
+            }
+        }
+    }
+
+    public void PlayProduction(CardProductionType productionType, Transform cardTrm)
+    {
+        foreach(CardProductionRecord reco in _recordList)
+        {
+            if(reco.IsSameRecord(productionType, cardTrm))
+            {
+                reco.Kill();
+                _toQuitActionDic[productionType]?.Invoke(cardTrm);
+                _recordList.Remove(reco);
+
+                break;
+            }
+        }
+
+        CardProductionRecord record = new CardProductionRecord(productionType, cardTrm);
+        _recordList.Add(record);
+
+        _toPlayActionDic[productionType]?.Invoke(cardTrm, record.OnPlayingTween);
+    }
+
+    #region Hover
+    private void OnHoverCard(Transform cardTrm, Tween tween)
+    {
+        _onHoverNormalScale = cardTrm.localScale;
+
+        tween =
+        cardTrm.DOScale(cardTrm.localScale * _onHoverUpScaleValue, _onTweeningEasingTime).
+        SetEase(Ease.OutBounce);
+    }
+    private void QuitHoverCard(Transform cardTrm)
+    {
+        cardTrm.localScale = _onHoverNormalScale * _onHoverUpScaleValue;
+    }
+    #endregion
+
+    #region Select
+    private void OnSelectCard(Transform cardTrm, Tween tween)
+    {
+        RectTransform cardTransform = cardTrm as RectTransform;
+        cardTransform.SetAsLastSibling();
+
+        Sequence cardSelectSequence = DOTween.Sequence();
+        tween = cardSelectSequence;
+
+        Transform shadowTrm = GetShadow(cardTrm);
+
+        _onSelectNormalScale = cardTrm.localScale;
+        _onSelectNormalShadowPos = shadowTrm.localPosition;
+
+        cardSelectSequence.Append(
+        cardTrm.DOScale(cardTrm.localScale * _onSelectScaleValue, _onTweeningEasingTime).
+        SetEase(Ease.OutBounce));
+
+        cardSelectSequence.Append(
+        shadowTrm.DOLocalMoveY(shadowTrm.localPosition.y - _shadowMovingValue, _shadowAppearTime));
+    }
+    private void QuitSelectCard(Transform cardTrm)
+    {
+        Transform shadowTrm = GetShadow(cardTrm);
+
+        cardTrm.localScale = _onSelectNormalScale * _onSelectScaleValue;
+        shadowTrm.localPosition = new Vector3(shadowTrm.localPosition.x,
+                                  _onSelectNormalShadowPos.y - _shadowMovingValue);
+    }
+    #endregion
+
+    private Transform GetShadow(Transform cardTrm)
+    {
+        return cardTrm.Find("ShadowVisual");
+    }
+}
