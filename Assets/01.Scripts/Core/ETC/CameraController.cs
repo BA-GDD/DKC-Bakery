@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(_vCam.transform.DOLocalMoveX(value, duration).SetEase(easing));
-        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 2), duration).SetEase(easing));
+        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 1), duration).SetEase(easing));
         seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 5, duration).SetEase(easing));
         seq.OnComplete(() => _camOnMoving = true);
     }
@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(_vCam.transform.DOLocalMoveX(value, duration).SetEase(easing));
-        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, -2), duration).SetEase(easing));
+        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, -1), duration).SetEase(easing));
         seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 5, duration).SetEase(easing));
         seq.OnComplete(() => _camOnMoving = true);
     }
@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
 
             _camOnMoving = false;
             _targetActionDic[seq.cameraTarget].Invoke(seq.movingValue * (int)seq.cameraTarget, seq.duration, seq.easingType);
-
+            Debug.Log(1);
             yield return new WaitUntil(() => _camOnMoving);
         }
 
