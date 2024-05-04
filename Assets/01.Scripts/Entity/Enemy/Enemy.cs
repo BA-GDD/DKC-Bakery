@@ -53,10 +53,12 @@ public abstract class Enemy : Entity
     }
     protected virtual void HandleAttackStart()
     {
+        BattleController.Player.VFXManager.SetBackgroundColor(Color.gray);
         AnimatorCompo.SetBool(attackAnimationHash, true);
     }
     protected virtual void HandleAttackEnd()
     {
+        BattleController.Player.VFXManager.SetBackgroundColor(Color.white);
         AnimatorCompo.SetBool(attackAnimationHash, false);
     }
     public void HandleCameraAction()
