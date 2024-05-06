@@ -34,7 +34,6 @@ public class ActivationChecker : MonoBehaviour
             Vector3  mousePos = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
 
             float distance = (mousePos - cardTrm.position).x;
-            Debug.Log(distance);
             float rotation = Mathf.Clamp(distance * 50, -30, 30);
 
             Vector3 euler = cardTrm.eulerAngles;
@@ -61,7 +60,6 @@ public class ActivationChecker : MonoBehaviour
                 {
                     RectTransform rt = c.transform as RectTransform;
                     CardReader.OnPointerCard = c;
-                    Debug.Log(CardReader.OnPointerCard);
                     rt.SetAsLastSibling();
                 }
                 break;
@@ -78,12 +76,15 @@ public class ActivationChecker : MonoBehaviour
 
             _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
             CardReader.CaptureHand();
+            CardReader.OnPointerCard.CanUseThisCard = false;
+
             CardReader.OnBinding = true;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             CardReader.OnBinding = false;
+            CardReader.OnPointerCard.CanUseThisCard = true;
             Activation();
         }
     }

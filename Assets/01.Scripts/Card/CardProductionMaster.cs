@@ -19,10 +19,6 @@ public class CardProductionMaster : MonoBehaviour
     private Dictionary<CardProductionType, Action<Transform>> _toQuitActionDic = new();
     [SerializeField] private float _onTweeningEasingTime;
 
-    [Header("카드 호버")]
-    [SerializeField] private float _onHoverUpScaleValue;
-    private Vector2 _onHoverNormalScale;
-
     [Header("카드 선택")]
     [SerializeField] private float _onSelectScaleValue;
     [SerializeField] private float _shadowMovingValue;
@@ -41,8 +37,6 @@ public class CardProductionMaster : MonoBehaviour
             switch (type)
             {
                 case CardProductionType.Hover:
-                    _toPlayActionDic.Add(type, OnHoverCard);
-                    _toQuitActionDic.Add(type, QuitHoverCard);
                     break;
                 case CardProductionType.Select:
                     _toPlayActionDic.Add(type, OnSelectCard);
@@ -56,7 +50,7 @@ public class CardProductionMaster : MonoBehaviour
     {
         foreach(CardProductionRecord reco in _recordList)
         {
-            if(reco.IsSameRecord(productionType, cardTrm))
+            if(reco.IsSameType(productionType))
             {
                 reco.Kill();
                 _toQuitActionDic[productionType]?.Invoke(cardTrm);
@@ -73,18 +67,7 @@ public class CardProductionMaster : MonoBehaviour
     }
 
     #region Hover
-    private void OnHoverCard(Transform cardTrm, Tween tween)
-    {
-        _onHoverNormalScale = cardTrm.localScale;
-
-        tween =
-        cardTrm.DOScale(cardTrm.localScale * _onHoverUpScaleValue, _onTweeningEasingTime).
-        SetEase(Ease.OutBounce);
-    }
-    private void QuitHoverCard(Transform cardTrm)
-    {
-        cardTrm.localScale = _onHoverNormalScale * _onHoverUpScaleValue;
-    }
+    
     #endregion
 
     #region Select
@@ -123,7 +106,7 @@ public class CardProductionMaster : MonoBehaviour
     #region CardIdle
     public void OnCardIdling(CardBase cardBase)
     {
-        cardBase.CardIdlingAddValue = UnityEngine.Random.Range(0, 4f);
+        cardBase.CardIdlingAddValue = UnityEngine.Random.Range(-4, 4);
         _onHandCardList.Add(cardBase);
     }
     public void QuitCardling(CardBase cardBase)
@@ -132,28 +115,26 @@ public class CardProductionMaster : MonoBehaviour
     }
     #endregion
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (Time.frameCount % 2 == 0) return;
-
         foreach(var card in _onHandCardList)
         {
-            if(!card.OnPointerInCard)
+            if(!card.OnPointerInCard && card.CanUseThisCard)
             {
-                float sineX = Mathf.Sign(Time.time + card.CardIdlingAddValue);
+                float sineX = Mathf.Sin(Time.time + card.CardIdlingAddValue);
                 float cosineY = Mathf.Cos(Time.time + card.CardIdlingAddValue);
 
-                card.VisualTrm.rotation = Quaternion.Euler(sineX, cosineY, 0);
+                card.transform.eulerAngles = new Vector3(sineX, cosineY, 0) * 20;
             }
-            else
+            else if(card.OnPointerInCard && card.CanUseThisCard)
             {
                 Vector3 mouse = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
-                Vector3 offset = card.VisualTrm.transform.localPosition - mouse;
+                Vector3 offset = card.transform.transform.localPosition - mouse;
 
                 float tiltX = offset.y * -1;
                 float tiltY = offset.x;
 
-                card.VisualTrm.localRotation = Quaternion.Euler(new Vector3(tiltX, tiltY, 0) * _onPointerInCardValue);
+                card.transform.localRotation = Quaternion.Euler(new Vector3(tiltX, tiltY, 0) * _onPointerInCardValue);
             }
         }
     }

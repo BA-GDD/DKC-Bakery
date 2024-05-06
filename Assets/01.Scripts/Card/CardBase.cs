@@ -80,7 +80,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     protected Color minimumColor = new Color(255, 255, 255, .1f);
     protected Color maxtimumColor = new Color(255, 255, 255, 1.0f);
 
-    public Action<bool> OnPointerInitCardAction { get; set; }
+    public Action OnPointerInitCardAction { get; set; }
     public float CardIdlingAddValue { get; set; }
     public bool OnPointerInCard { get; set; }   
 
@@ -91,6 +91,11 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
 
         Debug.Log(AbilityCost);
         _costText.text = AbilityCost.ToString();
+    }
+
+    private void OnDestroy()
+    {
+        CardReader.CardProductionMaster.QuitCardling(this);
     }
 
     public abstract void Abillity();
@@ -202,7 +207,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     {
         if (!IsOnActivationZone) return;
 
-        OnPointerInitCardAction?.Invoke(true);
+        OnPointerInitCardAction?.Invoke();
         OnPointerInCard = true;
     }
 
@@ -210,7 +215,6 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     {
         if (!IsOnActivationZone) return;
 
-        OnPointerInitCardAction?.Invoke(false);
         OnPointerInCard = false;
     }
 }
