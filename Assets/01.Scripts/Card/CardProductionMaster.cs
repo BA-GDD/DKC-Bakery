@@ -30,6 +30,10 @@ public class CardProductionMaster : MonoBehaviour
     private Vector2 _onSelectNormalScale;
     private Vector2 _onSelectNormalShadowPos;
 
+    [Header("카드 아이들")]
+    private List<CardBase> _onHandCardList = new List<CardBase>();
+    private float _onPointerInCardValue;
+
     private void Start()
     {
         foreach(CardProductionType type in Enum.GetValues(typeof(CardProductionType)))
@@ -86,6 +90,8 @@ public class CardProductionMaster : MonoBehaviour
     #region Select
     private void OnSelectCard(Transform cardTrm, Tween tween)
     {
+        cardTrm.rotation = Quaternion.identity;
+
         RectTransform cardTransform = cardTrm as RectTransform;
         cardTransform.SetAsLastSibling();
 
@@ -113,6 +119,44 @@ public class CardProductionMaster : MonoBehaviour
                                   _onSelectNormalShadowPos.y - _shadowMovingValue);
     }
     #endregion
+
+    #region CardIdle
+    public void OnCardIdling(CardBase cardBase)
+    {
+        cardBase.CardIdlingAddValue = UnityEngine.Random.Range(0, 4f);
+        _onHandCardList.Add(cardBase);
+    }
+    public void QuitCardling(CardBase cardBase)
+    {
+        _onHandCardList.Remove(cardBase);
+    }
+    #endregion
+
+    private void FixedUpdate()
+    {
+        if (Time.frameCount % 2 == 0) return;
+
+        foreach(var card in _onHandCardList)
+        {
+            if(!card.OnPointerInCard)
+            {
+                float sineX = Mathf.Sign(Time.time + card.CardIdlingAddValue);
+                float cosineY = Mathf.Cos(Time.time + card.CardIdlingAddValue);
+
+                card.VisualTrm.rotation = Quaternion.Euler(sineX, cosineY, 0);
+            }
+            else
+            {
+                Vector3 mouse = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
+                Vector3 offset = card.VisualTrm.transform.localPosition - mouse;
+
+                float tiltX = offset.y * -1;
+                float tiltY = offset.x;
+
+                card.VisualTrm.localRotation = Quaternion.Euler(new Vector3(tiltX, tiltY, 0) * _onPointerInCardValue);
+            }
+        }
+    }
 
     private Transform GetShadow(Transform cardTrm)
     {

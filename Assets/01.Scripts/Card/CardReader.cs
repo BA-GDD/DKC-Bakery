@@ -77,6 +77,17 @@ public static class CardReader
         }
     }
 
+    private static CardProductionMaster _cardProductionMaster;
+    public static CardProductionMaster CardProductionMaster
+    {
+        get
+        {
+            if(_cardProductionMaster != null) return _cardProductionMaster;
+            _cardProductionMaster = GameObject.FindObjectOfType<CardProductionMaster>();
+            return _cardProductionMaster;
+        }
+    }
+
     public static CardBase OnPointerCard { get; set; }
     public static bool OnBinding { get; set; }
 

@@ -7,8 +7,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System;
 
-public abstract class CardBase : MonoBehaviour, IPointerClickHandler
+public abstract class CardBase : MonoBehaviour, IPointerClickHandler, 
+                                 IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private float _toMovePosInSec;
     public RectTransform VisualRectTrm { get; private set; }
@@ -37,10 +39,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         {
             return visualTrm;
         }
-        set
-        {
-            visualTrm = value;
-        }
+        
     }
     private bool _isActivingAbillity;
     protected bool IsActivingAbillity
@@ -80,6 +79,10 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 
     protected Color minimumColor = new Color(255, 255, 255, .1f);
     protected Color maxtimumColor = new Color(255, 255, 255, 1.0f);
+
+    public Action<bool> OnPointerInitCardAction { get; set; }
+    public float CardIdlingAddValue { get; set; }
+    public bool OnPointerInCard { get; set; }   
 
     private void Awake()
     {
@@ -193,5 +196,21 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         if (!IsOnActivationZone) return;
 
         CardReader.AbilityTargetSystem.ActivationCardSelect(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!IsOnActivationZone) return;
+
+        OnPointerInitCardAction?.Invoke(true);
+        OnPointerInCard = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!IsOnActivationZone) return;
+
+        OnPointerInitCardAction?.Invoke(false);
+        OnPointerInCard = false;
     }
 }
