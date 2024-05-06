@@ -70,8 +70,9 @@ public class CardDrawer : MonoBehaviour
         CardBase spawnCard = Instantiate(selectInfo, _cardParent);
 
         CardReader.CardProductionMaster.OnCardIdling(spawnCard);
-        spawnCard.OnPointerInitCardAction += () =>
-        CardReader.CardProductionMaster.PlayProduction(CardProductionType.Select, spawnCard.transform);
+
+        spawnCard.OnPointerSetCardAction += CardReader.CardProductionMaster.OnSelectCard;
+        spawnCard.OnPointerInitCardAction += CardReader.CardProductionMaster.QuitSelectCard;
 
         spawnCard.name = idx.ToString();
         spawnCard.battleController = this.BattleController;

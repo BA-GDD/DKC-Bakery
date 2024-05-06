@@ -80,7 +80,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     protected Color minimumColor = new Color(255, 255, 255, .1f);
     protected Color maxtimumColor = new Color(255, 255, 255, 1.0f);
 
-    public Action OnPointerInitCardAction { get; set; }
+    public Action<Transform> OnPointerSetCardAction { get; set; }
+    public Action<Transform> OnPointerInitCardAction { get; set; }
+
     public float CardIdlingAddValue { get; set; }
     public bool OnPointerInCard { get; set; }   
 
@@ -95,10 +97,12 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
 
     private void OnDestroy()
     {
+        OnPointerSetCardAction = null;
         CardReader.CardProductionMaster.QuitCardling(this);
     }
 
     public abstract void Abillity();
+
     public void ActiveInfo()
     {
         CardReader.SkillCardManagement.SetCardInfo(CardInfo, true);
@@ -131,11 +135,13 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
 
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOLocalMove(movePos, _toMovePosInSec).SetEase(Ease.OutBack));
+        seq.Join(transform.DOLocalRotateQuaternion(Quaternion.identity, _toMovePosInSec).SetEase(Ease.OutBack));
         seq.AppendCallback(() =>
         {
             if(generateCallback)
             {
                 CardReader.CombineMaster.CombineGenerate();
+                CardReader.OnPointerCard = null;
             }
             CanUseThisCard = true;
         });
@@ -205,16 +211,15 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        OnPointerSetCardAction?.Invoke(transform);
         if (!IsOnActivationZone) return;
-
-        OnPointerInitCardAction?.Invoke();
         OnPointerInCard = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        OnPointerInitCardAction?.Invoke(transform);
         if (!IsOnActivationZone) return;
-
         OnPointerInCard = false;
     }
 }

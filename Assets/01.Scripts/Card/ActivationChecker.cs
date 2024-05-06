@@ -76,7 +76,6 @@ public class ActivationChecker : MonoBehaviour
 
             _selectIDX = CardReader.GetIdx(CardReader.OnPointerCard);
             CardReader.CaptureHand();
-            CardReader.OnPointerCard.CanUseThisCard = false;
 
             CardReader.OnBinding = true;
         }
@@ -84,7 +83,6 @@ public class ActivationChecker : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             CardReader.OnBinding = false;
-            CardReader.OnPointerCard.CanUseThisCard = true;
             Activation();
         }
     }

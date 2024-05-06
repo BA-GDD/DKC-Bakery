@@ -19,13 +19,8 @@ public class CardProductionRecord
         OnPlayingTween.Kill();
     }
 
-    public bool IsSameType(CardProductionType type)
+    public bool IsSameType(CardProductionType type, Transform trm)
     {
-        return type == _onPlayingType;
-    }
-
-    public bool IsSameTransform(Transform trm)
-    {
-        return trm == _onPlayingTrm;
+        return (type == _onPlayingType) && (trm == _onPlayingTrm);
     }
 }
