@@ -102,7 +102,7 @@ public class AilmentStat
 
 
     //질병효과와 지속시간 셋팅
-    private void SetAilment(AilmentEnum ailment, int stack = 1)
+    public void SetAilment(AilmentEnum ailment, int stack = 1)
     {
         _ailmentStack[ailment] += stack;
     }

@@ -8,8 +8,9 @@ using UnityEngine.Serialization;
 public enum AilmentEnum : int
 {
     None = 0,
-    Chilled = 1,
-    Shocked = 2
+    Chilled = 1, // 빙결
+    Shocked = 2, // 감전
+    Faint = 3, // 기절
 }
 
 public enum StackEnum : int

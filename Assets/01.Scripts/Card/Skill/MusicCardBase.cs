@@ -6,9 +6,7 @@ public abstract class MusicCardBase : CardBase
 {
     protected int GetNoteCount()
     {
-        int noteCnt = 0;
-        noteCnt = Player.BuffStatCompo.GetStack(StackEnum.DEFMusicalNote) + Player.BuffStatCompo.GetStack(StackEnum.DMGMusicaldNote) + Player.BuffStatCompo.GetStack(StackEnum.FAINTMusicalNote);
-        return noteCnt;
+        return Player.BuffStatCompo.GetStack(StackEnum.DEFMusicalNote) + Player.BuffStatCompo.GetStack(StackEnum.DMGMusicaldNote) + Player.BuffStatCompo.GetStack(StackEnum.FAINTMusicalNote);
     }
 
     protected bool HasDEFMusicalNoteStack() { return Player.BuffStatCompo.GetStack(StackEnum.DEFMusicalNote) > 0; }

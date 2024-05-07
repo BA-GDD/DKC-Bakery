@@ -148,7 +148,9 @@ public class BattleController : MonoSingleton<BattleController>
             if (e is null) continue;
             Player.VFXManager.BackgroundColor(Color.gray);
 
-            e.TurnAction();
+
+            if(!e.HealthCompo.AilmentStat.HasAilment(AilmentEnum.Faint))
+                e.TurnAction();
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
 
             Player.VFXManager.BackgroundColor(Color.white);
