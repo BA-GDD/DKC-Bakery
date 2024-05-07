@@ -67,18 +67,18 @@ public class PlayerDetailedInfoPanel : PanelUI
         _nickNameText.text = data.nickName;
 
         _atkAddvalueText.text = 
-        $"<color=#4F2620>ATK: </color>+{GetAddValue(level, 3)}% <color=#4F2620>(합산: {data.attak * GetAddValue(level, 3)})";
-
-        _defAddvalueText.text =
         $"<color=#4F2620>ATK: </color>+{GetAddValue(level, 2)}% <color=#4F2620>(합산: {data.attak * GetAddValue(level, 2)})";
 
+        _defAddvalueText.text =
+        $"<color=#4F2620>DEF: </color>+{GetAddValue(level, 1)}% <color=#4F2620>(합산: {data.attak * GetAddValue(level, 1)})";
+
         _hpAddvalueText.text =
-        $"<color=#4F2620>ATK: </color>+{GetAddValue(level, 4)}% <color=#4F2620>(합산: {data.attak * GetAddValue(level, 4)})";
+        $"<color=#4F2620>HP: </color>+{GetAddValue(level, 3)}% <color=#4F2620>(합산: {data.attak * GetAddValue(level, 3)})";
     }
 
     private int GetAddValue(int level, int value)
     {
-        return level * 4 * value * Mathf.RoundToInt(Mathf.Pow(level - 1, 3));
+        return level * value * Mathf.RoundToInt(Mathf.Pow(level - 1, 1.4f));
     }
 
     private void Start()
@@ -89,20 +89,16 @@ public class PlayerDetailedInfoPanel : PanelUI
         }
 
         string[] advenValue = _adventureData.InChallingingStageCount.Split('-');
-        int advenCount = (Convert.ToInt16(advenValue[0]) - 1) * 6 + Convert.ToInt16(advenValue[1]);
-        int dunCount = Convert.ToInt16(_adventureData.ChallingingMineFloor);
-        int mazeCount = Convert.ToInt16(_adventureData.InChallingingMazeLoad);
+        float advenCount = (Convert.ToInt16(advenValue[0]) - 1) * 6 + Convert.ToInt16(advenValue[1]);
+        float dunCount = Convert.ToInt16(_adventureData.ChallingingMineFloor) - 1;
+        float mazeCount = Convert.ToInt16(_adventureData.InChallingingMazeLoad) - 1;
 
-        advenCount = advenCount / _advenMaxStage;
-        dunCount = dunCount / _dungeonMax;
-        mazeCount = mazeCount / _mazeMax;
+        _advenGaze.fillAmount = advenCount / _advenMaxStage;
+        _dungeonGaze.fillAmount = dunCount / _dungeonMax;
+        _mazeGaze.fillAmount = mazeCount / _mazeMax;
 
-        _advenGaze.fillAmount = advenCount;
-        _dungeonGaze.fillAmount = dunCount;
-        _mazeGaze.fillAmount = mazeCount;
-
-        _advenPercent.text = $"{advenCount * 100}%";
-        _dungeonPercent.text = $"{dunCount * 100}%";
-        _mazePercent.text = $"{mazeCount * 100}%";
+        _advenPercent.text = $"{Mathf.FloorToInt((advenCount / _advenMaxStage) * 100)}%";
+        _dungeonPercent.text = $"{Mathf.FloorToInt((dunCount / _dungeonMax) * 100)}%";
+        _mazePercent.text = $"{Mathf.FloorToInt((mazeCount / _mazeMax) * 100)}%";
     }
 }
