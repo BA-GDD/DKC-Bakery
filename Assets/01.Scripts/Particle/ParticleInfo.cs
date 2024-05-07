@@ -40,14 +40,31 @@ namespace Particle
         {
             _targets.Clear();
         }
-
-        public void SetTriggerTarget(Entity target)
+        public void ClearTarget()
         {
             foreach (var col in triggerInfos)
             {
-                col.AddCollision(target.ColliderCompo);
+                col.ClearCollision();
             }
+        }
+        public void RemoveTriggerTarget(Entity target)
+        {
+            if (!_targets.Contains(target)) return;
+            _targets.Remove(target);
+
+            foreach (var col in triggerInfos)
+            {
+                col.SetCollision(_targets);
+            }
+        }
+        public void AddTriggerTarget(Entity target)
+        {
+            if (_targets.Contains(target)) return;
             _targets.Add(target);
+            foreach (var col in triggerInfos)
+            {
+                col.SetCollision(_targets);
+            }
         }
 
         public void StartParticle(Action OnStartParticleEvent, Action OnEndParticleEvent)

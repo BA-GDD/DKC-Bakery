@@ -101,7 +101,6 @@ public abstract class Entity : PoolableMono
 
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(BuffStatCompo.ClearStat);
-        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
     protected virtual void OnDisable()
@@ -110,17 +109,11 @@ public abstract class Entity : PoolableMono
         OnMoveOriginPos -= HandleEndMoveToOriginPos;
 
         HealthCompo.OnDeathEvent.RemoveListener(HandleDie);
-        HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
         HealthCompo.OnDeathEvent.RemoveListener(BuffStatCompo.ClearStat);
 
         HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
 
         HealthCompo.OnHitEvent.RemoveListener(HandleHit);
-    }
-
-    private void HandleCutInOnFieldMonsterList()
-    {
-        HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
     }
 
     private void OnDestroy()

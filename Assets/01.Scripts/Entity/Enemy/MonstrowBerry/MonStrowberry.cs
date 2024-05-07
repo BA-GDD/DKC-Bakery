@@ -11,7 +11,6 @@ public class MonStrowberry : Enemy
     protected override void Start()
     {
         base.Start();
-        attackParticle.attack.SetTriggerTarget(target);
         VFXPlayer.OnEndEffect += () => 
         {
             turnStatus = TurnStatus.End;
@@ -21,6 +20,8 @@ public class MonStrowberry : Enemy
 
     public override void Attack()
     {
+        attackParticle.attack.AddTriggerTarget(target);
+
         OnAttackStart?.Invoke();
 
         VFXPlayer.PlayParticle(attackParticle);

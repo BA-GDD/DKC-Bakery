@@ -70,16 +70,10 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
-        //Skill = SkillManager.Instance;
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            //_hpUI = UIManager.Instance.CanvasTrm.GetComponentInChildren<PlayerHPUI>();
-            //Debug.Log(_hpUI);
-            //HealthCompo.OnDamageEvent += _hpUI.SetHpOnUI;
-        }
-
         animatorOverrideController = new AnimatorOverrideController(AnimatorCompo.runtimeAnimatorController);
         AnimatorCompo.runtimeAnimatorController = animatorOverrideController;
+
+        ColliderCompo.enabled = true;
 
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
@@ -93,7 +87,7 @@ public class Player : Entity
         TurnCounter.PlayerTurnEndEvent += TurnEnd;
     }
 
-    protected void OnDisable()
+    protected override void OnDisable()
     {
         TurnCounter.PlayerTurnStartEvent -= TurnStart;
         TurnCounter.PlayerTurnEndEvent -= TurnEnd;
