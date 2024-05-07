@@ -8,6 +8,10 @@ public class PlayerData : CanSaveData
     public int exp = 0;
     public string nickName = "น่ม๖ศฃ";
 
+    public int attak = 5;
+    public int defination = 3;
+    public int heartPoint = 20;
+
     public override void SetInitialValue()
     {
 

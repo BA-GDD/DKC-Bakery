@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PlayerInfoPanel : MonoBehaviour
@@ -14,6 +15,8 @@ public class PlayerInfoPanel : MonoBehaviour
 
     [SerializeField] private Slider _expSlider;
     [SerializeField] private TextMeshProUGUI _expText;
+
+    [SerializeField] private UnityEvent<PlayerData> _playerInfoSetEvent;
 
     private void Start()
     {
@@ -29,6 +32,8 @@ public class PlayerInfoPanel : MonoBehaviour
 
         _expSlider.value = _playerData.exp / maxExp;
         _expText.text = $"{_playerData.exp} / {maxExp}";
+
+        _playerInfoSetEvent?.Invoke(_playerData);
     }
 
     private int GetMaxExp(int level)
