@@ -50,5 +50,7 @@ public class FinaleSkill : MusicCardBase, ISkillEffectAnim
                 Destroy(obj, 1.0f);
             }
         }
+
+        Debug.Log($"Stacks: DEF({Player.BuffStatCompo.GetStack(StackEnum.DEFMusicalNote)}) / DMG({Player.BuffStatCompo.GetStack(StackEnum.DMGMusicaldNote)}) / FAINT({Player.BuffStatCompo.GetStack(StackEnum.FAINTMusicalNote)})");
     }
 }

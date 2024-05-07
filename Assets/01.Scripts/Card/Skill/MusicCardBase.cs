@@ -11,30 +11,17 @@ public abstract class MusicCardBase : CardBase
         return noteCnt;
     }
 
-    protected bool HasDEFMusicalNoteStack()
-    {
-        return Player.BuffStatCompo.GetStack(StackEnum.DEFMusicalNote) > 0;
-    }
+    protected bool HasDEFMusicalNoteStack() { return Player.BuffStatCompo.GetStack(StackEnum.DEFMusicalNote) > 0; }
 
-    protected bool HasDMGMusicalNoteStack()
-    {
-        return Player.BuffStatCompo.GetStack(StackEnum.DMGMusicaldNote) > 0;
-    }
+    protected bool HasDMGMusicalNoteStack() { return Player.BuffStatCompo.GetStack(StackEnum.DMGMusicaldNote) > 0; }
 
-    protected bool HasFAINTMusicalNoteStack()
-    {
-        return Player.BuffStatCompo.GetStack(StackEnum.FAINTMusicalNote) > 0;
-    }
+    protected bool HasFAINTMusicalNoteStack() { return Player.BuffStatCompo.GetStack(StackEnum.FAINTMusicalNote) > 0; }
 
     protected void ApplyDebuffToAllEnemy()
     {
-        //if (HasDEFMusicalNoteStack())
-        //{
-        //    foreach (var e in Player.GetSkillTargetEnemyList[this])
-        //    {
-        //        e?.BuffStatCompo.AddBuff(buffSO, buffSO.stackBuffs[1].values[(int)CombineLevel], (int)CombineLevel);
-        //    }
-        //}
-
+        foreach(var e in battleController.onFieldMonsterList)
+        {
+            e?.BuffStatCompo.AddBuff(buffSO, (int)CombineLevel + 2, (int)CombineLevel);
+        }
     }
 }
