@@ -1,18 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInfoPanel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerData _playerData = new PlayerData();
+    private const string _dataKey = "PlayerDataKey";
+
+    [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private TextMeshProUGUI _nickNameText;
+
+    [SerializeField] private Slider _expSlider;
+    [SerializeField] private TextMeshProUGUI _expText;
+
+    private void Start()
     {
-        
+        if(DataManager.Instance.IsHaveData(_dataKey))
+        {
+            _playerData = DataManager.Instance.LoadData<PlayerData>(_dataKey);
+        }
+
+        _levelText.text = $"<size=30><color=#4F2620>LV.</color></size> \r\n{_playerData.level}";
+        _nickNameText.text = _playerData.nickName;
+
+        int maxExp = GetMaxExp(_playerData.level);
+
+        _expSlider.value = _playerData.exp / maxExp;
+        _expText.text = $"{_playerData.exp} / {maxExp}";
     }
 
-    // Update is called once per frame
-    void Update()
+    private int GetMaxExp(int level)
     {
-        
+        return level * 10 * Mathf.RoundToInt(Mathf.Pow(level, 2));
     }
 }
