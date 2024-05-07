@@ -38,8 +38,8 @@ public class ActivationChecker : MonoBehaviour
 
             Vector3 euler = cardTrm.eulerAngles;
             euler.z = rotation;
-            cardTrm.eulerAngles = euler;
 
+            cardTrm.eulerAngles = Vector3.Lerp(cardTrm.eulerAngles, euler, Time.time * 20);
             cardTrm.position = Vector3.Lerp(cardTrm.position, mousePos, Time.deltaTime * 20);
         }
     }

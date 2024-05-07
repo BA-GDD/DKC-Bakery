@@ -23,8 +23,6 @@ public class CardProductionMaster : MonoBehaviour
     [SerializeField] private float _onSelectScaleValue;
     [SerializeField] private float _shadowMovingValue;
     [SerializeField] private float _shadowAppearTime;
-    private Tween _onSelectTween;
-    private Tween _outSelectTween;
 
     [Header("카드 아이들")]
     private List<CardBase> _onHandCardList = new List<CardBase>();
@@ -49,32 +47,36 @@ public class CardProductionMaster : MonoBehaviour
     #region Select
     public void OnSelectCard(Transform cardTrm)
     {
+        CardProductionRecord re = _recordList.Find(x => x.IsSameType(CardProductionType.Select, cardTrm));
+        re?.Kill();
+        _recordList.Remove(re);
+
         cardTrm.localScale = Vector3.one;
-        _outSelectTween?.Kill();
 
         cardTrm.rotation = Quaternion.identity;
 
         RectTransform cardTransform = cardTrm as RectTransform;
         cardTransform.SetAsLastSibling();
 
-        _onSelectTween = 
+        Tween onSelectTween = 
         cardTrm.DOScale(cardTrm.localScale * _onSelectScaleValue, _onTweeningEasingTime).
         SetEase(Ease.OutBounce);
 
-        foreach(CardBase card in _onHandCardList)
-        {
-            if (card.transform == cardTrm) continue;
-
-            card.OnPointerInitCardAction(card.transform);
-        }
+        CardProductionRecord record = new CardProductionRecord(CardProductionType.Select, cardTrm);
+        _recordList.Add(record);
     }
     public void QuitSelectCard(Transform cardTrm)
     {
-        _onSelectTween?.Kill();
+        CardProductionRecord re = _recordList.Find(x => x.IsSameType(CardProductionType.Select, cardTrm));
+        re?.Kill();
+        _recordList.Remove(re);
 
-        _outSelectTween = 
+        Tween outSelectTween = 
         cardTrm.DOScale(Vector3.one, _onTweeningEasingTime).
         SetEase(Ease.OutBounce);
+
+        CardProductionRecord record = new CardProductionRecord(CardProductionType.Select, cardTrm);
+        _recordList.Add(record);
     }
     #endregion
 
@@ -101,7 +103,7 @@ public class CardProductionMaster : MonoBehaviour
                 float sineX = Mathf.Sin(Time.time + card.CardIdlingAddValue);
                 float cosineY = Mathf.Cos(Time.time + card.CardIdlingAddValue);
 
-                card.VisualTrm.eulerAngles = new Vector3(sineX, cosineY, 0) * 15;
+                card.VisualTrm.eulerAngles = new Vector3(sineX, cosineY, 0) * 10;
             }
             else
             {
