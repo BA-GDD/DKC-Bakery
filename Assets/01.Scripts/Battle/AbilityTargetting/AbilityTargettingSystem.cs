@@ -137,8 +137,6 @@ public class AbilityTargettingSystem : MonoBehaviour
 
     private IEnumerator HandleMeTargetting(CardBase selectCard, int count)
     {
-        yield return null;
-
         _selectCard = selectCard;
         AbilityTargetArrow ata = Instantiate(_targetArrowPrefab, transform);
         ata.ActiveArrow(false);
@@ -158,6 +156,9 @@ public class AbilityTargettingSystem : MonoBehaviour
         int idx = _getTargetArrowDic[_selectCard].Count - 1;
         _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, anchoredPosition);
         _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
     }
     private IEnumerator HandleCountEnemyTargetting(CardBase selectCard, int count)
     {
@@ -177,11 +178,11 @@ public class AbilityTargettingSystem : MonoBehaviour
 
             yield return new WaitUntil(() => ata.IsBindSucess);
         }
+
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
     }
     private IEnumerator HandleALLEnemyTargetting(CardBase selectCard, int count)
     {
-        yield return null;
-
         foreach (Enemy e in _battleController.onFieldMonsterList)
         {
             if (e is null) continue;
@@ -207,6 +208,9 @@ public class AbilityTargettingSystem : MonoBehaviour
 
             EnemyMarking(e);
         }
+
+        yield return new WaitForSeconds(0.5f);
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
     }
 
     private void EnemyTargetting(CardBase selectCard)
@@ -216,8 +220,6 @@ public class AbilityTargettingSystem : MonoBehaviour
                                                                (int)selectCard.CombineLevel);
 
         StartCoroutine(_targetCountingActionDic[tec].Invoke(selectCard, (int)tec));
-
-        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
     }
 
     private void BindMouseAndCardWithArrow()
