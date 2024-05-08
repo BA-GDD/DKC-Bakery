@@ -137,11 +137,14 @@ public class BattleController : MonoSingleton<BattleController>
         TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
         TurnCounter.PlayerTurnStartEvent -= HandleCardDraw;
     }
-    private void OnEnemyTurnStart(bool b)
+    private void OnEnemyTurnStart(bool value)
     {
         foreach (var e in onFieldMonsterList)
         {
-            e?.TurnStart();
+            if (e is null) continue;
+
+            e.TurnStart();
+            _maskEnableEvent?.Invoke(e);
         }
         StartCoroutine(EnemySquence());
     }
@@ -149,7 +152,10 @@ public class BattleController : MonoSingleton<BattleController>
     {
         foreach (var e in onFieldMonsterList)
         {
-            e?.TurnEnd();
+            if (e is null) continue;
+
+            e.TurnEnd();
+            _maskDisableEvent?.Invoke(e);
         }
     }
     private IEnumerator EnemySquence()
@@ -217,6 +223,7 @@ public class BattleController : MonoSingleton<BattleController>
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
 
         DeathEnemyList.Add(enemy);
+        _maskDisableEvent?.Invoke(enemy);
     }
     public bool IsStuck(int to, int who)
     {

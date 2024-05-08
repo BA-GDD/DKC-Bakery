@@ -211,15 +211,17 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (IsOnActivationZone) return;
+
         OnPointerSetCardAction?.Invoke(transform);
-        if (!IsOnActivationZone) return;
         OnPointerInCard = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (IsOnActivationZone) return;
+
         OnPointerInitCardAction?.Invoke(transform);
-        if (!IsOnActivationZone) return;
         OnPointerInCard = false;
     }
 }

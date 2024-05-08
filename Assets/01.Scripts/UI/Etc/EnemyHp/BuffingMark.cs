@@ -30,12 +30,16 @@ public class BuffingMark : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (CardReader.AbilityTargetSystem.OnTargetting) return;
+
         _infoPanelTween.Kill();
         _infoPanelTween = _infoPanelTrm.DOScaleX(1, 0.1f).SetEase(Ease.OutBounce);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (CardReader.AbilityTargetSystem.OnTargetting) return;
+
         _infoPanelTween.Kill();
         _infoPanelTween = _infoPanelTrm.DOScaleX(0, 0.1f).SetEase(Ease.InBounce);
     }

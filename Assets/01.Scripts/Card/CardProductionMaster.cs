@@ -96,7 +96,7 @@ public class CardProductionMaster : MonoBehaviour
     {
         foreach(var card in _onHandCardList)
         {
-            if (CardReader.OnPointerCard == card) continue;
+            if (CardReader.OnPointerCard == card || !card.CanUseThisCard) continue;
 
             if(!card.OnPointerInCard)
             {
@@ -107,6 +107,7 @@ public class CardProductionMaster : MonoBehaviour
             }
             else
             {
+                Debug.Log($"OnHoverSomeCard : {card}");
                 Vector3 mouse = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
                 Vector3 offset = card.transform.transform.localPosition - mouse;
 

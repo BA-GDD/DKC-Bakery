@@ -97,7 +97,7 @@ public class ActivationChecker : MonoBehaviour
             {
                 CardReader.InGameError.ErrorSituation("코스트가 부족합니다!");
 
-                foreach(CardBase cb in CardReader._captureHandList)
+                foreach(CardBase cb in CardReader.captureHandList)
                 {
                     Debug.Log(cb.CardInfo.CardName);
                 }

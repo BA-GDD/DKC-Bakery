@@ -18,6 +18,8 @@ public class TargetMask : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!CardReader.AbilityTargetSystem.OnTargetting) return;
+
         CardReader.AbilityTargetSystem.CanBinding = false;
         CardReader.AbilityTargetSystem.mousePos = transform.localPosition;
         ActiveTargetMark(true);
@@ -25,6 +27,8 @@ public class TargetMask : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!CardReader.AbilityTargetSystem.OnTargetting) return;
+
         CardReader.AbilityTargetSystem.CanBinding = true;
         ActiveTargetMark(false);
     }

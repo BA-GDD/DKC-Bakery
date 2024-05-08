@@ -37,6 +37,8 @@ public class AbilityTargettingSystem : MonoBehaviour
     [SerializeField] private Color _reactionColor;
     private List<ChainSelectTarget> _chainTargetList = new();
 
+    public bool OnTargetting { get; private set; }
+
     public void AllChainClear()
     {
         foreach(Transform chain in transform)
@@ -159,6 +161,9 @@ public class AbilityTargettingSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        OnTargetting = false;
+
+        foreach(var e in _battleController.en)
     }
     private IEnumerator HandleCountEnemyTargetting(CardBase selectCard, int count)
     {
@@ -180,6 +185,7 @@ public class AbilityTargettingSystem : MonoBehaviour
         }
 
         _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        OnTargetting = false;
     }
     private IEnumerator HandleALLEnemyTargetting(CardBase selectCard, int count)
     {
@@ -211,6 +217,7 @@ public class AbilityTargettingSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        OnTargetting = false;
     }
 
     private void EnemyTargetting(CardBase selectCard)
@@ -220,6 +227,7 @@ public class AbilityTargettingSystem : MonoBehaviour
                                                                (int)selectCard.CombineLevel);
 
         StartCoroutine(_targetCountingActionDic[tec].Invoke(selectCard, (int)tec));
+        OnTargetting = true;
     }
 
     private void BindMouseAndCardWithArrow()
