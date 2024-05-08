@@ -75,13 +75,14 @@ public class BattleController : MonoSingleton<BattleController>
 
     [SerializeField] private UnityEvent OnGameEndEvent;
     [SerializeField] private UnityEvent<Enemy, Vector2> _maskCreateEvent;
-    [SerializeField] private UnityEvent<Enemy> _maskEnableEvent;
-    [SerializeField] private UnityEvent<Enemy> _maskDisableEvent;
+    public UnityEvent<Enemy> maskEnableEvent;
+    public UnityEvent<Enemy> maskDisableEvent;
     public CameraController CameraController { get; private set; }
 
     private void Start()
     {
         enemySpawnPos.Clear();
+
         foreach (var p in enemySpawnTrm)
         {
             enemySpawnPos.Add(p.position);
@@ -144,7 +145,7 @@ public class BattleController : MonoSingleton<BattleController>
             if (e is null) continue;
 
             e.TurnStart();
-            _maskEnableEvent?.Invoke(e);
+            maskEnableEvent?.Invoke(e);
         }
         StartCoroutine(EnemySquence());
     }
@@ -155,7 +156,7 @@ public class BattleController : MonoSingleton<BattleController>
             if (e is null) continue;
 
             e.TurnEnd();
-            _maskDisableEvent?.Invoke(e);
+            maskDisableEvent?.Invoke(e);
         }
     }
     private IEnumerator EnemySquence()
@@ -223,7 +224,7 @@ public class BattleController : MonoSingleton<BattleController>
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
 
         DeathEnemyList.Add(enemy);
-        _maskDisableEvent?.Invoke(enemy);
+        maskDisableEvent?.Invoke(enemy);
     }
     public bool IsStuck(int to, int who)
     {

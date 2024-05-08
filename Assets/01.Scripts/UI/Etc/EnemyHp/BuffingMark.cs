@@ -11,7 +11,7 @@ public class BuffingMark : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public CombatMarkingData CombatMarkingData { get; set; }
 
     [SerializeField] private Image _visual;
-    [SerializeField] private Transform _infoPanelTrm;
+    [SerializeField] private RectTransform _infoPanelTrm;
 
     [SerializeField] private TextMeshProUGUI _buffNameText;
     [SerializeField] private TextMeshProUGUI _infoText;
@@ -32,6 +32,7 @@ public class BuffingMark : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (CardReader.AbilityTargetSystem.OnTargetting) return;
 
+        _infoPanelTrm.SetAsLastSibling();
         _infoPanelTween.Kill();
         _infoPanelTween = _infoPanelTrm.DOScaleX(1, 0.1f).SetEase(Ease.OutBounce);
     }

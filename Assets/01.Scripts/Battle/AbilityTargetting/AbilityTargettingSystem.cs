@@ -163,7 +163,7 @@ public class AbilityTargettingSystem : MonoBehaviour
         _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
         OnTargetting = false;
 
-        foreach(var e in _battleController.en)
+        
     }
     private IEnumerator HandleCountEnemyTargetting(CardBase selectCard, int count)
     {
@@ -182,6 +182,11 @@ public class AbilityTargettingSystem : MonoBehaviour
             _isBindingMouseAndCard = true;
 
             yield return new WaitUntil(() => ata.IsBindSucess);
+        }
+
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            _battleController.maskDisableEvent?.Invoke(e);
         }
 
         _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
@@ -213,9 +218,19 @@ public class AbilityTargettingSystem : MonoBehaviour
             _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
 
             EnemyMarking(e);
+
+            CombatMarkingData data =
+                new CombatMarkingData(BuffingType.Targetting,
+                $"[{_selectCard.CardInfo.CardName}] 스킬에 \r\n선택되었습니다.");
+
+            e.BuffSetter.AddBuffingMark(data);
         }
 
         yield return new WaitForSeconds(0.5f);
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            _battleController.maskDisableEvent?.Invoke(e);
+        }
         _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
         OnTargetting = false;
     }
@@ -228,6 +243,11 @@ public class AbilityTargettingSystem : MonoBehaviour
 
         StartCoroutine(_targetCountingActionDic[tec].Invoke(selectCard, (int)tec));
         OnTargetting = true;
+
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            _battleController.maskEnableEvent?.Invoke(e);
+        }
     }
 
     private void BindMouseAndCardWithArrow()
@@ -256,7 +276,7 @@ public class AbilityTargettingSystem : MonoBehaviour
                 EnemyMarking(e);
                 ActivationCardSelect(_selectCard);
 
-                CombatMarkingData data = 
+                CombatMarkingData data =
                 new CombatMarkingData(BuffingType.Targetting,
                 $"[{_selectCard.CardInfo.CardName}] 스킬에 \r\n선택되었습니다.");
 
