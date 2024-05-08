@@ -60,11 +60,11 @@ public class HpBarMaker : MonoBehaviour
     {
         HPBar hpBar = Instantiate(_hpBarPrefab, _enemyHealthBarParent);
         e.OnHealthBarChanged.AddListener(hpBar.HandleHealthChanged);
-        e.BuffSetter = hpBar.BuffMarkSetter;
         e.HealthCompo.OnBeforeHit += () => FeedbackManager.Instance.FreezeTime(0.8f, 0.2f);
         hpBar.OwnerOfThisHpBar = e.hpBarPos;
         hpBar.transform.position = e.hpBarPos.position;
         bool isEnemy = e is Enemy;
+
         if (isEnemy)
         {
             e.HealthCompo.OnDeathEvent.AddListener(() => DeleteEnemyHPBar(hpBar));
@@ -76,5 +76,6 @@ public class HpBarMaker : MonoBehaviour
             friendHPBars.Add(hpBar);
         }
         hpBar.Init(isEnemy);
+        e.BuffSetter = hpBar.BuffMarkSetter;
     }
 }

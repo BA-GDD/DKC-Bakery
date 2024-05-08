@@ -31,6 +31,7 @@ public class HPBar : MonoBehaviour
     public void Init(bool isEnemy)
     {
         BuffMarkSetter = GetComponent<BuffingMarkSetter>();
+        Debug.Log(BuffMarkSetter);
 
         if (!_canStartFollowOwner) return;
         transform.position = _ownerOfThisHpBar.position;

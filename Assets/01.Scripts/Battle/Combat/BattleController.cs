@@ -74,7 +74,9 @@ public class BattleController : MonoSingleton<BattleController>
     }
 
     [SerializeField] private UnityEvent OnGameEndEvent;
-    [SerializeField] private UnityEvent<Enemy, Vector2> MaskCreateEvent;
+    [SerializeField] private UnityEvent<Enemy, Vector2> _maskCreateEvent;
+    [SerializeField] private UnityEvent<Enemy> _maskEnableEvent;
+    [SerializeField] private UnityEvent<Enemy> _maskDisableEvent;
     public CameraController CameraController { get; private set; }
 
     private void Start()
@@ -103,7 +105,6 @@ public class BattleController : MonoSingleton<BattleController>
         _hpBarMaker.SetupHpBar(Player);
         Player.HealthCompo.OnDeathEvent.AddListener(() => IsGameEnd = true);
     }
-
     private void HandleCardDraw(bool obj)
     {
         CardReader.CardDrawer.DrawCard(3, false);
@@ -136,7 +137,6 @@ public class BattleController : MonoSingleton<BattleController>
         TurnCounter.EnemyTurnEndEvent -= OnEnemyTurnEnd;
         TurnCounter.PlayerTurnStartEvent -= HandleCardDraw;
     }
-
     private void OnEnemyTurnStart(bool b)
     {
         foreach (var e in onFieldMonsterList)
@@ -145,7 +145,6 @@ public class BattleController : MonoSingleton<BattleController>
         }
         StartCoroutine(EnemySquence());
     }
-
     private void OnEnemyTurnEnd()
     {
         foreach (var e in onFieldMonsterList)
@@ -153,7 +152,6 @@ public class BattleController : MonoSingleton<BattleController>
             e?.TurnEnd();
         }
     }
-
     private IEnumerator EnemySquence()
     {
         foreach (var e in onFieldMonsterList)
@@ -176,7 +174,6 @@ public class BattleController : MonoSingleton<BattleController>
             TurnCounter.ChangeTurn();
         }
     }
-
     public void SetStage()
     {
         Debug.Log(MapManager.Instanace.SelectStageData.enemyGroup);
@@ -192,7 +189,6 @@ public class BattleController : MonoSingleton<BattleController>
             SpawnMonster(i);
         }
     }
-
     private void SpawnMonster(int idx)
     {
         if (_enemyQue.Count > 0)
@@ -204,7 +200,7 @@ public class BattleController : MonoSingleton<BattleController>
             selectEnemy.BattleController = this;
             int posChecker = ((idx + 3) % 2) * 2;
             selectEnemy.Spawn(pos);
-            MaskCreateEvent?.Invoke(selectEnemy, pos);
+            _maskCreateEvent?.Invoke(selectEnemy, pos);
             selectEnemy.SpriteRendererCompo.sortingOrder = posChecker;
 
             selectEnemy.HealthCompo.OnDeathEvent.AddListener(() => DeadMonster(selectEnemy));
@@ -214,23 +210,18 @@ public class BattleController : MonoSingleton<BattleController>
 
             SpawnEnemyList.Add(selectEnemy);
             _hpBarMaker.SetupHpBar(selectEnemy);
-
-
         }
     }
-
     public void DeadMonster(Enemy enemy)
     {
         onFieldMonsterList[Array.IndexOf(onFieldMonsterList, enemy)] = null;
 
         DeathEnemyList.Add(enemy);
     }
-
     public bool IsStuck(int to, int who)
     {
         return isStuck.list[to].list[who];
     }
-
     public void ChangePosition(Transform e1, Transform e2, Action callback = null)
     {
         e1.DOMove(e2.position, 0.5f);
@@ -241,12 +232,10 @@ public class BattleController : MonoSingleton<BattleController>
         e1.DOMoveX(e2.position.x, 0.5f);
         e2.DOMoveX(e1.position.x, 0.5f).OnComplete(() => callback?.Invoke());
     }
-
     public void SelectPlayerTarget(CardBase cardBase, Entity entity)
     {
         Player.SaveSkillToEnemy(cardBase, entity);
     }
-
     public void BackgroundColor(Color color)
     {
         Player.VFXManager.SetBackgroundColor(color);

@@ -262,7 +262,6 @@ public class AbilityTargettingSystem : MonoBehaviour
         e.SelectedOnAttack(_selectCard);
 
         int idx = _getTargetArrowDic[_selectCard].Count - 1;
-        //_getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, _mousePos);
         Tween t = _getTargetArrowDic[_selectCard][idx].ReChainning(() =>
         {
             Instantiate(_chainImPact, e.transform.position, Quaternion.identity);
