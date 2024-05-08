@@ -56,6 +56,8 @@ public abstract class Entity : PoolableMono
 
     private Tween _materialChangeTween;
 
+    public BuffingMarkSetter BuffSetter { get; set; }
+
     public void SelectChainningCharacter(Color skillColor, float Thickness)
     {
         _materialChangeTween.Kill();

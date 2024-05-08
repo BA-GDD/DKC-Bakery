@@ -247,6 +247,12 @@ public class AbilityTargettingSystem : MonoBehaviour
             {
                 EnemyMarking(e);
                 ActivationCardSelect(_selectCard);
+
+                CombatMarkingData data = 
+                new CombatMarkingData(BuffingType.Targetting,
+                $"[{_selectCard.CardInfo.CardName}] 스킬에 \r\n선택되었습니다.");
+
+                e.BuffSetter.AddBuffingMark(data);
             }
         }
     }
