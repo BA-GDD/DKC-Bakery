@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IAnimationEventHandler
 {
-    public void OnAnimationHandle();
+    public void OnAnimationEventHandle();
 }
 public interface IAnimationEndHandler
 {
-
+    public void OnAnimationEndHandle();
 }

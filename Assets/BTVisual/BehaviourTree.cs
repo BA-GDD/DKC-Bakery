@@ -14,10 +14,7 @@ namespace BTVisual
 
         public Node.State Update()
         {
-            if (treeRoot.state == Node.State.RUNNING)
-            {
-                treeState = treeRoot.Update();
-            }
+            treeState = treeRoot.Update();
             return treeState;
         }
 

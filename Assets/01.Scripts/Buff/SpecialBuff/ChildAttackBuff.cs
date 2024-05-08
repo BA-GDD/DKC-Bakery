@@ -7,7 +7,7 @@ public class ChildAttackBuff : SpecialBuff, IOnTakeDamage
     private List<Health> appliedEnemy = new();
     private bool active = false;
 
-    public void TakeDamage(Health health)
+    public void TakeDamage(Health health,ref int dmg)
     {
         active = true;
 

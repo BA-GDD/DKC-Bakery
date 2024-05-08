@@ -84,11 +84,13 @@ public abstract class Enemy : Entity
     public abstract void Attack();
     public virtual void TurnStart()
     {
+        turnStatus = TurnStatus.Ready;
         Collider.enabled = false;
     }
     public abstract void TurnAction();
     public virtual void TurnEnd()
     {
+        turnStatus = TurnStatus.End;
         Collider.enabled = true;
         ChainningCardList.Clear();
     }
