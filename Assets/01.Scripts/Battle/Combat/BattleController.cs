@@ -145,19 +145,28 @@ public class BattleController : MonoSingleton<BattleController>
     {
         foreach (var e in onFieldMonsterList)
         {
+            float betweenTime = 1.5f;
             if (e is null) continue;
             Player.VFXManager.BackgroundColor(Color.gray);
 
 
-            if(!e.HealthCompo.AilmentStat.HasAilment(AilmentEnum.Faint))
+            if (!e.HealthCompo.AilmentStat.HasAilment(AilmentEnum.Faint))
+            {
                 e.TurnAction();
+                betweenTime = 1.5f;
+            }
+            else
+            {
+                e.turnStatus = TurnStatus.End;
+                betweenTime = 0.3f;
+            }
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
 
             Player.VFXManager.BackgroundColor(Color.white);
             if (_isGameEnd)
                 break;
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(betweenTime);
         }
 
         if (!_isGameEnd)
