@@ -45,6 +45,7 @@ namespace Particle.Trigger
         public void SetCollision(List<Entity> l)
         {
             ClearCollision();
+            Targets = l;
             foreach (var item in l)
             {
                 triggerModule.AddCollider(item.ColliderCompo);

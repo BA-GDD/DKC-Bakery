@@ -92,6 +92,8 @@ public abstract class Entity : PoolableMono
     {
         HealthCompo.SetOwner(this);
 
+        TurnCounter.RoundStartEvent += BuffStatCompo.UpdateBuff;
+
         OnMoveTarget += HandleEndMoveToTarget;
         OnMoveOriginPos += HandleEndMoveToOriginPos;
         HealthCompo.OnHitEvent.AddListener(HandleHit);
@@ -105,6 +107,8 @@ public abstract class Entity : PoolableMono
     }
     protected virtual void OnDisable()
     {
+        BuffStatCompo.ClearStat();
+
         OnMoveTarget -= HandleEndMoveToTarget;
         OnMoveOriginPos -= HandleEndMoveToOriginPos;
 

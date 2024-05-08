@@ -31,7 +31,6 @@ namespace Particle
             foreach (ParticleTriggerInfo i in triggerInfos)
             {
                 i.Owner = owner;
-                i.Targets = _targets;
                 i.Damages = damages;
             }
         }

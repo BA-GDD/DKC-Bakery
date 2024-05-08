@@ -38,7 +38,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         get => _isDead;
         set
-        {           
+        {
             _isDead = value;
         }
     }
@@ -119,7 +119,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (_isDead || _isInvincible) return; //사망하거나 무적상태면 더이상 데미지 없음.
 
-        _owner.BuffStatCompo.OnHitDamageEvent?.Invoke(dealer, ref damage);
 
         if (dealer.CharStat.IsCritical(ref damage))
         {
@@ -130,24 +129,23 @@ public class Health : MonoBehaviour, IDamageable
         {
             isLastHitCritical = false;
         }
+        _owner.BuffStatCompo.OnHitDamageEvent?.Invoke(dealer, ref damage);
 
         damage = _owner.CharStat.ArmoredDamage(damage, IsFreeze);
         DamageTextManager.Instance.PopupDamageText(_owner.transform.position, damage, isLastHitCritical ? DamageCategory.Critical : DamageCategory.Noraml);
-        //아머값에 따른 데미지 보정. 동상시에는 아머 감소.
-        foreach(var b in dealer.OnAttack)
+        foreach (var b in dealer.OnAttack)
         {
-            b?.TakeDamage(this);
+            b?.TakeDamage(this, ref damage);
         }
-        //완벽 회피 계산.
         if (_owner.CharStat.CanEvasion())
         {
             Debug.Log($"{_owner.gameObject.name} is evasion attack!");
             return;
         }
-        //크리티컬확률에 따라 크리티컬인지 확인하고 데미지 증뎀
-        
+
 
         _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
+        _owner.BuffStatCompo.OnHitDamageAfterEvent?.Invoke(dealer, this, ref damage);
         OnDamageEvent?.Invoke(_currentHealth, maxHealth);
 
 
