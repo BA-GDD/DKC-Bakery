@@ -17,6 +17,7 @@ public class PoolVCam : PoolableMono
     public override void Init()
     {
         vCam.m_Follow = null;
+        transform.rotation = Quaternion.identity;
     }
     public PoolVCam SetCamera(CinemachineSmoothPath path)
     {

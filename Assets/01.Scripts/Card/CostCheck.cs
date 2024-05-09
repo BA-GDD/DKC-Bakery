@@ -22,12 +22,27 @@ public class CostCheck : MonoBehaviour
         HandleCheckExMana(CostCalculator.CurrentExMana);
 
         TurnCounter.PlayerTurnStartEvent += HandleCalculateExMana;
+        TurnCounter.PlayerTurnStartEvent += HandleEnableCostObj;
+
+        TurnCounter.PlayerTurnEndEvent += HandleDisableCostObj;
     }
 
     private void OnDisable()
     {
         CostCalculator.MoneyChangeEvent -= HandleCheckCost;
         CostCalculator.ExtraManaChangeEvent -= HandleCheckExMana;
+        TurnCounter.PlayerTurnStartEvent -= HandleEnableCostObj;
+        TurnCounter.PlayerTurnEndEvent -= HandleDisableCostObj;
+    }
+
+    private void HandleEnableCostObj(bool  vlaue)
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void HandleDisableCostObj()
+    {
+        gameObject.SetActive(true);
     }
 
     private void HandleCalculateExMana(bool a)
