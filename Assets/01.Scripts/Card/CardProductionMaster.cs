@@ -101,7 +101,7 @@ public class CardProductionMaster : MonoBehaviour
             float sineX = Mathf.Sin(Time.time + card.CardIdlingAddValue);
             float cosineY = Mathf.Cos(Time.time + card.CardIdlingAddValue);
 
-            card.VisualTrm.eulerAngles = new Vector3(sineX, cosineY, 0) * 10;
+            card.VisualTrm.localEulerAngles = new Vector3(sineX, cosineY, 0) * 10;
         }
     }
 }

@@ -77,7 +77,7 @@ public class BuffingMarkSetter : MonoBehaviour
 
         int idx = (int)markingData.buffingType;
         buffingMark.SetInfo(_buffingMarkTextureArr[idx], 
-                            _buffingNameArr[idx], markingData);
+                            _buffingNameArr[idx], markingData, BuffingPanelTrm);
 
         BuffingMarkPositionSetter(buffingMark.transform);
         _buffingMarkList.Add(buffingMark);

@@ -78,6 +78,7 @@ public class HpBarMaker : MonoBehaviour
         }
         hpBar.Init(isEnemy);
 
+        hpBar.BuffMarkSetter.BuffingPanelTrm = _buffingPanerlTrm;
         e.BuffSetter = hpBar.BuffMarkSetter;
     }
 }
