@@ -24,7 +24,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 4b7c34181f4d74244be6861121c94efa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _USE_LERP_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -147,7 +148,7 @@ Material:
     - _Surface: 0
     - _Use_Customdata: 0
     - _Use_ToonDissolve: 0
-    - _Use_lerp: 0
+    - _Use_lerp: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _diss_normal_power: 0
@@ -168,6 +169,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _edge_color: {r: 0, g: 0, b: 0, a: 0}
-    - _main_color_a: {r: 18.379171, g: 18.379171, b: 18.379171, a: 0}
-    - _main_color_b: {r: 1, g: 1, b: 1, a: 0}
+    - _main_color_a: {r: 5.590881, g: 5.246397, b: 1.4504646, a: 0}
+    - _main_color_b: {r: 0, g: 6.115302, b: 14.928529, a: 0}
   m_BuildTextureStacks: []
