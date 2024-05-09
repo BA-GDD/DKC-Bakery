@@ -140,13 +140,6 @@ public class BattleController : MonoSingleton<BattleController>
     }
     private void OnEnemyTurnStart(bool value)
     {
-        foreach (var e in onFieldMonsterList)
-        {
-            if (e is null) continue;
-
-            e.TurnStart();
-            maskEnableEvent?.Invoke(e);
-        }
         StartCoroutine(EnemySquence());
     }
     private void OnEnemyTurnEnd()

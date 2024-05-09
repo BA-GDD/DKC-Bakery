@@ -8,6 +8,8 @@ using DG.Tweening;
 public class CameraController : MonoBehaviour
 {
     private CinemachineVirtualCamera _vCam;
+    private PoolVCam _poolVCam;
+    private Transform _target;
 
     public PoolVCam CaomObj { get; private set; }
     public BattleController BattleController { get; set; }
@@ -19,6 +21,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
+        _target = GameManager.Instance.gameObject.transform.Find("CameraTrm");
         _vCam = UIManager.Instance.VirtualCamera;
     }
 
@@ -40,16 +43,16 @@ public class CameraController : MonoBehaviour
     private void HandleCamraTargettingPlayer(float value, float duration, Ease easing)
     {
         Debug.Log("HELLO");
-        _toPlayerSeq.Append(_vCam.transform.DOLocalMoveX(value, duration).SetEase(easing));
-        _toPlayerSeq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 0.5f), duration).SetEase(easing));
+        _toPlayerSeq.Append(_target.DOLocalMoveX(value, duration).SetEase(easing));
+        _toPlayerSeq.Join(_poolVCam.transform.DORotate(new Vector3(0, 0, 0.5f), duration).SetEase(easing));
         _toPlayerSeq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 5, duration).SetEase(easing));
         _toPlayerSeq.OnComplete(() => _camOnMoving = true);
     }
 
     private void HandleCamraTargettingEmeny(float value, float duration, Ease easing)
     {
-        _toEnemySeq.Append(_vCam.transform.DOLocalMoveX(value, duration).SetEase(easing));
-        _toEnemySeq.Join(_vCam.transform.DORotate(new Vector3(0, 0, -0.5f), duration).SetEase(easing));
+        _toEnemySeq.Append(_target.DOLocalMoveX(value, duration).SetEase(easing));
+        _toEnemySeq.Join(_poolVCam.transform.DORotate(new Vector3(0, 0, -0.5f), duration).SetEase(easing));
         _toEnemySeq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 5, duration).SetEase(easing));
         _toEnemySeq.OnComplete(() => _camOnMoving = true);
     }
@@ -61,12 +64,15 @@ public class CameraController : MonoBehaviour
 
     public void StartCameraSequnce(CameraMoveTypeSO moveType)
     {
+        _poolVCam = PoolManager.Instance.Pop(PoolingType.VCamPool) as PoolVCam;
+        _vCam = _poolVCam.VCam;
+        _vCam.Follow = _target;
+
         StartCoroutine(CameraSequenceCo(moveType.camMoveSequenceList));
     }
 
     private IEnumerator CameraSequenceCo(List<CameraMoveSequence> sequenceList)
     {
-        Debug.Log(sequenceList.Count);
         foreach(CameraMoveSequence seq in sequenceList)
         {
             SetTransitionTime(seq.cameraTransitionTime);
@@ -78,16 +84,6 @@ public class CameraController : MonoBehaviour
             yield return new WaitUntil(() => _camOnMoving);
         }
 
-        SetDefaultCam();
-    }
-    
-    public void SetDefaultCam()
-    {
-        SetTransitionTime(1);
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(_vCam.transform.DOLocalMoveX(0, 0.3f).SetEase(Ease.Linear));
-        seq.Join(_vCam.transform.DORotate(new Vector3(0, 0, 0), 0.3f).SetEase(Ease.Linear));
-        seq.Join(DOTween.To(() => 5, o => _vCam.m_Lens.OrthographicSize = o, 6, 0.3f).SetEase(Ease.Linear));
+        PoolManager.Instance.Push(_poolVCam);
     }
 }
