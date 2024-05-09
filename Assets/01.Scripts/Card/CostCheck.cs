@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class CostCheck : MonoBehaviour
 {
+    [SerializeField] private GameObject _costObject;
     private Tween _numberingTween;
     private int _targetCost;
     [SerializeField] private TextMeshProUGUI _costText;
@@ -37,12 +38,12 @@ public class CostCheck : MonoBehaviour
 
     private void HandleEnableCostObj(bool  vlaue)
     {
-        gameObject.SetActive(false);
+        _costObject.SetActive(true);
     }
 
     private void HandleDisableCostObj()
     {
-        gameObject.SetActive(true);
+        _costObject.SetActive(false);
     }
 
     private void HandleCalculateExMana(bool a)

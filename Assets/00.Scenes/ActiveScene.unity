@@ -123,6 +123,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &225251678 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2314435749310004215, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+  m_PrefabInstance: {fileID: 1845907613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &225251682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225251678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a313c4423635041b619c8a54cee0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canPick: 0
 --- !u!1001 &1845907613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,14 +152,6 @@ PrefabInstance:
     - target: {fileID: 2574275895697526637, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
       propertyPath: m_Name
       value: ManagerGroup
-      objectReference: {fileID: 0}
-    - target: {fileID: 5117759325655729331, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
-      propertyPath: m_DefaultVelocity.x
-      value: -0.4295079
-      objectReference: {fileID: 0}
-    - target: {fileID: 5117759325655729331, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
-      propertyPath: m_DefaultVelocity.y
-      value: 0.2431915
       objectReference: {fileID: 0}
     - target: {fileID: 5720360554775371038, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -186,7 +196,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2314435749310004215, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 225251682}
   m_SourcePrefab: {fileID: 100100000, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

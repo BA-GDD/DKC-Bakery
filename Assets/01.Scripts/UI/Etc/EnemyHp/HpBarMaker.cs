@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HpBarMaker : MonoBehaviour
 {
-    [SerializeField]private Transform _enemyHealthBarParent;
+    [SerializeField] private Transform _enemyHealthBarParent;
+    [SerializeField] private Transform _buffingPanerlTrm;
     [SerializeField] private HPBar _hpBarPrefab;
 
     private List<HPBar> enemyHPBars = new();
@@ -76,6 +77,7 @@ public class HpBarMaker : MonoBehaviour
             friendHPBars.Add(hpBar);
         }
         hpBar.Init(isEnemy);
+
         e.BuffSetter = hpBar.BuffMarkSetter;
     }
 }

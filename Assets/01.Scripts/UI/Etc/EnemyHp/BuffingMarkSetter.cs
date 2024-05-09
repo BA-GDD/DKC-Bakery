@@ -42,6 +42,7 @@ public class BuffingMarkSetter : MonoBehaviour
     [SerializeField] private string[] _buffingNameArr;
 
     private List<BuffingMark> _buffingMarkList = new List<BuffingMark>();
+    public Transform BuffingPanelTrm { get; set; }
 
     private void Start()
     {

@@ -12,29 +12,32 @@ public class BuffingMark : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [SerializeField] private Image _visual;
     [SerializeField] private RectTransform _infoPanelTrm;
+    private Transform _currentInfoPanelTrm;
 
     [SerializeField] private TextMeshProUGUI _buffNameText;
     [SerializeField] private TextMeshProUGUI _infoText;
     public int VisualIndex { get; private set; }
+    private Transform _infoPanelParent;
 
     private Tween _infoPanelTween;
 
-    public void SetInfo(Sprite visual, string buffName, CombatMarkingData data)
+    public void SetInfo(Sprite visual, string buffName, CombatMarkingData data, Transform panelTrm)
     {
         CombatMarkingData = data;
 
         _buffNameText.text = buffName;
         _visual.sprite = visual;
         _infoText.text = data.buffingInfo;
+        _infoPanelParent = panelTrm;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (CardReader.AbilityTargetSystem.OnTargetting) return;
 
-        _infoPanelTrm.SetAsLastSibling();
+        _currentInfoPanelTrm = Instantiate(_infoPanelTrm, _infoPanelParent);
         _infoPanelTween.Kill();
-        _infoPanelTween = _infoPanelTrm.DOScaleX(1, 0.1f).SetEase(Ease.OutBounce);
+        _infoPanelTween = _currentInfoPanelTrm.DOScaleX(1, 0.1f).SetEase(Ease.OutBounce);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -42,6 +45,6 @@ public class BuffingMark : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (CardReader.AbilityTargetSystem.OnTargetting) return;
 
         _infoPanelTween.Kill();
-        _infoPanelTween = _infoPanelTrm.DOScaleX(0, 0.1f).SetEase(Ease.InBounce);
+        _infoPanelTween = _currentInfoPanelTrm.DOScaleX(0, 0.1f).SetEase(Ease.InBounce);
     }
 }
