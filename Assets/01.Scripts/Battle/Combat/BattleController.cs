@@ -14,6 +14,8 @@ public class SEList<T>
 public class BattleController : MonoSingleton<BattleController>
 {
     [SerializeField] private BattleCutSlider _battleCutter;
+    public BattleCutSlider BattleCutSlider => _battleCutter;
+
     [SerializeField] private SEList<SEList<bool>> isStuck;
 
     public Enemy[] onFieldMonsterList;

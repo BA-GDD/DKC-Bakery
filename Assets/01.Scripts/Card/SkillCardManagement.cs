@@ -76,6 +76,8 @@ public class SkillCardManagement : CardManagement
         if (_isInChaining)
             useCardEndEvnet?.Invoke();
 
+        
+
         if (!_isInChaining && InCardZoneCatalogue.Count != 0)
         {
             beforeChainingEvent?.Invoke();
@@ -96,18 +98,26 @@ public class SkillCardManagement : CardManagement
             _checkStageClearEvent?.Invoke();
 
             CardReader.AbilityTargetSystem.AllChainClear();
+            
             return;
         }
 
+        
         CardBase selectCard = InCardZoneCatalogue[0];
         InCardZoneCatalogue.Remove(selectCard);
 
         selectCard.ActiveInfo();
+        selectCard.battleController.BattleCutSlider.Reverting();
         UseAbility(selectCard);
     }
 
     public override void UseAbility(CardBase selectCard)
     {
+        selectCard.battleController.CameraController.
+        StartCameraSequnce(selectCard.CardInfo.cameraSequenceData);
+
+        selectCard.battleController.BattleCutSlider.Cutting();
+
         selectCard.Abillity();
     }
 
