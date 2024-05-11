@@ -76,8 +76,6 @@ public class SkillCardManagement : CardManagement
         if (_isInChaining)
             useCardEndEvnet?.Invoke();
 
-        
-
         if (!_isInChaining && InCardZoneCatalogue.Count != 0)
         {
             beforeChainingEvent?.Invoke();
@@ -101,7 +99,6 @@ public class SkillCardManagement : CardManagement
             
             return;
         }
-
         
         CardBase selectCard = InCardZoneCatalogue[0];
         InCardZoneCatalogue.Remove(selectCard);
