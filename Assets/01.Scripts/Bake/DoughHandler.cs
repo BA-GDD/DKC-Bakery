@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,8 +44,10 @@ public class DoughHandler : MonoBehaviour
 
             _isInnerDough = true;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && _isInnerDough)
         {
+            _isInnerDough = false;
+            transform.position = transform.position;
             ActiveInnerStoveRange();
         }
     }
@@ -54,11 +55,14 @@ public class DoughHandler : MonoBehaviour
     {
         Vector2 myPos = transform.position;
 
-        if(myPos.x < _stoveMaxRange.x && myPos.y < _stoveMaxRange.y && 
-           myPos.x > _stoveMinRange.x && myPos.y > _stoveMinRange.y)
+        if(myPos.x > _stoveMaxRange.x && myPos.y < _stoveMaxRange.y && 
+           myPos.x < _stoveMinRange.x && myPos.y > _stoveMinRange.y)
         {
-            _isInnerDough = false;
-            transform.DOMove(_stoveEnterPos, 1.5f).SetEase(Ease.InBack);
+            Sequence seq = DOTween.Sequence();
+            seq.Append(transform.DOMoveX(_stoveEnterPos.x, 0.5f).SetEase(Ease.OutQuad));
+            seq.Join(transform.DOMoveY(_stoveEnterPos.y, 0.5f).SetEase(Ease.InQuad));
+            seq.Join(transform.DOScale(Vector2.zero, 0.5f).SetEase(Ease.OutBack));
+            seq.AppendCallback(() => _doughToInnerEndEvent?.Invoke());
         }
         else
         {
