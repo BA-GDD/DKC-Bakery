@@ -37,6 +37,8 @@ public class AbilityTargettingSystem : MonoBehaviour
     [SerializeField] private Color _reactionColor;
     private List<ChainSelectTarget> _chainTargetList = new();
 
+    public bool OnTargetting { get; private set; }
+
     public void AllChainClear()
     {
         foreach(Transform chain in transform)
@@ -137,8 +139,6 @@ public class AbilityTargettingSystem : MonoBehaviour
 
     private IEnumerator HandleMeTargetting(CardBase selectCard, int count)
     {
-        yield return null;
-
         _selectCard = selectCard;
         AbilityTargetArrow ata = Instantiate(_targetArrowPrefab, transform);
         ata.ActiveArrow(false);
@@ -158,6 +158,12 @@ public class AbilityTargettingSystem : MonoBehaviour
         int idx = _getTargetArrowDic[_selectCard].Count - 1;
         _getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, anchoredPosition);
         _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        OnTargetting = false;
+
+        
     }
     private IEnumerator HandleCountEnemyTargetting(CardBase selectCard, int count)
     {
@@ -177,11 +183,17 @@ public class AbilityTargettingSystem : MonoBehaviour
 
             yield return new WaitUntil(() => ata.IsBindSucess);
         }
+
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            _battleController.maskDisableEvent?.Invoke(e);
+        }
+
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        OnTargetting = false;
     }
     private IEnumerator HandleALLEnemyTargetting(CardBase selectCard, int count)
     {
-        yield return null;
-
         foreach (Enemy e in _battleController.onFieldMonsterList)
         {
             if (e is null) continue;
@@ -206,7 +218,21 @@ public class AbilityTargettingSystem : MonoBehaviour
             _getTargetArrowDic[_selectCard][idx].SetFade(0.5f);
 
             EnemyMarking(e);
+
+            CombatMarkingData data =
+                new CombatMarkingData(BuffingType.Targetting,
+                $"[{_selectCard.CardInfo.CardName}] 스킬에 \r\n선택되었습니다.");
+
+            e.BuffSetter.AddBuffingMark(data);
         }
+
+        yield return new WaitForSeconds(0.5f);
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            _battleController.maskDisableEvent?.Invoke(e);
+        }
+        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        OnTargetting = false;
     }
 
     private void EnemyTargetting(CardBase selectCard)
@@ -216,8 +242,12 @@ public class AbilityTargettingSystem : MonoBehaviour
                                                                (int)selectCard.CombineLevel);
 
         StartCoroutine(_targetCountingActionDic[tec].Invoke(selectCard, (int)tec));
+        OnTargetting = true;
 
-        _battleController.Player.VFXManager.SetBackgroundColor(Color.white);
+        foreach (var e in _battleController.onFieldMonsterList)
+        {
+            _battleController.maskEnableEvent?.Invoke(e);
+        }
     }
 
     private void BindMouseAndCardWithArrow()
@@ -245,6 +275,12 @@ public class AbilityTargettingSystem : MonoBehaviour
             {
                 EnemyMarking(e);
                 ActivationCardSelect(_selectCard);
+
+                CombatMarkingData data =
+                new CombatMarkingData(BuffingType.Targetting,
+                $"[{_selectCard.CardInfo.CardName}] 스킬에 \r\n선택되었습니다.");
+
+                e.BuffSetter.AddBuffingMark(data);
             }
         }
     }
@@ -254,7 +290,6 @@ public class AbilityTargettingSystem : MonoBehaviour
         e.SelectedOnAttack(_selectCard);
 
         int idx = _getTargetArrowDic[_selectCard].Count - 1;
-        //_getTargetArrowDic[_selectCard][idx].ArrowBinding(_selectCard.transform, _mousePos);
         Tween t = _getTargetArrowDic[_selectCard][idx].ReChainning(() =>
         {
             Instantiate(_chainImPact, e.transform.position, Quaternion.identity);

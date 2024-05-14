@@ -6,12 +6,23 @@ namespace BTVisual
 {
     public abstract class SampleBossNode : ActionNode
     {
-        private int animationHash;
         [SerializeField] private string parametorName;
+        protected int animationHash;
 
-        private void OnEnable()
+
+        protected virtual void OnEnable()
         {
             animationHash = Animator.StringToHash(parametorName);
+        }
+
+        protected override void OnStart()
+        {
+            brain.AnimatorCompo.SetBool(animationHash, true);
+        }
+
+        protected override void OnStop()
+        {
+            brain.AnimatorCompo.SetBool(animationHash, false);
         }
     }
 }

@@ -7,8 +7,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System;
 
-public abstract class CardBase : MonoBehaviour, IPointerClickHandler
+public abstract class CardBase : MonoBehaviour, IPointerClickHandler, 
+                                 IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private float _toMovePosInSec;
     public RectTransform VisualRectTrm { get; private set; }
@@ -37,10 +39,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         {
             return visualTrm;
         }
-        set
-        {
-            visualTrm = value;
-        }
+        
     }
     private bool _isActivingAbillity;
     protected bool IsActivingAbillity
@@ -81,6 +80,12 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
     protected Color minimumColor = new Color(255, 255, 255, .1f);
     protected Color maxtimumColor = new Color(255, 255, 255, 1.0f);
 
+    public Action<Transform> OnPointerSetCardAction { get; set; }
+    public Action<Transform> OnPointerInitCardAction { get; set; }
+
+    public float CardIdlingAddValue { get; set; }
+    public bool OnPointerInCard { get; set; }   
+
     private void Awake()
     {
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
@@ -90,7 +95,14 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         _costText.text = AbilityCost.ToString();
     }
 
+    private void OnDestroy()
+    {
+        OnPointerSetCardAction = null;
+        CardReader.CardProductionMaster.QuitCardling(this);
+    }
+
     public abstract void Abillity();
+
     public void ActiveInfo()
     {
         CardReader.SkillCardManagement.SetCardInfo(CardInfo, true);
@@ -123,11 +135,13 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
 
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOLocalMove(movePos, _toMovePosInSec).SetEase(Ease.OutBack));
+        seq.Join(transform.DOLocalRotateQuaternion(Quaternion.identity, _toMovePosInSec).SetEase(Ease.OutBack));
         seq.AppendCallback(() =>
         {
             if(generateCallback)
             {
                 CardReader.CombineMaster.CombineGenerate();
+                CardReader.OnPointerCard = null;
             }
             CanUseThisCard = true;
         });
@@ -193,5 +207,21 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler
         if (!IsOnActivationZone) return;
 
         CardReader.AbilityTargetSystem.ActivationCardSelect(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (IsOnActivationZone) return;
+
+        OnPointerSetCardAction?.Invoke(transform);
+        OnPointerInCard = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (IsOnActivationZone) return;
+
+        OnPointerInitCardAction?.Invoke(transform);
+        OnPointerInCard = false;
     }
 }

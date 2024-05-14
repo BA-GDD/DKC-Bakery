@@ -144,6 +144,8 @@ public class SkillCardManagement : CardManagement
             seq.Append(selectCard.transform.DOLocalMove(new Vector3(0, 150, 0), 0.3f));
         }
 
+        seq.Join(selectCard.transform.DOLocalRotateQuaternion(Quaternion.identity, 0.3f));
+
         for (int i = 0; i < maxIdx; i++)
         {
             Transform selectTrm = InCardZoneCatalogue[i].transform;

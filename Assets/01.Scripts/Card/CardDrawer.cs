@@ -68,6 +68,12 @@ public class CardDrawer : MonoBehaviour
     private void DrawCardLogic(CardBase selectInfo)
     {
         CardBase spawnCard = Instantiate(selectInfo, _cardParent);
+
+        CardReader.CardProductionMaster.OnCardIdling(spawnCard);
+
+        spawnCard.OnPointerSetCardAction += CardReader.CardProductionMaster.OnSelectCard;
+        spawnCard.OnPointerInitCardAction += CardReader.CardProductionMaster.QuitSelectCard;
+
         spawnCard.name = idx.ToString();
         spawnCard.battleController = this.BattleController;
         idx++;
@@ -78,4 +84,5 @@ public class CardDrawer : MonoBehaviour
 
         spawnCard.SetUpCard(CardReader.GetPosOnTopDrawCard(), true);
     }
+
 }

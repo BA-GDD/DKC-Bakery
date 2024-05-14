@@ -19,6 +19,7 @@ public class CandyParty : Enemy
     }
     private IEnumerator AttackCor()
     {
+        yield return new WaitForSeconds(1.5f);
         for (int i = 0; i < 5; ++i)
         {
             //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
@@ -26,7 +27,7 @@ public class CandyParty : Enemy
             yield return new WaitForSeconds(0.3f);
         }
 
-        yield return new WaitForSeconds(1f);
+        Debug.Log(1);
         OnAttackEnd?.Invoke();
     }
 

@@ -41,7 +41,8 @@ public class PanelUI : MonoBehaviour
             return;
         }
 
-        blackPanel.DOFade(endOfAlpha * MaestrOffice.BoolToInt(isActive), easingTime);
+        blackPanel.DOFade(endOfAlpha * MaestrOffice.BoolToInt(isActive), easingTime).
+        OnComplete(() => blackPanel.raycastTarget = isActive);
     }
 
     public void FadePanel(bool isActive, Action callBack)

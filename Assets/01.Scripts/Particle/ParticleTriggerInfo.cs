@@ -42,13 +42,20 @@ namespace Particle.Trigger
         public List<Entity> Targets { get; set; }
         public int[] Damages { get; set; }
 
-        public void AddCollision(Collider2D col) => triggerModule.AddCollider(col);
-        public void RemoveCollision(Collider col) => triggerModule.RemoveCollider(col);
+        public void SetCollision(List<Entity> l)
+        {
+            ClearCollision();
+            Targets = l;
+            foreach (var item in l)
+            {
+                triggerModule.AddCollider(item.ColliderCompo);
+            }
+        }
         public void ClearCollision()
         {
             for (int i = 0; i < triggerModule.colliderCount; i++)
             {
-                triggerModule.RemoveCollider(i);
+                triggerModule.RemoveCollider(0);
             }
         }
 
@@ -77,7 +84,8 @@ namespace Particle.Trigger
                     int chk = ps.GetTriggerParticles(type, particleList, out var colliderData);
                     for (int i = 0; i < chk; i++)
                     {
-                        for (int j = 0; j < colliderData.GetColliderCount(i); j++)
+                        int c = colliderData.GetColliderCount(i);
+                        for (int j = 0; j < c; j++)
                         {
                             Collider2D col = colliderData.GetCollider(i, j) as Collider2D;
                             if (col)

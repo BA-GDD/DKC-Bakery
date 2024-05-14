@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RiceCakeFrogBuff : SpecialBuff, IOnHItDamage
+public class RiceCakeFrogBuff : SpecialBuff, IOnHitDamage
 {
     public int hitCount = 2;
     [Range(0, 100)]
