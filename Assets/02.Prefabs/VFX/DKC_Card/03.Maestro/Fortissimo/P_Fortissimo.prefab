@@ -115,9 +115,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1.2
-      minScalar: 5
+      minScalar: 0.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -287,8 +287,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.77
-      minScalar: 1.48
+      scalar: 10.8
+      minScalar: 12.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -446,7 +446,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0
+      scalar: 6.283185
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -499,8 +499,8 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.6981317
-      minScalar: -0.6981317
+      scalar: 6.283185
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10073,7 +10073,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.65
+      scalar: 7.02
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14760,6 +14760,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -15179,7 +15183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 7.93
+      value: 11.23
       objectReference: {fileID: 0}
     - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
