@@ -8,29 +8,34 @@ public class BazierCurveMovement : MonoBehaviour
     [SerializeField] private float speed = 1.0f;
 
     float percent = 0.0f;
-    
-    private void Update()
+
+    [ContextMenu("restart")]
+    [ExecuteInEditMode]
+    public void Restart()
     {
-        if (trms[2] != null && percent <= 1.0f)
+        transform.localPosition = new Vector3(0, 0, 0);
+
+        StartCoroutine(BazierCo());
+    }
+
+    private IEnumerator BazierCo()
+    {
+        float dt;
+        float percent = 0.0f;
+        Vector2 p1;
+        Vector2 p2;
+        Vector2 result;
+        while(percent <= 1.0f)
         {
-            float dt = Time.deltaTime * speed;
-
+            dt = Time.deltaTime * speed;
             percent += dt;
-            //첫번째 러프
-            Vector2 p1 = Vector2.Lerp(trms[0].position, trms[1].position, percent);
 
-            //두번째 러프
-            Vector2 p2 = Vector2.Lerp(trms[1].position, trms[2].position, percent); 
-
-            //결과물
-            Vector2 result = Vector2.Lerp(p1, p2, percent);
+            p1 = Vector2.Lerp(trms[0].position, trms[1].position, percent);
+            p2 = Vector2.Lerp(trms[1].position, trms[2].position, percent);
+            result = Vector2.Lerp(p1, p2, percent);
 
             transform.position = result;
-        }
-        else
-        {
-            //gameObject.SetActive(false);
-            //transform.position = Vector2.zero;
+            yield return null;
         }
     }
 }

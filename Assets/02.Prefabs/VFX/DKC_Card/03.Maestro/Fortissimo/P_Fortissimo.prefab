@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668651713702776287}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.17}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -1.2000006, z: 0.0200001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5240042062374763289}
+  m_Father: {fileID: 3948115585192179035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5246526210606840889
 ParticleSystem:
@@ -56,7 +56,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 2.85
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -288,7 +288,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 10.8
-      minScalar: 12.1
+      minScalar: 4.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -663,12 +663,12 @@ ParticleSystem:
         m_RotationOrder: 4
   ShapeModule:
     serializedVersion: 6
-    enabled: 0
-    type: 4
+    enabled: 1
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 1
+    radiusThickness: 0.67
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -751,7 +751,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 2.2
       mode: 0
       spread: 0
       speed:
@@ -4926,7 +4926,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3427367184557321976}
   - {fileID: 7318249799102774389}
   - {fileID: 379309980136992096}
   - {fileID: 8221824988431401744}
@@ -13717,6 +13716,11 @@ ParticleSystem:
       type: 2
       properties: 1
       emitProbability: 1
+    - serializedVersion: 3
+      emitter: {fileID: 5246526210606840889}
+      type: 2
+      properties: 1
+      emitProbability: 1
   LightsModule:
     enabled: 0
     ratio: 0
@@ -14957,8 +14961,32 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 6.78
+      value: 2.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 10.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 4.16
       objectReference: {fileID: 0}
     - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -14983,6 +15011,30 @@ PrefabInstance:
     - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startSize.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 11.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323366485217575769, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6505872184449082838, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -15122,7 +15174,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8348737822261930704, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3427367184557321976}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 971de85cfbed0404eb0c45f742358806, type: 3}
 --- !u!198 &1357613963178368210 stripped
