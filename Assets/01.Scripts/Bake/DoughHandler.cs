@@ -15,8 +15,10 @@ public class DoughHandler : MonoBehaviour
 
     private Vector2 _doughNormalPos;
     private bool _isInnerDough;
+    private bool _isInRange;
 
-    [SerializeField] private UnityEvent _doughDragStartEvent;
+    [SerializeField] private UnityEvent _doughEnterRangeEvent;
+    [SerializeField] private UnityEvent _doughExitRangeEvent;
     [SerializeField] private UnityEvent _doughToInnerEndEvent;
 
     void Start()
@@ -40,11 +42,24 @@ public class DoughHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector2 mousePos = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
-            transform.position = Vector2.Lerp(transform.position, mousePos, Time.deltaTime * 20f);
+            Vector2 myPos = Vector2.Lerp(transform.position, mousePos, Time.deltaTime * 20f);
+
+            if (myPos.x > _stoveMaxRange.x && myPos.y < _stoveMaxRange.y &&
+                myPos.x < _stoveMinRange.x && myPos.y > _stoveMinRange.y)
+            {
+                _isInRange = true;
+                _doughEnterRangeEvent?.Invoke();
+            }
+            else
+            {
+                _isInRange = false;
+                _doughExitRangeEvent?.Invoke();
+            }
 
             _isInnerDough = true;
         }
-        else if (Input.GetMouseButtonUp(0) && _isInnerDough)
+
+        if (Input.GetMouseButtonUp(0) && _isInnerDough)
         {
             _isInnerDough = false;
             transform.position = transform.position;
@@ -53,16 +68,9 @@ public class DoughHandler : MonoBehaviour
     }
     private void ActiveInnerStoveRange()
     {
-        Vector2 myPos = transform.position;
-
-        if(myPos.x > _stoveMaxRange.x && myPos.y < _stoveMaxRange.y && 
-           myPos.x < _stoveMinRange.x && myPos.y > _stoveMinRange.y)
+        if(_isInRange)
         {
-            Sequence seq = DOTween.Sequence();
-            seq.Append(transform.DOMoveX(_stoveEnterPos.x, 0.5f).SetEase(Ease.OutQuad));
-            seq.Join(transform.DOMoveY(_stoveEnterPos.y, 0.5f).SetEase(Ease.InQuad));
-            seq.Join(transform.DOScale(Vector2.zero, 0.5f).SetEase(Ease.OutBack));
-            seq.AppendCallback(() => _doughToInnerEndEvent?.Invoke());
+            
         }
         else
         {
