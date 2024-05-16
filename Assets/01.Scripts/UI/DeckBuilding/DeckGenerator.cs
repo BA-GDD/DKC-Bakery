@@ -73,7 +73,7 @@ public class DeckGenerator : MonoBehaviour
             _selectDeckObj.gameObject.SetActive(false);
             return;
         }
-
+        print(deckElement.deck);
         _selectDeckObj.gameObject.SetActive(true);
         _selectDeckObj.SetDeckInfo(deckElement.deckName, 
                                    DeckManager.Instance.GetDeck(deckElement.deck));

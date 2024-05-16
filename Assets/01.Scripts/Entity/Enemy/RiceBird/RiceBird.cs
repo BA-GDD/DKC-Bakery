@@ -28,7 +28,7 @@ public class RiceBird : Enemy
     {
         turnStatus = TurnStatus.Running;
         AnimatorCompo.SetTrigger(attackTriggerAnimationHash);
-        MoveToTargetForward();
+        MoveToTargetForward(Vector3.zero);
     }
     public override void TurnEnd()
     {
@@ -51,7 +51,7 @@ public class RiceBird : Enemy
         turnStatus = TurnStatus.End;
 
     }
-    public override void MoveToTargetForward()
+    public override void MoveToTargetForward(Vector3 pos)
     {
 
 

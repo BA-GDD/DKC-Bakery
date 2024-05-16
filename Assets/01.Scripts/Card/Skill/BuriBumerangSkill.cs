@@ -16,9 +16,6 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(this, Player.forwardTrm.position);
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
-        if(Player.target != null) 
-            StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
@@ -34,10 +31,16 @@ public class BuriBumerangSkill : CardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.3f);
 
-        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
+        foreach (var e in Player.GetSkillTargetEnemyList[this])
+        {
+            e.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
+        }
 
         yield return new WaitForSeconds(1.2f);
 
-        Player.target.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
+        foreach (var e in Player.GetSkillTargetEnemyList[this])
+        {
+            e.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
+        }
     }
 }

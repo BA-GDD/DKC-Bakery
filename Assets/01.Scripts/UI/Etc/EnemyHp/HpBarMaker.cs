@@ -29,7 +29,6 @@ public class HpBarMaker : MonoBehaviour
     {
         SpawnHPBar(e);
     }
-
     public void DeleteAllHPBar()
     {
         foreach (var b in enemyHPBars)
@@ -65,6 +64,7 @@ public class HpBarMaker : MonoBehaviour
         hpBar.OwnerOfThisHpBar = e.hpBarPos;
         hpBar.transform.position = e.hpBarPos.position;
         bool isEnemy = e is Enemy;
+
         if (isEnemy)
         {
             e.HealthCompo.OnDeathEvent.AddListener(() => DeleteEnemyHPBar(hpBar));
@@ -76,5 +76,6 @@ public class HpBarMaker : MonoBehaviour
             friendHPBars.Add(hpBar);
         }
         hpBar.Init(isEnemy);
+        e.BuffSetter = hpBar.BuffMarkSetter;
     }
 }

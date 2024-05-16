@@ -14,7 +14,7 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(this, Player.transform.position);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -29,6 +29,7 @@ public class JaggieLanternSkill : CardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
+
         yield return new WaitForSeconds(1.7f);
 
         FeedbackManager.Instance.ShakeScreen(3);

@@ -1,3 +1,4 @@
+using Particle;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,8 @@ public class TornadoSkill : CardBase
     }
     private void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, battleController.enemyGroupCenter.position, (int)CombineLevel);
+        //Player.VFXManager.PlayParticle(CardInfo, battleController.enemyGroupCenter.position, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(this, battleController.enemyGroupPos,out ParticlePoolObject obj);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }

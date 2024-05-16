@@ -48,8 +48,28 @@ public abstract class Entity : PoolableMono
     [SerializeField] protected Vector3 lastMovePos;
     [SerializeField] protected float moveDuration = 0.1f;
 
+    public TurnStatus turnStatus;
 
     public UnityEvent BeforeChainingEvent => CardReader.SkillCardManagement.beforeChainingEvent;
+
+    public List<CardBase> ChainningCardList { get; set; } = new List<CardBase>();
+
+    private Tween _materialChangeTween;
+
+    public BuffingMarkSetter BuffSetter { get; set; }
+
+    public void SelectChainningCharacter(Color skillColor, float Thickness)
+    {
+        _materialChangeTween.Kill();
+
+        Material mat = new Material(SpriteRendererCompo.material);
+        SpriteRendererCompo.material = mat;
+
+        mat.SetFloat("_outline_thickness", 0);
+        mat.SetColor("_outline_color", skillColor);
+
+        _materialChangeTween = mat.DOFloat(Thickness, "_outline_thickness", 0.2f);
+    }
 
     protected virtual void Awake()
     {
@@ -74,6 +94,8 @@ public abstract class Entity : PoolableMono
     {
         HealthCompo.SetOwner(this);
 
+        TurnCounter.RoundStartEvent += BuffStatCompo.UpdateBuff;
+
         OnMoveTarget += HandleEndMoveToTarget;
         OnMoveOriginPos += HandleEndMoveToOriginPos;
         HealthCompo.OnHitEvent.AddListener(HandleHit);
@@ -83,26 +105,21 @@ public abstract class Entity : PoolableMono
 
         HealthCompo.OnDeathEvent.AddListener(HandleDie);
         HealthCompo.OnDeathEvent.AddListener(BuffStatCompo.ClearStat);
-        HealthCompo.OnDeathEvent.AddListener(HandleCutInOnFieldMonsterList);
         ColliderCompo.enabled = true;
     }
     protected virtual void OnDisable()
     {
+        BuffStatCompo.ClearStat();
+
         OnMoveTarget -= HandleEndMoveToTarget;
         OnMoveOriginPos -= HandleEndMoveToOriginPos;
 
         HealthCompo.OnDeathEvent.RemoveListener(HandleDie);
-        HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
         HealthCompo.OnDeathEvent.RemoveListener(BuffStatCompo.ClearStat);
 
         HealthCompo.OnAilmentChanged.RemoveListener(HandleAilmentChanged);
 
         HealthCompo.OnHitEvent.RemoveListener(HandleHit);
-    }
-
-    private void HandleCutInOnFieldMonsterList()
-    {
-        HealthCompo.OnDeathEvent.RemoveListener(HandleCutInOnFieldMonsterList);
     }
 
     private void OnDestroy()
@@ -166,7 +183,7 @@ public abstract class Entity : PoolableMono
         }
     }
 
-    public virtual void MoveToTargetForward()
+    public virtual void MoveToTargetForward(Vector3 pos)
     {
         lastMovePos = transform.position;
 

@@ -5,11 +5,13 @@ using System.Linq;
 using UnityEngine;
 
 public delegate void OnHitDamage<T1, T2>(T1 t1, ref T2 t2);
+public delegate void OnHitDamageAfter<T1, T2, T3>(T1 dealer, T2 health, ref T3 damage);
 public class BuffStat
 {
     public AilmentEnum currentAilment;
 
     public OnHitDamage<Entity, int> OnHitDamageEvent;
+    public OnHitDamageAfter<Entity, Health, int> OnHitDamageAfterEvent;
 
     public List<SpecialBuff> specialBuffList = new();
     private Entity _owner;
@@ -20,7 +22,6 @@ public class BuffStat
     {
         _owner = entity;
         _buffDic = new();
-        TurnCounter.RoundStartEvent += UpdateBuff;
         foreach (StackEnum t in Enum.GetValues(typeof(StackEnum)))
         {
             _stackDic.Add(t, 0);
@@ -56,65 +57,60 @@ public class BuffStat
     {
         specialBuffList.Add(buff);
         buff.Init();
-        if (buff is IOnTakeDamage)
+        switch (buff)
         {
-            IOnTakeDamage i = buff as IOnTakeDamage;
-            if (!_owner.OnAttack.Contains(i))
-                _owner.OnAttack.Add(i);
-        }
-
-        if (buff is IOnRoundStart)
-        {
-            IOnRoundStart i = buff as IOnRoundStart;
-            TurnCounter.RoundStartEvent += i.RoundStart;
-        }
-
-        if (buff is IOnHItDamage)
-        {
-            IOnHItDamage i = buff as IOnHItDamage;
-            OnHitDamageEvent += i.HitDamage;
-        }
-
-        if (buff is IOnEndSkill)
-        {
-            IOnEndSkill i = buff as IOnEndSkill;
-            CardReader.SkillCardManagement.useCardEndEvnet.AddListener(i.EndSkill);
+            case IOnTakeDamage i:
+                {
+                    if (!_owner.OnAttack.Contains(i))
+                        _owner.OnAttack.Add(i);
+                }
+                break;
+            case IOnHitDamage i:
+                {
+                    OnHitDamageEvent += i.HitDamage;
+                }
+                break;
+            case IOnEndSkill i:
+                {
+                    CardReader.SkillCardManagement.useCardEndEvnet.AddListener(i.EndSkill);
+                }
+                break;
+            case IOnHitDamageAfter i:
+                {
+                    OnHitDamageAfterEvent += i.HitDamageAfter;
+                }
+                break;
         }
     }
     public void CompleteBuff(SpecialBuff special)
     {
-        if (special is IOnTakeDamage)
+        switch (special.GetType())
         {
-            IOnTakeDamage i = special as IOnTakeDamage;
-            if (_owner.OnAttack.Contains(i))
-                _owner.OnAttack.Remove(i);
-        }
-        if (special is IOnRoundStart)
-        {
-            IOnRoundStart i = special as IOnRoundStart;
-            TurnCounter.RoundStartEvent -= i.RoundStart;
-        }
-        if (special is IOnHItDamage)
-        {
-            IOnHItDamage i = special as IOnHItDamage;
-            OnHitDamageEvent -= i.HitDamage;
-            //_owner.HealthCompo.OnHitEvent.RemoveListener(i.HitDamage);
-        }
-        if (special is IOnEndSkill)
-        {
-            IOnEndSkill i = special as IOnEndSkill;
-            CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(i.EndSkill);
+            case IOnTakeDamage i:
+                {
+                    if (_owner.OnAttack.Contains(i))
+                        _owner.OnAttack.Remove(i);
+                }
+                break;
+            case IOnHitDamage i:
+                {
+                    OnHitDamageEvent -= i.HitDamage;
+                }
+                break;
+            case IOnEndSkill i:
+                {
+                    CardReader.SkillCardManagement.useCardEndEvnet.RemoveListener(i.EndSkill);
+                }
+                break;
+            case IOnHitDamageAfter i:
+                {
+                    OnHitDamageAfterEvent -= i.HitDamageAfter;
+                }
+                break;
         }
         specialBuffList.Remove(special);
     }
 
-    public void RefreshBuff()
-    {
-        foreach (var d in _buffDic.Keys.ToList())
-        {
-            d.Update();
-        }
-    }
     public void UpdateBuff()
     {
         foreach (var d in _buffDic.Keys.ToList())

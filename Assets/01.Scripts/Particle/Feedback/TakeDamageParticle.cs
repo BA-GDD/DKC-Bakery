@@ -4,13 +4,13 @@ using UnityEngine;
 using Particle.Trigger;
 public class TakeDamageParticle : ParticleTriggerEventBase
 {
-    public override void Action(ref ParticleSystem.Particle p)
+    public override void Action(ref ParticleSystem.Particle p, Collider2D col)
     {
         foreach (var d in info.Damages)
         {
             foreach (var t in info.Targets)
             {
-                t.ApplyDamage(d, info.Owner);
+                t.HealthCompo.ApplyDamage(d, info.Owner);
             }
         }
     }

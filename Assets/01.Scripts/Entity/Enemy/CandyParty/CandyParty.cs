@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class CandyParty : Enemy
 {
     protected override void Awake()
@@ -14,15 +15,11 @@ public class CandyParty : Enemy
         OnAttackStart?.Invoke();
         VFXPlayer.PlayParticle(attackParticle);
 
-        CameraController.Instance.GetVCam().SetCamera(transform.position, 4.5f);
         StartCoroutine(AttackCor());
     }
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(1f);
-        yield return new WaitForSeconds(0.3f);
-        CameraController.Instance.SetTransitionTime(0.4f);
-        CameraController.Instance.GetVCam().SetCamera(target.transform.position, 5f);
+        yield return new WaitForSeconds(1.5f);
         for (int i = 0; i < 5; ++i)
         {
             //VFXPlayer.PlayHitEffect(attackParticle, target.transform.position);
@@ -30,7 +27,7 @@ public class CandyParty : Enemy
             yield return new WaitForSeconds(0.3f);
         }
 
-        yield return new WaitForSeconds(1f);
+        Debug.Log(1);
         OnAttackEnd?.Invoke();
     }
 

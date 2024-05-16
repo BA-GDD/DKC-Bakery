@@ -13,17 +13,17 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
         Player.UseAbility(this, false, true);
 
-        Player.VFXManager.BackgroundColor(Color.gray);
+        Player.VFXManager.SetBackgroundColor(Color.gray);
 
         if (targets.Count > 0)
         {
-            GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
-            Destroy(obj, 1.0f);
+            //GameObject obj = Instantiate(CardInfo.hitEffect.gameObject, Player.target.transform.position, Quaternion.identity);
+            //Destroy(obj, 1.0f);
 
             foreach (var m in battleController.onFieldMonsterList)
             {
                 if (targets.Contains(m)) continue;
-                m.SpriteRendererCompo.DOColor(minimumColor, .5f);
+                m?.SpriteRendererCompo.DOColor(minimumColor, .5f);
             }
         }
     }
@@ -40,7 +40,7 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
             StartCoroutine(AttackCor());
         }
         else
-            Player.VFXManager.PlayParticle(CardInfo, battleController.enemySpawnPos[0].position, (int)CombineLevel);
+            Player.VFXManager.PlayParticle(CardInfo, battleController.enemySpawnPos[0], (int)CombineLevel);
 
         Player.OnAnimationCall -= HandleAnimationCall;
     }

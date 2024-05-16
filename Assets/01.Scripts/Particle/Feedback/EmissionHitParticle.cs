@@ -13,7 +13,7 @@ public struct EmissionParticleInfo
 public class EmissionHitParticle : ParticleTriggerEventBase
 {
     public List<EmissionParticleInfo> particles;
-    public override void Action(ref ParticleSystem.Particle p)
+    public override void Action(ref ParticleSystem.Particle p, Collider2D col)
     {
         foreach (var particleInfo in particles)
         {

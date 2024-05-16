@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f3af1c98937f1343a6ef50a3c58eba9, type: 2}
+  - {fileID: 2100000, guid: 16e388985e100b847a5ca09c98afd8f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 130216
+  m_InstanceId: 121374
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -316,9 +316,10 @@ MonoBehaviour:
   target: {fileID: 0}
   lastMovePos: {x: 0, y: 0, z: 0}
   moveDuration: 0.1
+  turnStatus: 0
   attackParticle:
     attack: {fileID: 9194934482362972306}
-  turnStatus: 0
+  _cameraMoveInfo: {fileID: 11400000, guid: 936a0e891b9c1904a8512f55b0ce6431, type: 2}
 --- !u!114 &775191448855244615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +684,7 @@ MonoBehaviour:
   - {x: 0.36832762, y: -1.20824, z: 0}
   m_ShapePathHash: -1826483275
   m_Mesh: {fileID: 0}
-  m_InstanceId: 130222
+  m_InstanceId: 121380
   m_LocalBounds:
     m_Center: {x: -0.053611517, y: -0.91139424, z: 0}
     m_Extent: {x: 0.42193913, y: 0.2968458, z: 0}
@@ -758,11 +759,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 810085389153848357, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: TriggerModule.outside
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 810085389153848357, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: CollisionModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 810085389153848357, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: TriggerModule.colliderQueryMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 810085389153848357, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: TriggerModule.primitives.Array.size
@@ -940,6 +945,10 @@ PrefabInstance:
       propertyPath: CollisionModule.enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340909035984695110, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: TriggerModule.colliderQueryMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6448240971727634511, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -979,6 +988,10 @@ PrefabInstance:
     - target: {fileID: 8661000261229967886, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: CollisionModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8661000261229967886, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
+      propertyPath: TriggerModule.colliderQueryMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8864998960106140164, guid: e0d65b92238355b4fadbe842b37712f6, type: 3}
       propertyPath: startDelay.scalar

@@ -29,6 +29,10 @@ public enum PoolingType
     CandyStreamBurst,
     CardLevelUpFx,
     FallingThunder,
+    Pumpkin,
+    Boomerang,
+    Tornado,
+    Boss
 }
 public enum ParticleEnum
 {

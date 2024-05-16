@@ -157150,7 +157150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       propertyPath: TriggerModule.outside
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4160494030689922639, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       propertyPath: CollisionModule.enabled
@@ -157282,9 +157282,6 @@ PrefabInstance:
       addedObject: {fileID: 1640051638446818116}
     - targetCorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 899001438656714459}
-    - targetCorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1756834284994741906}
     - targetCorrespondingSourceObject: {fileID: 6837960971237153979, guid: a1564affec1e7e94583c2d6a71d83044, type: 3}
       insertIndex: -1
@@ -157345,20 +157342,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 4
   hitSound: {fileID: 8300000, guid: a5840a931004c3e4d85a3b99f8142d1e, type: 3}
---- !u!114 &899001438656714459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811029970772000465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a05f226db3913f4198f9ded4c5dca23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  orthoSize: 4.5
 --- !u!114 &1756834284994741906
 MonoBehaviour:
   m_ObjectHideFlags: 0

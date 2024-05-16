@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2960089164529895466}
   - component: {fileID: 741867976710962064}
+  - component: {fileID: 5526119425601550874}
   m_Layer: 5
   m_Name: HpBar
   m_TagString: Untagged
@@ -101,12 +102,13 @@ RectTransform:
   m_GameObject: {fileID: 185611699495632504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 2.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2034647245278325859}
   - {fileID: 2944309790306439118}
   - {fileID: 1987465449120153663}
+  - {fileID: 472077951562247541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -132,6 +134,47 @@ MonoBehaviour:
   _fillImg: {fileID: 3537763311980561228}
   enemyColor: {r: 0.83137256, g: 0.24313726, b: 0, a: 1}
   friendColor: {r: 0.16472125, g: 1, b: 0, a: 1}
+--- !u!114 &5526119425601550874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185611699495632504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe57b0eae662a94d86ecf257232d28b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buffingMarkPrefab: {fileID: -616683855003387447, guid: d5f9de0ebfbd85941bbe9d5d0cbfc187, type: 3}
+  _startBuffingPosition: {x: 50, y: 40}
+  _buffingMarkDistance: 50
+  _buffingMarkTextureArr:
+  - {fileID: 21300000, guid: 495c857c983c2f64aa980798bc3ecdb3, type: 3}
+  - {fileID: 21300000, guid: fd22e3674094e6442bc41fb19a78817c, type: 3}
+  - {fileID: 21300000, guid: 51b66eb4d126e7840b5a26b87313ceee, type: 3}
+  - {fileID: 21300000, guid: 17dff0059fb546444927a2cf72259bd2, type: 3}
+  - {fileID: 21300000, guid: 6307605b416f04f49a3ae6117c4b36df, type: 3}
+  - {fileID: 21300000, guid: 2edbc8d6759365d4daaefd97a8b8a669, type: 3}
+  - {fileID: 21300000, guid: 4171b9c1113feca4ab1a667f5484099d, type: 3}
+  - {fileID: 21300000, guid: 6d549ff4a41fc5945b8572bfe60b4f8b, type: 3}
+  - {fileID: 21300000, guid: 438f161a36cb4eb4580694cb6e122e07, type: 3}
+  - {fileID: 21300000, guid: 202502b73d4a8054d81e8aca6993010b, type: 3}
+  - {fileID: 21300000, guid: 7ea9277979e927e4b8e8bd07f120d165, type: 3}
+  - {fileID: 21300000, guid: a19c1a0592244614f8f86cd20951f901, type: 3}
+  _buffingNameArr:
+  - "\uD0C0\uAC9F\uD305"
+  - "\uCCB4\uB825 \uD68C\uBCF5"
+  - "\uACF5\uACA9\uB825 \uC99D\uAC00"
+  - "\uBC29\uC5B4\uB825 \uC99D\uAC00"
+  - "\uCE58\uBA85\uD0C0 \uD655\uB960 \uC99D\uAC00"
+  - "\uCE58\uBA85\uD0C0 \uB370\uBBF8\uC9C0 \uC99D\uAC00"
+  - "\uBE59\uACB0"
+  - "\uAC10\uC804"
+  - "\uAE30\uC808"
+  - "\uCDE8\uC57D\uD568"
+  - "\uACF5\uACA9\uB825 \uAC10\uC18C"
+  - "\uBC29\uC5B4\uB825 \uAC10\uC18C"
 --- !u!1 &3293300038630113330
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +312,7 @@ RectTransform:
   m_GameObject: {fileID: 5083685325722309719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 2.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9022655368623761658}
@@ -359,7 +402,7 @@ RectTransform:
   m_GameObject: {fileID: 5447867018360670411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 2.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2960089164529895466}
@@ -433,7 +476,7 @@ RectTransform:
   m_GameObject: {fileID: 7648738534547292206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 2.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9189665179168870510}
@@ -571,6 +614,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8155204094146793233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472077951562247541}
+  m_Layer: 5
+  m_Name: BuffingTrm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &472077951562247541
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155204094146793233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2960089164529895466}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8524859542686003283
 GameObject:
   m_ObjectHideFlags: 0

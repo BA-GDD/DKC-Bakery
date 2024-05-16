@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/EnemyGroup")]
 public class EnemyGroupSO : ScriptableObject
 {
-    public List<Enemy> enemies = new List<Enemy>();
+    public List<Entity> enemies = new List<Entity>();
 
 }

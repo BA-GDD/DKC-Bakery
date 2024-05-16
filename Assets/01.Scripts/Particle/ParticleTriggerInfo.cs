@@ -19,7 +19,7 @@ namespace Particle.Trigger
     }
     public class ParticleTriggerInfo : MonoBehaviour
     {
-        public delegate void ParticleTriggerEvent(ref ParticleSystem.Particle p);
+        public delegate void ParticleTriggerEvent(ref ParticleSystem.Particle p, Collider2D col);
 
         private ParticleSystem ps;
         private ParticleSystem.TriggerModule triggerModule;
@@ -39,16 +39,23 @@ namespace Particle.Trigger
         }
 
         public Entity Owner { get; set; }
-        public List<Health> Targets { get; set; }
+        public List<Entity> Targets { get; set; }
         public int[] Damages { get; set; }
 
-        public void AddCollision(Collider2D col) => triggerModule.AddCollider(col);
-        public void RemoveCollision(Collider col) => triggerModule.RemoveCollider(col);
+        public void SetCollision(List<Entity> l)
+        {
+            ClearCollision();
+            Targets = l;
+            foreach (var item in l)
+            {
+                triggerModule.AddCollider(item.ColliderCompo);
+            }
+        }
         public void ClearCollision()
         {
             for (int i = 0; i < triggerModule.colliderCount; i++)
             {
-                triggerModule.RemoveCollider(i);
+                triggerModule.RemoveCollider(0);
             }
         }
 
@@ -72,15 +79,43 @@ namespace Particle.Trigger
             {
                 if (!IsCallEventType(type)) continue;
                 List<ParticleSystem.Particle> particleList = new();
-                int chk = ps.GetTriggerParticles(type, particleList);
-                for (int i = 0; i < chk; i++)
+                if (type != ParticleSystemTriggerEventType.Outside)
                 {
-                    ParticleSystem.Particle p = particleList[i];
-                    triggerEvent[(int)type]?.Invoke(ref p);
-                    particleList[i] = p;
+                    int chk = ps.GetTriggerParticles(type, particleList, out var colliderData);
+                    for (int i = 0; i < chk; i++)
+                    {
+                        int c = colliderData.GetColliderCount(i);
+                        for (int j = 0; j < c; j++)
+                        {
+                            Collider2D col = colliderData.GetCollider(i, j) as Collider2D;
+                            if (col)
+                            {
+                                ParticleSystem.Particle p = particleList[i];
+                                triggerEvent[(int)type]?.Invoke(ref p, col);
+                                particleList[i] = p;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    int chk = ps.GetTriggerParticles(type, particleList);
+                    for (int i = 0; i < chk; i++)
+                    {
+                        for (int j = 0; j < triggerModule.colliderCount; j++)
+                        {
+                            ParticleSystem.Particle p = particleList[i];
+                            triggerEvent[(int)type]?.Invoke(ref p, null);
+                            particleList[i] = p;
+                        }
+                    }
                 }
                 ps.SetTriggerParticles(type, particleList);
             }
+        }
+        private void OnParticleSystemStopped()
+        {
+
         }
         private bool IsCallEventType(ParticleSystemTriggerEventType type)
         {

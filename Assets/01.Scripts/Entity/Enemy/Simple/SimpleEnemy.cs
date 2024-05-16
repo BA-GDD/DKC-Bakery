@@ -22,7 +22,7 @@ public class SimpleEnemy : Enemy
     {
         OnAttackStart?.Invoke();
         AnimatorCompo.SetBool(attackAnimationHash, true);
-        MoveToTargetForward();
+        MoveToTargetForward(Vector3.zero);
         OnAnimationEnd += () =>
         {
             MoveToOriginPos();

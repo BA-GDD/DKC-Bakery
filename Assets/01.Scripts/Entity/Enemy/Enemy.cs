@@ -17,16 +17,14 @@ public struct EnemyAttack
 public abstract class Enemy : Entity
 {
     [SerializeField] protected EnemyAttack attackParticle;
+    [SerializeField] protected CameraMoveTypeSO _cameraMoveInfo;
 
     protected int attackAnimationHash = Animator.StringToHash("attack");
     protected int attackTriggerAnimationHash = Animator.StringToHash("attackTrigger");
     protected int spawnAnimationHash = Animator.StringToHash("spawn");
 
-    public EnemyVFXPlayer VFXPlayer { get; private set; }
-
+    protected EnemyVFXPlayer VFXPlayer { get; private set; }
     protected Collider2D Collider;
-
-    public TurnStatus turnStatus;
 
     protected override void Awake()
     {
@@ -55,42 +53,47 @@ public abstract class Enemy : Entity
     }
     protected virtual void HandleAttackStart()
     {
+        BattleController.Player.VFXManager.SetBackgroundColor(Color.gray);
         AnimatorCompo.SetBool(attackAnimationHash, true);
     }
     protected virtual void HandleAttackEnd()
     {
-        CameraController.Instance.SetDefaultCam();
+        BattleController.Player.VFXManager.SetBackgroundColor(Color.white);
         AnimatorCompo.SetBool(attackAnimationHash, false);
     }
+    public void HandleCameraAction()
+    {
+        BattleController.CameraController.StartCameraSequnce(_cameraMoveInfo);
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
         OnAttackStart += HandleAttackStart;
+        OnAttackStart += HandleCameraAction;
         OnAttackEnd += HandleAttackEnd;
         target = BattleController?.Player;
-        if(attackParticle.attack != null)
-        {
-            //VFXPlayer.EndParticle(attackParticle.attack);
-        }
     }
     protected override void OnDisable()
     {
         base.OnDisable();
         OnAttackStart -= HandleAttackStart;
+        OnAttackStart -= HandleCameraAction;
         OnAttackEnd -= HandleAttackEnd;
     }
     public abstract void Attack();
-
     public virtual void TurnStart()
     {
+        turnStatus = TurnStatus.Ready;
         Collider.enabled = false;
     }
     public abstract void TurnAction();
     public virtual void TurnEnd()
     {
+        turnStatus = TurnStatus.End;
         Collider.enabled = true;
+        ChainningCardList.Clear();
     }
-
     public virtual void Spawn(Vector3 spawnPos)
     {
         SpriteRendererCompo.material.SetFloat("_dissolve_amount", 0);
@@ -109,13 +112,6 @@ public abstract class Enemy : Entity
     {
         transform.DOMove(pos, 1f);
     }
-
-    [ContextMenu("TurnStart")]
-    private void TestTurnStart() => TurnStart();
-    [ContextMenu("TurnAction")]
-    private void TestTurnAction() => TurnAction();
-    [ContextMenu("TurnEnd")]
-    private void TestTurnEnd() => TurnEnd();
 
     public void SelectedOnAttack(CardBase selectCard)
     {

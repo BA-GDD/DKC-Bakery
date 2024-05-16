@@ -18,7 +18,7 @@ namespace Particle
 
         public float duration;
 
-        private List<Health> _targets = new();
+        private List<Entity> _targets = new();
         public int[] damages { get; set; }
         public Entity owner { get; set; }
 
@@ -31,7 +31,6 @@ namespace Particle
             foreach (ParticleTriggerInfo i in triggerInfos)
             {
                 i.Owner = owner;
-                i.Targets = _targets;
                 i.Damages = damages;
             }
         }
@@ -40,22 +39,39 @@ namespace Particle
         {
             _targets.Clear();
         }
-
-        public void SetTriggerTarget(Entity target)
+        public void ClearTarget()
         {
             foreach (var col in triggerInfos)
             {
-                col.AddCollision(target.ColliderCompo);
+                col.ClearCollision();
             }
-            _targets.Add(target.HealthCompo);
+        }
+        public void RemoveTriggerTarget(Entity target)
+        {
+            if (!_targets.Contains(target)) return;
+            _targets.Remove(target);
+
+            foreach (var col in triggerInfos)
+            {
+                col.SetCollision(_targets);
+            }
+        }
+        public void AddTriggerTarget(Entity target)
+        {
+            if (_targets.Contains(target)) return;
+            _targets.Add(target);
+            foreach (var col in triggerInfos)
+            {
+                col.SetCollision(_targets);
+            }
         }
 
         public void StartParticle(Action OnStartParticleEvent, Action OnEndParticleEvent)
         {
             ps.Play();
+            OnStartParticleEvent?.Invoke();
             if(soundEffect != null)
                 SoundManager.PlayAudio(soundEffect);
-            OnStartParticleEvent?.Invoke();
             StartCoroutine(WaitEndParticle(OnEndParticleEvent));
         }
         public void EndParticle(Action OnEndParticleEvent)

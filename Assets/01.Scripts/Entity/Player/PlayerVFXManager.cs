@@ -21,6 +21,8 @@ public class PlayerVFXManager : MonoBehaviour
     private Dictionary<CardInfo, ParticleSystem[]> _cardByEffects = new();
     private Dictionary<CardInfo, ParticlePoolObject> _cardByEffects2 = new();
     //���ݽ� ����Ʈ ������ ����
+
+    public Action OnEffectEvent;
     public Action OnEndEffectEvent;
     //public Action OnEffectEvent;
     [SerializeField] private Player p;
@@ -83,15 +85,28 @@ public class PlayerVFXManager : MonoBehaviour
     {
         int level = (int)card.CombineLevel;
         ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
-        obj.transform.position = p.transform.position;
-        obj.transform.right = Vector2.left;
+        obj.transform.position = pos;
         obj[level].owner = p;
         obj[level].damages = card.GetDamage(card.CombineLevel);
         foreach (var t in p.GetSkillTargetEnemyList[card])
         {
-            obj[level].SetTriggerTarget(t);
+            obj[level].AddTriggerTarget(t);
         }
-        obj.Active(level,null, OnEndEffectEvent);
+        obj.Active(level, OnEffectEvent, OnEndEffectEvent);
+    }
+    public void PlayParticle(CardBase card, Vector3 pos, out ParticlePoolObject particle)
+    {
+        int level = (int)card.CombineLevel;
+        ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
+        obj.transform.position = pos;
+        obj[level].owner = p;
+        obj[level].damages = card.GetDamage(card.CombineLevel);
+        foreach (var t in p.GetSkillTargetEnemyList[card])
+        {
+            obj[level].AddTriggerTarget(t);
+        }
+        obj.Active(level, null, OnEndEffectEvent);
+        particle = obj;
     }
 
     public void PlayParticle(CardBase card)
@@ -130,8 +145,9 @@ public class PlayerVFXManager : MonoBehaviour
         OnEndEffectEvent?.Invoke();
     }
 
-    public void BackgroundColor(Color color)
+    public void SetBackgroundColor(Color color)
     {
-        currentBackground.DOColor(color, 1.0f);
+        Debug.Log(color);
+        currentBackground.DOColor(color, 0.5f);
     }
 }
