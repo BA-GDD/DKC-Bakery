@@ -14,7 +14,7 @@ public class DoughHandler : MonoBehaviour
     [Space(10)]
 
     private Vector2 _doughNormalPos;
-    private bool _isInnerDough;
+    [SerializeField] private bool _isInnerDough;
     private bool _isInRange;
 
     [SerializeField] private UnityEvent _doughEnterRangeEvent;
@@ -27,10 +27,14 @@ public class DoughHandler : MonoBehaviour
     }
     private void OnMouseEnter()
     {
+        if (Input.GetMouseButton(0)) return;
+
         _isInnerDough = true;
     }
     private void OnMouseExit()
     {
+        if (Input.GetMouseButton(0)) return;
+
         _isInnerDough = false;
     }
     void Update()
@@ -39,10 +43,11 @@ public class DoughHandler : MonoBehaviour
     }
     private void ActiveCheck()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && _isInnerDough)
         {
             Vector2 mousePos = MaestrOffice.GetWorldPosToScreenPos(Input.mousePosition);
             Vector2 myPos = Vector2.Lerp(transform.position, mousePos, Time.deltaTime * 20f);
+            transform.position = myPos;
 
             if (myPos.x > _stoveMaxRange.x && myPos.y < _stoveMaxRange.y &&
                 myPos.x < _stoveMinRange.x && myPos.y > _stoveMinRange.y)
@@ -55,11 +60,9 @@ public class DoughHandler : MonoBehaviour
                 _isInRange = false;
                 _doughExitRangeEvent?.Invoke();
             }
-
-            _isInnerDough = true;
         }
 
-        if (Input.GetMouseButtonUp(0) && _isInnerDough)
+        if (Input.GetMouseButtonUp(0))
         {
             _isInnerDough = false;
             transform.position = transform.position;

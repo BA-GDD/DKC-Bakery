@@ -236,9 +236,61 @@ MonoBehaviour:
   _stoveMaxRange: {x: -4, y: 4}
   _stoveMinRange: {x: 4, y: -2}
   _stoveEnterPos: {x: 0, y: 0.8}
-  _doughDragStartEvent:
+  _isInnerDough: 0
+  _doughEnterRangeEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6091841508541590789}
+        m_TargetAssemblyTypeName: StoveDoor, Assembly-CSharp
+        m_MethodName: OpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4496925802536455261}
+        m_TargetAssemblyTypeName: Stove, Assembly-CSharp
+        m_MethodName: StartShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _doughExitRangeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6091841508541590789}
+        m_TargetAssemblyTypeName: StoveDoor, Assembly-CSharp
+        m_MethodName: CloseDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4496925802536455261}
+        m_TargetAssemblyTypeName: Stove, Assembly-CSharp
+        m_MethodName: EndShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _doughToInnerEndEvent:
     m_PersistentCalls:
       m_Calls:
@@ -429,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 401343178541101140}
   - component: {fileID: 962002236721675095}
+  - component: {fileID: 6091841508541590789}
   m_Layer: 0
   m_Name: StoveDoor
   m_TagString: Untagged
@@ -503,6 +556,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6091841508541590789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8263352592284202207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b427b29b8ce62ff4fbe8c01658dee7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _normalY: 1.78
+  _openY: 4.5
+  _easingTime: 0.3
 --- !u!1 &8321793521975244523
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3400600507194738145}
   - component: {fileID: 5363903656504124885}
+  - component: {fileID: 4496925802536455261}
   m_Layer: 0
   m_Name: Stove
   m_TagString: Untagged
@@ -704,3 +773,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4496925802536455261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077637996214474959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c1defa70c60884099187188c817397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _normalPos: {x: 0, y: 1.78}
+  _normalScale: {x: 2.6, y: 2.6}

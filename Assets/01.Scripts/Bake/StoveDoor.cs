@@ -1,18 +1,25 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoveDoor : MonoBehaviour
+public class StoveDoor : MonoBehaviour, IBakingProductionObject
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float _normalY = 1.78f;
+    [SerializeField] private float _openY = 4.5f;
+    [SerializeField] private float _easingTime;
+
+    public float EasingTime { get; set; } = 0.3f;
+
+    public void OnProduction()
     {
-        
+        transform.DOKill();
+        transform.DOMoveY(_openY, _easingTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ExitProduction()
     {
-        
+        transform.DOKill();
+        transform.DOMoveY(_normalY, _easingTime);
     }
 }
