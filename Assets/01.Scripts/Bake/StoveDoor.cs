@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ExtensionFunction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,11 @@ public class StoveDoor : MonoBehaviour, IBakingProductionObject
 
     public void OnProduction()
     {
-        transform.DOKill();
-        transform.DOMoveY(_openY, _easingTime);
+        transform.SmartMoveY(false, _openY, _easingTime);
     }
 
     public void ExitProduction()
     {
-        transform.DOKill();
-        transform.DOMoveY(_normalY, _easingTime);
+        transform.SmartMoveY(false, _normalY, _easingTime);
     }
 }

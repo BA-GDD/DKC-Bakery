@@ -2,12 +2,14 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 namespace ExtensionFunction
 {
     public static class TransformExtension
     {
         private static Dictionary<Transform, Vector2> _onPlayingPosTweenDic = new();
+        private static Dictionary<Transform, Vector2> _onPlayingScaleTweenDic = new();
         private static Dictionary<Transform, Quaternion> _onPlayingRotTweenDic = new();
 
         public static void Clear(this Transform trm)
@@ -110,6 +112,20 @@ namespace ExtensionFunction
                 GenerateRotation(trm, targetRot, isLocal);
                 trm.DORotateQuaternion(targetRot, time).SetEase(easing);
             }
+        }
+        public static void SmartScale(this Transform trm, Vector2 targetScale, float time, Ease easing = Ease.Linear)
+        {
+            if (_onPlayingScaleTweenDic.ContainsKey(trm))
+            {
+                trm.DOKill();
+                trm.localScale = _onPlayingScaleTweenDic[trm];
+            }
+            else
+            {
+                _onPlayingScaleTweenDic.Add(trm, targetScale);
+            }
+
+            trm.DOScale(targetScale, time).SetEase(easing);
         }
     }
 }

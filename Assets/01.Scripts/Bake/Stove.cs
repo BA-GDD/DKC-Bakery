@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ExtensionFunction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,11 @@ public class Stove : MonoBehaviour, IBakingProductionObject
 
     public void OnProduction()
     {
-        transform.DOScale(_normalScale * 1.3f, EasingTime);
+        transform.SmartScale(_normalScale * 1.3f, EasingTime);
     }
 
     public void ExitProduction()
     {
-        transform.DOKill();
-
-        transform.DOScale(_normalScale, EasingTime);
+        transform.SmartScale(_normalScale, EasingTime);
     }
 }

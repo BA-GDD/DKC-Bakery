@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ExtensionFunction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,10 @@ public class Table : MonoBehaviour, IBakingProductionObject
 
     public void OnProduction()
     {
-        transform.DOMove(_disAppearPos, EasingTime);
+        transform.SmartMove(false, _disAppearPos, EasingTime);
     }
     public void ExitProduction()
     {
-        transform.DOKill();
-        transform.DOMove(_normalPos, EasingTime);
+        transform.SmartMove(false, _normalPos, EasingTime);
     }
 }
