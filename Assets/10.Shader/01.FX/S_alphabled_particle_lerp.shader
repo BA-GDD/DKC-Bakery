@@ -13,8 +13,8 @@ Shader "1_fx/alphablended_lerp"
 		_Main_Ins("Main_Ins", Range( 1 , 10)) = 1
 		[HDR]_main_color("main_color", Color) = (1,1,1,0)
 		_Opacity("Opacity", Range( 0 , 10)) = 1
-		[Toggle(_USE_CUSTOMDATA_ON)] _Use_Customdata("Use_Customdata", Float) = 0
 		_Dissolve_Texture("Dissolve_Texture", 2D) = "white" {}
+		[Toggle(_USE_CUSTOMDATA_ON)] _Use_Customdata("Use_Customdata", Float) = 0
 		_Dissolve("Dissolve", Range( -1 , 1)) = 1
 		_Fade_Ditance("Fade_Ditance", Float) = 0
 		_normal_tex("normal_tex", 2D) = "bump" {}
@@ -30,7 +30,9 @@ Shader "1_fx/alphablended_lerp"
 		[Toggle(_USE_POLAR_ON)] _use_polar("use_polar", Float) = 0
 		[Toggle(_USE_OTHER_DISS_ON)] _use_other_diss("use_other_diss", Float) = 0
 		_edge_width("edge_width", Float) = 0.06
-		[ASEEnd][HDR]_edge_color("edge_color", Color) = (0,0,0,0)
+		[HDR]_edge_color("edge_color", Color) = (0,0,0,0)
+		[ASEEnd]_gradient_tex("gradient_tex", 2D) = "white" {}
+		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 
 		//_TessPhongStrength( "Tess Phong Strength", Range( 0, 1 ) ) = 0.5
@@ -225,7 +227,6 @@ Shader "1_fx/alphablended_lerp"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceData.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
 
-			#include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
 			#define ASE_NEEDS_FRAG_COLOR
 			#pragma shader_feature_local _USE_POLAR_ON
 			#pragma shader_feature_local _USE_CUSTOMDATA_ON
@@ -263,6 +264,7 @@ Shader "1_fx/alphablended_lerp"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _main_color;
+			float4 _gradient_tex_ST;
 			float4 _Dissolve_Texture_ST;
 			float4 _normal_tex_ST;
 			float4 _Main_Texture_ST;
@@ -292,6 +294,7 @@ Shader "1_fx/alphablended_lerp"
 			#endif
 			CBUFFER_END
 
+			sampler2D _gradient_tex;
 			sampler2D _Main_Texture;
 			sampler2D _normal_tex;
 			sampler2D _diss_normal_tex;
@@ -300,29 +303,6 @@ Shader "1_fx/alphablended_lerp"
 
 
 			
-			float4 SampleGradient( Gradient gradient, float time )
-			{
-				float3 color = gradient.colors[0].rgb;
-				UNITY_UNROLL
-				for (int c = 1; c < 8; c++)
-				{
-				float colorPos = saturate((time - gradient.colors[c-1].w) / ( 0.00001 + (gradient.colors[c].w - gradient.colors[c-1].w)) * step(c, gradient.colorsLength-1));
-				color = lerp(color, gradient.colors[c].rgb, lerp(colorPos, step(0.01, colorPos), gradient.type));
-				}
-				#ifndef UNITY_COLORSPACE_GAMMA
-				color = SRGBToLinear(color);
-				#endif
-				float alpha = gradient.alphas[0].x;
-				UNITY_UNROLL
-				for (int a = 1; a < 8; a++)
-				{
-				float alphaPos = saturate((time - gradient.alphas[a-1].y) / ( 0.00001 + (gradient.alphas[a].y - gradient.alphas[a-1].y)) * step(a, gradient.alphasLength-1));
-				alpha = lerp(alpha, gradient.alphas[a].x, lerp(alphaPos, step(0.01, alphaPos), gradient.type));
-				}
-				return float4(color, alpha);
-			}
-			
-
 			VertexOutput VertexFunction ( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -483,8 +463,7 @@ Shader "1_fx/alphablended_lerp"
 				#endif
 
 				float4 vert_color119 = IN.ase_color;
-				Gradient gradient140 = NewGradient( 0, 3, 2, float4( 1, 0.4009434, 0.4009434, 0.2205844 ), float4( 0.3443396, 0.3443396, 1, 0.5382315 ), float4( 1, 1, 0.4198113, 0.8882429 ), 0, 0, 0, 0, 0, float2( 1, 0 ), float2( 1, 1 ), 0, 0, 0, 0, 0, 0 );
-				float2 texCoord66 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 uv_gradient_tex = IN.ase_texcoord3.xy * _gradient_tex_ST.xy + _gradient_tex_ST.zw;
 				float2 appendResult62 = (float2(_main_upanner , _main_vpanner));
 				float2 appendResult49 = (float2(_normal_upanner , _normal_vpanner));
 				float2 uv_normal_tex = IN.ase_texcoord3.xy * _normal_tex_ST.xy + _normal_tex_ST.zw;
@@ -544,7 +523,7 @@ Shader "1_fx/alphablended_lerp"
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = ( ( vert_color119 * ( ( _main_color * SampleGradient( gradient140, texCoord66.x ) ) * saturate( ( saturate( pow( mainTexRef105 , _Main_Pow ) ) * staticSwitch21 ) ) ) ) + dissolve_color134 ).rgb;
+				float3 Color = ( ( vert_color119 * ( ( _main_color * tex2D( _gradient_tex, uv_gradient_tex ) ) * saturate( ( saturate( pow( mainTexRef105 , _Main_Pow ) ) * staticSwitch21 ) ) ) ) + dissolve_color134 ).rgb;
 				float Alpha = ( saturate( ( vert_alpha120 * saturate( ( staticSwitch31 * _Opacity ) ) ) ) * saturate( distanceDepth25 ) );
 				float AlphaClipThreshold = 0.5;
 				float AlphaClipThresholdShadow = 0.5;
@@ -639,6 +618,7 @@ Shader "1_fx/alphablended_lerp"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _main_color;
+			float4 _gradient_tex_ST;
 			float4 _Dissolve_Texture_ST;
 			float4 _normal_tex_ST;
 			float4 _Main_Texture_ST;
@@ -935,6 +915,7 @@ Shader "1_fx/alphablended_lerp"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _main_color;
+			float4 _gradient_tex_ST;
 			float4 _Dissolve_Texture_ST;
 			float4 _normal_tex_ST;
 			float4 _Main_Texture_ST;
@@ -1240,6 +1221,7 @@ Shader "1_fx/alphablended_lerp"
 
 			CBUFFER_START(UnityPerMaterial)
 			float4 _main_color;
+			float4 _gradient_tex_ST;
 			float4 _Dissolve_Texture_ST;
 			float4 _normal_tex_ST;
 			float4 _Main_Texture_ST;
@@ -1506,7 +1488,7 @@ Shader "1_fx/alphablended_lerp"
 }
 /*ASEBEGIN
 Version=19105
-Node;AmplifyShaderEditor.CommentaryNode;128;-1588.988,-939.9872;Inherit;False;2413.769;940.7214;;27;127;10;60;61;62;59;56;9;121;66;7;110;67;74;21;5;3;71;107;2;105;4;1;135;140;141;142;Main;1,1,1,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;128;-1588.988,-939.9872;Inherit;False;2413.769;940.7214;;25;127;10;60;61;62;59;56;9;121;7;110;67;74;21;5;3;71;107;2;105;4;1;135;142;143;Main;1,1,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;125;-1446.245,75.85016;Inherit;False;2286.741;567.9067;;21;27;122;11;14;117;116;20;106;115;29;30;123;31;72;12;13;124;73;25;26;28;Alpha;0.9768651,1,0.3349057,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;118;-1439.899,758.0268;Inherit;False;2463.757;1033.936;;32;101;130;98;131;132;114;103;102;100;87;89;88;99;93;97;94;90;91;96;95;113;18;16;19;15;111;23;17;134;138;137;139;Dissolve;0.0518868,0.2646385,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;112;1285.078,-478.5772;Inherit;False;1086.059;330.5014;;6;109;108;24;8;119;120;Vertex Data;1,1,1,1;0;0
@@ -1617,11 +1599,9 @@ Node;AmplifyShaderEditor.TextureCoordinatesNode;19;-1326.583,831.0268;Inherit;Fa
 Node;AmplifyShaderEditor.TextureCoordinatesNode;42;-3632.598,-724.8463;Inherit;True;0;43;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;10;-1390.398,-371.1333;Inherit;False;0;1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;1;-782.584,-466.9095;Inherit;True;Property;_Main_Texture;Main_Texture;0;0;Create;True;0;0;0;False;0;False;-1;07454a717364c364b9bc4becd33778da;a0e31aa3b70ec1f4e9372a81f3af0a58;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.TextureCoordinatesNode;66;-701.8015,-581.2581;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.GradientNode;140;-689.6433,-649.2694;Inherit;False;0;3;2;1,0.4009434,0.4009434,0.2205844;0.3443396,0.3443396,1,0.5382315;1,1,0.4198113,0.8882429;1,0;1,1;0;1;OBJECT;0
-Node;AmplifyShaderEditor.GradientSampleNode;141;-440.6433,-650.2694;Inherit;True;2;0;OBJECT;;False;1;FLOAT;0;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.ColorNode;7;-349.4769,-826.0873;Inherit;False;Property;_main_color;main_color;5;1;[HDR];Create;True;0;0;0;False;0;False;1,1,1,0;2.608238,2.44753,0.6766655,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;142;-92.29675,-673.6774;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SamplerNode;143;-652.416,-666.4474;Inherit;True;Property;_gradient_tex;gradient_tex;25;0;Create;True;0;0;0;False;0;False;-1;f4e4c8d22a48388469d23e7e2d168d31;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 WireConnection;50;1;42;0
 WireConnection;50;3;51;0
 WireConnection;50;4;52;0
@@ -1719,9 +1699,7 @@ WireConnection;101;1;102;0
 WireConnection;131;0;102;0
 WireConnection;131;1;139;0
 WireConnection;1;1;59;0
-WireConnection;141;0;140;0
-WireConnection;141;1;66;1
 WireConnection;142;0;7;0
-WireConnection;142;1;141;0
+WireConnection;142;1;143;0
 ASEEND*/
-//CHKSM=22C30052A20B72A0EC2D0D6E92D73DEC25B11F29
+//CHKSM=401EF11C03F15001A5CC8C4DB4E2BD72ABE53D6C
