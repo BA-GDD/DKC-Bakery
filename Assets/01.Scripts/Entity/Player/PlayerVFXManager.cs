@@ -118,7 +118,7 @@ public class PlayerVFXManager : MonoBehaviour
         obj[level].damages = card.GetDamage(card.CombineLevel);
         foreach (var t in p.GetSkillTargetEnemyList[card])
         {
-            obj[level].SetTriggerTarget(t);
+            //obj[level].SetTriggerTarget(t);
         }
         obj.Active(level, null, OnEndEffectEvent);
     }
