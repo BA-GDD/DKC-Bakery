@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class StoveDoor : MonoBehaviour, IBakingProductionObject
 {
-    [SerializeField] private float _normalY = 1.78f;
-    [SerializeField] private float _openY = 4.5f;
+    [SerializeField] private float _normalY;
+    [SerializeField] private float _openY;
     [SerializeField] private float _easingTime;
 
     public float EasingTime { get; set; } = 0.3f;
 
     public void OnProduction()
     {
-        transform.SmartMoveY(false, _openY, _easingTime);
+        transform.SmartMoveY(true, _openY, _easingTime);
     }
 
     public void ExitProduction()
     {
-        transform.SmartMoveY(false, _normalY, _easingTime);
+        transform.SmartMoveY(true, _normalY, _easingTime);
     }
 }

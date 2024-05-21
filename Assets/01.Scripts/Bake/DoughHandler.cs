@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ExtensionFunction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,28 @@ public class DoughHandler : MonoBehaviour
     private Vector2 _doughNormalPos;
     [SerializeField] private bool _isInnerDough;
     private bool _isInRange;
+    private bool _IsInRange
+    {
+        get
+        {
+            return _isInRange;
+        }
+        set
+        {
+            if (_isInRange == value) return;
+
+            if(value)
+            {
+                _doughEnterRangeEvent?.Invoke();
+            }
+            else
+            {
+                _doughExitRangeEvent?.Invoke();
+            }
+
+            _isInRange = value;
+        }
+    }
 
     [SerializeField] private UnityEvent _doughEnterRangeEvent;
     [SerializeField] private UnityEvent _doughExitRangeEvent;
@@ -52,13 +75,11 @@ public class DoughHandler : MonoBehaviour
             if (myPos.x > _stoveMaxRange.x && myPos.y < _stoveMaxRange.y &&
                 myPos.x < _stoveMinRange.x && myPos.y > _stoveMinRange.y)
             {
-                _isInRange = true;
-                _doughEnterRangeEvent?.Invoke();
+                _IsInRange = true;
             }
             else
             {
-                _isInRange = false;
-                _doughExitRangeEvent?.Invoke();
+                _IsInRange = false;
             }
         }
 
@@ -71,9 +92,10 @@ public class DoughHandler : MonoBehaviour
     }
     private void ActiveInnerStoveRange()
     {
-        if(_isInRange)
+        if(_IsInRange)
         {
-            
+            _doughToInnerEndEvent?.Invoke();
+            transform.SmartScale(Vector2.one * 0.5f, 0.1f);
         }
         else
         {

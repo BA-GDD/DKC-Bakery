@@ -34,11 +34,10 @@ namespace ExtensionFunction
                 {
                     trm.position = _onPlayingPosTweenDic[trm];
                 }
+
+                _onPlayingPosTweenDic.Remove(trm);
             }
-            else
-            {
-                _onPlayingPosTweenDic.Add(trm, targetPos);
-            }
+            _onPlayingPosTweenDic.Add(trm, targetPos);
         }
         private static void GenerateRotation(Transform trm, Quaternion targetRot, bool isLocal)
         {
@@ -54,11 +53,9 @@ namespace ExtensionFunction
                 {
                     trm.rotation = _onPlayingRotTweenDic[trm];
                 }
+                _onPlayingRotTweenDic.Remove(trm);
             }
-            else
-            {
-                _onPlayingRotTweenDic.Add(trm, targetRot);
-            }
+            _onPlayingRotTweenDic.Add(trm, targetRot);
         }
 
         public static void SmartMove(this Transform trm, bool isLocal, Vector2 targetPos, float time, Ease easing = Ease.Linear)
@@ -67,11 +64,13 @@ namespace ExtensionFunction
 
             if(isLocal)
             {
-                trm.DOLocalMove(targetPos, time).SetEase(easing);
+                trm.DOLocalMove(targetPos, time).SetEase(easing).OnComplete(()=>
+                _onPlayingPosTweenDic.Remove(trm));
             }
             else
             {
-                trm.DOMove(targetPos, time).SetEase(easing);
+                trm.DOMove(targetPos, time).SetEase(easing).OnComplete(() =>
+                _onPlayingPosTweenDic.Remove(trm));
             }
         }
         public static void SmartMoveX(this Transform trm, bool isLocal, float targetX, float time, Ease easing = Ease.Linear)
@@ -79,12 +78,14 @@ namespace ExtensionFunction
             if (isLocal)
             {
                 GeneratePosition(trm, new Vector2(targetX, trm.localPosition.y), isLocal);
-                trm.DOLocalMoveX(targetX, time).SetEase(easing);
+                trm.DOLocalMoveX(targetX, time).SetEase(easing).OnComplete(() =>
+                _onPlayingPosTweenDic.Remove(trm));
             }
             else
             {
                 GeneratePosition(trm, new Vector2(targetX, trm.position.y), isLocal);
-                trm.DOMoveX(targetX, time).SetEase(easing);
+                trm.DOMoveX(targetX, time).SetEase(easing).OnComplete(() =>
+                _onPlayingPosTweenDic.Remove(trm));
             }
         }
         public static void SmartMoveY(this Transform trm, bool isLocal, float targetY, float time, Ease easing = Ease.Linear)
@@ -92,12 +93,14 @@ namespace ExtensionFunction
             if (isLocal)
             {
                 GeneratePosition(trm, new Vector2(trm.localPosition.x, targetY), isLocal);
-                trm.DOLocalMoveY(targetY, time).SetEase(easing);
+                trm.DOLocalMoveY(targetY, time).SetEase(easing).OnComplete(() =>
+                _onPlayingPosTweenDic.Remove(trm));
             }
             else
             {
                 GeneratePosition(trm, new Vector2(trm.position.x, targetY), isLocal);
-                trm.DOMoveY(targetY, time).SetEase(easing);
+                trm.DOMoveY(targetY, time).SetEase(easing).OnComplete(() =>
+                _onPlayingPosTweenDic.Remove(trm));
             }
         }
         public static void SmartRotation(this Transform trm, bool isLocal, Quaternion targetRot, float time, Ease easing = Ease.Linear)
@@ -105,12 +108,14 @@ namespace ExtensionFunction
             if (isLocal)
             {
                 GenerateRotation(trm, targetRot, isLocal);
-                trm.DOLocalRotateQuaternion(targetRot, time).SetEase(easing);
+                trm.DOLocalRotateQuaternion(targetRot, time).SetEase(easing).OnComplete(() =>
+                _onPlayingRotTweenDic.Remove(trm));
             }
             else
             {
                 GenerateRotation(trm, targetRot, isLocal);
-                trm.DORotateQuaternion(targetRot, time).SetEase(easing);
+                trm.DORotateQuaternion(targetRot, time).SetEase(easing).OnComplete(() =>
+                _onPlayingRotTweenDic.Remove(trm));
             }
         }
         public static void SmartScale(this Transform trm, Vector2 targetScale, float time, Ease easing = Ease.Linear)
@@ -119,13 +124,13 @@ namespace ExtensionFunction
             {
                 trm.DOKill();
                 trm.localScale = _onPlayingScaleTweenDic[trm];
+                _onPlayingScaleTweenDic.Remove(trm);
             }
-            else
-            {
-                _onPlayingScaleTweenDic.Add(trm, targetScale);
-            }
+            
+            _onPlayingScaleTweenDic.Add(trm, targetScale);
 
-            trm.DOScale(targetScale, time).SetEase(easing);
+            trm.DOScale(targetScale, time).SetEase(easing).OnComplete(() =>
+                _onPlayingScaleTweenDic.Remove(trm));
         }
     }
 }
