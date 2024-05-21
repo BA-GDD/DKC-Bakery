@@ -16,7 +16,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     public RectTransform VisualRectTrm { get; private set; }
     public CardInfo CardInfo => _myCardInfo;
     [SerializeField] private CardInfo _myCardInfo;
-    public bool CanUseThisCard { get; set; } = true;
+    public bool CanUseThisCard { get; set; } = false;
     public bool IsOnActivationZone { get; set; }
     [SerializeField] private GameObject[] _objArr = new GameObject[3];
     [SerializeField] private CombineLevel _combineLevel;
@@ -91,7 +91,6 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
         VisualRectTrm = VisualTrm.GetComponent<RectTransform>();
         _costText = transform.Find("Visual/CsotText").GetComponent<TextMeshProUGUI>();
 
-        Debug.Log(AbilityCost);
         _costText.text = AbilityCost.ToString();
     }
 
