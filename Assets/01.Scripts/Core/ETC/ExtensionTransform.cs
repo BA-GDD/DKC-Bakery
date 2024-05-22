@@ -25,6 +25,7 @@ namespace ExtensionFunction
             if (_onPlayingPosTweenDic.ContainsKey(trm))
             {
                 trm.DOKill();
+                Debug.Log("KILL");
 
                 if (isLocal)
                 {
