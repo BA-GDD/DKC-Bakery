@@ -133,7 +133,6 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void SetBackgroundColor(Color color)
     {
-        Debug.Log(color);
         currentBackground.DOColor(color, 0.5f);
     }
 }

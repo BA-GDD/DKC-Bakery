@@ -9,7 +9,7 @@ public class CardManagingUI : SceneUI
     public int LoadStoneCount => _loadStoneCount;
 
     public CardShameElementSO CurrentCardShameElementInfo { get; private set; }
-    private SelectToManagingCardElement _selectCardElement;
+    public SelectToManagingCardElement SelectCardElement { get; private set; }
 
     [SerializeField] private UnityEvent<float> _onPressLevelUpEvent;
     [SerializeField] private UnityEvent<CardInfo> _onSelectToManagingCardEvent;
@@ -27,12 +27,12 @@ public class CardManagingUI : SceneUI
 
     public void OnSelectToManagingCard(SelectToManagingCardElement selectCardElement)
     {
-        if(_selectCardElement != null)
+        if(SelectCardElement != null)
         {
-            _selectCardElement.UnSelectCard();
+            SelectCardElement.UnSelectCard();
         }
 
-        _selectCardElement = selectCardElement;
+        SelectCardElement = selectCardElement;
 
         CurrentCardShameElementInfo = selectCardElement.CardInfo.cardShameData;
         _onSelectToManagingCardEvent?.Invoke(selectCardElement.CardInfo);

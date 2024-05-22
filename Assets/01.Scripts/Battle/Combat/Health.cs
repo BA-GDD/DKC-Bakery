@@ -122,7 +122,6 @@ public class Health : MonoBehaviour, IDamageable
 
         if (dealer.CharStat.IsCritical(ref damage))
         {
-            Debug.Log($"Critical! : {damage}"); //데미지 증뎀되었음.
             isLastHitCritical = true;
         }
         else
