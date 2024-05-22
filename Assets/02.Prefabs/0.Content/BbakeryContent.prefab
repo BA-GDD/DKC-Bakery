@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grapicsElementParentObj: {fileID: 7356020921737546918}
+  _perc: 050000004600000019000000
+  _idx: 0
 --- !u!1 &4628392379892074133
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,10 +273,10 @@ MonoBehaviour:
   _doughToInnerEndEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7083547036713234980}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 3050266147082336891}
+        m_TargetAssemblyTypeName: GetBreadController, Assembly-CSharp
+        m_MethodName: DoughInStove
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -814,7 +816,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.78, z: 0}
   m_LocalScale: {x: 2.6, y: 2.6, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 401343178541101140}
   - {fileID: 6559512745373396804}
@@ -884,4 +886,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c1defa70c60884099187188c817397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEndShaking:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6091841508541590789}
+        m_TargetAssemblyTypeName: StoveDoor, Assembly-CSharp
+        m_MethodName: OpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _normalScale: {x: 2.6, y: 2.6}
