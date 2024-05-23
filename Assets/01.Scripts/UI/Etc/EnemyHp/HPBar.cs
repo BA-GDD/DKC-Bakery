@@ -16,6 +16,7 @@ public class HPBar : MonoBehaviour
             _canStartFollowOwner = true;
         }
     }
+
     private Sequence _playerGetDamageSequence;
 
     [SerializeField] private Slider _hpBar;
