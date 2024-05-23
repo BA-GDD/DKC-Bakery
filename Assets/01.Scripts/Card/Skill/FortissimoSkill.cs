@@ -15,6 +15,7 @@ public class FortissimoSkill : MusicCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
+        SoundManager.PlayAudio(soundEffect);
         Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;

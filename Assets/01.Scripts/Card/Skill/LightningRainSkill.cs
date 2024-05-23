@@ -15,6 +15,7 @@ public class LightningRainSkill : LightningCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
+        SoundManager.PlayAudio(soundEffect);
         Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;

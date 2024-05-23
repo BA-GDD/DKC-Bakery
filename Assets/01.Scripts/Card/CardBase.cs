@@ -86,6 +86,7 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     public float CardIdlingAddValue { get; set; }
     public bool OnPointerInCard { get; set; }
 
+    [SerializeField]
     protected AudioClip soundEffect;
 
     private void Awake()
