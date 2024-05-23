@@ -5,16 +5,22 @@ using DG.Tweening;
 
 public class Pianissimo : MonoBehaviour
 {
-    private Transform _target;
+    public Transform target;
+    private float _speed = 0.0f;
 
     private void Start()
     {
         Ready();
     }
 
+    private void Update()
+    {
+        transform.position += Vector3.up * _speed;
+    }
+
     private void Ready()
     {
-        Vector3 dir = (transform.position - _target.position).normalized;
+        Vector3 dir = (transform.position - target.position).normalized;
         Quaternion quat = Quaternion.LookRotation(dir);
 
         Sequence seq = DOTween.Sequence();
@@ -27,6 +33,6 @@ public class Pianissimo : MonoBehaviour
 
     private void Attack()
     {
-        
+        _speed = 1.0f;
     }
 }
