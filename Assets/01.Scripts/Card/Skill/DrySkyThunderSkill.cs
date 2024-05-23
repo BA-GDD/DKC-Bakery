@@ -16,6 +16,7 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
+        SoundManager.PlayAudio(soundEffect);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }

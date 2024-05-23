@@ -84,7 +84,9 @@ public abstract class CardBase : MonoBehaviour, IPointerClickHandler,
     public Action<Transform> OnPointerInitCardAction { get; set; }
 
     public float CardIdlingAddValue { get; set; }
-    public bool OnPointerInCard { get; set; }   
+    public bool OnPointerInCard { get; set; }
+
+    protected AudioClip soundEffect;
 
     private void Awake()
     {
