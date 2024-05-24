@@ -61,8 +61,12 @@ public class LookRecipePreviewPanel : PreviewPanel
 
         BakeryUI bui = UIManager.Instance.GetSceneUI<BakeryUI>();
 
-        bui.BakeryData.CakeDataList.Add(new CakeData(cake.itemName, false));
-        bui.SaveData();
+        CakeData cakeData = new CakeData(cake.itemName, false);
+        if (bui.BakeryData.CakeDataList.Contains(cakeData))
+        {
+            bui.BakeryData.CakeDataList.Add(cakeData);
+            bui.SaveData();
+        }
 
         bui.GetCakePanel.SetUp(cake);
         bui.FilteringPreviewContent(MySortType);
