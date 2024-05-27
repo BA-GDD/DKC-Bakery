@@ -16,6 +16,7 @@ public class SmeltingSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
+        SoundManager.PlayAudio(soundEffect);
         Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         StartCoroutine(SkillCor());
         Player.OnAnimationCall -= HandleAnimationCall;

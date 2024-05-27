@@ -13,9 +13,6 @@ public class SEList<T>
 
 public class BattleController : MonoSingleton<BattleController>
 {
-    [SerializeField] private BattleCutSlider _battleCutter;
-    public BattleCutSlider BattleCutSlider => _battleCutter;
-
     [SerializeField] private SEList<SEList<bool>> isStuck;
 
     public Enemy[] onFieldMonsterList;
@@ -143,6 +140,13 @@ public class BattleController : MonoSingleton<BattleController>
     }
     private void OnEnemyTurnStart(bool value)
     {
+        foreach (var e in onFieldMonsterList)
+        {
+            if (e is null) continue;
+
+            e.TurnStart();
+            maskEnableEvent?.Invoke(e);
+        }
         StartCoroutine(EnemySquence());
     }
     private void OnEnemyTurnEnd()
@@ -159,17 +163,28 @@ public class BattleController : MonoSingleton<BattleController>
     {
         foreach (var e in onFieldMonsterList)
         {
+            float betweenTime = 1.5f;
             if (e is null) continue;
             Player.VFXManager.SetBackgroundColor(Color.gray);
 
-            e.TurnAction();
+
+            if (!e.HealthCompo.AilmentStat.HasAilment(AilmentEnum.Faint))
+            {
+                e.TurnAction();
+                betweenTime = 1.5f;
+            }
+            else
+            {
+                e.turnStatus = TurnStatus.End;
+                betweenTime = 0.3f;
+            }
             yield return new WaitUntil(() => e.turnStatus == TurnStatus.End);
 
             Player.VFXManager.SetBackgroundColor(Color.white);
             if (_isGameEnd)
                 break;
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(betweenTime);
         }
 
         if (!_isGameEnd)
@@ -210,9 +225,6 @@ public class BattleController : MonoSingleton<BattleController>
 
             onFieldMonsterList[idx] = selectEnemy;
             selectEnemy.target = Player;
-
-            selectEnemy.OnAttackStart += _battleCutter.Cutting;
-            selectEnemy.OnAttackEnd += _battleCutter.Reverting;
 
             SpawnEnemyList.Add(selectEnemy);
             _hpBarMaker.SetupHpBar(selectEnemy);

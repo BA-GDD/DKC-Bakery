@@ -33,6 +33,8 @@ public class FallingThunderSkill : LightningCardBase, ISkillEffectAnim
 
         bool isLastEnemy = Player.GetSkillTargetEnemyList[this].Count == 1 ? true : false;
 
+        ExtraAttack();
+
         if (isLastEnemy)
         {
             Player.VFXManager.PlayParticle(this, Player.GetSkillTargetEnemyList[this][0].transform.position);
@@ -63,7 +65,5 @@ public class FallingThunderSkill : LightningCardBase, ISkillEffectAnim
                 yield return new WaitForSeconds(0.4f);
             }
         }
-
-        ExtraAttack();
     }
 }

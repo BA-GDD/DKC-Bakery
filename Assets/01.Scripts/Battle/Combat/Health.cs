@@ -9,13 +9,17 @@ public enum AilmentEnum : int
 {
     None = 0,
     Chilled = 1,
-    Shocked = 2
+    Shocked = 2,
+    Faint = 3,
 }
 
 public enum StackEnum : int
 {
     Forging = 0, // 단조
     Lightning, // 번개
+    DEFMusicalNote, // 방어력 증가
+    DMGMusicaldNote, // 받는 데미지 증가
+    FAINTMusicalNote, // 기절
 }
 
 public class Health : MonoBehaviour, IDamageable
@@ -122,6 +126,7 @@ public class Health : MonoBehaviour, IDamageable
 
         if (dealer.CharStat.IsCritical(ref damage))
         {
+            Debug.Log($"Critical! : {damage}"); //데미지 증뎀되었음.
             isLastHitCritical = true;
         }
         else

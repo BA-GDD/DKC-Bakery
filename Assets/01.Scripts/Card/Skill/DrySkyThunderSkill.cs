@@ -16,6 +16,7 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
     public void HandleAnimationCall()
     {
         Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
+        SoundManager.PlayAudio(soundEffect);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
@@ -32,6 +33,8 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
     {
         yield return new WaitForSeconds(0.3f);
 
+        ExtraAttack();
+
         foreach (var e in Player.GetSkillTargetEnemyList[this])
         {
             e?.HealthCompo.ApplyDamage(GetDamage(CombineLevel)[0], Player);
@@ -42,7 +45,5 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
                 RandomApplyShockedAilment(e, 20f);
             }
         }
-
-        ExtraAttack();
     }
 }

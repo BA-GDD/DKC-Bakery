@@ -27,6 +27,7 @@ public class CandyParty : Enemy
             yield return new WaitForSeconds(0.3f);
         }
 
+        Debug.Log(1);
         OnAttackEnd?.Invoke();
     }
 

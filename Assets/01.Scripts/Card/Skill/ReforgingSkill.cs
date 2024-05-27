@@ -16,6 +16,7 @@ public class ReforgingSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
+        SoundManager.PlayAudio(soundEffect);
         Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         StartCoroutine(AddStackCor());
         Player.OnAnimationCall -= HandleAnimationCall;

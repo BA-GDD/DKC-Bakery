@@ -11,25 +11,9 @@ public class Handling : MonoBehaviour
     [SerializeField] private float _normalHandYPos;
     [SerializeField] private float _downHandYPos;
 
-    private void Start()
-    {
-        TurnCounter.PlayerTurnStartEvent += HandleMoveUpHand;
-        TurnCounter.PlayerTurnEndEvent += HandleMoveDownHand;
-    }
-
-    private void HandleMoveUpHand(bool vlaue)
-    {
-        MoveHand(true);
-    }
-
-    private void HandleMoveDownHand()
-    {
-        MoveHand(false);
-    }
-
-    private void MoveHand(bool isDown)
+    public void MoveHand(bool isDown)
     {
         float targetYPos = !isDown ? _downHandYPos : _normalHandYPos;
-        _handTrm.DOLocalMoveY(targetYPos, 0.3f);
+        _handTrm.DOLocalMoveY(targetYPos, 0.2f);
     }
 }
