@@ -38,8 +38,6 @@ public class StageDataSO : ScriptableObject
     public Compensation compensation;
     public bool isClearThisStage;
 
-    private const string _dataKey = "AdventureKEY";
-
     public void Clone()
     {
         clearCondition = Instantiate(clearCondition);
@@ -55,7 +53,7 @@ public class StageDataSO : ScriptableObject
         int chapteridx = Convert.ToInt16(numArr[0]);
         int stageidx = Convert.ToInt16(numArr[1]);
 
-        AdventureData ad = DataManager.Instance.LoadData<AdventureData>(_dataKey);
+        AdventureData ad = DataManager.Instance.LoadData<AdventureData>(DataKeyList.adventureDataKey);
         Debug.Log($"{chapteridx}-{stageidx}");
         string challingingStageData = $"{chapteridx}-{stageidx + 1}";
         if(stageidx == 6)
@@ -64,6 +62,6 @@ public class StageDataSO : ScriptableObject
         }
         Debug.Log(challingingStageData);
         ad.InChallingingStageCount = challingingStageData;
-        DataManager.Instance.SaveData(ad, _dataKey);
+        DataManager.Instance.SaveData(ad, DataKeyList.adventureDataKey);
     }
 }
