@@ -221,6 +221,30 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 243703
       objectReference: {fileID: 0}
+    - target: {fileID: 5546566525019732448, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _totalCardArr.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5546566525019732448, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _totalCardArr.Array.data[19]
+      value: 
+      objectReference: {fileID: 5748652539787976741, guid: 2df689e08ab8e384ab3b17a2067fbd4d, type: 3}
+    - target: {fileID: 5546566525019732448, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _totalCardArr.Array.data[20]
+      value: 
+      objectReference: {fileID: 1182562819176431207, guid: 24a1113f39440e74b8a601f79f96040b, type: 3}
+    - target: {fileID: 5546566525019732448, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _totalCardArr.Array.data[21]
+      value: 
+      objectReference: {fileID: 4639469628356081375, guid: 3ff9d08b3cc6ae343a5cc97e53a9ec4b, type: 3}
+    - target: {fileID: 5546566525019732448, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _totalCardArr.Array.data[22]
+      value: 
+      objectReference: {fileID: -7162307452140123895, guid: 28a3ad9433777bb4fa43c1f2b936968c, type: 3}
+    - target: {fileID: 5546566525019732448, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
+      propertyPath: _totalCardArr.Array.data[23]
+      value: 
+      objectReference: {fileID: 4217125336049410786, guid: f0aeb748a914c4b45a482e93cd4a65f4, type: 3}
     - target: {fileID: 5720360554775371038, guid: c4fd71bef5a774946ace7f5e365a55df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -409,66 +433,8 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1001 &5890173211356067190
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2279039881457437939, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_Name
-      value: Finale_Timeline
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480869289949384071, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 87f17826f3be5614ca64bbde9f2db36d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1845907613}
-  - {fileID: 5890173211356067190}
