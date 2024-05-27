@@ -1,5 +1,8 @@
+using DG.Tweening;
+using ExtensionFunction;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DeckGenerator : MonoBehaviour
@@ -7,6 +10,9 @@ public class DeckGenerator : MonoBehaviour
     [SerializeField] private RectTransform _deckElemetTrm;
     [SerializeField] private CanUseDeckElement _canUseDeckPrefab;
     [SerializeField] private SelectedDeck _selectDeckObj;
+    [SerializeField] private int _startPage = 1;
+    [SerializeField] private TextMeshProUGUI _pageText;
+    private int _currentPage;
 
     private DeckElement _selectDeck;
     public DeckElement SelectDeck
@@ -23,21 +29,23 @@ public class DeckGenerator : MonoBehaviour
     }
 
     private SaveDeckData _saveDeckData = new SaveDeckData();
-    private const string _saveDeckDataKey = "SaveDeckDataKey";
+    private Tween _scalingTween;
 
     public List<DeckElement> CurrentDeckList { get; private set; } = new List<DeckElement>();
 
     protected virtual void Start()
     {
+        _currentPage = _startPage;
+
         GenerateDeckList();
         ResetDeckList(_saveDeckData.SaveDeckList);
     }
 
     public void GenerateDeckList()
     {
-        if (DataManager.Instance.IsHaveData(_saveDeckDataKey))
+        if (DataManager.Instance.IsHaveData(DataKeyList.saveDeckDataKey))
         {
-            _saveDeckData = DataManager.Instance.LoadData<SaveDeckData>(_saveDeckDataKey);
+            _saveDeckData = DataManager.Instance.LoadData<SaveDeckData>(DataKeyList.saveDeckDataKey);
         }
 
         foreach(DeckElement de in _saveDeckData.SaveDeckList)
@@ -46,25 +54,48 @@ public class DeckGenerator : MonoBehaviour
         }
     }
 
-    public void ResetDeckList(List<DeckElement> deList)
+    private void SetPageText()
     {
-        _deckElemetTrm.sizeDelta = Vector2.zero;
+        _pageText.text = $"{_currentPage} ÆäÀÌÁö";
+    }
 
-        foreach(Transform t in _deckElemetTrm)
+    public void GoAfterPage()
+    {
+        if(_currentPage + 1 > Mathf.CeilToInt(_saveDeckData.SaveDeckList.Count / 4))
         {
-            Destroy(t.gameObject);
+            return;
         }
 
-        for (int i = 0; i < deList.Count; i++)
-        {
-            if (i % 3 == 0)
-            {
-                _deckElemetTrm.sizeDelta += new Vector2(0, 550);
-            }
+        ++_currentPage;
+        SetPageText();
+        ResetDeckList(_saveDeckData.SaveDeckList);
+    }
 
+    public void GoBeforePage()
+    {
+        if (_currentPage - 1 <= 0)
+        {
+            return;
+        }
+
+        --_currentPage;
+        SetPageText();
+        ResetDeckList(_saveDeckData.SaveDeckList);
+    }
+
+    public void ResetDeckList(List<DeckElement> deList)
+    {
+        _deckElemetTrm.Clear();
+
+        int startIdx = 4 * (_currentPage - 1);
+        for (int i = startIdx; i < startIdx + 4; i++)
+        {
             CanUseDeckElement cude = Instantiate(_canUseDeckPrefab, _deckElemetTrm);
             cude.SetDeckInfo(deList[i], this);
         }
+
+        _scalingTween?.Kill();
+        _scalingTween = _deckElemetTrm.DOScale(Vector3.one * 1.1f, 0.2f).SetEase(Ease.OutBack);
     }
 
     protected virtual void SetSelectDeck(DeckElement deckElement)
