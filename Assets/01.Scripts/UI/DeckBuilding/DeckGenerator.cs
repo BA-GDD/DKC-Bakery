@@ -48,6 +48,8 @@ public class DeckGenerator : MonoBehaviour
 
     public void ResetDeckList(List<DeckElement> deList)
     {
+        _deckElemetTrm.sizeDelta = Vector2.zero;
+
         foreach(Transform t in _deckElemetTrm)
         {
             Destroy(t.gameObject);
@@ -62,7 +64,6 @@ public class DeckGenerator : MonoBehaviour
 
             CanUseDeckElement cude = Instantiate(_canUseDeckPrefab, _deckElemetTrm);
             cude.SetDeckInfo(deList[i], this);
-            Debug.Log(cude);
         }
     }
 

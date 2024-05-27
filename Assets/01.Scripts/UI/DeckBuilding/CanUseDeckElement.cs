@@ -32,13 +32,14 @@ public class CanUseDeckElement : MonoBehaviour, IPointerClickHandler, IPointerEn
 
         for(int i = 0; i < _cardGroupArr.Length; i++)
         {
-            CardBase card = DeckManager.Instance.GetCard(deckInfo.deck[0]);
+            CardBase card = DeckManager.Instance.GetCard(deckInfo.deck[i]);
             _cardGroupArr[i].sprite = card.CardInfo.CardVisual;
             TextMeshProUGUI costText = _cardGroupArr[i].GetComponentInChildren<TextMeshProUGUI>();
             costText.text = card.AbilityCost.ToString();
         }
 
         _deckName = deckInfo.deckName;
+
         if(_deckName.Length > 6)
         {
             _deckName = $"{_deckName.Substring(0, 6)}.."; 
@@ -51,7 +52,7 @@ public class CanUseDeckElement : MonoBehaviour, IPointerClickHandler, IPointerEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.DOKill();
-        transform.DOScale(0.85f, 0.3f);
+        transform.DOScale(1.05f, 0.3f);
 
         for (int i = -2; i <= 2; i++)
         {
@@ -67,7 +68,7 @@ public class CanUseDeckElement : MonoBehaviour, IPointerClickHandler, IPointerEn
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOKill();
-        transform.DOScale(0.8f, 0.3f);
+        transform.DOScale(1f, 0.3f);
 
         for (int i = 0; i < _cardGroupArr.Length; i++)
         {
