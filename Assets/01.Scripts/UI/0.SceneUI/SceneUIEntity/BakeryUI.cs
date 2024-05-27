@@ -28,20 +28,19 @@ public class BakeryUI : SceneUI
     private PreviewPanel[] _previewPanels;
 
     public BakeryData BakeryData { get; set; } = new BakeryData();
-    private const string _bakeryKey = "BakeryDataKey";
 
     public override void SceneUIStart()
     {
-        if (DataManager.Instance.IsHaveData(_bakeryKey))
+        if (DataManager.Instance.IsHaveData(DataKeyList.bakeryRecipeDataKey))
         {
-            BakeryData = DataManager.Instance.LoadData<BakeryData>(_bakeryKey);
+            BakeryData = DataManager.Instance.LoadData<BakeryData>(DataKeyList.bakeryRecipeDataKey);
         }
 
         _previewPanels = _previewPanelObj.GetComponentsInChildren<PreviewPanel>();
     }
     public void SaveData()
     {
-        DataManager.Instance.SaveData(BakeryData, _bakeryKey);
+        DataManager.Instance.SaveData(BakeryData, DataKeyList.bakeryRecipeDataKey);
     }
     public void FilteringPreviewContent(RecipeSortType type)
     {

@@ -7,6 +7,11 @@ public static class CardManagingHelper
 {
     public static int GetCardShame(CardShameElementSO shameData, CardShameType type, int combineLevel)
     {
+        if(shameData == null)
+        {
+            return 0;
+        }
+
         return shameData.cardShameDataList[combineLevel].list[shameData.cardLevel - 1].list.FirstOrDefault(x => (x.cardShameType & type) != 0).currentShame;
     }
 
