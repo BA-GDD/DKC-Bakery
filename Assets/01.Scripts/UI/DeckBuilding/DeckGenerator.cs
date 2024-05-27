@@ -61,8 +61,9 @@ public class DeckGenerator : MonoBehaviour
 
     public void GoAfterPage()
     {
-        if(_currentPage + 1 > Mathf.CeilToInt(_saveDeckData.SaveDeckList.Count / 4))
+        if(_currentPage > Mathf.CeilToInt(_saveDeckData.SaveDeckList.Count / 4))
         {
+            Debug.Log(_saveDeckData.SaveDeckList.Count);
             return;
         }
 
@@ -88,7 +89,20 @@ public class DeckGenerator : MonoBehaviour
         _deckElemetTrm.Clear();
 
         int startIdx = 4 * (_currentPage - 1);
-        for (int i = startIdx; i < startIdx + 4; i++)
+        int maxIdx;
+
+        if(_currentPage * 4 <= deList.Count)
+        {
+            maxIdx = 4;
+        }
+        else
+        {
+            maxIdx = startIdx + (deList.Count % 4);
+        }
+
+        if (startIdx == maxIdx) return;
+
+        for (int i = startIdx; i < maxIdx; i++)
         {
             CanUseDeckElement cude = Instantiate(_canUseDeckPrefab, _deckElemetTrm);
             cude.SetDeckInfo(deList[i], this);
