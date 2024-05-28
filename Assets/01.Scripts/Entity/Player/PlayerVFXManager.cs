@@ -81,7 +81,7 @@ public class PlayerVFXManager : MonoBehaviour
         StartCoroutine(EndEffectCo(duration));
         _cardByEffects[card][combineLevel].Play();
     }
-    public void PlayParticle(CardBase card, Vector3 pos)
+    public void PlayParticle(CardBase card, Vector3 pos, bool invokeFunc = false)
     {
         int level = (int)card.CombineLevel;
         ParticlePoolObject obj = PoolManager.Instance.Pop(_cardByEffects2[card.CardInfo].poolingType) as ParticlePoolObject;
@@ -92,8 +92,16 @@ public class PlayerVFXManager : MonoBehaviour
         {
             obj[level].AddTriggerTarget(t);
         }
-        obj.Active(level, OnEffectEvent, OnEndEffectEvent);
+        if (!invokeFunc)
+        {
+            obj.Active(level, OnEffectEvent, null);
+        }
+        else
+        {
+            obj.Active(level, OnEffectEvent, OnEndEffectEvent);
+        }
     }
+
     public void PlayParticle(CardBase card, Vector3 pos, out ParticlePoolObject particle)
     {
         int level = (int)card.CombineLevel;
