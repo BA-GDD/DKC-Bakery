@@ -44,7 +44,7 @@ public class LightningRainSkill : LightningCardBase, ISkillEffectAnim
                     Destroy(obj, 1.0f);
                 }
             }
-            ExtraAttack();
+            ExtraAttack(this);
             yield return new WaitForSeconds(0.7f);
         }
 

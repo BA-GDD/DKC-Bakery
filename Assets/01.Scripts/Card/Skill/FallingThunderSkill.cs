@@ -33,7 +33,7 @@ public class FallingThunderSkill : LightningCardBase, ISkillEffectAnim
 
         bool isLastEnemy = Player.GetSkillTargetEnemyList[this].Count == 1 ? true : false;
 
-        ExtraAttack();
+        ExtraAttack(this);
 
         if (isLastEnemy)
         {

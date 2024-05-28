@@ -43,7 +43,7 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
 
         yield return new WaitForSeconds(0.8f);
 
-        ExtraAttack();
+        ExtraAttack(this);
 
         foreach (var e in Player.GetSkillTargetEnemyList[this])
         {

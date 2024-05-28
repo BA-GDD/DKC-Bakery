@@ -77,6 +77,6 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         FeedbackManager.Instance.EndSpeed = 3.0f;
         FeedbackManager.Instance.ShakeScreen(2.0f);
 
-        ExtraAttack();
+        ExtraAttack(this);
     }
 }
