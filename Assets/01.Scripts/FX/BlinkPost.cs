@@ -25,7 +25,11 @@ public class BlinkPost : MonoBehaviour
         else _mat.SetInt("_use_one_minus", 1);
 
         _blinkSeconds = new WaitForSeconds(_blinkFrameTime);
+    }
 
+    private void OnEnable()
+    {
+        Blink();
     }
 
     [ContextMenu(itemName:"BlinkEffect")]

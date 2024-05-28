@@ -7,15 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_toon_circle_dissolve
-  m_Shader: {fileID: 4800000, guid: 69de958254bdb024092e03a8896bad05, type: 3}
+  m_Name: M_Finale_helix_01
+  m_Shader: {fileID: 4800000, guid: 257ea6d9fad27e04f959cf9d0e7d79c0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - USE_CUSTOM_ON
-  - _USE_GRADIENT_ON
-  m_InvalidKeywords: []
-  m_LightmapFlags: 0
+  m_InvalidKeywords:
+  - _USE_CUSTOM_ON
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -25,19 +25,35 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 97ebf45aa5fef4241a022d60daaa2214, type: 3}
-        m_Scale: {x: 0.56, y: 0.5}
-        m_Offset: {x: 0, y: 0}
-    - _Mask_Texture:
-        m_Texture: {fileID: 2800000, guid: df9e34652b2692b4daf5cea2ebeee232, type: 3}
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _gradient_tex:
-        m_Texture: {fileID: -2549582468477009408, guid: af9a30a193cdc224d9a3fad99344f563, type: 2}
+    - _MainTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _tex4coord2:
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _gradient_texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _main_tex:
+        m_Texture: {fileID: 2800000, guid: 6230fd78838c081499ec82a3c6e3d6e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _normal_tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _sub_tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -61,20 +77,28 @@ Material:
     m_Floats:
     - Use_Custom: 1
     - _AlphaCutoff: 0.5
-    - _Dissolve: 1
-    - _Main_UPanner: 0
-    - _Main_VPanner: 0.17
-    - _Mask_Pow: 4.2
-    - _Opacity: 0.52
+    - _EnableExternalAlpha: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Soffteness: 0
-    - _Use_Mask: 0
-    - _VOffset: -1
-    - __dirty: 0
-    - _threshold: 0
-    - _use_gradient: 1
+    - _UOffset: 1
+    - _Use_Custom: 1
+    - _VOffset: -0.021
+    - _intencity: 2.37
+    - _main_pow: 3.91
+    - _mask_pow: 4.78
+    - _normal_str: 0
+    - _normal_upanner: 0
+    - _normal_vpanner: 0
+    - _opacity: 0.86
+    - _sub_upanner: 0
+    - _sub_vpanner: 0
+    - _subs_ins: 0
+    - _subs_pow: 0
     m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Main_Color: {r: 9.734287, g: 9.734287, b: 9.734287, a: 0}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _main_color: {r: 12.996038, g: 12.996038, b: 12.996038, a: 0}
+    - _subs_color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
