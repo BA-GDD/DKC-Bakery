@@ -16,8 +16,8 @@ public class DeliverSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
-        SoundManager.PlayAudio(soundEffect);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel, _skillDurations[(int)CombineLevel]);
+        SoundManager.PlayAudio(_soundEffect);
         StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }

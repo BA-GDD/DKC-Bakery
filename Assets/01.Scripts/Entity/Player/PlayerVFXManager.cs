@@ -67,7 +67,7 @@ public class PlayerVFXManager : MonoBehaviour
         _cardByEffects[cardInfo][combineLevel].Stop();
     }
 
-    public void PlayParticle(CardInfo card, Vector3 pos, int combineLevel)
+    public void PlayParticle(CardInfo card, Vector3 pos, int combineLevel, float duration)
     {
         if (!_cardByEffects.ContainsKey(card))
         {
@@ -78,7 +78,7 @@ public class PlayerVFXManager : MonoBehaviour
         _cardByEffects[card][combineLevel].gameObject.SetActive(true);
         currentBackground.DOColor(Color.gray, 1.0f);
         ParticleSystem.MainModule mainModule = _cardByEffects[card][combineLevel].main;
-        StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
+        StartCoroutine(EndEffectCo(duration));
         _cardByEffects[card][combineLevel].Play();
     }
     public void PlayParticle(CardBase card, Vector3 pos)
@@ -123,7 +123,7 @@ public class PlayerVFXManager : MonoBehaviour
         obj.Active(level, null, OnEndEffectEvent);
     }
 
-    public void PlayParticle(CardInfo card, int combineLevel)
+    public void PlayParticle(CardInfo card, int combineLevel, float duration)
     {
         if (!_cardByEffects.ContainsKey(card))
         {
@@ -134,7 +134,7 @@ public class PlayerVFXManager : MonoBehaviour
         _cardByEffects[card][combineLevel].gameObject.SetActive(true);
         currentBackground.DOColor(Color.gray, 1.0f);
         ParticleSystem.MainModule mainModule = _cardByEffects[card][combineLevel].main;
-        StartCoroutine(EndEffectCo(mainModule.startLifetime.constantMax / mainModule.simulationSpeed));
+        StartCoroutine(EndEffectCo(duration));
         _cardByEffects[card][combineLevel].Play();
     }
 

@@ -33,14 +33,14 @@ public class LightningJangSkill : LightningCardBase, ISkillEffectAnim
         foreach (var e in targets)
         {
             Vector3 pos = e.transform.position;
-            Player.VFXManager.PlayParticle(CardInfo, pos, (int)CombineLevel);
+            Player.VFXManager.PlayParticle(CardInfo, pos, (int)CombineLevel, _skillDurations[(int)CombineLevel]);
         }
         if (targets.Count > 0)
         {
             StartCoroutine(AttackCor());
         }
         else
-            Player.VFXManager.PlayParticle(CardInfo, battleController.enemySpawnPos[0], (int)CombineLevel);
+            Player.VFXManager.PlayParticle(CardInfo, battleController.enemySpawnPos[0], (int)CombineLevel, _skillDurations[(int)CombineLevel]);
 
         Player.OnAnimationCall -= HandleAnimationCall;
     }

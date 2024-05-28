@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 9031892388848759628}
   - component: {fileID: 8235069028188768195}
   m_Layer: 5
-  m_Name: ElectroStaticCard
+  m_Name: ElectroStatic
   m_TagString: Card
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -288,7 +288,11 @@ MonoBehaviour:
   buffSO: {fileID: 0}
   damageArr:
     list: []
-  soundEffect: {fileID: 8300000, guid: aab29982ec6c39845889d3ee439a6b63, type: 3}
+  _soundEffect: {fileID: 8300000, guid: aab29982ec6c39845889d3ee439a6b63, type: 3}
+  _skillDurations:
+  - 0.5
+  - 0.5
+  - 0.5
   _shockedEffect: {fileID: 7993180798688134084, guid: d1b4ff7625bef694c9ddc8c4f34e375a, type: 3}
 --- !u!1 &3192851710385597527
 GameObject:

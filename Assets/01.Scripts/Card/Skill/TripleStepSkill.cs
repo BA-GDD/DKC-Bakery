@@ -27,7 +27,7 @@ public class TripleStepSkill : CardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(1.8f, 0f, 0f), (int)CombineLevel);
+        Player.VFXManager.PlayParticle(CardInfo, Player.forwardTrm.position + new Vector3(1.8f, 0f, 0f), (int)CombineLevel, _skillDurations[(int)CombineLevel]);
         if (target.Count > 0)
             StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;

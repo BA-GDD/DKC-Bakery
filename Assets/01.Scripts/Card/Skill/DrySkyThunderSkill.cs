@@ -34,8 +34,8 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
-        SoundManager.PlayAudio(soundEffect);
+        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel, _skillDurations[(int)CombineLevel]);
+        SoundManager.PlayAudio(_soundEffect);
 
         yield return new WaitForSeconds(0.2f);
 

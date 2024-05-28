@@ -159,9 +159,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9031892388848759628}
-  - component: {fileID: 2594644735774939664}
+  - component: {fileID: 4277209690870593837}
   m_Layer: 5
-  m_Name: PianissimoCard
+  m_Name: FermataCard
   m_TagString: Card
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2594644735774939664
+--- !u!114 &4277209690870593837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,11 +196,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2256691726456282519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d998de551e56f41bad6b03fc7af921, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ee6d16c1e0125c48aef7d47a207d8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _toMovePosInSec: 0.5
-  _myCardInfo: {fileID: 11400000, guid: d6e32e6b9c3631d4aa2b5639e8496b69, type: 2}
+  _myCardInfo: {fileID: 11400000, guid: d45497cf97c53a04da16148ad88b907e, type: 2}
   _objArr:
   - {fileID: 3404619632539736702}
   - {fileID: 5129837475305104781}
@@ -209,13 +209,17 @@ MonoBehaviour:
   visualTrm: {fileID: 4765647492564359230}
   _cardMat: {fileID: 2100000, guid: 7215dc6c25e09bd4da589c4bef8f3be2, type: 2}
   battleController: {fileID: 0}
-  buffSO: {fileID: 11400000, guid: e8c89b43454d88a479400ada4b23d02f, type: 2}
+  buffSO: {fileID: 11400000, guid: 9584178d58aa9f943908c1a3bb64773e, type: 2}
   damageArr:
     list:
     - list: 0a000000
     - list: 0f000000
     - list: 14000000
-  soundEffect: {fileID: 8300000, guid: 32f1af48777b4ba4ba5b8917fa179238, type: 3}
+  _soundEffect: {fileID: 8300000, guid: 8fef283772baf5042ae81349317e31c1, type: 3}
+  _skillDurations:
+  - 4
+  - 4
+  - 4
 --- !u!1 &3192851710385597527
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd36dec9b5647624c9e95360da71afb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61e2f5400f18d0c418fd82bdc07aab51, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
