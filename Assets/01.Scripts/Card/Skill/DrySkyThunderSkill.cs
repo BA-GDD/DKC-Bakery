@@ -8,21 +8,24 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
     {
         IsActivingAbillity = true;
 
-        Player.UseAbility(this);
+        
+        StartCoroutine(AttackCor());
+
+        // 0.2 sec wait
+
+        
         Player.OnAnimationCall += HandleAnimationCall;
         Player.VFXManager.OnEndEffectEvent += HandleEffectEnd;
     }
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
-        SoundManager.PlayAudio(soundEffect);
-        StartCoroutine(AttackCor());
         Player.OnAnimationCall -= HandleAnimationCall;
     }
 
     public void HandleEffectEnd()
     {
+        Player.MoveToOriginPos();
         Player.EndAbility();
         Player.VFXManager.EndParticle(CardInfo, (int)CombineLevel);
         IsActivingAbillity = false;
@@ -31,7 +34,14 @@ public class DrySkyThunderSkill : LightningCardBase, ISkillEffectAnim
 
     private IEnumerator AttackCor()
     {
-        yield return new WaitForSeconds(0.3f);
+        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
+        SoundManager.PlayAudio(soundEffect);
+
+        yield return new WaitForSeconds(0.2f);
+
+        Player.UseAbility(this, true, false, true);
+
+        yield return new WaitForSeconds(0.8f);
 
         ExtraAttack();
 

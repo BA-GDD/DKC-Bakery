@@ -15,7 +15,7 @@ public class ElectrostaticSkill : LightningCardBase, ISkillEffectAnim
 
     public void HandleAnimationCall()
     {
-        Player.VFXManager.PlayParticle(CardInfo, Player.transform.position, (int)CombineLevel);
+        Player.VFXManager.PlayParticle(CardInfo, (int)CombineLevel);
         SoundManager.PlayAudio(soundEffect);
         StartCoroutine(AddAilmentCor());
         Player.OnAnimationCall -= HandleAnimationCall;

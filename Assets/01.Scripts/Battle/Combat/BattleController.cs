@@ -28,7 +28,7 @@ public class BattleController : MonoSingleton<BattleController>
 
     [SerializeField]private List<Transform> enemySpawnTrm = new();
     [HideInInspector] public List<Vector3> enemySpawnPos = new();
-    [SerializeField]private Transform enemyGroupCenter;
+    [SerializeField] public Transform enemyGroupCenter;
     [HideInInspector] public Vector3 enemyGroupPos;
     private Queue<PoolingType> _enemyQue = new Queue<PoolingType>();
 
