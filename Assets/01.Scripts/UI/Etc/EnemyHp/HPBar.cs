@@ -23,8 +23,8 @@ public class HPBar : MonoBehaviour
     [SerializeField] private float _easingTime;
 
     [SerializeField] private Image _fillImg;
-    [SerializeField] private Color enemyColor;
-    [SerializeField] private Color friendColor;
+    [SerializeField] private Sprite _enemySprite;
+    [SerializeField] private Sprite _freindSprite;
 
     public BuffingMarkSetter BuffMarkSetter { get; private set; }
 
@@ -35,7 +35,7 @@ public class HPBar : MonoBehaviour
         if (!_canStartFollowOwner) return;
         transform.position = _ownerOfThisHpBar.position;
 
-        _fillImg.color = isEnemy ? enemyColor : friendColor;
+        _fillImg.sprite = isEnemy ? _enemySprite : _freindSprite;
     }
     private void Update()
     {
