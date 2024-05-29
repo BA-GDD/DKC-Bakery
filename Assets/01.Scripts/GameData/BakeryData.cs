@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct CakeData
+public class CakeData
 {
     public string CakeName;
     public bool IsFavorites;
