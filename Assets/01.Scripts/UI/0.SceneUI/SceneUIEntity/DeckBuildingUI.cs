@@ -24,10 +24,6 @@ public class DeckBuildingUI : SceneUI
         {
             saveDeckData.SaveDeckList.Insert(DeckManager.Instance.SaveDummyDeck.Item2, DeckManager.Instance.SaveDummyDeck.Item1);
         }
-        else
-        {
-            saveDeckData.SaveDeckList.RemoveAt(DeckManager.Instance.SaveDummyDeck.Item2);
-        }
 
         DataManager.Instance.SaveData(saveDeckData, DataKeyList.saveDeckDataKey);
     }

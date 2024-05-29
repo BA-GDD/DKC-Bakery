@@ -13,7 +13,7 @@ public class LoadMap : MonoBehaviour
 
     private void Start()
     {
-        _nodeMapParent.transform.localScale = new Vector3(0, 1, 1);
+        _loadMapTrm.transform.localScale = new Vector3(0, 1, 1);
 
         AdventureData adData = UIManager.Instance.GetSceneUI<SelectMapUI>().GetAdventureData();
 
