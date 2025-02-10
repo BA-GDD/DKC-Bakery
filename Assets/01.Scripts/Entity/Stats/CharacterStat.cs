@@ -13,12 +13,6 @@ public enum StatType
     damage,
     criticalChance,
     criticalDamage,
-    //fireDamage,
-    //ignitePercent,
-    //iceDamage,
-    //chillPercent,
-    //lightingDamage,
-    //shockPercent,
     receivedDmgIncreaseValue,
 }
 public class CharacterStat : ScriptableObject
@@ -34,14 +28,6 @@ public class CharacterStat : ScriptableObject
     public Stat damage;
     public Stat criticalChance;
     public Stat criticalDamage;
-
-    //[Header("Magic stats")]
-    //public Stat fireDamage;
-    //public Stat ignitePercent;
-    //public Stat iceDamage;
-    //public Stat chillPercent;
-    //public Stat lightingDamage;
-    //public Stat shockPercent;
 
 
     protected Entity _owner;
