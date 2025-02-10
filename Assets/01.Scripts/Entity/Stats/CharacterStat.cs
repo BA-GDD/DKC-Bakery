@@ -88,11 +88,6 @@ public class CharacterStat : ScriptableObject
         return damage.GetValue();
     }
 
-    public bool CanEvasion()
-    {
-        return false;
-    }
-
     public int ArmoredDamage(int incomingDamage, bool isChilled)
     {
         int curArmor = armor.GetValue();
@@ -115,21 +110,11 @@ public class CharacterStat : ScriptableObject
         return incomingDamage + Mathf.RoundToInt(incomingDamage * criticalDamage.GetValue() * 0.01f);
     }
 
-    public virtual int GetMagicDamage()
-    {
-        return 0;
-    }
-
     public int GetMaxHealthValue()
     {
         return maxHealth.GetValue();
     }
 
-
-    public virtual int GetMagicDamageAfterRegist(int incomingDamage)
-    {
-        return 0;
-    }
 
     public Stat GetStatByType(StatType statType)
     {
