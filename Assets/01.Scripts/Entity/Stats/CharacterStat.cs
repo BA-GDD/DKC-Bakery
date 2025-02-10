@@ -51,12 +51,12 @@ public class CharacterStat : ScriptableObject
 
     protected void OnEnable()
     {
-        Type playerStatType = typeof(PlayerStat);
+        Type charStatType = typeof(CharacterStat);
 
         foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
             string statName = statType.ToString();
-            FieldInfo statField = playerStatType.GetField(statName);
+            FieldInfo statField = charStatType.GetField(statName);
             if (statField == null)
             {
                 Debug.LogError($"There are no stat! error : {statName}");
